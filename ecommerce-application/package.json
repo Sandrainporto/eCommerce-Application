@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0",
+  "description": "My new js application",
+  "private": true,
+  "name": "ecommerce-application",
+  "scripts": {
+    "start": "rss-scripts start -ts",
+    "build": "rss-scripts build -ts"
+  },
+  "devDependencies": {
+    "rss-scripts": "^0.2.4"
+  }
+}
