@@ -1,26 +1,45 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": "standard-with-typescript",
-    "overrides": [
-        {
-            "env": {
-                "node": true
-            },
-            "files": [
-                ".eslintrc.{js,cjs}"
-            ],
-            "parserOptions": {
-                "sourceType": "script"
-            }
-        }
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: ['airbnb-base', 'airbnb-typescript/base', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+  overrides: [],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+  },
+  plugins: ['prettier', '@typescript-eslint'],
+  rules: {
+    'import/extensions': 'off',
+    'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/array-type': [
+      'error',
+      {
+        default: 'array',
+      },
     ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "rules": {
-    }
-}
+    '@typescript-eslint/explicit-member-accessibility': [
+      'error',
+      {
+        accessibility: 'explicit',
+        overrides: {
+          accessors: 'explicit',
+          constructors: 'off',
+          methods: 'explicit',
+          properties: 'explicit',
+          parameterProperties: 'explicit',
+        },
+      },
+    ],
+    'max-lines-per-function': ['error', 40],
+    '@typescript-eslint/explicit-function-return-type': 'error',
+    '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'error',
+    'prettier/prettier': 'error',
+  },
+};
