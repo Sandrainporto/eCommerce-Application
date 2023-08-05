@@ -9,7 +9,9 @@ body {
   background-color: #363636;
 }
 
-h1 { color: #e6c300; }
+h1 {
+  color: #e6c300;
+}
 
 img {
   width: 90vw;
