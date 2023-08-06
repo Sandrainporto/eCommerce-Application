@@ -8,12 +8,3 @@ body {
   text-transform: uppercase;
   background-color: #363636;
 }
-
-h1 {
-  color: #e6c300;
-}
-
-img {
-  width: 90vw;
-  max-width: 256px;
-}
