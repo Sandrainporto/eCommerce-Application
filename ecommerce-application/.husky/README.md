@@ -2,7 +2,7 @@
 
 > Modern native Git hooks made easy
 
-Husky improves your commits and more 🐶 *woof!*
+Husky improves your commits and more 🐶 _woof!_
 
 # Install
 
