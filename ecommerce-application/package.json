@@ -7,12 +7,14 @@
     "start": "rss-scripts start -ts",
     "build": "rss-scripts build -ts",
     "prepare": "husky install",
+    "format": "prettier --write .",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix"
   },
   "husky": {
     "hooks": {
-			"pre-commit": "echo \"[Husky] pre-commit\""}
+      "pre-commit": "prettier --write . && eslint src --ext .ts . && npm run lint -- --fix ."
+    }
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.62.0",
