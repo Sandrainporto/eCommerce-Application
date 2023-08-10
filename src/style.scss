@@ -1,0 +1,33 @@
+@import './sass/abstract/constants';
+@import './sass/abstract/placeholders';
+@import './sass/abstract/mixins';
+
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 160%;
+
+  color: white;
+  background-color: #363636;
+}
+.wrapper {
+  width: 100%;
+}
+
+[class*='__container'] {
+  max-width: 1440px;
+  margin: 0 auto;
+}
