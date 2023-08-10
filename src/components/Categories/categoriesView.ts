@@ -19,7 +19,7 @@ export default function showCategories(root: HTMLElement): void {
     categoryTitle.innerText = category.text;
 
     const categoryIcon = createElement(CategoryIconParam, categoryBlock) as HTMLImageElement;
-    categoryIcon.alt = `${`${category.id  }-icon`}`;
+    categoryIcon.alt = `${`${category.id}-icon`}`;
     categoryIcon.src = category.src;
 
     const categoryLink = createElement(CategoryLinkParam, categoryBlock) as HTMLLinkElement;

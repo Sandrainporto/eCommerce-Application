@@ -1,9 +1,9 @@
-import attributes from "../../assets/categories/attributes.png";
-import books from "../../assets/categories/books.png";
-import cauldrons from "../../assets/categories/cauldrons.png";
-import ingredients from "../../assets/categories/ingredients.png";
-import potions from "../../assets/categories/potions.png";
-import spells from "../../assets/categories/spells.png";
+import attributes from '../../assets/categories/attributes.png';
+import books from '../../assets/categories/books.png';
+import cauldrons from '../../assets/categories/cauldrons.png';
+import ingredients from '../../assets/categories/ingredients.png';
+import potions from '../../assets/categories/potions.png';
+import spells from '../../assets/categories/spells.png';
 
 export enum CategoriesContainerParam {
   elemTag = 'div',
