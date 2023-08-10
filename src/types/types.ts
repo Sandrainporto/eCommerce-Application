@@ -35,6 +35,10 @@ export enum ContentMainPageParam {
   elemTag = 'main',
   classNames = 'content',
 }
+export enum ContentMainPageContainer {
+  elemTag = 'div',
+  classNames = 'content__container',
+}
 export enum FooterParam {
   elemTag = 'footer',
   classNames = 'footer',

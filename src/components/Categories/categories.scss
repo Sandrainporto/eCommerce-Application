@@ -1,0 +1,44 @@
+@import './../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
+.categories__container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+}
+.category {
+  height: 250px;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 0.5fr;
+  gap: 20px 30px;
+  grid-template-areas:
+    'title icon'
+    'link icon';
+  justify-items: center;
+  border-radius: 20px;
+  padding: 25px;
+  padding-bottom: 40px;
+  @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
+  @extend %font-add;
+}
+.category__title {
+  grid-area: title;
+  @include font($size: 2.6rem, $height: 3.6rem, $weight: 600);
+  margin-top: 35px;
+}
+.category__icon {
+  grid-area: icon;
+  filter: drop-shadow(0 0 0.95rem rgb(248, 248, 248));
+}
+.category__link {
+  grid-area: link;
+  @include font($size: 2rem, $height: 3.6rem, $weight: 600);
+  color: rgb(37, 36, 36);
+  margin-top: 15px;
+  border-bottom: 2px solid black;
+}
