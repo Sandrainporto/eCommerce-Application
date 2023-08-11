@@ -3,6 +3,7 @@ import { createElement } from '../../utils/elementCreator';
 import {
   CategoriesContainerParam,
   CategoryBoxParam,
+  CategoryIconBoxParam,
   CategoryIconParam,
   CategoryLinkParam,
   CategoryTitleParam,
@@ -18,7 +19,9 @@ export default function showCategories(root: HTMLElement): void {
     const categoryTitle = createElement(CategoryTitleParam, categoryBlock);
     categoryTitle.innerText = category.text;
 
-    const categoryIcon = createElement(CategoryIconParam, categoryBlock) as HTMLImageElement;
+    const categoryIconBox = createElement(CategoryIconBoxParam, categoryBlock) as HTMLImageElement;
+
+    const categoryIcon = createElement(CategoryIconParam, categoryIconBox) as HTMLImageElement;
     categoryIcon.alt = `${`${category.id}-icon`}`;
     categoryIcon.src = category.src;
 

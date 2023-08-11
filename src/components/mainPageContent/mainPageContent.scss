@@ -4,3 +4,8 @@
   align-items: center;
   padding: 30px;
 }
+@media (max-width: 510px) {
+  .content {
+    padding: 30px 10px;
+  }
+}

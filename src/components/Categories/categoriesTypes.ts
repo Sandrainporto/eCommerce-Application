@@ -17,6 +17,11 @@ export enum CategoryTitleParam {
   elemTag = 'h2',
   classNames = 'category__title',
 }
+export enum CategoryIconBoxParam {
+  elemTag = 'div',
+  classNames = 'category__icon-box',
+}
+
 export enum CategoryIconParam {
   elemTag = 'img',
   classNames = 'category__icon',
@@ -34,17 +39,17 @@ export interface CategoriesParam {
 }
 export const categoriesData: CategoriesParam[] = [
   {
-    text: 'Potions',
-    href: '#',
-    id: 'potions',
-    src: potions,
-    background: ' radial-gradient( circle farthest-corner at 10% 20%,  rgba(0,221,214,1) 0%, rgba(51,102,255,1) 90% )',
-  },
-  {
     text: 'Spells',
     href: '#',
     id: 'spells',
     src: spells,
+    background: ' radial-gradient( circle farthest-corner at 10% 20%,  rgba(0,221,214,1) 0%, rgba(51,102,255,1) 90% )',
+  },
+  {
+    text: 'Potions',
+    href: '#',
+    id: 'potions',
+    src: potions,
     background: 'radial-gradient( circle 300px at 8% 89.3%,  rgba(20,157,208,1) 0%, rgba(140,63,226,1) 90% )  ',
   },
   {
@@ -55,7 +60,7 @@ export const categoriesData: CategoriesParam[] = [
     background: ' radial-gradient( circle farthest-corner at 10% 20%,  rgba(0,221,214,1) 0%, rgba(51,102,255,1) 90% )',
   },
   {
-    text: 'Magic Books',
+    text: 'Grimoires',
     href: '#',
     id: 'books',
     src: books,

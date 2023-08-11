@@ -10,7 +10,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
   padding: 2rem;
   @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
   @extend %font-add;
@@ -18,22 +18,22 @@
 .footer__link {
   padding: 3px 5px;
   border-radius: 8px;
-  color: #ffffff80;
-  border: 1px solid #ffffff80;
+  color: $color-footer-btn;
+  border: 1px solid $color-footer-btn;
   transition: 0.5s ease;
   &:hover,
   :focus {
-    color: #ffffff;
+    color: $color-text-light;
     background: #6db9b6ab;
     border: 1px solid #30a592;
     text-shadow:
-      0 0 5px #ffffff,
-      0 0 10px #ffffff;
+      0 0 5px $color-text-light,
+      0 0 10px $color-text-light;
     box-shadow:
       0 0 5px #008cff,
       0 0 20px #30a592;
   }
 }
 .footer__text {
-  color: gray;
+  color: $color-text-dark;
 }

@@ -39,7 +39,7 @@
   &:hover {
     transition: 0.4s;
     border: 2px dashed #00bfa6;
-    background-color: #fff;
+    background-color: $color-text-light;
     color: rgb(4, 4, 38);
   }
   &:active {
@@ -47,7 +47,7 @@
   }
   &:after {
     content: url('./../../assets/icons/sphere.png');
-    color: $color-light;
+    color: $color-text-light;
     position: absolute;
     margin-top: 3px;
     margin-left: 3px;
@@ -76,7 +76,7 @@
   }
   &:hover:after {
     content: url('./../../assets/icons/scull.png');
-    color: $color-light;
+    color: $color-text-light;
     position: absolute;
     margin-top: 5px;
     margin-left: 3px;

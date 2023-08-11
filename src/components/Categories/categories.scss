@@ -1,6 +1,17 @@
-@import './../../sass/abstract/constants';
-@import './../../sass/abstract/mixins';
-@import './../../sass/abstract/placeholders';
+@import "./../../sass/abstract/constants";
+@import "./../../sass/abstract/mixins";
+@import "./../../sass/abstract/placeholders";
+
+@keyframes jumping {
+  from {
+    margin-top: 0;
+  }
+
+  to {
+    margin-top: -25px;
+  }
+}
+
 .categories__container {
   width: 100%;
   display: grid;
@@ -9,6 +20,23 @@
   align-items: center;
   gap: 20px;
 }
+
+@media screen and (max-width: 935px) {
+  .categories__container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .categories__container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+
 .category {
   height: 250px;
   display: grid;
@@ -17,28 +45,108 @@
   grid-template-rows: 1fr 0.5fr;
   gap: 20px 30px;
   grid-template-areas:
-    'title icon'
-    'link icon';
+    "title icon"
+    "link icon";
   justify-items: center;
+  align-items: center;
   border-radius: 20px;
   padding: 25px;
   padding-bottom: 40px;
   @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
   @extend %font-add;
+  box-shadow: rgba(255, 255, 255, 0.219) 0px 4px 12px;
 }
+
+@media screen and (max-width: 996px) {
+  .category {
+    gap: 20px 15px;
+  }
+}
+
+@media screen and (max-width: 935px) {
+  .category {
+    height: 155px;
+    padding: 25px 15px 40px 15px;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .category {
+    width: 130px;
+    height: 180px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 0.5fr;
+    grid-template-areas:
+      "title"
+      "link";
+    position: relative;
+    z-index: 2;
+    padding: 15px;
+    gap: 60px;
+  }
+}
+
 .category__title {
   grid-area: title;
   @include font($size: 2.6rem, $height: 3.6rem, $weight: 600);
-  margin-top: 35px;
+  font-size: calc(12px + 14 * (100vw / 1440));
+  text-align: center;
+}
+
+.category__icon-box {
+  grid-area: icon;
+  display: flex;
+  align-items: center;
+
+  position: relative;
+  max-width: 150px;
+  width: 100%;
 }
 .category__icon {
-  grid-area: icon;
+  position: absolute;
+  width: 100%;
+  object-fit: contain;
+  animation: jumping 1.5s infinite alternate-reverse;
   filter: drop-shadow(0 0 0.95rem rgb(248, 248, 248));
 }
+
+@media (max-width: 510px) {
+  .category__icon-box .category__icon {
+    animation: jumping none;
+  }
+
+  .category__icon-box {
+    position: absolute;
+    z-index: -1;
+    width: 70%;
+  }
+
+  .category__icon {
+  }
+}
+
 .category__link {
   grid-area: link;
   @include font($size: 2rem, $height: 3.6rem, $weight: 600);
-  color: rgb(37, 36, 36);
+  font-size: calc(12px + 8 * (100vw / 1440));
+
+  color: $color-link-dark;
   margin-top: 15px;
   border-bottom: 2px solid black;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.4s;
+    color: $color-text-light;
+    border-bottom: 2px solid $color-text-light;
+  }
+
+  &:hover::after {
+    content: url("./../../assets/icons/stars.png");
+    position: absolute;
+    z-index: -1;
+    top: -5px;
+    right: -40px;
+  }
 }
