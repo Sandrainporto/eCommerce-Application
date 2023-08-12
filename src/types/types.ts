@@ -18,6 +18,10 @@ export enum WrapperParam {
   elemTag = 'div',
   classNames = 'wrapper',
 }
+export enum OpacityParam {
+  elemTag = 'div',
+  classNames = 'opacity',
+}
 export enum MainPageParam {
   elemTag = 'div',
   classNames = 'page__main',

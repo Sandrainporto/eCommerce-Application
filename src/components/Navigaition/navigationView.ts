@@ -43,9 +43,11 @@ function createNavigationLinks(root: HTMLElement): void {
 
 export default function showNavigation(root: HTMLElement): HTMLElement {
   const navBlock = createElement(NavigationBlockParam, root);
-  showBurger(navBlock);
+
   const navList = createElement(NavigationListParam, navBlock);
 
   createNavigationLinks(navList);
+
+  showBurger(navBlock, navBlock, navList);
   return navBlock;
 }
