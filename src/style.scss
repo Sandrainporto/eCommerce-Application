@@ -15,6 +15,7 @@ body {
   align-items: center;
   justify-content: center;
 
+  @extend %font-add;
   font-size: 2rem;
   font-style: normal;
   font-weight: normal;

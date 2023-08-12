@@ -31,6 +31,10 @@ export enum HeaderContainerParam {
   elemTag = 'div',
   classNames = 'header__container',
 }
+export enum BurgerParam {
+  elemTag = 'div',
+  classNames = 'header__burger',
+}
 export enum ContentMainPageParam {
   elemTag = 'main',
   classNames = 'content',

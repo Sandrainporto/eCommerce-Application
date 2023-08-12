@@ -14,6 +14,10 @@ export enum NavigationLinkParam {
   elemTag = 'a',
   classNames = 'nav__link',
 }
+export enum NavigationSubLinkParam {
+  elemTag = 'a',
+  classNames = 'nav__sub-link',
+}
 export interface NavigationLink {
   text: string;
   href: string;
