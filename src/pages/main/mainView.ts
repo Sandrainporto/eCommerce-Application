@@ -1,13 +1,13 @@
 import './main.scss';
 import showFooter from '../../components/Footer/footerView';
 import showHeader from '../../components/Header/headerView';
-import showContentMainPage from '../../components/mainPageContent/mainPageContent';
+import showMainContent from '../../components/mainContent/mainContent';
 import { MainPageParam } from '../../types/types';
 import { createElement } from '../../utils/elementCreator';
 
 export default function showMainPage(root: HTMLElement): void {
+  showHeader(root);
   const mainPage = createElement(MainPageParam, root);
-  showHeader(mainPage);
-  showContentMainPage(mainPage);
-  showFooter(mainPage);
+  showMainContent(mainPage);
+  showFooter(root);
 }

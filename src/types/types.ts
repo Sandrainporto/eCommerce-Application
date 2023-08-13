@@ -23,7 +23,7 @@ export enum OpacityParam {
   classNames = 'opacity',
 }
 export enum MainPageParam {
-  elemTag = 'div',
+  elemTag = 'main',
   classNames = 'page__main',
   id = 'main',
 }
@@ -40,7 +40,7 @@ export enum BurgerParam {
   classNames = 'header__burger',
 }
 export enum ContentMainPageParam {
-  elemTag = 'main',
+  elemTag = 'div',
   classNames = 'content',
 }
 export enum ContentMainPageContainer {
