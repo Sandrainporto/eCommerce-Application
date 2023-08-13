@@ -9,3 +9,9 @@
     padding: 30px 10px;
   }
 }
+.content__container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 50px;
+}
