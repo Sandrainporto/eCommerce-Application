@@ -14,6 +14,10 @@ export interface ElementParams {
   value?: string;
 }
 
+export type RouterType = {
+  [key: string]: HTMLElement;
+};
+
 export enum WrapperParam {
   elemTag = 'div',
   classNames = 'wrapper',
@@ -27,6 +31,7 @@ export enum MainPageParam {
   classNames = 'page__main',
   id = 'main',
 }
+
 export enum HeaderParam {
   elemTag = 'header',
   classNames = 'header',
