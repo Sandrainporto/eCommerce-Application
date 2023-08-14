@@ -41,10 +41,6 @@ export enum BurgerParam {
 }
 export enum ContentMainPageParam {
   elemTag = 'div',
-  classNames = 'content',
-}
-export enum ContentMainPageContainer {
-  elemTag = 'div',
   classNames = 'content__container',
 }
 export enum FooterParam {

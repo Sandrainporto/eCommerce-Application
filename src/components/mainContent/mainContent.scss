@@ -1,17 +1,14 @@
-.content {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  padding: 30px;
-}
-@media (max-width: 510px) {
-  .content {
-    padding: 30px 10px;
-  }
-}
 .content__container {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  gap: 50px;
+  gap: 70px;
+  margin: 60px auto;
+  padding: 0 15px;
+}
+
+@media (max-width: 510px) {
+  .content__container {
+    padding: 30px 10px;
+  }
 }

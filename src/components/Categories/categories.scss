@@ -13,7 +13,6 @@
 }
 
 .categories__container {
-  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -25,8 +24,6 @@
   .categories__container {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    align-items: center;
-    gap: 20px;
   }
 }
 
@@ -34,6 +31,7 @@
   .categories__container {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
   }
 }
 
@@ -65,8 +63,8 @@
 
 @media screen and (max-width: 935px) {
   .category {
-    height: 155px;
     padding: 25px 15px 40px 15px;
+    height: 230px;
   }
 }
 
