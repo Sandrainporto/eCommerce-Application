@@ -11,17 +11,14 @@ export default function showApplication(): void {
   let activePage = Routes[url];
 
   const RenderPage = (): void => {
-    debugger;
     wrapper.innerHTML = '';
     url = window.location.pathname;
-    console.log(url);
     createElement(OpacityParam, wrapper);
     activePage = Routes[url] || Routes['404'];
     activePage(wrapper);
   };
 
   const onNavigate = (pathname: string): void => {
-    console.log(pathname);
     url = `/${pathname}`;
     window.history.pushState({}, pathname, `${window.location.origin}/${pathname}`);
     RenderPage();
@@ -44,7 +41,6 @@ export default function showApplication(): void {
   const links = document.querySelectorAll('a');
   links.forEach((el) => {
     if (el.id) {
-      console.log(el);
       const pathname = el.id;
       if (pathname)
         el.addEventListener('click', (event) => {
