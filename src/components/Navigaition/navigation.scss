@@ -98,11 +98,11 @@
   }
 
   &:after {
-    content: url('./../../assets/icons/sphere.png');
+    content: url('./../../assets/icons/key.png');
     color: $color-text-light;
     position: absolute;
-    margin-top: 3px;
-    margin-left: 3px;
+    margin-top: 6px;
+    margin-left: 2px;
     border-bottom: none;
   }
 }
@@ -118,6 +118,7 @@
   border-bottom: 2px solid $color-link;
   border-radius: 10px;
 
+
   &:active {
     scale: 0.92;
   }
@@ -130,11 +131,12 @@
   }
 
   &:hover:after {
-    content: url('./../../assets/icons/scull.png');
+    content: '+';
     color: $color-text-light;
+    font-size: 2rem;
     position: absolute;
-    margin-top: 5px;
-    margin-left: 3px;
+    margin-top: 4px;
+    margin-left: 5px;
     border-bottom: none;
   }
 }
