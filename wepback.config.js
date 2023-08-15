@@ -79,6 +79,7 @@ module.exports = ({ development }) => {
     entry: getEntryPoints(pages),
     context: srcPath,
     output: {
+      publicPath: '/',
       filename: 'js/[name].[contenthash].js',
       path: path.resolve(__dirname, 'dist'),
       assetModuleFilename: '[file]',
@@ -136,6 +137,9 @@ module.exports = ({ development }) => {
       new CleanWebpackPlugin(),
       new RemoveEmptyScriptsPlugin(),
     ],
+    devServer: {
+      historyApiFallback: true,
+    },
     resolve: {
       extensions: ['.js', '.ts'],
     },
