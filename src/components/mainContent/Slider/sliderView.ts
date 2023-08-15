@@ -1,5 +1,5 @@
 import './slider.scss';
-import { createElement } from '../../utils/elementCreator';
+import { createElement } from '../../../utils/elementCreator';
 import { LeftBtn, RightBtn, SlideParam, Slider, SliderContainer } from './sliderTypes';
 
 function createSlider(root: HTMLElement): HTMLElement {

@@ -1,6 +1,6 @@
-@import './../../sass/abstract/constants';
-@import './../../sass/abstract/mixins';
-@import './../../sass/abstract/placeholders';
+@import './../../../sass/abstract/constants';
+@import './../../../sass/abstract/mixins';
+@import './../../../sass/abstract/placeholders';
 
 @keyframes jumping {
   from {
@@ -12,7 +12,7 @@
   }
 }
 
-.categories__container {
+.categories {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -21,14 +21,14 @@
 }
 
 @media screen and (max-width: 935px) {
-  .categories__container {
+  .categories {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
   }
 }
 
 @media screen and (max-width: 510px) {
-  .categories__container {
+  .categories {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     justify-items: center;
@@ -101,6 +101,7 @@
   max-width: 150px;
   width: 100%;
 }
+
 .category__icon {
   position: absolute;
   width: 100%;
@@ -138,7 +139,7 @@
   }
 
   &:hover::after {
-    content: url('./../../assets/icons/stars.png');
+    content: url('./../../../assets/icons/stars.png');
     position: absolute;
     z-index: -1;
     top: -5px;

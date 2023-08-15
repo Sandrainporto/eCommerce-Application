@@ -1,43 +1,64 @@
+@import './../../../sass/abstract/constants';
+@import './../../../sass/abstract/placeholders';
+@import './../../../sass/abstract/mixins';
+
 .slider__container {
   position: relative;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
-  max-height: 340px;
-  max-width: 900px;
   overflow: hidden;
-  padding: 0px 40px;
+  padding: 0px 60px;
+
+  @media screen and (max-width: 767px) {
+    padding: 0px 20px 60px;
+  }
 }
+
 .slider-btn {
   position: absolute;
-  z-index: 10;
-  top: 50%;
+  z-index: 5;
+  top: 45%;
   height: 44px;
   width: 44px;
-  color: #909397;
-  cursor: pointer;
-  font-size: 3rem;
-  font-weight: 800;
+  @include font($size: 3rem, $height: 4.4rem, $weight: 800);
   text-align: center;
-  line-height: 44px;
   background: #222121;
   border-radius: 50%;
-  transform: translateY(-50%);
+  color: #909397;
+  cursor: pointer;
   transition: transform 0.1s linear;
+
+  @media screen and (max-width: 767px) {
+    top: 70%;
+  }
 }
+
 .slider-btn:active {
   transform: translateY(-50%) scale(0.9);
 }
+
 .slider-btn i:hover {
   background: #f2f2f2;
 }
+
 #prev {
   left: 10px;
+
+  @media screen and (max-width: 767px) {
+    left: 30%;
+  }
 }
+
 #next {
   right: 10px;
+
+  @media screen and (max-width: 767px) {
+    right: 30%;
+  }
 }
+
 .slider {
   position: relative;
   display: flex;
@@ -48,8 +69,8 @@
   scroll-behavior: smooth;
   transition: transform 0.5s ease-in-out;
 }
+
 .slider img {
   width: 100%;
-  height: 100%;
   object-fit: contain;
 }

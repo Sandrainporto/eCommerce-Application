@@ -1,11 +1,13 @@
 import './mainContent.scss';
 import { ContentMainPageParam } from '../../types/types';
 import { createElement } from '../../utils/elementCreator';
-import showCategories from '../Categories/categoriesView';
-import { showSlider } from '../Slider/sliderView';
+import showCategories from './Categories/categoriesView';
+import { showSlider } from './Slider/sliderView';
+import showPageInfo from './PageInfo/pageInfoView';
 
 const getPageContent = (root: HTMLElement): void => {
   showSlider(root);
+  showPageInfo(root);
   showCategories(root);
 };
 

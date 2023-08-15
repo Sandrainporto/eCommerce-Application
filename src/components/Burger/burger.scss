@@ -1,4 +1,5 @@
 @import './../../sass/abstract/constants';
+
 .header__burger {
   display: none;
 }
@@ -9,17 +10,17 @@
     position: relative;
     z-index: 11;
     margin-right: 10px;
-    // width: 30px;
-    // height: 20px;
     cursor: pointer;
 
     img {
       filter: drop-shadow(0 0 0.75rem rgb(209, 199, 201));
     }
+
     img:hover {
       filter: drop-shadow(16px 16px 20px red) invert(85%);
     }
   }
+
   @media screen and (width < 511px) {
     .header__burger {
       img {
@@ -40,6 +41,7 @@
     padding: 60px 25px;
     background: $background-color-dark;
     transition: right 0.7s ease;
+
     &::after {
       position: absolute;
       z-index: 5;

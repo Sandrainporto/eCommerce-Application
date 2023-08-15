@@ -1,5 +1,5 @@
 import './categories.scss';
-import { createElement } from '../../utils/elementCreator';
+import { createElement } from '../../../utils/elementCreator';
 import {
   CategoriesContainerParam,
   CategoryBoxParam,

@@ -2,13 +2,14 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  gap: 70px;
-  margin: 60px auto;
+  align-items: center;
+  gap: 120px;
+  margin: 80px auto 120px;
   padding: 0 15px;
-}
 
-@media (max-width: 510px) {
-  .content__container {
-    padding: 30px 10px;
+  @media screen and (max-width: 767px) {
+    margin: 40px auto 60px;
+    padding: 0px 10px;
+    gap: 60px;
   }
 }
