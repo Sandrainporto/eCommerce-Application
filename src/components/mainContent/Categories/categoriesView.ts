@@ -14,7 +14,6 @@ export default function showCategories(root: HTMLElement): void {
   const categoriesContainer = createElement(CategoriesContainerParam, root);
   categoriesData.forEach((category) => {
     const categoryBlock = createElement(CategoryBoxParam, categoriesContainer);
-    categoryBlock.style.background = category.background;
 
     const categoryTitle = createElement(CategoryTitleParam, categoryBlock);
     categoryTitle.innerText = category.text;

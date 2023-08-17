@@ -1,4 +1,3 @@
-import './showApplication.scss';
 import showMainPage from '../pages/main/mainView';
 import { OpacityParam, WrapperParam } from '../types/types';
 import { createElement } from '../utils/elementCreator';
