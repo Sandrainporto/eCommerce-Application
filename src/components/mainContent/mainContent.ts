@@ -4,6 +4,7 @@ import { createElement } from '../../utils/elementCreator';
 import showCategories from './Categories/categoriesView';
 import { showSlider } from './Slider/sliderView';
 import showPageInfo from './PageInfo/pageInfoView';
+import { showAuthContent } from '../../pages/login/authContent';
 
 const getPageContent = (root: HTMLElement): void => {
   showSlider(root);
@@ -20,7 +21,14 @@ export default function showMainContent(root: HTMLElement): void {
     activePage = ContentMainPageParam;
     activePageContent = getPageContent;
   }
-
+  if (root.id === 'auth') {
+    activePage = ContentMainPageParam;
+    activePageContent = showAuthContent;
+  }
+  if (root.id === 'registration') {
+    activePage = ContentMainPageParam;
+    activePageContent = showAuthContent;
+  }
   const pageContent = createElement(activePage, root);
   activePageContent(pageContent);
 }

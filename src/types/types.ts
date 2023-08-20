@@ -1,4 +1,4 @@
-export type Callback = () => void;
+export type Callback = (e: Event) => void;
 
 export interface ElementParams {
   elemTag: string;
