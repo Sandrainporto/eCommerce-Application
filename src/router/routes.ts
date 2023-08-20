@@ -8,8 +8,8 @@ import { showRegPage } from '../pages/registration/regView';
 
 const Routes = {
   '/': showMainPage,
-  login: showAuthPage,
-  register: showRegPage,
+  '/login': showAuthPage,
+  '/register': showRegPage,
   '404': showErrorPage,
 };
 
@@ -32,7 +32,7 @@ const RenderPage = (): void => {
   const background = createElement(OpacityParam, currentWrapper);
   currentWrapper.prepend(background);
   pageUrl = `/${window.location.pathname.split('/').slice(-1)}`;
-  activePage = Routes[pageUrl.length > 1 ? pageUrl.slice(1) : pageUrl] || Routes['404'];
+  activePage = Routes[pageUrl] || Routes['404'];
   activePage(currentWrapper);
 };
 
