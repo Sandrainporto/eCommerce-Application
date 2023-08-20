@@ -1,4 +1,3 @@
-import './showApplication.scss';
 import { WrapperParam } from '../types/types';
 import { createElement } from '../utils/elementCreator';
 import { initRouter } from '../router/routes';

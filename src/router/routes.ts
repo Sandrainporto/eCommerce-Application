@@ -1,6 +1,6 @@
 import showMainPage from '../pages/main/mainView';
 import showErrorPage from '../pages/error/error';
-import { categoriesData } from '../components/Categories/categoriesTypes';
+import { categoriesData } from '../components/mainContent/Categories/categoriesTypes';
 import { OpacityParam } from '../types/types';
 import { createElement } from '../utils/elementCreator';
 
