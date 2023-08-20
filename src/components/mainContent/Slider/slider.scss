@@ -8,7 +8,7 @@
   overflow: hidden;
   padding: 0px 6rem;
 
-  @media screen and (max-width: 825px) {
+  @media screen and (max-width: 975px) {
     padding: 0px 2rem 6rem;
     #next {
       order: 3;
@@ -72,10 +72,15 @@
   white-space: nowrap;
   scroll-behavior: smooth;
   transition: transform 0.5s ease-in-out;
+  
+  @media screen and (max-width: 975px) {
+   flex: 1 1 100%;
+   width: 100%;
+  }
 }
 
 .slider img {
   width: 100%;
-  max-width: 70rem;
+  // max-width: 70rem;
   object-fit: contain;
 }
