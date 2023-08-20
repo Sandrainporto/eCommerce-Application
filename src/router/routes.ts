@@ -36,7 +36,7 @@ const RenderPage = (): void => {
   activePage(currentWrapper);
 };
 
-const addEventListener = (): void => {
+export const addEventListener = (): void => {
   const links = document.querySelectorAll('a');
   links.forEach((el) => {
     if (el.id) {
