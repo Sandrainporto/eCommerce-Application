@@ -10,18 +10,14 @@
 }
 
 .footer__container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 2rem;
+  @include flex(column, $gap: 3rem);
   padding: 2rem;
   @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
   @extend %font-add;
 }
 
 .footer__link {
-  padding: 3px 5px;
+  padding: 0.3rem 0.5rem;
   border-radius: 8px;
   color: $color-footer-btn;
   border: 1px solid $color-footer-btn;

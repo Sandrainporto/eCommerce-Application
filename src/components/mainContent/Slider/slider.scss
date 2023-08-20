@@ -4,34 +4,38 @@
 
 .slider__container {
   position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
+  @include flex($gap: 1rem, $wrap: wrap);
   overflow: hidden;
-  padding: 0px 60px;
+  padding: 0px 6rem;
 
-  @media screen and (max-width: 767px) {
-    padding: 0px 20px 60px;
+  @media screen and (max-width: 825px) {
+    padding: 0px 2rem 6rem;
+    #next {
+      order: 3;
+    }
+    #prev {
+      order: 2;
+    }
   }
 }
 
 .slider-btn {
-  position: absolute;
-  z-index: 5;
-  top: 45%;
   height: 44px;
   width: 44px;
   @include font($size: 3rem, $height: 4.4rem, $weight: 800);
   text-align: center;
-  background: #222121;
+  background: $background-color-dark;
   border-radius: 50%;
   color: #909397;
   cursor: pointer;
   transition: transform 0.1s linear;
 
+  &:hover {
+    box-shadow: inset 1px 1px gold;
+  }
+
   @media screen and (max-width: 767px) {
-    top: 70%;
+    top: 90%;
   }
 }
 
@@ -39,12 +43,12 @@
   transform: translateY(-50%) scale(0.9);
 }
 
-.slider-btn i:hover {
-  background: #f2f2f2;
-}
+// .slider-btn i:hover {
+//   background: #f2f2f2;
+// }
 
 #prev {
-  left: 10px;
+  left: 1rem;
 
   @media screen and (max-width: 767px) {
     left: 30%;
@@ -52,7 +56,7 @@
 }
 
 #next {
-  right: 10px;
+  right: 1rem;
 
   @media screen and (max-width: 767px) {
     right: 30%;
@@ -62,7 +66,7 @@
 .slider {
   position: relative;
   display: flex;
-  max-width: 1300px;
+  max-width: calc(1440px - 88px);
   overflow: hidden;
   cursor: pointer;
   white-space: nowrap;
@@ -72,5 +76,6 @@
 
 .slider img {
   width: 100%;
+  max-width: 70rem;
   object-fit: contain;
 }

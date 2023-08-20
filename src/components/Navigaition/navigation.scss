@@ -3,9 +3,8 @@
 @import './../../sass//abstract/placeholders';
 
 .header__nav {
-  display: flex;
-  gap: 10px;
-  padding: 0 15px;
+  @include flex($gap: 10px);
+  padding: 0 1.5rem;
 }
 
 .nav__list {
@@ -16,15 +15,20 @@
   gap: 25px;
 }
 
-.nav__link {
-  @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
-  @extend %font-add;
-  text-transform: uppercase;
-  outline: none;
-  color: $color-link;
+.nav__item {
+  min-width: 10rem;
+  @include flex(column, center, center);
+  .nav__link {
+    @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
+    @extend %font-add;
+    text-transform: uppercase;
+    outline: none;
+    color: $color-link;
+    position: relative;
 
-  &:hover {
-    border-bottom: 2px solid $color-link;
+    &:hover {
+      border-bottom: 2px solid $color-link;
+    }
   }
 }
 
@@ -54,19 +58,14 @@
 .catalog__sub-list {
   position: absolute;
   z-index: 10;
-  top: 28px;
-  left: -40px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 15px;
-
+  max-width: 20rem;
+  top: 4rem;
+  @include flex(column, center, center, 1.5rem);
   font-weight: 800;
-  padding: 20px 25px;
+  padding: 2rem 2.5rem;
   background: $background-color-dark;
+  border-radius: 1rem;
   color: $color-text-dark;
-
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -78,8 +77,8 @@
   background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
   padding: 1rem 2.8rem 1rem 2.5rem;
   font-weight: 700;
-  letter-spacing: 2px;
-  border-radius: 10px;
+  letter-spacing: 0.2rem;
+  border-radius: 1rem;
   border: none;
   box-shadow:
     rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -101,8 +100,8 @@
     content: url('./../../assets/icons/key.png');
     color: $color-text-light;
     position: absolute;
-    margin-top: 6px;
-    margin-left: 2px;
+    margin-top: 0.2rem;
+    margin-left: 0.2rem;
     border-bottom: none;
   }
 }
@@ -116,8 +115,7 @@
   font-weight: 700;
   transition: 1.2s;
   border-bottom: 2px solid $color-link;
-  border-radius: 10px;
-
+  border-radius: 1rem;
 
   &:active {
     scale: 0.92;
@@ -135,8 +133,7 @@
     color: $color-text-light;
     font-size: 2rem;
     position: absolute;
-    margin-top: 4px;
-    margin-left: 5px;
+    margin-left: 0.5rem;
     border-bottom: none;
   }
 }
