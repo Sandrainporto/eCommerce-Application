@@ -1,0 +1,142 @@
+@import './../../sass//abstract/constants';
+@import './../../sass//abstract/mixins';
+@import './../../sass//abstract/placeholders';
+
+.header__nav {
+  display: flex;
+  gap: 10px;
+  padding: 0 15px;
+}
+
+.nav__list {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.nav__link {
+  @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
+  @extend %font-add;
+  text-transform: uppercase;
+  outline: none;
+  color: $color-link;
+
+  &:hover {
+    border-bottom: 2px solid $color-link;
+  }
+}
+
+.nav__list > li:hover .catalog__sub-list {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+
+  .nav__sub-link {
+    cursor: pointer;
+  }
+
+  .nav__sub-link:hover {
+    background-color: #2aa5a0;
+    background-image: radial-gradient(
+      circle farthest-corner at 10% 20%,
+      rgba(0, 221, 214, 1) 0%,
+      rgba(51, 102, 255, 1) 50%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: rgba(209, 208, 206, 0.733) 1px 0 10px;
+  }
+}
+
+.catalog__sub-list {
+  position: absolute;
+  z-index: 10;
+  top: 28px;
+  left: -40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+
+  font-weight: 800;
+  padding: 20px 25px;
+  background: $background-color-dark;
+  color: $color-text-dark;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.4 ease 0s;
+}
+
+#login {
+  background: rgb(2, 29, 78);
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+  padding: 1rem 2.8rem 1rem 2.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  border: none;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: 0.4s;
+
+  &:hover {
+    transition: 0.4s;
+    border: 2px dashed #00bfa6;
+    background-color: $color-text-light;
+    color: rgb(4, 4, 38);
+  }
+
+  &:active {
+    background-color: #87dbd0;
+  }
+
+  &:after {
+    content: url('./../../assets/icons/key.png');
+    color: $color-text-light;
+    position: absolute;
+    margin-top: 6px;
+    margin-left: 2px;
+    border-bottom: none;
+  }
+}
+
+#register {
+  padding: 1rem 2.8rem 1rem 2.5rem;
+  border: none;
+  outline: none;
+  border-radius: 0.4rem;
+  background-color: rgba(14, 14, 26, 0);
+  font-weight: 700;
+  transition: 1.2s;
+  border-bottom: 2px solid $color-link;
+  border-radius: 10px;
+
+
+  &:active {
+    scale: 0.92;
+  }
+
+  &:hover {
+    background: rgb(2, 29, 78);
+    background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+    color: rgb(4, 4, 38);
+    border-bottom: none;
+  }
+
+  &:hover:after {
+    content: '+';
+    color: $color-text-light;
+    font-size: 2rem;
+    position: absolute;
+    margin-top: 4px;
+    margin-left: 5px;
+    border-bottom: none;
+  }
+}

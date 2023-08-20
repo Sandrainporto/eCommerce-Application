@@ -42,7 +42,8 @@
   },
   "main": ".eslintrc.js",
   "dependencies": {
-    "highlight.js": "^11.8.0"
+    "highlight.js": "^11.8.0",
+    "jest-environment-jsdom": "^29.6.2"
   },
   "repository": {
     "type": "git",
