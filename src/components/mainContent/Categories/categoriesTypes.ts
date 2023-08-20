@@ -40,37 +40,37 @@ export interface CategoriesParam {
 export const categoriesData: CategoriesParam[] = [
   {
     text: 'Spells',
-    href: '#',
+    href: '/spells',
     id: 'spells',
     src: spells,
   },
   {
     text: 'Potions',
-    href: '#',
+    href: '/potions',
     id: 'potions',
     src: potions,
   },
   {
     text: 'Сauldrons',
-    href: '#',
+    href: '/cauldrons',
     id: 'cauldrons',
     src: cauldrons,
   },
   {
     text: 'Grimoires',
-    href: '#',
+    href: 'grimoires',
     id: 'books',
     src: books,
   },
   {
     text: 'Ingredients',
-    href: '#',
+    href: '/ingredients',
     id: 'ingredients',
     src: ingredients,
   },
   {
     text: 'Attributes',
-    href: '#',
+    href: '/attributes',
     id: 'attributes',
     src: attributes,
   },

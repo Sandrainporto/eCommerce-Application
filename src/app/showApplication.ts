@@ -1,9 +1,8 @@
-import showMainPage from '../pages/main/mainView';
-import { OpacityParam, WrapperParam } from '../types/types';
+import { WrapperParam } from '../types/types';
 import { createElement } from '../utils/elementCreator';
+import { initRouter } from '../router/routes';
 
 export default function showApplication(): void {
   const wrapper = createElement(WrapperParam, document.body);
-  createElement(OpacityParam, wrapper);
-  showMainPage(wrapper);
+  initRouter(wrapper);
 }

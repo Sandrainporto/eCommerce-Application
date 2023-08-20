@@ -26,6 +26,7 @@ export default function showCategories(root: HTMLElement): void {
 
     const categoryLink = createElement(CategoryLinkParam, categoryBlock) as HTMLLinkElement;
     categoryLink.href = category.href;
+    categoryLink.id = category.id;
     categoryLink.innerText = 'Show more';
   });
 }
