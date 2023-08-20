@@ -26,7 +26,7 @@ export interface NavigationLink {
 export const navigationLinksData: NavigationLink[] = [
   {
     text: 'Catalog',
-    href: '#',
+    href: '/catalog',
     id: 'catalog',
   },
   {

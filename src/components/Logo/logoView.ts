@@ -8,6 +8,7 @@ enum LogoContainerParam {
 enum LogoLinkParam {
   elemTag = 'a',
   classNames = 'logo__link',
+  href = `/`,
 }
 enum Logo {
   elemTag = 'img',
@@ -19,7 +20,7 @@ enum Logo {
 export default function showLogo(root: HTMLElement): HTMLElement {
   const logoContainer = createElement(LogoContainerParam, root);
   const logoLink = createElement(LogoLinkParam, logoContainer) as HTMLLinkElement;
-  logoLink.href = '#';
+  logoLink.href = LogoLinkParam.href;
   createElement(Logo, logoLink);
   return logoContainer;
 }
