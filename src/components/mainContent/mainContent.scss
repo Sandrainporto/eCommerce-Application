@@ -1,15 +1,13 @@
+@import './../../sass//abstract/mixins';
+
 .content__container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 120px;
+  @include flex(column, center, center, 12rem);
   margin: 80px auto 120px;
   padding: 0 15px;
 
   @media screen and (max-width: 767px) {
-    margin: 40px auto 60px;
-    padding: 0px 10px;
-    gap: 60px;
+    margin: 4rem auto 6rem;
+    padding: 0 1rem;
+    gap: 6rem;
   }
 }

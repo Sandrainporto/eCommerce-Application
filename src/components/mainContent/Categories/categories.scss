@@ -17,7 +17,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   align-items: center;
-  gap: 20px;
+  gap: 2rem;
 }
 
 @media screen and (max-width: 935px) {
@@ -36,47 +36,47 @@
 }
 
 .category {
-  height: 250px;
+  height: 25rem;
   display: grid;
   grid-auto-columns: 1fr;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 0.5fr;
-  gap: 20px 30px;
+  gap: 2rem 3rem;
   grid-template-areas:
     'title icon'
     'link icon';
   justify-items: center;
   align-items: center;
-  border-radius: 20px;
-  padding: 25px;
-  padding-bottom: 40px;
+  border-radius: 2rem;
+  padding: 2.5rem;
+  padding-bottom: 4rem;
   @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
   @extend %font-add;
   box-shadow: rgba(255, 255, 255, 0.219) 0px 4px 12px;
-  background:  radial-gradient( circle farthest-corner at 10% 20%,  rgba(0,221,214,1) 0%, rgba(51,102,255,1) 90%);
+  background: radial-gradient(circle farthest-corner at 10% 20%, rgba(0, 221, 214, 1) 0%, rgba(51, 102, 255, 1) 90%);
 }
 
-.category:nth-child(2n){
-  background: radial-gradient( circle 300px at 8% 89.3%,  rgba(20,157,208,1) 0%, rgba(140,63,226,1) 90% )
+.category:nth-child(2n) {
+  background: radial-gradient(circle 300px at 8% 89.3%, rgba(20, 157, 208, 1) 0%, rgba(140, 63, 226, 1) 90%);
 }
 
 @media screen and (max-width: 996px) {
   .category {
-    gap: 20px 15px;
+    gap: 2rem 1.5rem;
   }
 }
 
 @media screen and (max-width: 935px) {
   .category {
-    padding: 25px 15px 40px 15px;
-    height: 230px;
+    padding: 2.5rem 1.5rem 4rem 1.5rem;
+    height: 23rem;
   }
 }
 
 @media screen and (max-width: 510px) {
   .category {
-    width: 130px;
-    height: 180px;
+    width: 13rem;
+    height: 18rem;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 0.5fr;
@@ -85,8 +85,8 @@
       'link';
     position: relative;
     z-index: 2;
-    padding: 15px;
-    gap: 60px;
+    padding: 1.5rem;
+    gap: 6rem;
   }
 }
 
@@ -103,7 +103,7 @@
   align-items: center;
 
   position: relative;
-  max-width: 150px;
+  max-width: 15rem;
   width: 100%;
 }
 
@@ -133,7 +133,7 @@
   font-size: calc(12px + 8 * (100vw / 1440));
 
   color: $color-link-dark;
-  margin-top: 15px;
+  margin-top: 1.5rem;
   border-bottom: 2px solid black;
 
   &:hover {
@@ -147,7 +147,7 @@
     content: url('./../../../assets/icons/stars.png');
     position: absolute;
     z-index: -1;
-    top: -5px;
-    right: -40px;
+    top: -0.5rem;
+    right: -4rem;
   }
 }

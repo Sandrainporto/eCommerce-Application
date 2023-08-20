@@ -8,7 +8,7 @@
   .header__burger {
     display: block;
     position: relative;
-    z-index: 11;
+    z-index: 100;
     margin-right: 10px;
     cursor: pointer;
 
@@ -61,7 +61,6 @@
     text-align: center;
     height: 50%;
     width: 100%;
-    margin-top: 50px;
   }
 
   .nav__link {

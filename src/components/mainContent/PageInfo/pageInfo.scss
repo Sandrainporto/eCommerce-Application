@@ -3,15 +3,10 @@
 @import './../../../sass/abstract/mixins';
 
 .info__container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  text-align: center;
-  gap: 70px;
+  @include flex(column, $gap: 7rem);
 
   @media screen and (max-width: 962px) {
-    gap: 35px;
+    gap: 3.5rem;
   }
 }
 
@@ -35,19 +30,13 @@
 }
 
 .info__columns {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  gap: 25px;
+  @include flex($align: stretch, $gap: 2.5rem);
 }
 
 .column {
   flex: 0 1 33%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 25px;
+  @include flex(column, $gap: 2.5rem);
+
   background: #706a6a36;
   border-radius: 25px;
   box-shadow:
@@ -63,8 +52,8 @@
 }
 
 .column__icon {
-  width: 70px;
-  height: 60px;
+  width: 7rem;
+  height: 6rem;
 }
 
 .column__text {
