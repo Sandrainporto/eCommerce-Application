@@ -1,0 +1,83 @@
+@import './../../../sass/abstract/constants';
+@import './../../../sass/abstract/placeholders';
+@import './../../../sass/abstract/mixins';
+
+.info__container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  text-align: center;
+  gap: 70px;
+
+  @media screen and (max-width: 962px) {
+    gap: 35px;
+  }
+}
+
+.info__title {
+  @include font($size: 3rem, $height: 3.6rem, $weight: 600);
+  @extend %font-add;
+  background-color: #2aa5a0;
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(0, 221, 214, 1) 0%,
+    rgba(51, 102, 255, 1) 50%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: rgba(209, 208, 206, 0.733) 1px 0 10px;
+
+  @media screen and (max-width: 962px) {
+    gap: 35px;
+  }
+}
+
+.info__columns {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.column {
+  flex: 0 1 33%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 25px;
+  background: #706a6a36;
+  border-radius: 25px;
+  box-shadow:
+    rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  padding: 30px 15px;
+}
+
+.column__title {
+  @include font($size: 2.5rem, $height: 3.6rem, $weight: 600);
+  font-size: calc(20px + 5 * (100vw / 1440));
+  text-transform: capitalize;
+}
+
+.column__icon {
+  width: 70px;
+  height: 60px;
+}
+
+.column__text {
+  text-align: justify;
+  font-size: calc(16px + 4 * (100vw / 1440));
+}
+
+@media screen and (max-width: 962px) {
+  .info__columns {
+    flex-wrap: wrap;
+  }
+
+  .column {
+    flex: 0 1 100%;
+  }
+}

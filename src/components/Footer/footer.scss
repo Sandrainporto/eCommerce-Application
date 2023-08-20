@@ -1,6 +1,6 @@
-@import './../../sass//abstract/constants';
-@import './../../sass//abstract/mixins';
-@import './../../sass//abstract/placeholders';
+@import './../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
 
 .footer {
   box-shadow:
@@ -8,6 +8,7 @@
     rgba(0, 0, 0, 0.23) 0px 3px 6px;
   background: $background-color-dark;
 }
+
 .footer__container {
   display: flex;
   flex-direction: column;
@@ -18,12 +19,14 @@
   @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
   @extend %font-add;
 }
+
 .footer__link {
   padding: 3px 5px;
   border-radius: 8px;
   color: $color-footer-btn;
   border: 1px solid $color-footer-btn;
   transition: 0.5s ease;
+
   &:hover,
   :focus {
     color: $color-text-light;
@@ -37,6 +40,7 @@
       0 0 20px #30a592;
   }
 }
+
 .footer__text {
   color: $color-text-dark;
 }

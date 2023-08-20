@@ -9,7 +9,7 @@ import {
   NavigationSubLinkParam,
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
-import { categoriesData } from '../Categories/categoriesTypes';
+import { categoriesData } from '../mainContent/Categories/categoriesTypes';
 
 function addCatalogSublinks(root: HTMLLinkElement): HTMLUListElement {
   const subList = document.createElement('ul');
