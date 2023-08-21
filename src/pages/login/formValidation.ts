@@ -6,9 +6,9 @@ export function checkForm(e: Event): void {
   const text = input.value;
   hint.textContent = text;
   if (input.id === 'login-email') {
-    if (text.length > text.trim().length) {
+    if (text.includes(' ')) {
       hint.textContent = '';
-      hint.textContent = 'No spaces at start/end email';
+      hint.textContent = 'No spaces allowed';
     } else if (!text.includes('@')) {
       hint.textContent = '';
       hint.textContent = 'Email must include @';
@@ -30,35 +30,33 @@ export function checkForm(e: Event): void {
     }
   }
   if (input.id === 'login-pas') {
-    if (text.length > text.trim().length) {
+    if (text.includes(' ')) {
       hint.textContent = '';
-      hint.textContent = 'No spaces at start/end email';
+      hint.textContent = 'No spaces allowed';
     } else if (text.length < passLength) {
       hint.textContent = '';
       hint.textContent = 'Password less than 8 characters';
+    } else if (!upperLetters.test(text)) {
+      hint.textContent = '';
+      hint.textContent = 'Password must contains at least 1 capital letter';
+    } else if (!lowerLetters.test(text)) {
+      hint.textContent = '';
+      hint.textContent = 'Password must contains at least 1 lower letter';
+    } else if (!numbers.test(text)) {
+      hint.textContent = 'Password must contains at least 1 number';
     } else {
-      if (!upperLetters.test(text)) {
-        hint.textContent = '';
-        hint.textContent = 'Password must contains at least 1 capital letter';
-      } else {
-        if (!lowerLetters.test(text)) {
-          hint.textContent = '';
-          hint.textContent = 'Password must contains at least 1 lower letter';
-        } else {
-          if (!numbers.test(text)) {
-            hint.textContent = 'Password must contains at least 1 number';
-          } else {
-            hint.textContent = '';
-          }
-        }
-      }
+      hint.textContent = '';
     }
   }
   checkBtn();
 }
 
-function addListnerToFormBtn(e: Event): void {
+export function addListnerToFormBtn(e: Event): void {
   e.preventDefault();
+  const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
+  loginBtn.innerText = 'Log Out';
+  sessionStorage.setItem('loginBtnValue', loginBtn.innerText)
+  console.log(loginBtn)
   // createCustomer()
   //   .then(({ body }) => {
   //     console.log(body.customer.id);
@@ -66,7 +64,7 @@ function addListnerToFormBtn(e: Event): void {
   //   .catch(console.error);
 }
 
-function checkBtn(): void {
+export function checkBtn(): void {
   const form = document.querySelector('.form_content') as HTMLElement;
   const btn = form.querySelector('.form_btn') as HTMLElement;
   const inputs = [...form.getElementsByTagName('input')];

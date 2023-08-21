@@ -8,10 +8,11 @@ export interface ElementParams {
   listenerType?: string;
   src?: string;
   alt?: string;
-  // href?: string;
+  href?: string;
   type?: string;
   placeholder?: string;
   value?: string;
+  for?: string;
 }
 
 export type RouterType = {

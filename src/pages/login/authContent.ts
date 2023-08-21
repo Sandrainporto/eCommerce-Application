@@ -1,7 +1,12 @@
 import './authContent.scss';
 import { createElement } from '../../utils/elementCreator';
 import {
+  AddressLabelCheckbox,
+  AddresslInputCheckbox,
   AuthContainer,
+  CountryOptionUSA,
+  CountryOptionBelarus,
+  CountrySelectBox,
   Form,
   FormContent,
   FormHint,
@@ -14,11 +19,23 @@ import {
   LoginPasLabel,
   LoginPaslInput,
   SubmitAuthBtn,
+  UserAddressBlock,
   UserFNameLabel,
   UserFNamelInput,
   UserInfoBlock,
+  UserLBirthLabel,
+  UserLBirthlInput,
   UserLNameLabel,
   UserLNamelInput,
+  UserLTownLabel,
+  UserLTownlInput,
+  UserLStreetLabel,
+  UserLStreetlInput,
+  UserLPostcodeLabel,
+  UserLPostcodelInput,
+  CountrySelectLabel,
+  DefAddresslInputCheckbox,
+  DefAddressLabelCheckbox,
 } from './authTypes';
 import { ElementParams, Callback } from '../../types/types';
 import { checkForm } from './formValidation';
@@ -32,7 +49,7 @@ function createFormInput(
 ): HTMLElement {
   const inputBlock = createElement(container, root);
   const inputCurrent = createElement(input, inputBlock);
-  if (listener) inputCurrent.addEventListener('change', checkForm);
+  if (listener) inputCurrent.addEventListener('input', checkForm);
 
   const inputLabel = createElement(label, inputBlock);
   const hint = createElement(FormHint, inputBlock);
@@ -44,6 +61,32 @@ function addFormContent(root: HTMLElement, id: string): HTMLElement {
     const infoContainer = createElement(UserInfoBlock, formContent);
     const userName = createFormInput(InputBlock, UserFNameLabel, UserFNamelInput, infoContainer);
     const userLastName = createFormInput(InputBlock, UserLNameLabel, UserLNamelInput, infoContainer);
+
+    const userDateOfBirth = createFormInput(InputBlock, UserLBirthLabel, UserLBirthlInput, formContent);
+
+    const addressContainer = createElement(UserAddressBlock, formContent);
+
+    const userAddressCheckbox = createFormInput(
+      InputBlock,
+      AddresslInputCheckbox,
+      AddressLabelCheckbox,
+      addressContainer,
+    );
+
+    const userAddressCheckboxLabel = createElement(CountrySelectLabel, addressContainer);
+    const userAddress = createElement(CountrySelectBox, addressContainer);
+    const userAddressOptionUSA = createElement(CountryOptionUSA, userAddress);
+    const userAddressOptionBelarus = createElement(CountryOptionBelarus, userAddress);
+    const usertTown = createFormInput(InputBlock, UserLTownLabel, UserLTownlInput, addressContainer);
+    const usertStreet = createFormInput(InputBlock, UserLStreetLabel, UserLStreetlInput, addressContainer);
+    const usertPostcode = createFormInput(InputBlock, UserLPostcodeLabel, UserLPostcodelInput, addressContainer);
+
+    const setDefAddressCheckbox = createFormInput(
+      InputBlock,
+      DefAddresslInputCheckbox,
+      DefAddressLabelCheckbox,
+      addressContainer,
+    );
   }
   const loginUserEmail = createFormInput(InputBlock, LoginEmailLabel, LoginEmailInput, formContent, (e: Event) =>
     checkForm(e),

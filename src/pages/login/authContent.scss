@@ -1,28 +1,24 @@
 @import '../../sass/abstract/constants';
-// .page__main {
-//   display: flex;
-//   flex-direction: column;
-//   flex-wrap: nowrap;
-//   overflow: hidden;
-//   flex: auto;
-// }
 
 .form {
-  width: 400px;
   padding: 40px;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+  input {
+    width: 100%;
+    cursor: pointer;
+  }
 }
 .form_nav {
-  display: flex;
-  justify-content: space-between;
   color: $color-link;
   cursor: pointer;
 }
+
 .input_block {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   position: relative;
   margin: 40px;
   label {
@@ -55,9 +51,22 @@
   letter-spacing: 4px;
   border-radius: 10px;
   cursor: pointer;
+
   &.btn__active {
     background: rgba(31, 215, 232, 0.873);
     color: #ffffff;
+    &:hover,
+    :focus {
+      color: $color-text-light;
+      background: #6db9b6ab;
+      border: 1px solid #30a592;
+      text-shadow:
+        0 0 5px $color-text-light,
+        0 0 10px $color-text-light;
+      box-shadow:
+        0 0 5px #008cff,
+        0 0 20px #30a592;
+    }
   }
 }
 .form_hint {
@@ -66,4 +75,60 @@
   font-size: 10px;
   color: rgba(31, 215, 232, 0.873);
   line-height: 15px;
+}
+
+#registration {
+  .form {
+    width: 100%;
+    input {
+      width: 100%;
+      cursor: pointer;
+    }
+    .input_block {
+      margin: 40px 10px;
+    }
+  }
+  .form_content {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-info_block {
+    display: flex;
+    justify-content: space-between;
+    max-width: 900px;
+    width: 100%;
+    @media screen and (width < 900px) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .input_block {
+      flex: 0 1 50%;
+    }
+  }
+  .form_content > .input_block {
+    width: 150px;
+    margin: 5px;
+  }
+  .user-address_block {
+    .form_hint {
+      display: none;
+    }
+
+    .input_block:first-child {
+      align-items: center;
+
+      margin: 40px 10px;
+    }
+  }
+  .new-user_laddress-country {
+    margin-left: 10px;
+  }
+  .user_ldefaddress_label-checkbox,
+  .user_laddress_label-checkbox {
+    font-size: 1.2rem;
+  }
 }
