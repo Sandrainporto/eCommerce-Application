@@ -35,11 +35,26 @@ function createNavigationLinks(root: HTMLElement): void {
     link.href = arrItem.href;
     link.id = arrItem.id;
   });
+  const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
+  let sessionLoginValue: string | null = sessionStorage.getItem('loginBtnValue');
+  if (sessionLoginValue) {
+    loginBtn.innerText = sessionLoginValue;
+
+    loginBtn.addEventListener('click', () => {
+      if (sessionLoginValue && loginBtn.innerText === sessionLoginValue) {
+        loginBtn.innerText = 'none';
+        sessionStorage.setItem('loginBtnValue', 'Log In');
+      }
+    });
+  }
+
   const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
   if (catalogeLink) {
     addCatalogSublinks(catalogeLink);
   }
 }
+//   loginBtn.innerText = 'Log Out';
+// sessionStorage.setItem('loginBtnValue', loginBtn.innerText)
 
 export default function showNavigation(root: HTMLElement): HTMLElement {
   const navBlock = createElement(NavigationBlockParam, root);
