@@ -1,7 +1,52 @@
 import { Callback, ElementParams } from '../types/types';
 
-export function createElement(params: ElementParams, root: HTMLElement, callback?: Callback): HTMLElement {
-  const element = document.createElement(params.elemTag);
+function chooseElementToCreate(params: ElementParams): HTMLElement {
+  let element = document.createElement(params.elemTag);
+
+  switch (params.elemTag) {
+    case 'input':
+      if (params.placeholder) {
+        (element as HTMLInputElement).placeholder = params.placeholder;
+      }
+      if (params.type) {
+        (element as HTMLInputElement).type = params.type;
+      }
+      if (params.value) {
+        (element as HTMLInputElement).value = params.value;
+      }
+      break;
+    case 'label':
+      if (params.for) {
+        (element as HTMLOptionElement).setAttribute('for', params.for);
+      }
+
+      break;
+    case 'option':
+      if (params.value) {
+        (element as HTMLOptionElement).value = params.value;
+      }
+
+      break;
+    case 'img':
+      if (params.alt && params.src) {
+        (element as HTMLImageElement).src = params.src;
+        (element as HTMLImageElement).alt = params.alt;
+      }
+      break;
+    case 'a':
+      if (params.href) {
+        (element as HTMLAnchorElement).href = params.href;
+      }
+      break;
+    default:
+        element = document.createElement(params.elemTag);
+        break;
+  }
+  return element;
+}
+
+export function createElement(params: ElementParams, root: HTMLElement, callback?: Callback) {
+  const element = chooseElementToCreate(params);
 
   if (typeof params.classNames === 'string') {
     element.classList.add(params.classNames);
@@ -19,23 +64,7 @@ export function createElement(params: ElementParams, root: HTMLElement, callback
   } else if (params.listenerType && callback) {
     element.addEventListener(params.listenerType, callback);
   }
-  if (params.alt && params.src) {
-    if (element instanceof HTMLImageElement) {
-      element.alt = params.alt;
-      element.src = params.src;
-    }
-  }
-  // if (params.href) {
-  //   if (element instanceof HTMLLinkElement) {
-  //     element.href = params.href;
-  //   }
-  // }
-  if (params.type && params.placeholder && params.value)
-    if (element instanceof HTMLInputElement) {
-      element.type = params.type;
-      element.placeholder = params.placeholder;
-      element.value = params.value;
-    }
-  root.append(element);
+
+  root.appendChild(element);
   return element;
 }
