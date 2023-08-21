@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+
+.page__error {
+  flex: 1 1 auto;
+
+  .content__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 15px;
+  }
+
+  @keyframes moonShow {
+    from {
+      top: -100%;
+    }
+
+    to {
+      top: 25px;
+    }
+  }
+
+  .image__moon {
+    position: relative;
+    animation: moonShow 1s forwards;
+    width: 80%;
+    filter: drop-shadow(16px 16px 20px rgb(72, 161, 161)) invert(5%);
+
+    img {
+      position: absolute;
+      width: 100%;
+      max-height: 550px;
+      object-fit: contain;
+    }
+  }
+
+  @keyframes witchShow {
+    from {
+      top: 100%;
+      right: -100%;
+    }
+
+    to {
+      top: 10%;
+      right: 3%;
+    }
+  }
+
+  .image__witch {
+    position: relative;
+    animation: witchShow 3s forwards;
+    width: 50%;
+
+    img {
+      position: absolute;
+      width: 100%;
+      max-height: 35rem;
+      object-fit: contain;
+    }
+  }
+
+  @keyframes errorShow {
+    0% {
+      top: -100%;
+      opacity: 0;
+    }
+
+    70% {
+      top: 370px;
+      opacity: 0;
+    }
+
+    100% {
+      top: 370px;
+      opacity: 1;
+    }
+  }
+
+  .error__code {
+    position: absolute;
+    font-family: 'Rubik Wet Paint', cursive;
+    font-size: calc(40px + 70 * (100vw / 1440));
+    color: rgb(0, 0, 0);
+    text-shadow: 5px 5px #bd4030;
+    animation: errorShow 3.3s forwards;
+  }
+
+  @keyframes descriptionShow {
+    0% {
+      top: -100%;
+      opacity: 0;
+    }
+
+    70% {
+      top: 460px;
+      opacity: 0;
+    }
+
+    100% {
+      top: 460px;
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 630px) {
+    @keyframes errorShow {
+      0% {
+        top: -100%;
+        opacity: 0;
+      }
+
+      70% {
+        top: 270px;
+        opacity: 0;
+      }
+
+      100% {
+        top: 270px;
+        opacity: 1;
+      }
+    }
+    @keyframes descriptionShow {
+      0% {
+        top: -100%;
+        opacity: 0;
+      }
+
+      70% {
+        top: 320px;
+        opacity: 0;
+      }
+
+      100% {
+        top: 320px;
+        opacity: 1;
+      }
+    }
+  }
+
+  .error__description {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 25px;
+    animation: descriptionShow 3.3s forwards;
+    text-align: center;
+    padding: 15px 20px;
+    font-size: calc(20px + 15 * (100vw / 1440));
+    @media (max-width: 767px) {
+      gap: 15px;
+    }
+    span {
+      font-family: 'Rubik Wet Paint', cursive;
+      color: rgb(0, 0, 0);
+      text-shadow: 5px 5px #bd4030;
+      animation: errorShow 3.3s forwards;
+    }
+    span:hover {
+      text-shadow: 5px 5px #979191;
+    }
+  }
+}

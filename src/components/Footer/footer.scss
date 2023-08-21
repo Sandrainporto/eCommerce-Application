@@ -1,0 +1,42 @@
+@import './../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
+
+.footer {
+  box-shadow:
+    rgba(0, 0, 0, 0.16) 0px 3px 6px,
+    rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  background: $background-color-dark;
+}
+
+.footer__container {
+  @include flex(column, $gap: 3rem);
+  padding: 2rem;
+  @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
+  @extend %font-add;
+}
+
+.footer__link {
+  padding: 0.3rem 0.5rem;
+  border-radius: 8px;
+  color: $color-footer-btn;
+  border: 1px solid $color-footer-btn;
+  transition: 0.5s ease;
+
+  &:hover,
+  :focus {
+    color: $color-text-light;
+    background: #6db9b6ab;
+    border: 1px solid #30a592;
+    text-shadow:
+      0 0 5px $color-text-light,
+      0 0 10px $color-text-light;
+    box-shadow:
+      0 0 5px #008cff,
+      0 0 20px #30a592;
+  }
+}
+
+.footer__text {
+  color: $color-text-dark;
+}
