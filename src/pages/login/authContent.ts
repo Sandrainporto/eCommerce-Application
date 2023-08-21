@@ -32,7 +32,7 @@ function createFormInput(
 ): HTMLElement {
   const inputBlock = createElement(container, root);
   const inputCurrent = createElement(input, inputBlock);
-  if (listener) inputCurrent.addEventListener('change', checkForm);
+  if (listener) inputCurrent.addEventListener('input', checkForm);
 
   const inputLabel = createElement(label, inputBlock);
   const hint = createElement(FormHint, inputBlock);

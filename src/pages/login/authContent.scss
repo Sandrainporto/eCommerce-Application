@@ -55,9 +55,22 @@
   letter-spacing: 4px;
   border-radius: 10px;
   cursor: pointer;
+
   &.btn__active {
     background: rgba(31, 215, 232, 0.873);
     color: #ffffff;
+    &:hover,
+    :focus {
+      color: $color-text-light;
+      background: #6db9b6ab;
+      border: 1px solid #30a592;
+      text-shadow:
+        0 0 5px $color-text-light,
+        0 0 10px $color-text-light;
+      box-shadow:
+        0 0 5px #008cff,
+        0 0 20px #30a592;
+    }
   }
 }
 .form_hint {

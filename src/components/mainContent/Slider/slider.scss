@@ -72,10 +72,10 @@
   white-space: nowrap;
   scroll-behavior: smooth;
   transition: transform 0.5s ease-in-out;
-  
+
   @media screen and (max-width: 975px) {
-   flex: 1 1 100%;
-   width: 100%;
+    flex: 1 1 100%;
+    width: 100%;
   }
 }
 
