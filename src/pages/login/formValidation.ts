@@ -1,5 +1,6 @@
 import { passLength, upperLetters, lowerLetters, numbers } from './authTypes';
 import { returnCustomerByEmail } from '../../api/findCustomer';
+import { loginCustomer } from '../../api/loginCustomer';
 
 export function checkForm(e: Event): void {
   const input = e.target as HTMLInputElement;
@@ -71,6 +72,11 @@ export function addListnerToFormBtn(): void {
   } else {
     const hint = inputs.find((el) => el.id === 'login-pas')?.nextElementSibling?.nextElementSibling as HTMLElement;
     console.log(customer);
+    const userLogInfo = {
+      email: inputs.find((el) => el.id === 'login-email')?.value as string,
+      pas: inputs.find((el) => el.id === 'login-pas')?.value as string,
+    };
+    loginCustomer(userLogInfo, hint);
   }
 }
 
