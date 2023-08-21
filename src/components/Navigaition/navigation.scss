@@ -15,20 +15,16 @@
   gap: 25px;
 }
 
-.nav__item {
-  min-width: 10rem;
-  @include flex(column, center, center);
-  .nav__link {
-    @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
-    @extend %font-add;
-    text-transform: uppercase;
-    outline: none;
-    color: $color-link;
-    position: relative;
+.nav__link {
+  @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
+  @extend %font-add;
+  text-transform: uppercase;
+  outline: none;
+  color: $color-link;
+  position: relative;
 
-    &:hover {
-      border-bottom: 2px solid $color-link;
-    }
+  &:hover {
+    border-bottom: 2px solid $color-link;
   }
 }
 

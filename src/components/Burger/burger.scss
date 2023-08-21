@@ -4,7 +4,7 @@
   display: none;
 }
 
-@media screen and (width < 767px) {
+@media screen and (width < 810px) {
   .header__burger {
     display: block;
     position: relative;
@@ -30,7 +30,7 @@
   }
 }
 
-@media screen and (width < 767px) {
+@media screen and (width < 810px) {
   .header__nav {
     position: fixed;
     z-index: 10;
