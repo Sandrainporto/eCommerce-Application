@@ -53,6 +53,10 @@ export function checkForm(e: Event): void {
 
 export function addListnerToFormBtn(e: Event): void {
   e.preventDefault();
+  const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
+  loginBtn.innerText = 'Log Out';
+  sessionStorage.setItem('loginBtnValue', loginBtn.innerText)
+  console.log(loginBtn)
   // createCustomer()
   //   .then(({ body }) => {
   //     console.log(body.customer.id);
