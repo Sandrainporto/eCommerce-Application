@@ -36,7 +36,7 @@ const RenderPage = (): void => {
   activePage(currentWrapper);
 };
 
-const addEventListener = (): void => {
+export function addEventListener(): void {
   const links = document.querySelectorAll('a');
   links.forEach((el) => {
     if (el.id) {
@@ -50,7 +50,7 @@ const addEventListener = (): void => {
         });
     }
   });
-};
+}
 
 export const initRouter = (wrapper: HTMLElement): void => {
   currentWrapper = wrapper;
