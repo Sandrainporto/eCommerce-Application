@@ -1,7 +1,9 @@
-import { apiRoot, createApiBuilderFromCtpClient } from './createClient';
+import { ClientResponse, Customer } from '@commercetools/platform-sdk';
+import { apiRoot } from './createClient';
 import { INewUser } from '../pages/login/authTypes';
+import { redirect } from '../router/redirectToMain';
 
-const updateCustomerName = (customerID: string, fname: string, lname: string) => {
+const updateCustomerName = (customerID: string, fname: string, lname: string): Promise<ClientResponse<Customer>> => {
   return apiRoot
     .customers()
     .withId({ ID: customerID })
@@ -42,6 +44,7 @@ export const createCustomer = (info: INewUser, hint: HTMLElement): Promise<void>
           const customer = body;
           localStorage.setItem('night-customer', JSON.stringify(customer));
           console.log(customer);
+          redirect();
         })
         .catch();
     })
