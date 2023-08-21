@@ -39,13 +39,13 @@ function chooseElementToCreate(params: ElementParams): HTMLElement {
       }
       break;
     default:
-        element = document.createElement(params.elemTag);
-        break;
+      element = document.createElement(params.elemTag);
+      break;
   }
   return element;
 }
 
-export function createElement(params: ElementParams, root: HTMLElement, callback?: Callback) {
+export function createElement(params: ElementParams, root: HTMLElement, callback?: Callback): HTMLElement {
   const element = chooseElementToCreate(params);
 
   if (typeof params.classNames === 'string') {

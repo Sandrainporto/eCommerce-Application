@@ -36,7 +36,7 @@ function createNavigationLinks(root: HTMLElement): void {
     link.id = arrItem.id;
   });
   const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
-  let sessionLoginValue: string | null = sessionStorage.getItem('loginBtnValue');
+  const sessionLoginValue: string | null = sessionStorage.getItem('loginBtnValue');
   if (sessionLoginValue) {
     loginBtn.innerText = sessionLoginValue;
 
