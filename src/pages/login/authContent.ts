@@ -117,7 +117,6 @@ function createAuthForm(root: HTMLElement, id: string): HTMLElement {
   return form;
 }
 export function showAuthContent(root: HTMLElement): HTMLElement {
-  console.log(root);
   const id = root.parentElement?.id as string;
   const authContainer = createElement(AuthContainer, root);
   const form = createAuthForm(authContainer, id);

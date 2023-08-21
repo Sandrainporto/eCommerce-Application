@@ -43,6 +43,11 @@
   },
   "main": ".eslintrc.js",
   "dependencies": {
+    "@commercetools/history-sdk": "^3.5.0",
+    "@commercetools/importapi-sdk": "^4.6.2",
+    "@commercetools/ml-sdk": "^3.4.1",
+    "@commercetools/platform-sdk": "^5.0.0",
+    "@commercetools/sdk-client-v2": "^2.2.0",
     "highlight.js": "^11.8.0",
     "jest-environment-jsdom": "^29.6.2"
   },
