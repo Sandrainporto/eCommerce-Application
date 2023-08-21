@@ -1,4 +1,5 @@
 import { passLength, upperLetters, lowerLetters, numbers } from './authTypes';
+import { returnCustomerByEmail } from '../../api/findCustomer';
 
 export function checkForm(e: Event): void {
   const input = e.target as HTMLInputElement;
@@ -51,17 +52,26 @@ export function checkForm(e: Event): void {
   checkBtn();
 }
 
-export function addListnerToFormBtn(e: Event): void {
-  e.preventDefault();
-  const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
-  loginBtn.innerText = 'Log Out';
-  sessionStorage.setItem('loginBtnValue', loginBtn.innerText)
-  console.log(loginBtn)
-  // createCustomer()
-  //   .then(({ body }) => {
-  //     console.log(body.customer.id);
-  //   })
-  //   .catch(console.error);
+export function addListnerToFormBtn(): void {
+  const form = document.querySelector('.form_content') as HTMLElement;
+  const inputs = [...form.getElementsByTagName('input')];
+  const hint = inputs[inputs.length - 1].nextElementSibling?.nextElementSibling as HTMLElement;
+  let customer;
+  if (localStorage.getItem('night-customer')) customer = JSON.parse(localStorage.getItem('night-customer') as string);
+  if (inputs.length > 2) {
+    const userInfo = {
+      fname: inputs.find((el) => el.id === 'user-fname')?.value as string,
+      lname: inputs.find((el) => el.id === 'user-lname')?.value as string,
+      email: inputs.find((el) => el.id === 'login-email')?.value as string,
+      pas: inputs.find((el) => el.id === 'login-pas')?.value as string,
+    };
+    returnCustomerByEmail(userInfo, hint);
+
+    if (hint) hint.textContent = 'User created';
+  } else {
+    const hint = inputs.find((el) => el.id === 'login-pas')?.nextElementSibling?.nextElementSibling as HTMLElement;
+    console.log(customer);
+  }
 }
 
 export function checkBtn(): void {
@@ -70,12 +80,13 @@ export function checkBtn(): void {
   const inputs = [...form.getElementsByTagName('input')];
   const hints = [...form.querySelectorAll('.form_hint')];
   if (inputs.every((input) => input.value !== '') && hints.every((hint) => hint.textContent === '')) {
+    console.log('tyt');
     btn.classList.add('btn__active');
-    btn.addEventListener('click', (e: Event) => addListnerToFormBtn(e));
+    btn.addEventListener('click', addListnerToFormBtn);
     btn.removeAttribute('disabled');
   } else {
     btn.classList.contains('btn__active') ? btn.classList.remove('btn__active') : btn;
-    btn.removeEventListener('click', (e: Event) => addListnerToFormBtn(e));
+    btn.removeEventListener('click', addListnerToFormBtn);
     btn.setAttribute('disabled', 'disabled');
   }
 }

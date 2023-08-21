@@ -217,6 +217,13 @@ export enum FormHint {
   elemTag = 'div',
   classNames = 'form_hint',
 }
+
+export interface INewUser {
+  fname: string;
+  lname: string;
+  email: string;
+  pas: string;
+}
 export const specSymbol = '!@#$%^&*';
 export const passLength = 8;
 export const upperLetters = /[A-Z]/g;
