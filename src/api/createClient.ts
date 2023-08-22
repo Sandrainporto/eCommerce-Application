@@ -13,4 +13,3 @@ const getProject = () => {
 getProject().then(console.log).catch(console.error);
 
 export { createApiBuilderFromCtpClient };
-

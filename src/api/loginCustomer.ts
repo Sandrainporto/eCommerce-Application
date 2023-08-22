@@ -13,10 +13,13 @@ export function loginCustomer(loginInfo: ILoginUser, hint: HTMLElement): Promise
     .login()
     .post({ body: { email: loginInfo.email, password: loginInfo.pas } })
     .execute()
-    .then(() => {
+    .then((body) => {
       addHintText('Customer Log In', hint);
-      redirect()
-      // console.log({ body });
+     localStorage.setItem(
+        'userName',
+        `${body.body.customer.firstName} ${body.body.customer.lastName}`,
+      );
+      redirect();
     })
     .catch(() => addHintText('User not found', hint));
 }

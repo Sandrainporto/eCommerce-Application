@@ -5,12 +5,12 @@ function chooseElementToCreate(params: ElementParams): HTMLElement {
 
   switch (params.elemTag) {
     case 'input':
-      if (params.placeholder)(element as HTMLInputElement).placeholder = params.placeholder;
+      if (params.placeholder) (element as HTMLInputElement).placeholder = params.placeholder;
       if (params.type) (element as HTMLInputElement).type = params.type;
       if (params.value) (element as HTMLInputElement).value = params.value;
       break;
     case 'label':
-      if (params.for)(element as HTMLOptionElement).setAttribute('for', params.for);
+      if (params.for) (element as HTMLOptionElement).setAttribute('for', params.for);
       break;
     case 'option':
       if (params.value) (element as HTMLOptionElement).value = params.value;

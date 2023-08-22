@@ -22,7 +22,7 @@ export const returnCustomerByEmail = (userInfo: INewUser, hint: HTMLElement): Pr
         redirect();
       } else {
         // Since there can be only one Customer resource in the result, it must be the first entry of the results array. This outputs the Customer's id.
-        console.log(body.results[0].id);
+        // console.log(body.results[0].id);
         element.textContent = 'User with this email exist';
       }
     })

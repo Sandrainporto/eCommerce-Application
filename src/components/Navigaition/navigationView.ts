@@ -26,7 +26,28 @@ function addCatalogSublinks(root: HTMLLinkElement): HTMLUListElement {
   root.after(subList);
   return subList;
 }
+function showHideLoggedUser():void {
+  const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
+  const registerBtn = document.querySelector('#register') as HTMLAnchorElement;
+  const profileBtn = document.querySelector('#profile') as HTMLAnchorElement;
 
+  const loggedUserName = localStorage.getItem('userName');
+
+  if (loggedUserName) {
+    registerBtn.classList.add('hide');
+    loginBtn.classList.add('logged');
+    loginBtn.innerText = 'Log Out';
+    loginBtn.href = '/';
+    profileBtn.classList.add('name-displayed');
+    profileBtn.innerText = `Hello ${loggedUserName}`;
+  }
+
+  if (loginBtn.classList.contains('logged')) {
+    loginBtn.addEventListener('click', () => {
+      localStorage.clear();
+    });
+  }
+}
 function createNavigationLinks(root: HTMLElement): void {
   navigationLinksData.forEach((arrItem) => {
     const item = createElement(NavigationItemParam, root);
@@ -35,26 +56,13 @@ function createNavigationLinks(root: HTMLElement): void {
     link.href = arrItem.href;
     link.id = arrItem.id;
   });
-  const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
-  const sessionLoginValue: string | null = sessionStorage.getItem('loginBtnValue');
-  if (sessionLoginValue) {
-    loginBtn.innerText = sessionLoginValue;
-
-    loginBtn.addEventListener('click', () => {
-      if (sessionLoginValue && loginBtn.innerText === sessionLoginValue) {
-        loginBtn.innerText = 'none';
-        sessionStorage.setItem('loginBtnValue', 'Log In');
-      }
-    });
-  }
+  showHideLoggedUser();
 
   const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
   if (catalogeLink) {
     addCatalogSublinks(catalogeLink);
   }
 }
-//   loginBtn.innerText = 'Log Out';
-// sessionStorage.setItem('loginBtnValue', loginBtn.innerText)
 
 export default function showNavigation(root: HTMLElement): HTMLElement {
   const navBlock = createElement(NavigationBlockParam, root);

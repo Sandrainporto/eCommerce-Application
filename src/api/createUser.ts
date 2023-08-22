@@ -51,7 +51,6 @@ export const createCustomer = (info: INewUser): Promise<void> => {
         .then(() => {
           const customer = body;
           localStorage.setItem('night-customer', JSON.stringify(customer));
-          console.log(customer);
           redirect();
         })
         .catch();
