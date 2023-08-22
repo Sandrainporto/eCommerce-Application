@@ -17,7 +17,7 @@ let pageUrl = '/';
 let activePage = Routes[pageUrl];
 let currentWrapper: HTMLElement;
 
-const onNavigate = (pathname: string): void => {
+export const onNavigate = (pathname: string): void => {
   let currentUrl = window.location.origin;
   if (categoriesData.find((category) => category.href === `/${pathname}`)?.href) {
     currentUrl += `/catalog/${pathname}`;
@@ -27,7 +27,7 @@ const onNavigate = (pathname: string): void => {
   window.history.pushState({}, pathname, `${currentUrl}`);
 };
 
-const RenderPage = (): void => {
+export const RenderPage = (): void => {
   currentWrapper.innerHTML = '';
   const background = createElement(OpacityParam, currentWrapper);
   currentWrapper.prepend(background);
@@ -36,7 +36,7 @@ const RenderPage = (): void => {
   activePage(currentWrapper);
 };
 
-const addEventListener = (): void => {
+export function addEventListener(): void {
   const links = document.querySelectorAll('a');
   links.forEach((el) => {
     if (el.id) {
@@ -50,7 +50,7 @@ const addEventListener = (): void => {
         });
     }
   });
-};
+}
 
 export const initRouter = (wrapper: HTMLElement): void => {
   currentWrapper = wrapper;
