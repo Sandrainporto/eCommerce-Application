@@ -1,16 +1,14 @@
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
 import { apiRoot } from './createClient';
 import { INewUser } from '../pages/login/authTypes';
-import { redirect } from '../router/redirectToMain';
+import { redirect } from '../router/routes';
 
 const updateCustomerName = (customerID: string, fname: string, lname: string): Promise<ClientResponse<Customer>> => {
   return apiRoot
     .customers()
     .withId({ ID: customerID })
     .post({
-      // The CustomerUpdate is the object within the body
       body: {
-        // The version of a new Customer is 1. This value is incremented every time an update action is applied to the Customer. If the specified version does not match the current version, the request returns an error.
         version: 1,
         actions: [
           {
@@ -31,7 +29,6 @@ export const createCustomer = (info: INewUser, hint: HTMLElement): Promise<void>
   return apiRoot
     .customers()
     .post({
-      // The CustomerDraft is the object within the body
       body: {
         email: info.email,
         password: info.pas,
@@ -43,7 +40,6 @@ export const createCustomer = (info: INewUser, hint: HTMLElement): Promise<void>
         .then(() => {
           const customer = body;
           localStorage.setItem('night-customer', JSON.stringify(customer));
-          console.log(customer);
           redirect();
         })
         .catch();

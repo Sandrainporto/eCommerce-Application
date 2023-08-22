@@ -61,3 +61,8 @@ export const initRouter = (wrapper: HTMLElement): void => {
   RenderPage();
   addEventListener();
 };
+
+export const redirect = (): void => {
+  pageUrl = '/';
+  RenderPage();
+};

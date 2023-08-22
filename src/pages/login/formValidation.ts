@@ -1,56 +1,10 @@
-import { passLength, upperLetters, lowerLetters, numbers } from './authTypes';
 import { returnCustomerByEmail } from '../../api/findCustomer';
 
-export function checkForm(e: Event): void {
-  const input = e.target as HTMLInputElement;
-  const hint = input.nextElementSibling?.nextElementSibling as HTMLElement;
-  const text = input.value;
-  hint.textContent = text;
-  if (input.id === 'login-email') {
-    if (text.includes(' ')) {
-      hint.textContent = '';
-      hint.textContent = 'No spaces allowed';
-    } else if (!text.includes('@')) {
-      hint.textContent = '';
-      hint.textContent = 'Email must include @';
-    } else {
-      const textLastPart = text.split('@')[1];
-      const domainLeft = textLastPart.split('.')[0];
-      const domainRight = textLastPart.split('.')[1];
-      if (
-        !textLastPart.includes('.') ||
-        textLastPart.split('').filter((el) => el === '.').length > 1 ||
-        domainLeft.length < 2 ||
-        domainRight.length < 2
-      ) {
-        hint.textContent = '';
-        hint.textContent = 'Email must have domain name like "example.com"';
-      } else {
-        hint.textContent = '';
-      }
-    }
-  }
-  if (input.id === 'login-pas') {
-    if (text.includes(' ')) {
-      hint.textContent = '';
-      hint.textContent = 'No spaces allowed';
-    } else if (text.length < passLength) {
-      hint.textContent = '';
-      hint.textContent = 'Password less than 8 characters';
-    } else if (!upperLetters.test(text)) {
-      hint.textContent = '';
-      hint.textContent = 'Password must contains at least 1 capital letter';
-    } else if (!lowerLetters.test(text)) {
-      hint.textContent = '';
-      hint.textContent = 'Password must contains at least 1 lower letter';
-    } else if (!numbers.test(text)) {
-      hint.textContent = 'Password must contains at least 1 number';
-    } else {
-      hint.textContent = '';
-    }
-  }
-  checkBtn();
-}
+const specSymbol = '!@#$%^&*';
+const PASS_LENGTH = 8;
+const UPPER_LETTERS = /[A-Z]/;
+const LOWER_LETTERS = /[a-z]/;
+const NUMBERS = /[0-9]/;
 
 export function addListnerToFormBtn(): void {
   const form = document.querySelector('.form_content') as HTMLElement;
@@ -89,4 +43,59 @@ export function checkBtn(): void {
     btn.removeEventListener('click', addListnerToFormBtn);
     btn.setAttribute('disabled', 'disabled');
   }
+}
+// eslint-disable-next-line max-lines-per-function
+export function checkForm(e: Event): void {
+  const input = e.target as HTMLInputElement;
+  const hint = input.nextElementSibling?.nextElementSibling as HTMLElement;
+  const text = input.value;
+  hint.textContent = text;
+  if (input.id === 'login-email') {
+    if (text.includes(' ')) {
+      hint.textContent = '';
+      hint.textContent = 'No spaces allowed';
+    } else if (!text.includes('@')) {
+      hint.textContent = '';
+      hint.textContent = 'Email must include @';
+    } else {
+      const textLastPart = text.split('@')[1];
+      const domainLeft = textLastPart.split('.')[0];
+      const domainRight = textLastPart.split('.')[1];
+      if (
+        !textLastPart.includes('.') ||
+        textLastPart.split('').filter((el) => el === '.').length > 1 ||
+        domainLeft.length < 2 ||
+        domainRight.length < 2
+      ) {
+        hint.textContent = '';
+        hint.textContent = 'Email must have domain name like "example.com"';
+      } else {
+        hint.textContent = '';
+      }
+    }
+  }
+  if (input.id === 'login-pas') {
+    if (text.includes(' ')) {
+      hint.textContent = '';
+      hint.textContent = 'No spaces allowed';
+    } else if (text.length < PASS_LENGTH) {
+      hint.textContent = '';
+      hint.textContent = 'Password less than 8 characters';
+    } else if (!UPPER_LETTERS.test(text)) {
+      console.log('тут?');
+      hint.textContent = '';
+      hint.textContent = 'Password must contains at least 1 capital letter';
+    } else if (!LOWER_LETTERS.test(text)) {
+      console.log(text);
+      console.log(LOWER_LETTERS.test(text));
+      console.log('тут?');
+      hint.textContent = '';
+      hint.textContent = 'Password must contains at least 1 lower letter';
+    } else if (!NUMBERS.test(text)) {
+      hint.textContent = 'Password must contains at least 1 number';
+    } else {
+      hint.textContent = '';
+    }
+  }
+  checkBtn();
 }
