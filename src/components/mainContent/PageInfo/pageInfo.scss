@@ -14,11 +14,9 @@
   @include font($size: 3rem, $height: 3.6rem, $weight: 600);
   @extend %font-add;
   background-color: #2aa5a0;
-  background-image: radial-gradient(
-    circle farthest-corner at 10% 20%,
-    rgba(0, 221, 214, 1) 0%,
-    rgba(51, 102, 255, 1) 50%
-  );
+  background-image: radial-gradient(circle farthest-corner at 10% 20%,
+      rgba(0, 221, 214, 1) 0%,
+      rgba(51, 102, 255, 1) 50%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

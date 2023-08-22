@@ -30,7 +30,7 @@ const updateCustomerName = (
     .then(({ body }) => {
       const customer = body;
       localStorage.setItem('night-customer', JSON.stringify(customer));
-      // console.log(customer);
+      localStorage.setItem('reg-customer-name', JSON.stringify(`${customer.firstName} ${customer.lastName}`));
     })
     .catch();
 };
@@ -51,7 +51,6 @@ export const createCustomer = (info: INewUser): Promise<void> => {
         .then(() => {
           const customer = body;
           localStorage.setItem('night-customer', JSON.stringify(customer));
-          console.log(customer);
           redirect();
         })
         .catch();

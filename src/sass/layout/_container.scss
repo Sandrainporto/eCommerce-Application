@@ -14,9 +14,11 @@ body {
   color: $color-text-light;
   background-color: $background-color;
 }
+
 body._lock {
   overflow: hidden;
 }
+
 .wrapper {
   min-height: 100vh;
   width: 100%;
@@ -39,6 +41,7 @@ body._lock {
   cursor: pointer;
   transition: right 0.5s ease-in-out;
 }
+
 .opacity.active {
   right: 0;
 }
