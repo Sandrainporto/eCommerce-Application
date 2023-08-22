@@ -12,7 +12,7 @@ export function loginCustomer(loginInfo: ILoginUser, hint: HTMLElement): Promise
     .login()
     .post({ body: { email: loginInfo.email, password: loginInfo.pas } })
     .execute()
-    .then(({ body }) => {
+    .then(() => {
       addHintText('Customer Log In', hint);
       // console.log({ body });
     })

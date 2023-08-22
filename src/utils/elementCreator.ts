@@ -5,27 +5,15 @@ function chooseElementToCreate(params: ElementParams): HTMLElement {
 
   switch (params.elemTag) {
     case 'input':
-      if (params.placeholder) {
-        (element as HTMLInputElement).placeholder = params.placeholder;
-      }
-      if (params.type) {
-        (element as HTMLInputElement).type = params.type;
-      }
-      if (params.value) {
-        (element as HTMLInputElement).value = params.value;
-      }
+      if (params.placeholder)(element as HTMLInputElement).placeholder = params.placeholder;
+      if (params.type) (element as HTMLInputElement).type = params.type;
+      if (params.value) (element as HTMLInputElement).value = params.value;
       break;
     case 'label':
-      if (params.for) {
-        (element as HTMLOptionElement).setAttribute('for', params.for);
-      }
-
+      if (params.for)(element as HTMLOptionElement).setAttribute('for', params.for);
       break;
     case 'option':
-      if (params.value) {
-        (element as HTMLOptionElement).value = params.value;
-      }
-
+      if (params.value) (element as HTMLOptionElement).value = params.value;
       break;
     case 'img':
       if (params.alt && params.src) {
@@ -34,9 +22,7 @@ function chooseElementToCreate(params: ElementParams): HTMLElement {
       }
       break;
     case 'a':
-      if (params.href) {
-        (element as HTMLAnchorElement).href = params.href;
-      }
+      if (params.href) (element as HTMLAnchorElement).href = params.href;
       break;
     default:
       element = document.createElement(params.elemTag);
