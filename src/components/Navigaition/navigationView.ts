@@ -32,14 +32,23 @@ function showHideLoggedUser():void {
   const profileBtn = document.querySelector('#profile') as HTMLAnchorElement;
 
   const loggedUserName = localStorage.getItem('userName');
+  const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1,-2);
+  console.log(registratedUserName)
 
-  if (loggedUserName) {
+
+  if (loggedUserName || registratedUserName) {
     registerBtn.classList.add('hide');
     loginBtn.classList.add('logged');
     loginBtn.innerText = 'Log Out';
     loginBtn.href = '/';
     profileBtn.classList.add('name-displayed');
-    profileBtn.innerText = `Hello ${loggedUserName}`;
+    if(loggedUserName){
+      profileBtn.innerText = `Hello ${loggedUserName}`;
+
+    }else{
+      profileBtn.innerText = `Hello ${registratedUserName}`;
+
+    }
   }
 
   if (loginBtn.classList.contains('logged')) {
