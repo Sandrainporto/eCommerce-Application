@@ -3,7 +3,11 @@ import { apiRoot } from './createClient';
 import { INewUser } from '../pages/login/authTypes';
 import { redirect } from '../router/routes';
 
-const updateCustomerName = (customerID: string, fname: string, lname: string): Promise<ClientResponse<Customer>> => {
+const updateCustomerName = (
+  customerID: string,
+  fname: string,
+  lname: string,
+): Promise<void | ClientResponse<Customer>> => {
   return apiRoot
     .customers()
     .withId({ ID: customerID })
@@ -22,13 +26,20 @@ const updateCustomerName = (customerID: string, fname: string, lname: string): P
         ],
       },
     })
-    .execute();
+    .execute()
+    .then(({ body }) => {
+      const customer = body;
+      localStorage.setItem('night-customer', JSON.stringify(customer));
+      // console.log(customer);
+    })
+    .catch();
 };
 
-export const createCustomer = (info: INewUser, hint: HTMLElement): Promise<void> => {
+export const createCustomer = (info: INewUser): Promise<void> => {
   return apiRoot
     .customers()
     .post({
+      // The CustomerDraft is the object within the body
       body: {
         email: info.email,
         password: info.pas,
@@ -40,6 +51,7 @@ export const createCustomer = (info: INewUser, hint: HTMLElement): Promise<void>
         .then(() => {
           const customer = body;
           localStorage.setItem('night-customer', JSON.stringify(customer));
+          console.log(customer);
           redirect();
         })
         .catch();

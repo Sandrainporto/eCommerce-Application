@@ -224,8 +224,7 @@ export interface INewUser {
   email: string;
   pas: string;
 }
-export const specSymbol = '!@#$%^&*';
-export const passLength = 8;
-export const upperLetters = /[A-Z]/g;
-export const lowerLetters = /[a-z]/g;
-export const numbers = /[0-9]/g;
+export interface ILoginUser {
+  email: string;
+  pas: string;
+}

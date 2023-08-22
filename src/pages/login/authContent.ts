@@ -51,49 +51,35 @@ function createFormInput(
   const inputCurrent = createElement(input, inputBlock);
   if (listener) inputCurrent.addEventListener('input', checkForm);
 
-  const inputLabel = createElement(label, inputBlock);
-  const hint = createElement(FormHint, inputBlock);
+  createElement(label, inputBlock);
+  createElement(FormHint, inputBlock);
   return inputBlock;
 }
 function addFormContent(root: HTMLElement, id: string): HTMLElement {
   const formContent = createElement(FormContent, root);
   if (id === 'registration') {
     const infoContainer = createElement(UserInfoBlock, formContent);
-    const userName = createFormInput(InputBlock, UserFNameLabel, UserFNamelInput, infoContainer);
-    const userLastName = createFormInput(InputBlock, UserLNameLabel, UserLNamelInput, infoContainer);
+    createFormInput(InputBlock, UserFNameLabel, UserFNamelInput, infoContainer);
+    createFormInput(InputBlock, UserLNameLabel, UserLNamelInput, infoContainer);
 
-    const userDateOfBirth = createFormInput(InputBlock, UserLBirthLabel, UserLBirthlInput, formContent);
+    createFormInput(InputBlock, UserLBirthLabel, UserLBirthlInput, formContent);
 
     const addressContainer = createElement(UserAddressBlock, formContent);
 
-    const userAddressCheckbox = createFormInput(
-      InputBlock,
-      AddresslInputCheckbox,
-      AddressLabelCheckbox,
-      addressContainer,
-    );
+    createFormInput(InputBlock, AddresslInputCheckbox, AddressLabelCheckbox, addressContainer);
 
-    const userAddressCheckboxLabel = createElement(CountrySelectLabel, addressContainer);
+    createElement(CountrySelectLabel, addressContainer);
     const userAddress = createElement(CountrySelectBox, addressContainer);
-    const userAddressOptionUSA = createElement(CountryOptionUSA, userAddress);
-    const userAddressOptionBelarus = createElement(CountryOptionBelarus, userAddress);
-    const usertTown = createFormInput(InputBlock, UserLTownLabel, UserLTownlInput, addressContainer);
-    const usertStreet = createFormInput(InputBlock, UserLStreetLabel, UserLStreetlInput, addressContainer);
-    const usertPostcode = createFormInput(InputBlock, UserLPostcodeLabel, UserLPostcodelInput, addressContainer);
+    createElement(CountryOptionUSA, userAddress);
+    createElement(CountryOptionBelarus, userAddress);
+    createFormInput(InputBlock, UserLTownLabel, UserLTownlInput, addressContainer);
+    createFormInput(InputBlock, UserLStreetLabel, UserLStreetlInput, addressContainer);
+    createFormInput(InputBlock, UserLPostcodeLabel, UserLPostcodelInput, addressContainer);
 
-    const setDefAddressCheckbox = createFormInput(
-      InputBlock,
-      DefAddresslInputCheckbox,
-      DefAddressLabelCheckbox,
-      addressContainer,
-    );
+    createFormInput(InputBlock, DefAddresslInputCheckbox, DefAddressLabelCheckbox, addressContainer);
   }
-  const loginUserEmail = createFormInput(InputBlock, LoginEmailLabel, LoginEmailInput, formContent, (e: Event) =>
-    checkForm(e),
-  );
-  const loginUserPas = createFormInput(InputBlock, LoginPasLabel, LoginPaslInput, formContent, (e: Event) =>
-    checkForm(e),
-  );
+  createFormInput(InputBlock, LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
+  createFormInput(InputBlock, LoginPasLabel, LoginPaslInput, formContent, (e: Event) => checkForm(e));
   const formBtn = createElement(SubmitAuthBtn, formContent);
   formBtn.setAttribute('disabled', 'disabled');
   if (id === 'login') {
@@ -108,17 +94,17 @@ function createAuthForm(root: HTMLElement, id: string): HTMLElement {
   const form = createElement(Form, root);
   const formNav = createElement(FormNav, form);
   if (id === 'auth') {
-    const formNavLogin = createElement(FormNavLogin, formNav);
+    createElement(FormNavLogin, formNav);
   }
   if (id === 'registration') {
-    const formNavSignUp = createElement(FormNavSignUp, formNav);
+    createElement(FormNavSignUp, formNav);
   }
-  const formContent = addFormContent(form, id);
+  addFormContent(form, id);
   return form;
 }
 export function showAuthContent(root: HTMLElement): HTMLElement {
   const id = root.parentElement?.id as string;
   const authContainer = createElement(AuthContainer, root);
-  const form = createAuthForm(authContainer, id);
+  createAuthForm(authContainer, id);
   return authContainer;
 }
