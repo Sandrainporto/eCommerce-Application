@@ -1,6 +1,6 @@
 import { apiRoot } from './createClient';
 import { ILoginUser } from '../pages/login/authTypes';
-import { redirect } from '../router/redirectToMain';
+import { redirect } from '../router/routes';
 
 export function addHintText(text: string, curHint: HTMLElement): void {
   /* eslint no-param-reassign: "error" */
