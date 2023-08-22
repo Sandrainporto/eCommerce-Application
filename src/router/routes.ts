@@ -67,4 +67,5 @@ export const redirect = (): void => {
   pageUrl = '/';
   onNavigate(pageUrl);
   RenderPage();
+  addEventListener();
 };
