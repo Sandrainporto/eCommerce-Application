@@ -12,3 +12,5 @@ const getProject = () => {
 // Retrieve Project information and output the result to the log
 getProject().then(console.log).catch(console.error);
 
+export { createApiBuilderFromCtpClient };
+

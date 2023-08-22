@@ -6,3 +6,4 @@ export const redirect = (): void => {
   onNavigate(mainPage);
   RenderPage();
 };
+
