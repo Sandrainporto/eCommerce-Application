@@ -30,7 +30,7 @@ const updateCustomerName = (
     .then(({ body }) => {
       const customer = body;
       localStorage.setItem('night-customer', JSON.stringify(customer));
-      localStorage.setItem('reg-customer-name', JSON.stringify( `${customer.firstName} ${customer.lastName}`));
+      localStorage.setItem('reg-customer-name', JSON.stringify(`${customer.firstName} ${customer.lastName}`));
     })
     .catch();
 };

@@ -15,10 +15,7 @@ export function loginCustomer(loginInfo: ILoginUser, hint: HTMLElement): Promise
     .execute()
     .then((body) => {
       addHintText('Customer Log In', hint);
-     localStorage.setItem(
-        'userName',
-        `${body.body.customer.firstName} ${body.body.customer.lastName}`,
-      );
+      localStorage.setItem('userName', `${body.body.customer.firstName} ${body.body.customer.lastName}`);
       redirect();
     })
     .catch(() => addHintText('User not found', hint));

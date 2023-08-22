@@ -26,15 +26,14 @@ function addCatalogSublinks(root: HTMLLinkElement): HTMLUListElement {
   root.after(subList);
   return subList;
 }
-function showHideLoggedUser():void {
+function showHideLoggedUser(): void {
   const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
   const registerBtn = document.querySelector('#register') as HTMLAnchorElement;
   const profileBtn = document.querySelector('#profile') as HTMLAnchorElement;
 
   const loggedUserName = localStorage.getItem('userName');
-  const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1,-2);
-  console.log(registratedUserName)
-
+  const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
+  console.log(registratedUserName);
 
   if (loggedUserName || registratedUserName) {
     registerBtn.classList.add('hide');
@@ -42,12 +41,10 @@ function showHideLoggedUser():void {
     loginBtn.innerText = 'Log Out';
     loginBtn.href = '/';
     profileBtn.classList.add('name-displayed');
-    if(loggedUserName){
+    if (loggedUserName) {
       profileBtn.innerText = `Hello ${loggedUserName}`;
-
-    }else{
+    } else {
       profileBtn.innerText = `Hello ${registratedUserName}`;
-
     }
   }
 
