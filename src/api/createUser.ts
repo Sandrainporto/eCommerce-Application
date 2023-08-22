@@ -24,7 +24,36 @@ const updateCustomerName = (customerID: string, fname: string, lname: string): P
         ],
       },
     })
-    .execute();
+    .execute()
+    .then(({ body }) => {
+      const customer = body;
+      localStorage.setItem('night-customer', JSON.stringify(customer));
+      // console.log(customer);
+    })
+    .catch();
+};
+
+export const createCustomer = (info: INewUser): Promise<void> => {
+  return apiRoot
+    .customers()
+    .post({
+      // The CustomerDraft is the object within the body
+      body: {
+        email: info.email,
+        password: info.pas,
+      },
+    })
+    .execute()
+    .then(({ body }) => {
+      updateCustomerName(body.customer.id, info.fname, info.lname).then(() => {
+        const customer = body;
+        localStorage.setItem('night-customer', JSON.stringify(customer));
+        console.log(customer);
+        redirect();
+      })
+      .catch(); 
+    })
+    .catch();
 };
 
 export const createCustomer = (info: INewUser, hint: HTMLElement): Promise<void> => {
