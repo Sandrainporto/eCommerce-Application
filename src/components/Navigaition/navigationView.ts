@@ -33,7 +33,6 @@ function showHideLoggedUser(): void {
 
   const loggedUserName = localStorage.getItem('userName');
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
-  console.log(registratedUserName);
 
   if (loggedUserName || registratedUserName) {
     registerBtn.classList.add('hide');
@@ -43,7 +42,7 @@ function showHideLoggedUser(): void {
     profileBtn.classList.add('name-displayed');
     if (loggedUserName) {
       profileBtn.innerText = `Hello ${loggedUserName}`;
-    } else {
+    } if (registratedUserName)  {
       profileBtn.innerText = `Hello ${registratedUserName}`;
     }
   }
