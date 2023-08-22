@@ -21,6 +21,8 @@ export const onNavigate = (pathname: string): void => {
   let currentUrl = window.location.origin;
   if (categoriesData.find((category) => category.href === `/${pathname}`)?.href) {
     currentUrl += `/catalog/${pathname}`;
+  } else if (pathname === pageUrl) {
+    currentUrl = pathname;
   } else {
     currentUrl += `/${pathname}`;
   }
@@ -57,12 +59,12 @@ export const initRouter = (wrapper: HTMLElement): void => {
   window.onpopstate = (): void => {
     RenderPage();
   };
-
   RenderPage();
   addEventListener();
 };
 
 export const redirect = (): void => {
   pageUrl = '/';
+  onNavigate(pageUrl);
   RenderPage();
 };
