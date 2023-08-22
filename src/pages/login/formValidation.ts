@@ -1,6 +1,11 @@
-import { passLength, upperLetters, lowerLetters, numbers } from './authTypes';
 import { returnCustomerByEmail } from '../../api/findCustomer';
 import { loginCustomer } from '../../api/loginCustomer';
+
+const specSymbol = '!@#$%^&*';
+const PASS_LENGTH = 8;
+const UPPER_LETTERS = /[A-Z]/;
+const LOWER_LETTERS = /[a-z]/;
+const NUMBERS = /[0-9]/;
 
 export function addListnerToFormBtn(): void {
   const form = document.querySelector('.form_content') as HTMLElement;
@@ -53,6 +58,7 @@ function addHintContent(curHintBlock: HTMLElement, str?: string): void {
   if (str) curHintBlock.textContent = `${str}`;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export function checkForm(e: Event): void {
   const input = e.target as HTMLInputElement;
   const hint = input.nextElementSibling?.nextElementSibling as HTMLElement;
@@ -67,8 +73,12 @@ export function checkForm(e: Event): void {
       const textLastPart = text.split('@')[1];
       const domainLeft = textLastPart.split('.')[0];
       const domainRight = textLastPart.split('.')[1];
-      if (!textLastPart.includes('.') || textLastPart.split('').filter((el) => el === '.').length > 1 ||
-        domainLeft.length < 2 || domainRight.length < 2) {
+      if (
+        !textLastPart.includes('.') ||
+        textLastPart.split('').filter((el) => el === '.').length > 1 ||
+        domainLeft.length < 2 ||
+        domainRight.length < 2
+      ) {
         addHintContent(hint, 'Email must have domain name like "example.com"');
       } else {
         addHintContent(hint);
@@ -78,14 +88,14 @@ export function checkForm(e: Event): void {
   if (input.id === 'login-pas') {
     if (text.includes(' ')) {
       addHintContent(hint, 'No spaces allowed');
-    } else if (text.length < passLength) {
+    } else if (text.length < PASS_LENGTH) {
       addHintContent(hint, 'Password less than 8 characters');
-    } else if (!upperLetters.test(text)) {
+    } else if (!UPPER_LETTERS.test(text)) {
       addHintContent(hint, 'Password must contains at least 1 capital letter');
       hint.textContent = 'Password must contains at least 1 capital letter';
-    } else if (!lowerLetters.test(text)) {
+    } else if (!LOWER_LETTERS.test(text)) {
       addHintContent(hint, 'Password must contains at least 1 lower letter');
-    } else if (!numbers.test(text)) {
+    } else if (!NUMBERS.test(text)) {
       addHintContent(hint, 'Password must contains at least 1 number');
     } else {
       addHintContent(hint);
