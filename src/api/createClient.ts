@@ -5,11 +5,11 @@ import { ctpClient } from './BuildClient';
 export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({ projectKey: 'rss-nightcoders' });
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const getProject = () => {
-  return apiRoot.get().execute();
-};
+// const getProject = () => {
+//   return apiRoot.get().execute();
+// };
 
-// Retrieve Project information and output the result to the log
-getProject().then(console.log).catch(console.error);
+// // Retrieve Project information and output the result to the log
+// getProject().then(console.log).catch(console.error);
 
 export { createApiBuilderFromCtpClient };

@@ -1,4 +1,4 @@
-import showFooter from './../components/Footer/footerView';
+import showFooter from "../components/Footer/footerView";
 
 describe('showFooter', () => {
   it('should add footer link and footer text to the root element', () => {

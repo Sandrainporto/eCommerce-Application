@@ -146,3 +146,17 @@
     font-size: 1.2rem;
   }
 }
+.form_pas_block {
+  display: flex;
+  .show_pas {
+    height: 38px;
+    margin-top: 40px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: smaller;
+    padding: 3px;
+    border-radius: 5px;
+    color: rgba(31, 215, 232, 0.873);
+    border: 1px solid rgba(31, 215, 232, 0.873);
+  }
+}

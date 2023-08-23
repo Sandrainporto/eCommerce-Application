@@ -37,6 +37,8 @@ import {
   DefAddresslInputCheckbox,
   DefAddressLabelCheckbox,
   ContainerName,
+  FormPasBlock,
+  FormShowPasBtn,
 } from './authTypes';
 import { ElementParams, Callback } from '../../types/types';
 import { checkForm } from './formValidation';
@@ -73,20 +75,32 @@ function addAddressFields(root: HTMLElement, innerText: string, className: strin
   createFormInput(InputBlock, UserLPostcodeLabel, UserLPostcodelInput, addressContainer);
   return addressContainer;
 }
-function addBillingFields() {
+function addBillingFields(): void {
   const saveBillingChbox = document.querySelector('.new-user_ldefaddress-checkbox');
-  console.log(saveBillingChbox);
   if (saveBillingChbox instanceof HTMLInputElement) {
     saveBillingChbox.addEventListener('change', () => {
       const billingBlock = document.querySelector('.user-billing_block');
       if (billingBlock) {
         billingBlock.remove();
       }
-      if (saveBillingChbox.checked == false) {
+      if (saveBillingChbox.checked === false) {
         const addressContainer = document.querySelector('.user-address_block') as HTMLElement;
         addAddressFields(addressContainer, 'Billing Address', 'user-billing_block');
       }
     });
+  }
+}
+
+function showPas(event: Event): void {
+  const showPasBtn = event.target as HTMLElement;
+  const pasInput = showPasBtn.previousElementSibling?.querySelector('#login-pas') as HTMLInputElement;
+  showPasBtn.classList.toggle('pas_hidden');
+  if (pasInput.getAttribute('type') === 'text') {
+    showPasBtn.textContent = 'SHOW';
+    pasInput.setAttribute('type', 'password');
+  } else {
+    showPasBtn.textContent = 'HIDE';
+    pasInput.setAttribute('type', 'text');
   }
 }
 
@@ -105,7 +119,9 @@ function addFormContent(root: HTMLElement, id: string): HTMLElement {
     addBillingFields();
   }
   createFormInput(InputBlock, LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
-  createFormInput(InputBlock, LoginPasLabel, LoginPaslInput, formContent, (e: Event) => checkForm(e));
+  const formPasBlock = createElement(FormPasBlock, formContent);
+  createFormInput(InputBlock, LoginPasLabel, LoginPaslInput, formPasBlock, (e: Event) => checkForm(e));
+  createElement(FormShowPasBtn, formPasBlock, (e: Event) => showPas(e));
   const formBtn = createElement(SubmitAuthBtn, formContent);
   formBtn.setAttribute('disabled', 'disabled');
   if (id === 'login') {
