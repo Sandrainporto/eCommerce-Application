@@ -1,4 +1,4 @@
-@import "./../../sass/abstract/constants";
+@import './../../sass/abstract/constants';
 
 .header__burger {
   display: none;
@@ -46,7 +46,7 @@
       position: absolute;
       z-index: 5;
       bottom: 20px;
-      content: url("./../../assets/icons/cat-icon.png");
+      content: url('./../../assets/icons/cat-icon.png');
       filter: drop-shadow(0 0 0.75rem rgb(212, 208, 209));
     }
   }
