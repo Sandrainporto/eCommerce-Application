@@ -113,9 +113,8 @@ export enum UserLBirthLabel {
 
 export enum UserAddressBlock {
   elemTag = 'div',
-  classNames = 'user-address_block',
-  innerText = 'Address',
 }
+
 export enum AddresslInputCheckbox {
   elemTag = 'input',
   type = 'checkbox',
@@ -139,6 +138,9 @@ export enum CountrySelectBox {
   classNames = 'new-user_laddress-country',
   required = '',
   id = 'country-select',
+}
+export enum ContainerName {
+  elemTag = 'div',
 }
 export enum CountryOptionUSA {
   elemTag = 'option',

@@ -36,6 +36,7 @@ import {
   CountrySelectLabel,
   DefAddresslInputCheckbox,
   DefAddressLabelCheckbox,
+  ContainerName,
 } from './authTypes';
 import { ElementParams, Callback } from '../../types/types';
 import { checkForm } from './formValidation';
@@ -56,17 +57,48 @@ function createFormInput(
   const inputLabel = createElement(label, inputBlock);
   return inputBlock;
 }
+
+function addAddressFields(root: HTMLElement, innerText: string, className: string): HTMLElement {
+  const addressContainer = createElement(UserAddressBlock, root);
+  addressContainer.className = className;
+
+  const containerName = createElement(ContainerName, addressContainer);
+  containerName.innerText = innerText;
+
+  createElement(CountrySelectLabel, addressContainer);
+  const userAddress = createElement(CountrySelectBox, addressContainer);
+  createElement(CountryOptionUSA, userAddress);
+  createElement(CountryOptionBelarus, userAddress);
+  createFormInput(InputBlock, UserLTownLabel, UserLTownlInput, addressContainer);
+  createFormInput(InputBlock, UserLStreetLabel, UserLStreetlInput, addressContainer);
+  createFormInput(InputBlock, UserLPostcodeLabel, UserLPostcodelInput, addressContainer);
+  return addressContainer;
+}
+function addBillingFields(): void {
+  const saveBillingChbox = document.querySelector('.new-user_ldefaddress-checkbox');
+  console.log(saveBillingChbox);
+  if (saveBillingChbox instanceof HTMLInputElement) {
+    saveBillingChbox.addEventListener('change', () => {
+      const billingBlock = document.querySelector('.user-billing_block');
+      if (billingBlock) {
+        billingBlock.remove();
+      }
+      if (!saveBillingChbox.checked) {
+        const addressContainer = document.querySelector('.user-address_block') as HTMLElement;
+        addAddressFields(addressContainer, 'Billing Address', 'user-billing_block');
+      }
+    });
+  }
+}
+
 function addFormContent(root: HTMLElement, id: string): HTMLElement {
   const formContent = createElement(FormContent, root);
   if (id === 'registration') {
     const infoContainer = createElement(UserInfoBlock, formContent);
     createFormInput(InputBlock, UserFNameLabel, UserFNamelInput, infoContainer, (e: Event) => checkForm(e));
     createFormInput(InputBlock, UserLNameLabel, UserLNamelInput, infoContainer, (e: Event) => checkForm(e));
-
     createFormInput(InputBlock, UserLBirthLabel, UserLBirthlInput, formContent, (e: Event) => checkForm(e));
-
     const addressContainer = createElement(UserAddressBlock, formContent, (e: Event) => checkForm(e));
-
     createFormInput(InputBlock, AddresslInputCheckbox, AddressLabelCheckbox, addressContainer, (e: Event) =>
       checkForm(e),
     );
@@ -81,6 +113,10 @@ function addFormContent(root: HTMLElement, id: string): HTMLElement {
     createFormInput(InputBlock, DefAddresslInputCheckbox, DefAddressLabelCheckbox, addressContainer, (e: Event) =>
       checkForm(e),
     );
+    const addressContainer = addAddressFields(formContent, 'Address', 'user-address_block');
+    createFormInput(InputBlock, AddresslInputCheckbox, AddressLabelCheckbox, addressContainer);
+    createFormInput(InputBlock, DefAddresslInputCheckbox, DefAddressLabelCheckbox, addressContainer);
+    addBillingFields();
   }
   createFormInput(InputBlock, LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
   createFormInput(InputBlock, LoginPasLabel, LoginPaslInput, formContent, (e: Event) => checkForm(e));
