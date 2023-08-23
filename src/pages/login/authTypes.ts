@@ -228,3 +228,33 @@ export interface ILoginUser {
   email: string;
   pas: string;
 }
+
+export enum PassHints {
+  SPACE = 'No spaces allowed',
+  UPPER_LET = 'Password must contains at least 1 capital letter',
+  LOWER_LET = 'Password must contains at least 1 lower letter',
+  NUMBERS = 'Password must contains at least 1 number',
+  LENGTH = 'Password less than 8 characters',
+}
+
+export enum EmailHints {
+  SPACE = 'No spaces allowed',
+  SYMBOL = 'Email must include @',
+  DOMAIN = 'Email must have domain name like "example.com',
+}
+
+export enum NameHints {
+  SYMBOL = 'Special symbols are not allowed',
+  NUMBERS = 'This field should not contain numbers',
+  LENGTH = 'This field must not be empty',
+}
+
+export enum DateHints {
+  TO_YOUNG = 'User cannot be under 13 years old',
+}
+
+export enum PostCodesHints {
+  NUMBER = 'This field should contains only numbers',
+  SHORT = 'PostCode is to short',
+  LONG = 'PostCode is to long',
+}

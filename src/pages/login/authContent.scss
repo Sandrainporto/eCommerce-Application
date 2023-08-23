@@ -124,15 +124,15 @@
     }
   }
 
-  .form_content>.input_block {
+  .form_content > .input_block {
     width: 150px;
     margin: 5px;
   }
 
   .user-address_block {
-    .form_hint {
-      display: none;
-    }
+    // .form_hint {
+    //   display: none;
+    // }
 
     .input_block:first-child {
       align-items: center;
