@@ -125,26 +125,26 @@
   }
 
   .form_content > .input_block {
-  .form_content > .input_block {
-    width: 150px;
-    margin: 5px;
-  }
+    .form_content > .input_block {
+      width: 150px;
+      margin: 5px;
+    }
 
-  .user-address_block {
-    .input_block:first-child {
-      align-items: center;
+    .user-address_block {
+      .input_block:first-child {
+        align-items: center;
 
-      margin: 40px 10px;
+        margin: 40px 10px;
+      }
+    }
+
+    .new-user_laddress-country {
+      margin-left: 10px;
+    }
+
+    .user_ldefaddress_label-checkbox,
+    .user_laddress_label-checkbox {
+      font-size: 1.2rem;
     }
   }
-
-  .new-user_laddress-country {
-    margin-left: 10px;
-  }
-
-  .user_ldefaddress_label-checkbox,
-  .user_laddress_label-checkbox {
-    font-size: 1.2rem;
-  }
 }
-
