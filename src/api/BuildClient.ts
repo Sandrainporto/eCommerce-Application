@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import {
   ClientBuilder,
 
@@ -13,7 +13,7 @@ const scopes = ['manage_project:rss-nightcoders'];
 // Configure authMiddlewareOptions
 const authMiddlewareOptions: AuthMiddlewareOptions = {
   host: 'https://auth.europe-west1.gcp.commercetools.com',
-  projectKey: projectKey,
+  projectKey,
   credentials: {
     clientId: '4MMoDaV9VddB2-i3w6P2gSTA',
     clientSecret: '4VXxcdxv9wMXVEE_6UCbnqx6m_mPV2j4',

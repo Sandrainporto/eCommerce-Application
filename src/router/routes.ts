@@ -17,17 +17,19 @@ let pageUrl = '/';
 let activePage = Routes[pageUrl];
 let currentWrapper: HTMLElement;
 
-const onNavigate = (pathname: string): void => {
+export const onNavigate = (pathname: string): void => {
   let currentUrl = window.location.origin;
   if (categoriesData.find((category) => category.href === `/${pathname}`)?.href) {
     currentUrl += `/catalog/${pathname}`;
+  } else if (pathname === pageUrl) {
+    currentUrl = pathname;
   } else {
     currentUrl += `/${pathname}`;
   }
   window.history.pushState({}, pathname, `${currentUrl}`);
 };
 
-const RenderPage = (): void => {
+export const RenderPage = (): void => {
   currentWrapper.innerHTML = '';
   const background = createElement(OpacityParam, currentWrapper);
   currentWrapper.prepend(background);
@@ -57,7 +59,13 @@ export const initRouter = (wrapper: HTMLElement): void => {
   window.onpopstate = (): void => {
     RenderPage();
   };
+  RenderPage();
+  addEventListener();
+};
 
+export const redirect = (): void => {
+  pageUrl = '/';
+  onNavigate(pageUrl);
   RenderPage();
   addEventListener();
 };

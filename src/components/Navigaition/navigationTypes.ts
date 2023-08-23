@@ -30,18 +30,18 @@ export const navigationLinksData: NavigationLink[] = [
     id: 'catalog',
   },
   {
-    text: 'Profile',
-    href: '#',
-    id: 'profile',
-  },
-  {
     text: 'Basket',
     href: '#',
     id: 'basket',
   },
   {
+    text: 'Profile',
+    href: '#',
+    id: 'profile',
+  },
+  {
     text: 'Login',
-    href: 'test',
+    href: '#',
     id: 'login',
   },
   {

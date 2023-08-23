@@ -121,6 +121,7 @@
         opacity: 1;
       }
     }
+
     @keyframes descriptionShow {
       0% {
         top: -100%;
@@ -149,15 +150,18 @@
     text-align: center;
     padding: 15px 20px;
     font-size: calc(20px + 15 * (100vw / 1440));
+
     @media (max-width: 767px) {
       gap: 15px;
     }
+
     span {
       font-family: 'Rubik Wet Paint', cursive;
       color: rgb(0, 0, 0);
       text-shadow: 5px 5px #bd4030;
       animation: errorShow 3.3s forwards;
     }
+
     span:hover {
       text-shadow: 5px 5px #979191;
     }
