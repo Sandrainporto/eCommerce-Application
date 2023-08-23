@@ -24,7 +24,6 @@ export function addListnerToFormBtn(): void {
     if (hint) hint.textContent = 'User created';
   } else {
     const loginHint = inputs.find((el) => el.id === 'login-pas')?.nextElementSibling?.nextElementSibling as HTMLElement;
-    // console.log(customer);
     const userLogInfo = {
       email: inputs.find((el) => el.id === 'login-email')?.value as string,
       pas: inputs.find((el) => el.id === 'login-pas')?.value as string,
