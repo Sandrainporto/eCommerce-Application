@@ -41,22 +41,18 @@ function showHideLoggedUser(): void {
     profileBtn.classList.add('name-displayed');
     if (loggedUserName) {
       profileBtn.innerText = `Hello ${loggedUserName}`;
-    } 
-    if (registratedUserName)  {
+    }
+    if (registratedUserName) {
       profileBtn.innerText = `Hello ${registratedUserName}`;
     }
   }
 
   if (loginBtn.classList.contains('logged')) {
-    
     loginBtn.addEventListener('click', () => {
-      
       localStorage.clear();
-      
     });
     loginBtn.href = '/';
-    loginBtn.id ='';
-
+    loginBtn.id = '';
   }
 }
 function createNavigationLinks(root: HTMLElement): void {

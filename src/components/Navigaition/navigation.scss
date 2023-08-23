@@ -28,7 +28,7 @@
   }
 }
 
-.nav__list>li:hover .catalog__sub-list {
+.nav__list > li:hover .catalog__sub-list {
   opacity: 1;
   visibility: visible;
   pointer-events: all;
@@ -39,9 +39,11 @@
 
   .nav__sub-link:hover {
     background-color: #2aa5a0;
-    background-image: radial-gradient(circle farthest-corner at 10% 20%,
-        rgba(0, 221, 214, 1) 0%,
-        rgba(51, 102, 255, 1) 50%);
+    background-image: radial-gradient(
+      circle farthest-corner at 10% 20%,
+      rgba(0, 221, 214, 1) 0%,
+      rgba(51, 102, 255, 1) 50%
+    );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -67,7 +69,8 @@
   transition: all 0.4 ease 0s;
 }
 
-#login, .logged {
+#login,
+.logged {
   background: rgb(2, 29, 78);
   background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
   padding: 1rem 2.8rem 1rem 2.5rem;
