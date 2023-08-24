@@ -1,5 +1,4 @@
 import { EmailHints } from '../authTypes';
-import { CONSTANTS } from './constants';
 
 export const checkEmail = (email: string): string => {
   let hint: string;

@@ -36,7 +36,6 @@ import {
   CountrySelectLabel,
   DefAddresslInputCheckbox,
   DefAddressLabelCheckbox,
-  ContainerName,
 } from './authTypes';
 import { ElementParams, Callback } from '../../types/types';
 import { checkForm } from './formValidation';
@@ -64,9 +63,11 @@ function addFormContent(root: HTMLElement, id: string): HTMLElement {
     createFormInput(InputBlock, UserLNameLabel, UserLNamelInput, infoContainer, (e: Event) => checkForm(e));
     createFormInput(InputBlock, UserLBirthLabel, UserLBirthlInput, formContent, (e: Event) => checkForm(e));
     const addressContainer = createElement(UserAddressBlock, formContent, (e: Event) => checkForm(e));
+
     createFormInput(InputBlock, AddresslInputCheckbox, AddressLabelCheckbox, addressContainer, (e: Event) =>
       checkForm(e),
     );
+
     createElement(CountrySelectLabel, addressContainer, (e: Event) => checkForm(e));
     const userAddress = createElement(CountrySelectBox, addressContainer, (e: Event) => checkForm(e));
     createElement(CountryOptionUSA, userAddress, (e: Event) => checkForm(e));
@@ -79,7 +80,9 @@ function addFormContent(root: HTMLElement, id: string): HTMLElement {
     );
   }
   createFormInput(InputBlock, LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
+
   createFormInput(InputBlock, LoginPasLabel, LoginPaslInput, formContent, (e: Event) => checkForm(e));
+
   const formBtn = createElement(SubmitAuthBtn, formContent);
   formBtn.setAttribute('disabled', 'disabled');
   if (id === 'login') {

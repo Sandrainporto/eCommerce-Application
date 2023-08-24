@@ -1,5 +1,4 @@
 import { PostCodesHints } from '../authTypes';
-import { CONSTANTS } from './constants';
 
 export const checkPostCode = (props: string): string => {
   let hint: string;
