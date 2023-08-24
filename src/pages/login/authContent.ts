@@ -50,36 +50,39 @@ function createFormInput(
   const inputBlock = createElement(container, root);
   const inputCurrent = createElement(input, inputBlock);
   if (listener) inputCurrent.addEventListener('input', checkForm);
-
   createElement(label, inputBlock);
   createElement(FormHint, inputBlock);
   return inputBlock;
 }
+
 function addFormContent(root: HTMLElement, id: string): HTMLElement {
   const formContent = createElement(FormContent, root);
   if (id === 'registration') {
     const infoContainer = createElement(UserInfoBlock, formContent);
-    createFormInput(InputBlock, UserFNameLabel, UserFNamelInput, infoContainer);
-    createFormInput(InputBlock, UserLNameLabel, UserLNamelInput, infoContainer);
+    createFormInput(InputBlock, UserFNameLabel, UserFNamelInput, infoContainer, (e: Event) => checkForm(e));
+    createFormInput(InputBlock, UserLNameLabel, UserLNamelInput, infoContainer, (e: Event) => checkForm(e));
+    createFormInput(InputBlock, UserLBirthLabel, UserLBirthlInput, formContent, (e: Event) => checkForm(e));
+    const addressContainer = createElement(UserAddressBlock, formContent, (e: Event) => checkForm(e));
 
-    createFormInput(InputBlock, UserLBirthLabel, UserLBirthlInput, formContent);
+    createFormInput(InputBlock, AddresslInputCheckbox, AddressLabelCheckbox, addressContainer, (e: Event) =>
+      checkForm(e),
+    );
 
-    const addressContainer = createElement(UserAddressBlock, formContent);
-
-    createFormInput(InputBlock, AddresslInputCheckbox, AddressLabelCheckbox, addressContainer);
-
-    createElement(CountrySelectLabel, addressContainer);
-    const userAddress = createElement(CountrySelectBox, addressContainer);
-    createElement(CountryOptionUSA, userAddress);
-    createElement(CountryOptionBelarus, userAddress);
-    createFormInput(InputBlock, UserLTownLabel, UserLTownlInput, addressContainer);
-    createFormInput(InputBlock, UserLStreetLabel, UserLStreetlInput, addressContainer);
-    createFormInput(InputBlock, UserLPostcodeLabel, UserLPostcodelInput, addressContainer);
-
-    createFormInput(InputBlock, DefAddresslInputCheckbox, DefAddressLabelCheckbox, addressContainer);
+    createElement(CountrySelectLabel, addressContainer, (e: Event) => checkForm(e));
+    const userAddress = createElement(CountrySelectBox, addressContainer, (e: Event) => checkForm(e));
+    createElement(CountryOptionUSA, userAddress, (e: Event) => checkForm(e));
+    createElement(CountryOptionBelarus, userAddress, (e: Event) => checkForm(e));
+    createFormInput(InputBlock, UserLTownLabel, UserLTownlInput, addressContainer, (e: Event) => checkForm(e));
+    createFormInput(InputBlock, UserLStreetLabel, UserLStreetlInput, addressContainer, (e: Event) => checkForm(e));
+    createFormInput(InputBlock, UserLPostcodeLabel, UserLPostcodelInput, addressContainer, (e: Event) => checkForm(e));
+    createFormInput(InputBlock, DefAddresslInputCheckbox, DefAddressLabelCheckbox, addressContainer, (e: Event) =>
+      checkForm(e),
+    );
   }
   createFormInput(InputBlock, LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
+
   createFormInput(InputBlock, LoginPasLabel, LoginPaslInput, formContent, (e: Event) => checkForm(e));
+
   const formBtn = createElement(SubmitAuthBtn, formContent);
   formBtn.setAttribute('disabled', 'disabled');
   if (id === 'login') {

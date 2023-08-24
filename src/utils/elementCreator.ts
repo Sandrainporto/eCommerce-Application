@@ -2,11 +2,11 @@ import { Callback, ElementParams } from '../types/types';
 
 function chooseElementToCreate(params: ElementParams): HTMLElement {
   let element = document.createElement(params.elemTag);
-
   switch (params.elemTag) {
     case 'input':
       if (params.placeholder) (element as HTMLInputElement).placeholder = params.placeholder;
       if (params.type) (element as HTMLInputElement).type = params.type;
+      if (params.type === 'checkbox') (element as HTMLInputElement).checked = true;
       if (params.value) (element as HTMLInputElement).value = params.value;
       break;
     case 'label':
