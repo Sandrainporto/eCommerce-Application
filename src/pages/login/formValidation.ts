@@ -38,7 +38,10 @@ export function checkBtn(): void {
   const inputs = [...form.getElementsByTagName('input')];
   const hints = [...form.querySelectorAll('.form_hint')];
 
-  if (inputs.every((input) => input.value !== '') && hints.every((hint) => hint.textContent === '' || hint.textContent === ' ')) {
+  if (
+    inputs.every((input) => input.value !== '') &&
+    hints.every((hint) => hint.textContent === '' || hint.textContent === ' ')
+  ) {
     btn.classList.add('btn__active');
     btn.addEventListener('click', addListnerToFormBtn);
     btn.removeAttribute('disabled');
