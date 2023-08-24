@@ -77,7 +77,6 @@ function addAddressFields(root: HTMLElement, innerText: string, className: strin
   return addressContainer;
 }
 function addBillingFields(): void {
-function addBillingFields(): void {
   const saveBillingChbox = document.querySelector('.new-user_ldefaddress-checkbox');
   if (saveBillingChbox instanceof HTMLInputElement) {
     saveBillingChbox.addEventListener('change', () => {
@@ -85,7 +84,6 @@ function addBillingFields(): void {
       if (billingBlock) {
         billingBlock.remove();
       }
-      if (saveBillingChbox.checked === false) {
       if (saveBillingChbox.checked === false) {
         const addressContainer = document.querySelector('.user-address_block') as HTMLElement;
         addAddressFields(addressContainer, 'Billing Address', 'user-billing_block');
@@ -153,6 +151,7 @@ function createAuthForm(root: HTMLElement, id: string): HTMLElement {
   addFormContent(form, id);
   return form;
 }
+
 export function showAuthContent(root: HTMLElement): HTMLElement {
   const id = root.parentElement?.id as string;
   const authContainer = createElement(AuthContainer, root);
