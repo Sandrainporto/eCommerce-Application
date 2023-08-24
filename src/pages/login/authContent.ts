@@ -37,6 +37,8 @@ import {
   DefAddresslInputCheckbox,
   DefAddressLabelCheckbox,
   ContainerName,
+  FormPasBlock,
+  FormShowPasBtn,
 } from './authTypes';
 import { ElementParams, Callback } from '../../types/types';
 import { checkForm } from './formValidation';
@@ -90,6 +92,19 @@ function addBillingFields(): void {
   }
 }
 
+function showPas(event: Event): void {
+  const showPasBtn = event.target as HTMLElement;
+  const pasInput = showPasBtn.previousElementSibling?.querySelector('#login-pas') as HTMLInputElement;
+  showPasBtn.classList.toggle('pas_hidden');
+  if (pasInput.getAttribute('type') === 'text') {
+    showPasBtn.textContent = 'SHOW';
+    pasInput.setAttribute('type', 'password');
+  } else {
+    showPasBtn.textContent = 'HIDE';
+    pasInput.setAttribute('type', 'text');
+  }
+}
+
 function addFormContent(root: HTMLElement, id: string): HTMLElement {
   const formContent = createElement(FormContent, root);
   if (id === 'registration') {
@@ -111,9 +126,9 @@ function addFormContent(root: HTMLElement, id: string): HTMLElement {
   }
 
   createFormInput(InputBlock, LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
-
-  createFormInput(InputBlock, LoginPasLabel, LoginPaslInput, formContent, (e: Event) => checkForm(e));
-
+  const formPasBlock = createElement(FormPasBlock, formContent);
+  createFormInput(InputBlock, LoginPasLabel, LoginPaslInput, formPasBlock, (e: Event) => checkForm(e));
+  createElement(FormShowPasBtn, formPasBlock, (e: Event) => showPas(e));
   const formBtn = createElement(SubmitAuthBtn, formContent);
   formBtn.setAttribute('disabled', 'disabled');
   if (id === 'login') {
@@ -136,6 +151,7 @@ function createAuthForm(root: HTMLElement, id: string): HTMLElement {
   addFormContent(form, id);
   return form;
 }
+
 export function showAuthContent(root: HTMLElement): HTMLElement {
   const id = root.parentElement?.id as string;
   const authContainer = createElement(AuthContainer, root);

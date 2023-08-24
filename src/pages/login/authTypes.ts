@@ -232,6 +232,15 @@ export interface ILoginUser {
   email: string;
   pas: string;
 }
+export enum FormPasBlock {
+  elemTag = 'div',
+  classNames = 'form_pas_block',
+}
+export enum FormShowPasBtn {
+  elemTag = 'a',
+  classNames = 'show_pas',
+  innerText = 'HIDE',
+}
 export enum PassHints {
   SPACE = 'No spaces allowed',
   UPPER_LET = 'Password must contains at least 1 capital letter',
