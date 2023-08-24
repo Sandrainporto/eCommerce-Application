@@ -1,4 +1,4 @@
-import showLogo from "../components/Logo/logoView";
+import showLogo from '../components/Logo/logoView';
 
 describe('showLogo', () => {
   it('should add logo container, logo link, and logo image to the root element', () => {

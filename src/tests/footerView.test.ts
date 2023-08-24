@@ -1,3 +1,4 @@
+import showFooter from '../components/Footer/footerView';
 import showFooter from "../components/Footer/footerView";
 
 describe('showFooter', () => {

@@ -1,11 +1,10 @@
 import { returnCustomerByEmail } from '../../api/findCustomer';
 import { loginCustomer } from '../../api/loginCustomer';
-
-const specSymbol = '!@#$%^&*';
-const PASS_LENGTH = 8;
-const UPPER_LETTERS = /[A-Z]/;
-const LOWER_LETTERS = /[a-z]/;
-const NUMBERS = /[0-9]/;
+import { checkPassword } from './inputs/checkPassword';
+import { checkEmail } from './inputs/checkEmail';
+import { checkName as checkNameFunction } from './inputs/checkName';
+import { checkDate } from './inputs/checkDate';
+import { checkPostCode } from './inputs/checkPostCode';
 
 export function addListnerToFormBtn(): void {
   const form = document.querySelector('.form_content') as HTMLElement;
@@ -25,7 +24,6 @@ export function addListnerToFormBtn(): void {
     if (hint) hint.textContent = 'User created';
   } else {
     const loginHint = inputs.find((el) => el.id === 'login-pas')?.nextElementSibling?.nextElementSibling as HTMLElement;
-    // console.log(customer);
     const userLogInfo = {
       email: inputs.find((el) => el.id === 'login-email')?.value as string,
       pas: inputs.find((el) => el.id === 'login-pas')?.value as string,
@@ -39,7 +37,8 @@ export function checkBtn(): void {
   const btn = form.querySelector('.form_btn') as HTMLElement;
   const inputs = [...form.getElementsByTagName('input')];
   const hints = [...form.querySelectorAll('.form_hint')];
-  if (inputs.every((input) => input.value !== '') && hints.every((hint) => hint.textContent === '')) {
+
+  if (inputs.every((input) => input.value !== '') && hints.every((hint) => hint.textContent === '' || hint.textContent === ' ')) {
     btn.classList.add('btn__active');
     btn.addEventListener('click', addListnerToFormBtn);
     btn.removeAttribute('disabled');
@@ -60,46 +59,38 @@ function addHintContent(curHintBlock: HTMLElement, str?: string): void {
 
 // eslint-disable-next-line max-lines-per-function
 export function checkForm(e: Event): void {
-  const input = e.target as HTMLInputElement;
-  const hint = input.nextElementSibling?.nextElementSibling as HTMLElement;
-  const text = input.value;
-  hint.textContent = text;
-  if (input.id === 'login-email') {
-    if (text.includes(' ')) {
-      addHintContent(hint, 'No spaces allowed');
-    } else if (!text.includes('@')) {
-      addHintContent(hint, 'Email must include @');
-    } else {
-      const textLastPart = text.split('@')[1];
-      const domainLeft = textLastPart.split('.')[0];
-      const domainRight = textLastPart.split('.')[1];
-      if (
-        !textLastPart.includes('.') ||
-        textLastPart.split('').filter((el) => el === '.').length > 1 ||
-        domainLeft.length < 2 ||
-        domainRight.length < 2
-      ) {
-        addHintContent(hint, 'Email must have domain name like "example.com"');
+  const input = e.target;
+  if (input instanceof HTMLInputElement) {
+    const hint = input.nextElementSibling?.nextElementSibling as HTMLElement;
+    const text = input.value;
+    if (hint !== null) {
+      hint.textContent = text;
+      let errorMessage = ' ';
+
+      if (input.id === 'login-email') {
+        errorMessage = checkEmail(text);
+      }
+      if (input.id === 'login-pas') {
+        errorMessage = checkPassword(text);
+      }
+      if (input.id === 'user-fname' || input.id === 'user-lname') {
+        errorMessage = checkNameFunction(text);
+      }
+      if (input.id === 'user-lbirth') {
+        errorMessage = checkDate(text);
+      }
+      if (input.id === 'user-ltown') {
+        errorMessage = checkNameFunction(text);
+      }
+      if (input.id === 'user-lpostcode') {
+        errorMessage = checkPostCode(text);
+      }
+      if (errorMessage) {
+        addHintContent(hint, errorMessage);
       } else {
         addHintContent(hint);
       }
     }
+    checkBtn();
   }
-  if (input.id === 'login-pas') {
-    if (text.includes(' ')) {
-      addHintContent(hint, 'No spaces allowed');
-    } else if (text.length < PASS_LENGTH) {
-      addHintContent(hint, 'Password less than 8 characters');
-    } else if (!UPPER_LETTERS.test(text)) {
-      addHintContent(hint, 'Password must contains at least 1 capital letter');
-      hint.textContent = 'Password must contains at least 1 capital letter';
-    } else if (!LOWER_LETTERS.test(text)) {
-      addHintContent(hint, 'Password must contains at least 1 lower letter');
-    } else if (!NUMBERS.test(text)) {
-      addHintContent(hint, 'Password must contains at least 1 number');
-    } else {
-      addHintContent(hint);
-    }
-  }
-  checkBtn();
 }

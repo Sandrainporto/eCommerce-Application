@@ -67,6 +67,7 @@ export enum LoginPasLabel {
   classNames = 'login_pas_label',
   innerText = 'Password',
 }
+
 export enum UserInfoBlock {
   elemTag = 'div',
   classNames = 'user-info_block',
@@ -113,34 +114,20 @@ export enum UserLBirthLabel {
 
 export enum UserAddressBlock {
   elemTag = 'div',
+  classNames = 'user-address_block',
 }
 
-export enum AddresslInputCheckbox {
-  elemTag = 'input',
-  type = 'checkbox',
-  classNames = 'new-user_laddress-checkbox',
-  id = 'user-laddress-checkbox',
-  required = '',
-}
-export enum AddressLabelCheckbox {
-  elemTag = 'label',
-  for = 'user-laddress-checkbox',
-  classNames = 'user_laddress_label-checkbox',
-  innerText = 'Set as default address',
-}
 export enum CountrySelectLabel {
   elemTag = 'label',
   for = 'country-select',
   innerText = 'Choose the country',
+  id = 'country-label',
 }
 export enum CountrySelectBox {
   elemTag = 'select',
   classNames = 'new-user_laddress-country',
   required = '',
   id = 'country-select',
-}
-export enum ContainerName {
-  elemTag = 'div',
 }
 export enum CountryOptionUSA {
   elemTag = 'option',
@@ -154,7 +141,9 @@ export enum CountryOptionBelarus {
   value = 'Balarus',
   innerText = 'Belarus',
 }
-
+export enum ContainerName {
+  elemTag = 'div',
+}
 export enum UserLTownlInput {
   elemTag = 'input',
   type = 'text',
@@ -195,7 +184,20 @@ export enum UserLPostcodeLabel {
   classNames = 'user_lpostcode_label',
   innerText = 'Postcode',
 }
-
+export enum AddresslInputCheckbox {
+  elemTag = 'input',
+  type = 'checkbox',
+  classNames = 'new-user_laddress-checkbox',
+  id = 'user-laddress-checkbox',
+  required = '',
+}
+export enum AddressLabelCheckbox {
+  elemTag = 'label',
+  for = 'user-laddress-checkbox',
+  classNames = 'user_laddress_label-checkbox',
+  innerText = 'Set as default address',
+  value = 'chosen',
+}
 export enum DefAddresslInputCheckbox {
   elemTag = 'input',
   type = 'checkbox',
@@ -238,4 +240,33 @@ export enum FormShowPasBtn {
   elemTag = 'a',
   classNames = 'show_pas',
   innerText = 'HIDE',
+}
+export enum PassHints {
+  SPACE = 'No spaces allowed',
+  UPPER_LET = 'Password must contains at least 1 capital letter',
+  LOWER_LET = 'Password must contains at least 1 lower letter',
+  NUMBERS = 'Password must contains at least 1 number',
+  LENGTH = 'Password less than 8 characters',
+}
+
+export enum EmailHints {
+  SPACE = 'No spaces allowed',
+  SYMBOL = 'Email must include @',
+  DOMAIN = 'Email must have domain name like "example.com',
+}
+
+export enum NameHints {
+  SYMBOL = 'Special symbols are not allowed',
+  NUMBERS = 'This field should not contain numbers',
+  LENGTH = 'This field must not be empty',
+}
+
+export enum DateHints {
+  TO_YOUNG = 'User cannot be under 13 years old',
+}
+
+export enum PostCodesHints {
+  NUMBER = 'This field should contains only numbers',
+  SHORT = 'PostCode is to short',
+  LONG = 'PostCode is to long',
 }
