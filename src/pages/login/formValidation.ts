@@ -37,7 +37,8 @@ export function checkBtn(): void {
   const btn = form.querySelector('.form_btn') as HTMLElement;
   const inputs = [...form.getElementsByTagName('input')];
   const hints = [...form.querySelectorAll('.form_hint')];
-  if (inputs.every((input) => input.value !== '') && hints.every((hint) => hint.textContent === '')) {
+
+  if (inputs.every((input) => input.value !== '') && hints.every((hint) => hint.textContent === '' || hint.textContent === ' ')) {
     btn.classList.add('btn__active');
     btn.addEventListener('click', addListnerToFormBtn);
     btn.removeAttribute('disabled');
@@ -58,36 +59,38 @@ function addHintContent(curHintBlock: HTMLElement, str?: string): void {
 
 // eslint-disable-next-line max-lines-per-function
 export function checkForm(e: Event): void {
-  e.preventDefault();
-  const input = e.target as HTMLInputElement;
-  const hint = input.nextElementSibling?.nextElementSibling as HTMLElement;
-  const text = input.value;
-  hint.textContent = text;
-  let errorMessage = ' ';
+  const input = e.target;
+  if (input instanceof HTMLInputElement) {
+    const hint = input.nextElementSibling?.nextElementSibling as HTMLElement;
+    const text = input.value;
+    if (hint !== null) {
+      hint.textContent = text;
+      let errorMessage = ' ';
 
-  if (input.id === 'login-email') {
-    errorMessage = checkEmail(text);
+      if (input.id === 'login-email') {
+        errorMessage = checkEmail(text);
+      }
+      if (input.id === 'login-pas') {
+        errorMessage = checkPassword(text);
+      }
+      if (input.id === 'user-fname' || input.id === 'user-lname') {
+        errorMessage = checkNameFunction(text);
+      }
+      if (input.id === 'user-lbirth') {
+        errorMessage = checkDate(text);
+      }
+      if (input.id === 'user-ltown') {
+        errorMessage = checkNameFunction(text);
+      }
+      if (input.id === 'user-lpostcode') {
+        errorMessage = checkPostCode(text);
+      }
+      if (errorMessage) {
+        addHintContent(hint, errorMessage);
+      } else {
+        addHintContent(hint);
+      }
+    }
+    checkBtn();
   }
-  if (input.id === 'login-pas') {
-    errorMessage = checkPassword(text);
-  }
-  if (input.id === 'user-fname' || input.id === 'user-lname') {
-    errorMessage = checkNameFunction(text);
-  }
-  if (input.id === 'user-lbirth') {
-    errorMessage = checkDate(text);
-  }
-  if (input.id === 'user-ltown') {
-    errorMessage = checkNameFunction(text);
-  }
-  if (input.id === 'user-lpostcode') {
-    errorMessage = checkPostCode(text);
-  }
-  if (errorMessage) {
-    addHintContent(hint, errorMessage);
-  } else {
-    addHintContent(hint);
-  }
-
-  checkBtn();
 }

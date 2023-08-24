@@ -67,6 +67,7 @@ export enum LoginPasLabel {
   classNames = 'login_pas_label',
   innerText = 'Password',
 }
+
 export enum UserInfoBlock {
   elemTag = 'div',
   classNames = 'user-info_block',
@@ -113,34 +114,21 @@ export enum UserLBirthLabel {
 
 export enum UserAddressBlock {
   elemTag = 'div',
+  classNames = 'user-address_block',
+  innerText = 'Address',
 }
 
-export enum AddresslInputCheckbox {
-  elemTag = 'input',
-  type = 'checkbox',
-  classNames = 'new-user_laddress-checkbox',
-  id = 'user-laddress-checkbox',
-  required = '',
-}
-export enum AddressLabelCheckbox {
-  elemTag = 'label',
-  for = 'user-laddress-checkbox',
-  classNames = 'user_laddress_label-checkbox',
-  innerText = 'Set as default address',
-}
 export enum CountrySelectLabel {
   elemTag = 'label',
   for = 'country-select',
   innerText = 'Choose the country',
+  id = 'country-label',
 }
 export enum CountrySelectBox {
   elemTag = 'select',
   classNames = 'new-user_laddress-country',
   required = '',
   id = 'country-select',
-}
-export enum ContainerName {
-  elemTag = 'div',
 }
 export enum CountryOptionUSA {
   elemTag = 'option',
@@ -195,7 +183,20 @@ export enum UserLPostcodeLabel {
   classNames = 'user_lpostcode_label',
   innerText = 'Postcode',
 }
-
+export enum AddresslInputCheckbox {
+  elemTag = 'input',
+  type = 'checkbox',
+  classNames = 'new-user_laddress-checkbox',
+  id = 'user-laddress-checkbox',
+  required = '',
+}
+export enum AddressLabelCheckbox {
+  elemTag = 'label',
+  for = 'user-laddress-checkbox',
+  classNames = 'user_laddress_label-checkbox',
+  innerText = 'Set as default address',
+  value = 'chosen',
+}
 export enum DefAddresslInputCheckbox {
   elemTag = 'input',
   type = 'checkbox',
@@ -230,7 +231,6 @@ export interface ILoginUser {
   email: string;
   pas: string;
 }
-
 export enum PassHints {
   SPACE = 'No spaces allowed',
   UPPER_LET = 'Password must contains at least 1 capital letter',
