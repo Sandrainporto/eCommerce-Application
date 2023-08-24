@@ -115,7 +115,6 @@ export enum UserLBirthLabel {
 export enum UserAddressBlock {
   elemTag = 'div',
   classNames = 'user-address_block',
-  innerText = 'Address',
 }
 
 export enum CountrySelectLabel {
@@ -142,7 +141,9 @@ export enum CountryOptionBelarus {
   value = 'Balarus',
   innerText = 'Belarus',
 }
-
+export enum ContainerName {
+  elemTag = 'div',
+}
 export enum UserLTownlInput {
   elemTag = 'input',
   type = 'text',
