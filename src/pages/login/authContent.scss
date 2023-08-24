@@ -1,28 +1,12 @@
 @import '../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
 
 .form {
-  padding: 40px;
+  padding: 20px;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-
-  input {
-    width: 100%;
-    cursor: pointer;
-  }
-}
-
-.form_nav {
-  color: $color-link;
-  cursor: pointer;
-}
-
-.input_block {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  margin: 40px;
+  width: 60rem;
 
   label {
     color: rgba(31, 215, 232, 0.873);
@@ -32,19 +16,58 @@
   }
 
   input {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .user-info_block {
+    padding-top: 4.5rem;
+    .input_block {
+      width: 45%;
+    }
+  }
+
+  .user-info_block {
+    @include flex(row, center, space-around, $wrap: wrap);
+    & .input_block {
+      margin: 1rem 0;
+    }
+  }
+  .user-address_block {
+    width: 100%;
+
+    :nth-last-child(-n + 2) {
+      flex-direction: row;
+      label {
+        position: static;
+        width: 90%;
+      }
+      input {
+        width: 10%;
+      }
+    }
+  }
+
+  @media screen and (max-width: $tablet-width) {
+    width: 100%;
+  }
+}
+
+.form_nav {
+  color: $color-link;
+  cursor: pointer;
+}
+
+.input_block {
+  @include flex(column, center, center);
+  position: relative;
+  margin: 40px;
+
+  input {
     background: none;
     color: $color-link;
     padding: 4px;
     border-bottom: 1px solid $color-link;
-  }
-}
-
-.user-info_block {
-  display: flex;
-  justify-content: space-around;
-
-  & .input_block {
-    margin: 40px 5px 20px;
   }
 }
 
@@ -88,15 +111,9 @@
 
 #registration {
   .form {
-    width: 100%;
-
     input {
       width: 100%;
       cursor: pointer;
-    }
-
-    .input_block {
-      margin: 40px 10px;
     }
   }
 
@@ -106,22 +123,6 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-  }
-
-  .user-info_block {
-    display: flex;
-    justify-content: space-between;
-    max-width: 900px;
-    width: 100%;
-
-    @media screen and (width < 900px) {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .input_block {
-      flex: 0 1 50%;
-    }
   }
 
   .form_content > .input_block {
