@@ -127,7 +127,8 @@ function addAddressFields(root: HTMLElement, innerText: string, className: strin
 }
 
 const addBillingFields = (root: HTMLElement): void => {
-  const saveBillingCheckbox = document.querySelector(`${DefAddresslInputCheckbox.classNames}`);
+  const saveBillingCheckbox = document.querySelector(`.${DefAddresslInputCheckbox.classNames}`);
+  console.log(saveBillingCheckbox);
   if (saveBillingCheckbox instanceof HTMLInputElement) {
     saveBillingCheckbox.addEventListener('change', () => {
       const billingBlock = document.querySelector(`.${BillingBlock.className}`);
@@ -154,7 +155,7 @@ const showPas = (event: Event): void => {
   }
 };
 
-const addFormContent = (root: HTMLElement): void => {
+const addFormContent = (root: HTMLElement): HTMLElement => {
   const formContent = createElement(FormContent, root);
   const infoContainer = createElement(UserInfoBlock, formContent);
   for (let key in userFields) {
@@ -164,7 +165,7 @@ const addFormContent = (root: HTMLElement): void => {
   for (let key in addressCheckbox) {
     inputCreator(addressCheckbox[key].label, addressCheckbox[key].input, addressContainer, (e: Event) => checkForm(e));
   }
-  addBillingFields(formContent);
+  return formContent;
 };
 
 const LoginForm = (root: HTMLElement, id: string) => {
@@ -203,7 +204,8 @@ export function showAuthContent(root: HTMLElement): HTMLElement {
   if (contentElement) {
     const formContent = createElement(FormContent, contentElement);
     if (id === RegPageParam.id) {
-      addFormContent(formContent);
+      const root = addFormContent(formContent);
+      addBillingFields(root);
     } else {
       LoginForm(formContent, id);
     }

@@ -240,7 +240,7 @@ export enum FormPasBlock {
 }
 
 export enum BillingBlock {
-  className = '.user-billing_block',
+  className = 'user-billing_block',
   innerText = 'Billing Address',
 }
 

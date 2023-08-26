@@ -29,10 +29,12 @@
 
   .user-info_block {
     @include flex(column, center, space-around);
+    width: 100%;
     & .input_block {
       margin: 1rem 0;
     }
   }
+
   .user-address_block {
     width: 100%;
 
@@ -48,106 +50,133 @@
     }
   }
 
+  .form_hint {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 10px;
+    height: 1.5rem;
+    color: rgba(31, 215, 232, 0.873);
+    line-height: 1.5rem;
+    text-align: left;
+  }
+
+  .form_pas_block {
+    @include flex(row, center, stretch);
+    position: relative;
+    width: 100%;
+    .show_pas {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      height: 4rem;
+      text-decoration: none;
+      font-size: smaller;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      color: rgba(31, 215, 232, 0.873);
+      border: 1px solid rgba(31, 215, 232, 0.873);
+    }
+  }
+
+  .input_block {
+    @include flex(column, flex-start, center);
+    width: 100%;
+
+    input {
+      width: 100%;
+      background: none;
+      color: $color-link;
+      padding: 4px;
+      border-bottom: 1px solid $color-link;
+    }
+  }
+
+  .form_btn {
+    padding: 10px 20px;
+    color: rgba(31, 215, 232, 0.873);
+    border: 1px solid rgba(31, 215, 232, 0.873);
+    font-size: large;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &.btn__active {
+      background: rgba(31, 215, 232, 0.873);
+      color: #ffffff;
+
+      &:hover,
+      :focus {
+        color: $color-text-light;
+        background: #6db9b6ab;
+        border: 1px solid #30a592;
+        text-shadow:
+          0 0 5px $color-text-light,
+          0 0 10px $color-text-light;
+        box-shadow:
+          0 0 5px #008cff,
+          0 0 20px #30a592;
+      }
+    }
+  }
+
+  .form_content {
+    @include flex(column, $gap: 10px);
+  }
+
+  .new-user_laddress-country {
+    width: 10rem;
+  }
+
   @media screen and (max-width: $tablet-width) {
     width: 100%;
   }
 }
 
-.input_block {
-  @include flex(column, center, center);
-  position: relative;
-  margin: 40px;
+// #registration {
+//   .form_content {
+//     display: flex;
+//     width: 100%;
+//     justify-content: center;
+//     flex-direction: column;
+//     align-items: center;
+//   }
 
-  input {
-    background: none;
-    color: $color-link;
-    padding: 4px;
-    border-bottom: 1px solid $color-link;
-  }
-}
+//   .form_content > .input_block {
+//     .form_content > .input_block {
+//       width: 150px;
+//       margin: 5px;
+//     }
 
-.form_btn {
-  padding: 10px 20px;
-  color: rgba(31, 215, 232, 0.873);
-  border: 1px solid rgba(31, 215, 232, 0.873);
-  font-size: large;
-  text-transform: uppercase;
-  margin-top: 40px;
-  letter-spacing: 4px;
-  border-radius: 10px;
-  cursor: pointer;
+//     .user-address_block {
+//       .input_block:first-child {
+//         align-items: center;
 
-  &.btn__active {
-    background: rgba(31, 215, 232, 0.873);
-    color: #ffffff;
+//         margin: 40px 10px;
+//       }
+//     }
 
-    &:hover,
-    :focus {
-      color: $color-text-light;
-      background: #6db9b6ab;
-      border: 1px solid #30a592;
-      text-shadow:
-        0 0 5px $color-text-light,
-        0 0 10px $color-text-light;
-      box-shadow:
-        0 0 5px #008cff,
-        0 0 20px #30a592;
-    }
-  }
-}
+//     .new-user_laddress-country {
+//       margin-left: 10px;
+//     }
 
-.form_hint {
-  margin-top: 10px;
-  height: 50px;
-  font-size: 10px;
-  color: rgba(31, 215, 232, 0.873);
-  line-height: 15px;
-}
-
-#registration {
-  .form_content {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .form_content > .input_block {
-    .form_content > .input_block {
-      width: 150px;
-      margin: 5px;
-    }
-
-    .user-address_block {
-      .input_block:first-child {
-        align-items: center;
-
-        margin: 40px 10px;
-      }
-    }
-
-    .new-user_laddress-country {
-      margin-left: 10px;
-    }
-
-    .user_ldefaddress_label-checkbox,
-    .user_laddress_label-checkbox {
-      font-size: 1.2rem;
-    }
-  }
-}
-.form_pas_block {
-  display: flex;
-  .show_pas {
-    height: 38px;
-    margin-top: 40px;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: smaller;
-    padding: 3px;
-    border-radius: 5px;
-    color: rgba(31, 215, 232, 0.873);
-    border: 1px solid rgba(31, 215, 232, 0.873);
-  }
-}
+//     .user_ldefaddress_label-checkbox,
+//     .user_laddress_label-checkbox {
+//       font-size: 1.2rem;
+//     }
+//   }
+// }
+// .form_pas_block {
+//   display: flex;
+//   .show_pas {
+//     height: 38px;
+//     margin-top: 40px;
+//     text-decoration: none;
+//     cursor: pointer;
+//     font-size: smaller;
+//     padding: 3px;
+//     border-radius: 5px;
+//     color: rgba(31, 215, 232, 0.873);
+//     border: 1px solid rgba(31, 215, 232, 0.873);
+//   }
+// }
