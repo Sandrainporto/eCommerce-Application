@@ -40,9 +40,11 @@ import {
   ContainerName,
   FormPasBlock,
   FormShowPasBtn,
+  AuthPageParam,
 } from './authTypes';
 import { ElementParams, Callback } from '../../types/types';
 import { checkForm } from './formValidation';
+import { RegPageParam } from '../registration/regTypes';
 
 const countries = {
   USA: CountryOptionUSA,
@@ -144,7 +146,6 @@ function addFormContent(root: HTMLElement, id: string): HTMLElement {
     const addressContainer = addAddressFields(formContent, 'Address', 'user-address_block');
     inputCreator(AddresslInputCheckbox, AddressLabelCheckbox, addressContainer, (e: Event) => checkForm(e));
     inputCreator(DefAddresslInputCheckbox, DefAddressLabelCheckbox, addressContainer, (e: Event) => checkForm(e));
-    addBillingFields();
   }
 
   inputCreator(LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
@@ -161,22 +162,24 @@ function addFormContent(root: HTMLElement, id: string): HTMLElement {
   return formContent;
 }
 
-function createAuthForm(root: HTMLElement, id: string): HTMLElement {
-  const form = createElement(Form, root);
-  const formNav = createElement(FormNav, form);
-  if (id === 'auth') {
-    createElement(FormNavLogin, formNav);
-  }
-  if (id === 'registration') {
-    createElement(FormNavSignUp, formNav);
-  }
-  addFormContent(form, id);
-  return form;
-}
-
 export function showAuthContent(root: HTMLElement): HTMLElement {
   const id = root.parentElement?.id as string;
   const authContainer = createElement(AuthContainer, root);
-  createAuthForm(authContainer, id);
+  const form = createElement(Form, root);
+  const formNav = createElement(FormNav, form);
+  let contentElement: HTMLElement | undefined;
+
+  if (id === AuthPageParam.id) {
+    contentElement = createElement(FormNavSignUp, formNav);
+  }
+  if (id === RegPageParam.id) {
+    contentElement = createElement(FormNavLogin, formNav);
+  }
+
+  if (contentElement) {
+    addFormContent(contentElement, id);
+    addBillingFields();
+  }
+
   return authContainer;
 }

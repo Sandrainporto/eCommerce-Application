@@ -41,6 +41,7 @@ export enum InputBlock {
   elemTag = 'div',
   classNames = 'input_block',
 }
+
 export enum LoginEmailInput {
   elemTag = 'input',
   type = 'email',
