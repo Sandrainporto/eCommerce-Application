@@ -6,29 +6,29 @@
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-  width: 60rem;
+  width: 32rem;
+
+  .form_nav {
+    color: $color-link;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  input {
+    width: 25rem;
+    cursor: pointer;
+  }
 
   label {
     color: rgba(31, 215, 232, 0.873);
     font-size: smaller;
-    position: absolute;
-    top: -30px;
-  }
-
-  input {
+    order: -1;
     width: 100%;
-    cursor: pointer;
+    text-align: left;
   }
 
   .user-info_block {
-    padding-top: 4.5rem;
-    .input_block {
-      width: 45%;
-    }
-  }
-
-  .user-info_block {
-    @include flex(row, center, space-around, $wrap: wrap);
+    @include flex(column, center, space-around);
     & .input_block {
       margin: 1rem 0;
     }
@@ -51,11 +51,6 @@
   @media screen and (max-width: $tablet-width) {
     width: 100%;
   }
-}
-
-.form_nav {
-  color: $color-link;
-  cursor: pointer;
 }
 
 .input_block {
@@ -110,13 +105,6 @@
 }
 
 #registration {
-  .form {
-    input {
-      width: 100%;
-      cursor: pointer;
-    }
-  }
-
   .form_content {
     display: flex;
     width: 100%;

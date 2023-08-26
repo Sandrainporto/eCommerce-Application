@@ -1,5 +1,6 @@
 import './authContent.scss';
 import { createElement } from '../../utils/elementCreator';
+import { inputCreator } from '../../utils/inputCreator';
 import {
   AddressLabelCheckbox,
   AddresslInputCheckbox,
@@ -78,20 +79,6 @@ const userFields = {
   },
 };
 
-function createFormInput(
-  label: ElementParams,
-  input: ElementParams,
-  root: HTMLElement,
-  listener?: Callback,
-): HTMLElement {
-  const inputBlock = createElement(InputBlock, root);
-  const inputCurrent = createElement(input, inputBlock);
-  if (listener) inputCurrent.addEventListener('input', checkForm);
-  createElement(label, inputBlock);
-  createElement(FormHint, inputBlock);
-  return inputBlock;
-}
-
 function addAddressFields(root: HTMLElement, innerText: string, className: string): HTMLElement {
   const addressContainer = createElement(UserAddressBlock, root, (e: Event) => checkForm(e));
   addressContainer.className = className;
@@ -99,7 +86,7 @@ function addAddressFields(root: HTMLElement, innerText: string, className: strin
   const containerName = createElement(ContainerName, addressContainer);
   containerName.innerText = innerText;
 
-  const selectAddress = createFormInput(CountrySelectLabel, CountrySelectBox, addressContainer, (e: Event) =>
+  const selectAddress = inputCreator(CountrySelectLabel, CountrySelectBox, addressContainer, (e: Event) =>
     checkForm(e),
   );
 
@@ -110,7 +97,7 @@ function addAddressFields(root: HTMLElement, innerText: string, className: strin
   }
 
   for (let key in addressFields) {
-    createFormInput(addressFields[key].label, addressFields[key].input, addressContainer, (e: Event) => checkForm(e));
+    inputCreator(addressFields[key].label, addressFields[key].input, addressContainer, (e: Event) => checkForm(e));
   }
 
   return addressContainer;
@@ -151,19 +138,18 @@ function addFormContent(root: HTMLElement, id: string): HTMLElement {
     const infoContainer = createElement(UserInfoBlock, formContent);
 
     for (let key in userFields) {
-      createFormInput(userFields[key].label, userFields[key].input, infoContainer, (e: Event) => checkForm(e));
+      inputCreator(userFields[key].label, userFields[key].input, infoContainer, (e: Event) => checkForm(e));
     }
 
     const addressContainer = addAddressFields(formContent, 'Address', 'user-address_block');
-
-    createFormInput(AddresslInputCheckbox, AddressLabelCheckbox, addressContainer, (e: Event) => checkForm(e));
-    createFormInput(DefAddresslInputCheckbox, DefAddressLabelCheckbox, addressContainer, (e: Event) => checkForm(e));
+    inputCreator(AddresslInputCheckbox, AddressLabelCheckbox, addressContainer, (e: Event) => checkForm(e));
+    inputCreator(DefAddresslInputCheckbox, DefAddressLabelCheckbox, addressContainer, (e: Event) => checkForm(e));
     addBillingFields();
   }
 
-  createFormInput(LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
+  inputCreator(LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
   const formPasBlock = createElement(FormPasBlock, formContent);
-  createFormInput(LoginPasLabel, LoginPaslInput, formPasBlock, (e: Event) => checkForm(e));
+  inputCreator(LoginPasLabel, LoginPaslInput, formPasBlock, (e: Event) => checkForm(e));
   createElement(FormShowPasBtn, formPasBlock, (e: Event) => showPas(e));
   const formBtn = createElement(SubmitAuthBtn, formContent);
   formBtn.setAttribute('disabled', 'disabled');
