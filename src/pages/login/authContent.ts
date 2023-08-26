@@ -10,11 +10,9 @@ import {
   CountrySelectBox,
   Form,
   FormContent,
-  FormHint,
   FormNav,
   FormNavLogin,
   FormNavSignUp,
-  InputBlock,
   LoginEmailInput,
   LoginEmailLabel,
   LoginPasLabel,
@@ -41,6 +39,7 @@ import {
   FormPasBlock,
   FormShowPasBtn,
   AuthPageParam,
+  BillingBlock,
 } from './authTypes';
 import { ElementParams, Callback } from '../../types/types';
 import { checkForm } from './formValidation';
@@ -81,6 +80,28 @@ const userFields = {
   },
 };
 
+const loginFields = {
+  email: {
+    label: LoginEmailLabel,
+    input: LoginEmailInput,
+  },
+  pass: {
+    label: LoginPasLabel,
+    input: LoginPaslInput,
+  },
+};
+
+const addressCheckbox = {
+  default: {
+    label: AddressLabelCheckbox,
+    input: AddresslInputCheckbox,
+  },
+  shipping: {
+    label: DefAddresslInputCheckbox,
+    input: DefAddressLabelCheckbox,
+  },
+};
+
 function addAddressFields(root: HTMLElement, innerText: string, className: string): HTMLElement {
   const addressContainer = createElement(UserAddressBlock, root, (e: Event) => checkForm(e));
   addressContainer.className = className;
@@ -105,23 +126,22 @@ function addAddressFields(root: HTMLElement, innerText: string, className: strin
   return addressContainer;
 }
 
-function addBillingFields(): void {
-  const saveBillingCheckbox = document.querySelector('.new-user_ldefaddress-checkbox');
+const addBillingFields = (root: HTMLElement): void => {
+  const saveBillingCheckbox = document.querySelector(`${DefAddresslInputCheckbox.classNames}`);
   if (saveBillingCheckbox instanceof HTMLInputElement) {
     saveBillingCheckbox.addEventListener('change', () => {
-      const billingBlock = document.querySelector('.user-billing_block');
+      const billingBlock = document.querySelector(`.${BillingBlock.className}`);
       if (billingBlock) {
         billingBlock.remove();
       }
       if (saveBillingCheckbox.checked === false) {
-        const addressContainer = document.querySelector('.user-address_block') as HTMLElement;
-        addAddressFields(addressContainer, 'Billing Address', 'user-billing_block');
+        addAddressFields(root, BillingBlock.innerText, BillingBlock.className);
       }
     });
   }
-}
+};
 
-function showPas(event: Event): void {
+const showPas = (event: Event): void => {
   const button = event.target as HTMLElement;
   const input = button.previousElementSibling?.querySelector('#login-pas') as HTMLInputElement;
   button.classList.toggle('pas_hidden');
@@ -132,35 +152,39 @@ function showPas(event: Event): void {
     button.textContent = 'HIDE';
     input.setAttribute('type', 'text');
   }
-}
+};
 
-function addFormContent(root: HTMLElement, id: string): HTMLElement {
+const addFormContent = (root: HTMLElement): void => {
   const formContent = createElement(FormContent, root);
-  if (id === 'registration') {
-    const infoContainer = createElement(UserInfoBlock, formContent);
-
-    for (let key in userFields) {
-      inputCreator(userFields[key].label, userFields[key].input, infoContainer, (e: Event) => checkForm(e));
-    }
-
-    const addressContainer = addAddressFields(formContent, 'Address', 'user-address_block');
-    inputCreator(AddresslInputCheckbox, AddressLabelCheckbox, addressContainer, (e: Event) => checkForm(e));
-    inputCreator(DefAddresslInputCheckbox, DefAddressLabelCheckbox, addressContainer, (e: Event) => checkForm(e));
+  const infoContainer = createElement(UserInfoBlock, formContent);
+  for (let key in userFields) {
+    inputCreator(userFields[key].label, userFields[key].input, infoContainer, (e: Event) => checkForm(e));
   }
+  const addressContainer = addAddressFields(formContent, UserAddressBlock.innerText, UserAddressBlock.classNames);
+  for (let key in addressCheckbox) {
+    inputCreator(addressCheckbox[key].label, addressCheckbox[key].input, addressContainer, (e: Event) => checkForm(e));
+  }
+  addBillingFields(formContent);
+};
 
-  inputCreator(LoginEmailLabel, LoginEmailInput, formContent, (e: Event) => checkForm(e));
-  const formPasBlock = createElement(FormPasBlock, formContent);
-  inputCreator(LoginPasLabel, LoginPaslInput, formPasBlock, (e: Event) => checkForm(e));
-  createElement(FormShowPasBtn, formPasBlock, (e: Event) => showPas(e));
-  const formBtn = createElement(SubmitAuthBtn, formContent);
-  formBtn.setAttribute('disabled', 'disabled');
-  if (id === 'login') {
-    formBtn.classList.add('btn_auth');
+const LoginForm = (root: HTMLElement, id: string) => {
+  const emailInput = inputCreator(loginFields.email.label, loginFields.email.input, root, (e: Event) => checkForm(e));
+  const passElement = createElement(FormPasBlock, root);
+  const passInput = inputCreator(loginFields.pass.label, loginFields.pass.input, passElement, (e: Event) =>
+    checkForm(e),
+  );
+  const hideButton = createElement(FormShowPasBtn, passElement, (e: Event) => showPas(e));
+};
+
+const addSubmitButton = (root: HTMLElement, id: string) => {
+  const submitButton = createElement(SubmitAuthBtn, root);
+  submitButton.setAttribute('disabled', 'disabled');
+  if (id === AuthPageParam.id) {
+    submitButton.classList.add('btn_auth');
   } else {
-    formBtn.classList.add('btn_reg');
+    submitButton.classList.add('btn_reg');
   }
-  return formContent;
-}
+};
 
 export function showAuthContent(root: HTMLElement): HTMLElement {
   const id = root.parentElement?.id as string;
@@ -177,8 +201,13 @@ export function showAuthContent(root: HTMLElement): HTMLElement {
   }
 
   if (contentElement) {
-    addFormContent(contentElement, id);
-    addBillingFields();
+    const formContent = createElement(FormContent, contentElement);
+    if (id === RegPageParam.id) {
+      addFormContent(formContent);
+    } else {
+      LoginForm(formContent, id);
+    }
+    addSubmitButton(formContent, id);
   }
 
   return authContainer;
