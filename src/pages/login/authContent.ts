@@ -104,11 +104,6 @@ const addressCheckbox = {
   },
 };
 
-const buttonText = {
-  hide: 'HIDE',
-  show: 'SHOW',
-};
-
 function addAddressFields(root: HTMLElement, innerText: string, className: string): HTMLElement {
   const addressContainer = createElement(UserAddressBlock, root);
   addressContainer.className = className;
@@ -134,7 +129,6 @@ function addAddressFields(root: HTMLElement, innerText: string, className: strin
 
 const addBillingFields = (root: HTMLElement): void => {
   const saveBillingCheckbox = document.querySelector(`.${DefAddresslInputCheckbox.classNames}`);
-  console.log(saveBillingCheckbox);
   if (saveBillingCheckbox instanceof HTMLInputElement) {
     saveBillingCheckbox.addEventListener('change', () => {
       const billingBlock = document.querySelector(`.${BillingBlock.className}`);
