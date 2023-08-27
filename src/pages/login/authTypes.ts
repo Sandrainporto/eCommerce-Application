@@ -247,7 +247,7 @@ export enum BillingBlock {
 export enum FormShowPasBtn {
   elemTag = 'a',
   classNames = 'show_pas',
-  innerText = 'HIDE',
+  innerText = '',
 }
 export enum PassHints {
   SPACE = 'No spaces allowed',

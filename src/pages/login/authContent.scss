@@ -70,15 +70,13 @@
     width: 100%;
     .show_pas {
       position: absolute;
-      top: 0px;
+      width: 3rem;
+      height: 3rem;
+      top: 2.2rem;
       right: 0px;
-      height: 4rem;
       text-decoration: none;
       font-size: smaller;
       padding: 0.5rem;
-      border-radius: 0.5rem;
-      color: rgba(31, 215, 232, 0.873);
-      border: 1px solid rgba(31, 215, 232, 0.873);
     }
   }
 
@@ -130,6 +128,14 @@
 
   .new-user_laddress-country {
     width: 10rem;
+  }
+
+  .show_pas {
+    background: url(../../assets/icons/password/show.svg) 0 0 no-repeat;
+  }
+
+  .show_pas.pas_hidden {
+    background: url(../../assets/icons/password/hide.svg) 0 0 no-repeat;
   }
 
   ::-webkit-calendar-picker-indicator {

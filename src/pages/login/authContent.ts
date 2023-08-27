@@ -45,6 +45,7 @@ import {
 import { ElementParams, Callback } from '../../types/types';
 import { checkForm } from './formValidation';
 import { RegPageParam } from '../registration/regTypes';
+import { ButtonClass } from '../../types/htmlClasses';
 
 const countries = {
   USA: CountryOptionUSA,
@@ -103,6 +104,11 @@ const addressCheckbox = {
   },
 };
 
+const buttonText = {
+  hide: 'HIDE',
+  show: 'SHOW',
+};
+
 function addAddressFields(root: HTMLElement, innerText: string, className: string): HTMLElement {
   const addressContainer = createElement(UserAddressBlock, root);
   addressContainer.className = className;
@@ -144,13 +150,11 @@ const addBillingFields = (root: HTMLElement): void => {
 
 const showPas = (event: Event): void => {
   const button = event.target as HTMLElement;
-  const input = button.previousElementSibling?.querySelector('#login-pas') as HTMLInputElement;
-  button.classList.toggle('pas_hidden');
+  const input = button.previousElementSibling?.querySelector(`#${LoginPaslInput.id}`) as HTMLInputElement;
+  button.classList.toggle(ButtonClass.hidden);
   if (input.getAttribute('type') === 'text') {
-    button.textContent = 'SHOW';
     input.setAttribute('type', 'password');
   } else {
-    button.textContent = 'HIDE';
     input.setAttribute('type', 'text');
   }
 };
@@ -207,9 +211,8 @@ export function showAuthContent(root: HTMLElement): HTMLElement {
     if (id === RegPageParam.id) {
       const root = addFormContent(formContent);
       addBillingFields(root);
-    } else {
-      LoginForm(formContent, id);
     }
+    LoginForm(formContent, id);
     addSubmitButton(formContent, id);
   }
 
