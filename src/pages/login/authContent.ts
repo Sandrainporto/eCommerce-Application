@@ -5,6 +5,7 @@ import {
   AddressLabelCheckbox,
   AddresslInputCheckbox,
   AuthContainer,
+  FormHint,
   CountryOptionUSA,
   CountryOptionBelarus,
   CountrySelectBox,
@@ -103,17 +104,16 @@ const addressCheckbox = {
 };
 
 function addAddressFields(root: HTMLElement, innerText: string, className: string): HTMLElement {
-  const addressContainer = createElement(UserAddressBlock, root, (e: Event) => checkForm(e));
+  const addressContainer = createElement(UserAddressBlock, root);
   addressContainer.className = className;
 
   const containerName = createElement(ContainerName, addressContainer);
-  containerName.innerText = innerText;
 
   const selectAddress = inputCreator(CountrySelectLabel, CountrySelectBox, addressContainer, (e: Event) =>
     checkForm(e),
   );
 
-  const select = selectAddress.querySelector('#country-select') as HTMLElement;
+  const select = selectAddress.querySelector(`#${CountrySelectBox.id}`) as HTMLElement;
 
   for (let key in countries) {
     const country = createElement(countries[key], select, (e: Event) => checkForm(e));
@@ -163,7 +163,8 @@ const addFormContent = (root: HTMLElement): HTMLElement => {
   }
   const addressContainer = addAddressFields(formContent, UserAddressBlock.innerText, UserAddressBlock.classNames);
   for (let key in addressCheckbox) {
-    inputCreator(addressCheckbox[key].label, addressCheckbox[key].input, addressContainer, (e: Event) => checkForm(e));
+    const checkBox = inputCreator(addressCheckbox[key].label, addressCheckbox[key].input, addressContainer);
+    checkBox.querySelector(`.${FormHint.classNames}`)?.remove();
   }
   return formContent;
 };
