@@ -116,13 +116,13 @@ function addAddressFields(root: HTMLElement, innerText: string, className: strin
 
   const select = selectAddress.querySelector(`#${CountrySelectBox.id}`) as HTMLElement;
 
-  for (let key in countries) {
-    const country = createElement(countries[key], select, (e: Event) => checkForm(e));
-  }
+  Object.values(countries).forEach((el) => {
+    createElement(el, select, (e: Event) => checkForm(e));
+  });
 
-  for (let key in addressFields) {
-    inputCreator(addressFields[key].label, addressFields[key].input, addressContainer, (e: Event) => checkForm(e));
-  }
+  Object.values(addressFields).forEach((el) => {
+    inputCreator(el.label, el.input, addressContainer, (e: Event) => checkForm(e));
+  });
 
   return addressContainer;
 }
@@ -156,18 +156,18 @@ const showPas = (event: Event): void => {
 const addFormContent = (root: HTMLElement): HTMLElement => {
   const formContent = createElement(FormContent, root);
   const infoContainer = createElement(UserInfoBlock, formContent);
-  for (let key in userFields) {
-    inputCreator(userFields[key].label, userFields[key].input, infoContainer, (e: Event) => checkForm(e));
-  }
+  Object.values(userFields).forEach((el) => {
+    inputCreator(el.label, el.input, infoContainer, (e: Event) => checkForm(e));
+  });
   const addressContainer = addAddressFields(formContent, UserAddressBlock.innerText, UserAddressBlock.classNames);
-  for (let key in addressCheckbox) {
-    const checkBox = inputCreator(addressCheckbox[key].label, addressCheckbox[key].input, addressContainer);
+  Object.values(addressCheckbox).forEach((el) => {
+    const checkBox = inputCreator(el.label, el.input, addressContainer, (e: Event) => checkForm(e));
     checkBox.querySelector(`.${FormHint.classNames}`)?.remove();
-  }
+  });
   return formContent;
 };
 
-const LoginForm = (root: HTMLElement, id: string) => {
+const LoginForm = (root: HTMLElement): void => {
   const emailInput = inputCreator(loginFields.email.label, loginFields.email.input, root, (e: Event) => checkForm(e));
   const passElement = createElement(FormPasBlock, root);
   const passInput = inputCreator(loginFields.pass.label, loginFields.pass.input, passElement, (e: Event) =>
@@ -176,13 +176,13 @@ const LoginForm = (root: HTMLElement, id: string) => {
   const hideButton = createElement(FormShowPasBtn, passElement, (e: Event) => showPas(e));
 };
 
-const addSubmitButton = (root: HTMLElement, id: string) => {
+const addSubmitButton = (root: HTMLElement, id: string): void => {
   const submitButton = createElement(SubmitAuthBtn, root);
   submitButton.setAttribute('disabled', 'disabled');
   if (id === AuthPageParam.id) {
-    submitButton.classList.add('btn_auth');
+    submitButton.classList.add(ButtonClass.loginButton);
   } else {
-    submitButton.classList.add('btn_reg');
+    submitButton.classList.add(ButtonClass.regButton);
   }
 };
 
@@ -203,10 +203,10 @@ export function showAuthContent(root: HTMLElement): HTMLElement {
   if (contentElement) {
     const formContent = createElement(FormContent, contentElement);
     if (id === RegPageParam.id) {
-      const root = addFormContent(formContent);
-      addBillingFields(root);
+      const contentRoot = addFormContent(formContent);
+      addBillingFields(contentRoot);
     }
-    LoginForm(formContent, id);
+    LoginForm(formContent);
     addSubmitButton(formContent, id);
   }
 
