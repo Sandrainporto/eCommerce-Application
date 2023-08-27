@@ -194,10 +194,10 @@ export function showAuthContent(root: HTMLElement): HTMLElement {
   let contentElement: HTMLElement | undefined;
 
   if (id === AuthPageParam.id) {
-    contentElement = createElement(FormNavSignUp, formNav);
+    contentElement = createElement(FormNavLogin, formNav);
   }
   if (id === RegPageParam.id) {
-    contentElement = createElement(FormNavLogin, formNav);
+    contentElement = createElement(FormNavSignUp, formNav);
   }
 
   if (contentElement) {
