@@ -20,9 +20,8 @@ export function createSublinks(categoriesData: Category[], root: HTMLLinkElement
     const subLink = createElement(NavigationSubLinkParam, subItem) as HTMLAnchorElement;
     subLink.innerText = category.name['en-US'];
     subLink.id = `${category.key}`;
-    
-    subLink.href = `catalog/${category.key}`;
 
+    subLink.href = `${category.key}`;
 
     subList.append(subItem);
   });

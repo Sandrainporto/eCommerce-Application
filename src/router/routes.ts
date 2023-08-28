@@ -8,7 +8,7 @@ import { showRegPage } from '../pages/registration/regView';
 import showCatalogPage from '../pages/catalog/catalogView';
 
 import { categoryPathes } from '../components/Categories/categoryCard';
-console.log(categoryPathes);
+import { getCategoriesList } from '../api/getCatalog';
 
 const Routes = {
   '/': showMainPage,
@@ -22,12 +22,11 @@ let pageUrl = '/';
 let activePage = Routes[pageUrl];
 let currentWrapper: HTMLElement;
 
-export const onNavigate =  (pathname: string): void => {
+export const onNavigate = (pathname: string): void => {
   let currentUrl = window.location.origin;
 
+  console.log(categoryPathes);
   if (categoryPathes.find((category) => category.href === `/${pathname}`)?.href) {
-
-
     currentUrl += `/catalog/${pathname}`;
   } else if (pathname === pageUrl) {
     currentUrl = pathname;
@@ -46,8 +45,11 @@ export const RenderPage = (): void => {
   activePage(currentWrapper);
 };
 
-export function addEventListener(): void {
+export async function addEventListener(): Promise<void> {
+  await getCategoriesList();
+
   const links = document.querySelectorAll('a');
+
   links.forEach((el) => {
     if (el.id) {
       const pathname = el.id;

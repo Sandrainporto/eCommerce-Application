@@ -6,7 +6,7 @@ import { createElement } from '../../utils/elementCreator';
 import { ContentPageContainer } from '../error/types';
 import { CatalogListParam, CatalogPageParam } from './types';
 
-export default async function showCatalogPage(root: HTMLElement):Promise<void> {
+export default async function showCatalogPage(root: HTMLElement): Promise<void> {
   showHeader(root);
   const catalogPage = createElement(CatalogPageParam, root);
   const pageContent = createElement(ContentPageContainer, catalogPage);
@@ -14,10 +14,6 @@ export default async function showCatalogPage(root: HTMLElement):Promise<void> {
   const catalogList = createElement(CatalogListParam, pageContent);
 
   await getCategoriesList(catalogList);
-  
-  console.log(categoryPathes)
-  const links = document.querySelectorAll('a');
-console.log(links)
 
   showFooter(root);
 }

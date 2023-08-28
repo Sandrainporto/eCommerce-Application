@@ -11,7 +11,7 @@ import { ContentPageContainer } from '../../pages/error/types';
 const getPageContent = (root: HTMLElement): void => {
   showSlider(root);
   showPageInfo(root);
- getCategoriesList(root)
+  getCategoriesList(root);
 };
 
 export default function showMainContent(root: HTMLElement): void {

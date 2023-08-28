@@ -34,7 +34,7 @@ export default function createCategoriesCard(root: HTMLElement, categoriesData: 
 
     categoryPathes.push({
       text: `${categoryTitle.innerText}`,
-      href: `${category.key}`,
+      href: `/${category.key}`,
       id: `${categoryLink.id}`,
     });
   });
