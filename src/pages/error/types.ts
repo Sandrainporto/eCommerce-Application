@@ -3,7 +3,7 @@ export enum ErrorPageParam {
   classNames = 'page__error',
   id = 'error',
 }
-export enum ContentErrorPageParam {
+export enum ContentPageContainer {
   elemTag = 'div',
   classNames = 'content__container',
 }

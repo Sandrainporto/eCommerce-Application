@@ -1,3 +1,4 @@
+import { getCategoriesList } from './../../api/getCatalog';
 import './navigation.scss';
 import { createElement } from '../../utils/elementCreator';
 import {
@@ -9,23 +10,26 @@ import {
   NavigationSubLinkParam,
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
-import { categoriesData } from '../mainContent/Categories/categoriesTypes';
+import { Category } from '@commercetools/platform-sdk';
 
-function addCatalogSublinks(root: HTMLLinkElement): HTMLUListElement {
+export function createSublinks(categoriesData: Category[], root: HTMLLinkElement): HTMLUListElement {
   const subList = document.createElement('ul');
   subList.className = 'catalog__sub-list';
-
   categoriesData.forEach((category) => {
     const subItem = document.createElement('li');
-    const subLink = createElement(NavigationSubLinkParam, subItem);
-    subLink.innerText = category.text;
-    subLink.id = category.id;
+    const subLink = createElement(NavigationSubLinkParam, subItem) as HTMLAnchorElement;
+    subLink.innerText = category.name['en-US'];
+    subLink.id = `${category.key}`;
+    
+    // subLink.href = `/${category.key}`;
+
 
     subList.append(subItem);
   });
   root.after(subList);
   return subList;
 }
+
 function showHideLoggedUser(): void {
   const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
   const registerBtn = document.querySelector('#register') as HTMLAnchorElement;
@@ -64,11 +68,6 @@ function createNavigationLinks(root: HTMLElement): void {
     link.id = arrItem.id;
   });
   showHideLoggedUser();
-
-  const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
-  if (catalogeLink) {
-    addCatalogSublinks(catalogeLink);
-  }
 }
 
 export default function showNavigation(root: HTMLElement): HTMLElement {

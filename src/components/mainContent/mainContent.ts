@@ -1,26 +1,25 @@
+import { getCategoriesList } from './../../api/getCatalog';
 import './mainContent.scss';
-import { ContentMainPageParam, ElementParams } from '../../types/types';
+import { ElementParams } from '../../types/types';
 import { createElement } from '../../utils/elementCreator';
-import showCategories from './Categories/categoriesView';
 import { showSlider } from './Slider/sliderView';
 import showPageInfo from './PageInfo/pageInfoView';
 import { showAuthContent } from '../../pages/login/authContent';
+import showCatalogPage from '../../pages/catalog/catalogView';
+import { ContentPageContainer } from '../../pages/error/types';
 
 const getPageContent = (root: HTMLElement): void => {
   showSlider(root);
   showPageInfo(root);
-  showCategories(root);
+ getCategoriesList(root)
 };
 
 export default function showMainContent(root: HTMLElement): void {
-  let activePage: ElementParams;
+  let activePage: ElementParams = ContentPageContainer;
   let activePageContent: (root: HTMLElement) => void;
-
   if (root.id !== 'main') {
-    activePage = ContentMainPageParam;
     activePageContent = showAuthContent;
   } else {
-    activePage = ContentMainPageParam;
     activePageContent = getPageContent;
   }
   const pageContent = createElement(activePage, root);
