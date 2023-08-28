@@ -25,7 +25,6 @@ export enum CategoryLinkParam {
 }
 
 export interface HrefParam {
-  text: string;
   href: string;
   id: string;
 }

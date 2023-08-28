@@ -7,11 +7,15 @@ import showPageInfo from './PageInfo/pageInfoView';
 import { showAuthContent } from '../../pages/login/authContent';
 import showCatalogPage from '../../pages/catalog/catalogView';
 import { ContentPageContainer } from '../../pages/error/types';
+import showBreadcrumb from '../Breadcrumb/breadcrumbsView';
 
-const getPageContent = (root: HTMLElement): void => {
+const getPageContent = async (root: HTMLElement): Promise<void> => {
+  showBreadcrumb(root)
+
   showSlider(root);
+  await getCategoriesList(root);
   showPageInfo(root);
-  getCategoriesList(root);
+  
 };
 
 export default function showMainContent(root: HTMLElement): void {

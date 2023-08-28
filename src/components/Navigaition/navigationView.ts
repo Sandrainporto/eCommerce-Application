@@ -1,4 +1,3 @@
-import { getCategoriesList } from './../../api/getCatalog';
 import './navigation.scss';
 import { createElement } from '../../utils/elementCreator';
 import {
@@ -13,6 +12,9 @@ import showBurger from '../Burger/burgerView';
 import { Category } from '@commercetools/platform-sdk';
 
 export function createSublinks(categoriesData: Category[], root: HTMLLinkElement): HTMLUListElement {
+  let currentUrl = window.location.origin;
+
+
   const subList = document.createElement('ul');
   subList.className = 'catalog__sub-list';
   categoriesData.forEach((category) => {
@@ -21,7 +23,7 @@ export function createSublinks(categoriesData: Category[], root: HTMLLinkElement
     subLink.innerText = category.name['en-US'];
     subLink.id = `${category.key}`;
 
-    subLink.href = `${category.key}`;
+    subLink.href = `${currentUrl}/catalog/${category.key}`;
 
     subList.append(subItem);
   });
@@ -66,6 +68,16 @@ function createNavigationLinks(root: HTMLElement): void {
     link.href = arrItem.href;
     link.id = arrItem.id;
   });
+
+// getCategoriesList2()
+// .then((result) => {
+// console.log(result[0]); // доступ к результату промиса
+// // дополнительные действия с результатом
+// })
+// .catch((error) => {
+// console.error(error); // обработка ошибок
+// });
+
   showHideLoggedUser();
 }
 

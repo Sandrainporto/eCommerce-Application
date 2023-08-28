@@ -1,4 +1,4 @@
-import { Category } from '@commercetools/platform-sdk';
+import { Category, CategoryPagedQueryResponse } from '@commercetools/platform-sdk';
 import createCategoriesCard from '../components/Categories/categoryCard';
 import { apiRoot } from './createClient';
 import { createSublinks } from '../components/Navigaition/navigationView';
@@ -13,6 +13,7 @@ export const getCategoriesList = (container?: HTMLElement) => {
     })
     .execute()
     .then(({ body }) => {
+ 
       if (container)
         if (body.results.length === 0) {
           container.innerHTML = `No categories found`;
@@ -28,3 +29,20 @@ export const getCategoriesList = (container?: HTMLElement) => {
     })
     .catch(console.error);
 };
+
+
+// export const getCategoriesList2 = ():Promise<void | Category[]> => {
+//   return apiRoot
+//     .categories()
+//     .get({
+//       queryArgs: {
+//         expand: ['parent'],
+//       },
+//     })
+//     .execute()
+//     .then(({ body }) => {
+//    return body.results
+//         }
+//     )
+//     .catch(console.error);
+// };

@@ -13,6 +13,10 @@ import { Category } from '@commercetools/platform-sdk';
 export const categoryPathes: HrefParam[] = [];
 
 export default function createCategoriesCard(root: HTMLElement, categoriesData: Category[]): void {
+
+  let currentUrl = window.location.origin;
+
+
   const categoriesContainer = createElement(CategoriesContainerParam, root);
   categoriesData.forEach((category) => {
     const categoryBlock = createElement(CategoryBoxParam, categoriesContainer);
@@ -27,13 +31,12 @@ export default function createCategoriesCard(root: HTMLElement, categoriesData: 
     categoryIcon.src = `${rootToImage + category.key}.png`;
 
     const categoryLink = createElement(CategoryLinkParam, categoryBlock) as HTMLLinkElement;
-    categoryLink.href = `${category.key}`;
+    categoryLink.href = `${currentUrl}/catalog/${category.key}`;
 
     categoryLink.id = `${category.key}`;
     categoryLink.innerText = 'Show more';
 
     categoryPathes.push({
-      text: `${categoryTitle.innerText}`,
       href: `/${category.key}`,
       id: `${categoryLink.id}`,
     });

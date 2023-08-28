@@ -1,5 +1,5 @@
-import { categoryPathes } from './../../components/Categories/categoryCard';
 import { getCategoriesList } from '../../api/getCatalog';
+import showBreadcrumb from '../../components/Breadcrumb/breadcrumbsView';
 import showFooter from '../../components/Footer/footerView';
 import showHeader from '../../components/Header/headerView';
 import { createElement } from '../../utils/elementCreator';
@@ -10,6 +10,7 @@ export default async function showCatalogPage(root: HTMLElement): Promise<void> 
   showHeader(root);
   const catalogPage = createElement(CatalogPageParam, root);
   const pageContent = createElement(ContentPageContainer, catalogPage);
+
 
   const catalogList = createElement(CatalogListParam, pageContent);
 

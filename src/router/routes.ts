@@ -24,8 +24,6 @@ let currentWrapper: HTMLElement;
 
 export const onNavigate = (pathname: string): void => {
   let currentUrl = window.location.origin;
-
-  console.log(categoryPathes);
   if (categoryPathes.find((category) => category.href === `/${pathname}`)?.href) {
     currentUrl += `/catalog/${pathname}`;
   } else if (pathname === pageUrl) {
