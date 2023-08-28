@@ -21,7 +21,7 @@ export function createSublinks(categoriesData: Category[], root: HTMLLinkElement
     subLink.innerText = category.name['en-US'];
     subLink.id = `${category.key}`;
     
-    // subLink.href = `/${category.key}`;
+    subLink.href = `catalog/${category.key}`;
 
 
     subList.append(subItem);

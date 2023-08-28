@@ -27,14 +27,14 @@ export default function createCategoriesCard(root: HTMLElement, categoriesData: 
     categoryIcon.src = `${rootToImage + category.key}.png`;
 
     const categoryLink = createElement(CategoryLinkParam, categoryBlock) as HTMLLinkElement;
-    categoryLink.href = `/${category.key}`;
+    categoryLink.href = `${category.key}`;
 
     categoryLink.id = `${category.key}`;
     categoryLink.innerText = 'Show more';
 
     categoryPathes.push({
       text: `${categoryTitle.innerText}`,
-      href: `/${categoryLink.href}`,
+      href: `${category.key}`,
       id: `${categoryLink.id}`,
     });
   });
