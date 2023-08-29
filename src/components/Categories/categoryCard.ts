@@ -13,10 +13,12 @@ import {
 import { getCategoriesList } from '../../api/getCatalog';
 
 export const categoryPathes: HrefParam[] = [];
+let categoriesData: void | Category[];
 
-export default async function createCategoriesCard(root: HTMLElement): Promise<HTMLElement> {
+export default async function createCategoriesCard(root: HTMLElement, data: void | Category[]): Promise<HTMLElement> {
   const currentUrl = window.location.origin;
-  const categoriesData: void | Category[] = await getCategoriesList();
+  categoriesData = data;
+  console.log(categoriesData);
 
   const categoriesContainer = createElement(CategoriesContainerParam, root);
   if (categoriesData)

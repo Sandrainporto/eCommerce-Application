@@ -12,6 +12,8 @@ import {
 import showBurger from '../Burger/burgerView';
 import { getCategoriesList } from '../../api/getCatalog';
 
+let categoryData: void | Category[];
+
 export function createSublinks(categoriesData: void | Category[], root: HTMLLinkElement): HTMLUListElement {
   const currentUrl = window.location.origin;
 
@@ -73,13 +75,13 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
   showHideLoggedUser();
   const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
   if (catalogeLink) {
-    const categotyData: void | Category[] = await getCategoriesList();
-
-    createSublinks(categotyData, catalogeLink);
+    createSublinks(categoryData, catalogeLink);
   }
 }
 
-export default function showNavigation(root: HTMLElement): HTMLElement {
+export default function showNavigation(root: HTMLElement, data: void | Category[]): HTMLElement {
+  categoryData = data;
+
   const navBlock = createElement(NavigationBlockParam, root);
 
   const navList = createElement(NavigationListParam, navBlock);
