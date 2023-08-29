@@ -1,15 +1,11 @@
 import showMainPage from '../pages/main/mainView';
 import showErrorPage from '../pages/error/error';
-// import { categoriesData } from '../api/getCatalog';
 import { OpacityParam } from '../types/types';
 import { createElement } from '../utils/elementCreator';
 import { showAuthPage } from '../pages/login/authView';
 import { showRegPage } from '../pages/registration/regView';
 import showCatalogPage from '../pages/catalog/catalogView';
-
 import { categoryPathes } from '../components/Categories/categoryCard';
-import { getCategoriesList } from '../api/getCatalog';
-import { Category } from '@commercetools/platform-sdk';
 
 const Routes = {
   '/': showMainPage,

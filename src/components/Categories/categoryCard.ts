@@ -1,4 +1,5 @@
 import './categoryCard.scss';
+import { Category } from '@commercetools/platform-sdk';
 import { createElement } from '../../utils/elementCreator';
 import {
   CategoriesContainerParam,
@@ -9,12 +10,12 @@ import {
   CategoryTitleParam,
   HrefParam,
 } from './categoryCardTypes';
-import { Category } from '@commercetools/platform-sdk';
 import { getCategoriesList } from '../../api/getCatalog';
+
 export const categoryPathes: HrefParam[] = [];
 
 export default async function createCategoriesCard(root: HTMLElement): Promise<HTMLElement> {
-  let currentUrl = window.location.origin;
+  const currentUrl = window.location.origin;
   const categoriesData: void | Category[] = await getCategoriesList();
 
   const categoriesContainer = createElement(CategoriesContainerParam, root);

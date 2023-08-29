@@ -1,5 +1,3 @@
-import { getCategoriesList } from '../../api/getCatalog';
-import showBreadcrumb from '../../components/Breadcrumb/breadcrumbsView';
 import createCategoriesCard from '../../components/Categories/categoryCard';
 import showFooter from '../../components/Footer/footerView';
 import showHeader from '../../components/Header/headerView';

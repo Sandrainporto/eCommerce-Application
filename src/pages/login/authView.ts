@@ -4,12 +4,10 @@ import showHeader from '../../components/Header/headerView';
 import showMainContent from '../../components/mainContent/mainContent';
 import { AuthPageParam } from './authTypes';
 import { createElement } from '../../utils/elementCreator';
-import { Category } from '@commercetools/platform-sdk';
 
-export function showAuthPage(root: HTMLElement, categoryData: void | Category[]): void {
+export function showAuthPage(root: HTMLElement): void {
   showHeader(root);
   const mainPage = createElement(AuthPageParam, root);
   showMainContent(mainPage);
-  // console.log(categoryData)
   showFooter(root);
 }

@@ -1,4 +1,5 @@
 import './navigation.scss';
+import { Category } from '@commercetools/platform-sdk';
 import { createElement } from '../../utils/elementCreator';
 import {
   NavigationItemParam,
@@ -9,11 +10,10 @@ import {
   NavigationSubLinkParam,
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
-import { Category } from '@commercetools/platform-sdk';
 import { getCategoriesList } from '../../api/getCatalog';
 
 export function createSublinks(categoriesData: void | Category[], root: HTMLLinkElement): HTMLUListElement {
-  let currentUrl = window.location.origin;
+  const currentUrl = window.location.origin;
 
   const subList = document.createElement('ul');
   subList.className = 'catalog__sub-list';

@@ -1,4 +1,4 @@
-@import './../../sass//abstract/mixins';
+@import './../../sass/abstract/mixins';
 
 .content__container {
   @include flex(column, center, center, 12rem);
