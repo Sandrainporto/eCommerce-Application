@@ -1,8 +1,12 @@
 import { WrapperParam } from '../types/types';
 import { createElement } from '../utils/elementCreator';
 import { initRouter } from '../router/routes';
+import { getCategoriesList } from '../api/getCatalog';
+import { Category } from '@commercetools/platform-sdk';
 
-export default function showApplication(): void {
+export default async function showApplication(): Promise<void> {
   const wrapper = createElement(WrapperParam, document.body);
-  initRouter(wrapper);
+  const categotyData: void | Category[] = await getCategoriesList()
+  initRouter(wrapper, categotyData);
+
 }

@@ -12,7 +12,7 @@ import {
 import { Category } from '@commercetools/platform-sdk';
 export const categoryPathes: HrefParam[] = [];
 
-export default function createCategoriesCard(root: HTMLElement, categoriesData: Category[]): void {
+export default function createCategoriesCard(root: HTMLElement, categoriesData: Category[]):HTMLElement {
 
   let currentUrl = window.location.origin;
 
@@ -41,4 +41,5 @@ export default function createCategoriesCard(root: HTMLElement, categoriesData: 
       id: `${categoryLink.id}`,
     });
   });
+  return categoriesContainer
 }
