@@ -1,5 +1,5 @@
 export enum ErrorPageParam {
-  elemTag = 'div',
+  elemTag = 'main',
   classNames = 'page__error',
   id = 'error',
 }

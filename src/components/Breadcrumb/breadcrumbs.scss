@@ -1,0 +1,37 @@
+@import './../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
+
+.breadcrumb__container {
+  font-size: 1.6rem;
+  width: 100%;
+  padding: 10px 40px;
+}
+
+.breadcrumb__list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+
+  .breadcrumb__link {
+    color: $color-text-dark;
+
+    &:last-child {
+      font-weight: 600;
+      color: $color-violet;
+      pointer-events: none;
+    }
+
+    &::after {
+      content: '>';
+      display: inline-block;
+      margin: 0px 5px;
+      position: relative;
+      top: 1.7px;
+    }
+
+    &:hover {
+      @include linkHover;
+    }
+  }
+}
