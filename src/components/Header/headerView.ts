@@ -5,10 +5,10 @@ import { createElement } from '../../utils/elementCreator';
 import showLogo from '../Logo/logoView';
 import showNavigation from '../Navigaition/navigationView';
 
-export default function showHeader(root: HTMLElement, categoryData: void | Category[]): void {
+export default function showHeader(root: HTMLElement): void {
   const header = createElement(HeaderParam, root);
   const headerContainer = createElement(HeaderContainerParam, header);
-  console.log(categoryData)
+
   showLogo(headerContainer);
   showNavigation(headerContainer);
 }

@@ -8,14 +8,14 @@ import { showAuthContent } from '../../pages/login/authContent';
 import showCatalogPage from '../../pages/catalog/catalogView';
 import { ContentPageContainer } from '../../pages/error/types';
 import showBreadcrumb from '../Breadcrumb/breadcrumbsView';
+import createCategoriesCard from '../Categories/categoryCard';
 
 const getPageContent = async (root: HTMLElement): Promise<void> => {
-  showBreadcrumb(root)
+  showBreadcrumb(root);
 
   showSlider(root);
-  await getCategoriesList(root);
+  createCategoriesCard(root);
   showPageInfo(root);
-  
 };
 
 export default function showMainContent(root: HTMLElement): void {

@@ -10,23 +10,24 @@ import {
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
 import { Category } from '@commercetools/platform-sdk';
+import { getCategoriesList } from '../../api/getCatalog';
 
-export function createSublinks(categoriesData: Category[], root: HTMLLinkElement): HTMLUListElement {
+export function createSublinks(categoriesData: void | Category[], root: HTMLLinkElement): HTMLUListElement {
   let currentUrl = window.location.origin;
-
 
   const subList = document.createElement('ul');
   subList.className = 'catalog__sub-list';
-  categoriesData.forEach((category) => {
-    const subItem = document.createElement('li');
-    const subLink = createElement(NavigationSubLinkParam, subItem) as HTMLAnchorElement;
-    subLink.innerText = category.name['en-US'];
-    subLink.id = `${category.key}`;
+  if (categoriesData)
+    categoriesData.forEach((category) => {
+      const subItem = document.createElement('li');
+      const subLink = createElement(NavigationSubLinkParam, subItem) as HTMLAnchorElement;
+      subLink.innerText = category.name['en-US'];
+      subLink.id = `${category.key}`;
 
-    subLink.href = `${currentUrl}/catalog/${category.key}`;
+      subLink.href = `${currentUrl}/catalog/${category.key}`;
 
-    subList.append(subItem);
-  });
+      subList.append(subItem);
+    });
   root.after(subList);
   return subList;
 }
@@ -60,7 +61,8 @@ function showHideLoggedUser(): void {
     loginBtn.id = '';
   }
 }
-function createNavigationLinks(root: HTMLElement): void {
+
+async function createNavigationLinks(root: HTMLElement): Promise<void> {
   navigationLinksData.forEach((arrItem) => {
     const item = createElement(NavigationItemParam, root);
     const link = createElement(NavigationLinkParam, item) as HTMLLinkElement;
@@ -68,17 +70,13 @@ function createNavigationLinks(root: HTMLElement): void {
     link.href = arrItem.href;
     link.id = arrItem.id;
   });
-
-// getCategoriesList2()
-// .then((result) => {
-// console.log(result[0]); // доступ к результату промиса
-// // дополнительные действия с результатом
-// })
-// .catch((error) => {
-// console.error(error); // обработка ошибок
-// });
-
   showHideLoggedUser();
+  const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
+  if (catalogeLink) {
+    const categotyData: void | Category[] = await getCategoriesList();
+
+    createSublinks(categotyData, catalogeLink);
+  }
 }
 
 export default function showNavigation(root: HTMLElement): HTMLElement {

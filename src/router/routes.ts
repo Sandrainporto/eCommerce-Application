@@ -11,8 +11,6 @@ import { categoryPathes } from '../components/Categories/categoryCard';
 import { getCategoriesList } from '../api/getCatalog';
 import { Category } from '@commercetools/platform-sdk';
 
-
-
 const Routes = {
   '/': showMainPage,
   '/login': showAuthPage,
@@ -24,9 +22,6 @@ const Routes = {
 let pageUrl = '/';
 let activePage = Routes[pageUrl];
 let currentWrapper: HTMLElement;
-
-
-
 
 export const onNavigate = (pathname: string): void => {
   let currentUrl = window.location.origin;
@@ -40,18 +35,16 @@ export const onNavigate = (pathname: string): void => {
   window.history.pushState({}, pathname, `${currentUrl}`);
 };
 
-export const RenderPage = (categoryData: void | Category[]): void => {
+export const RenderPage = (): void => {
   currentWrapper.innerHTML = '';
   const background = createElement(OpacityParam, currentWrapper);
   currentWrapper.prepend(background);
   pageUrl = `/${window.location.pathname.split('/').slice(-1)}`;
   activePage = Routes[pageUrl] || Routes['404'];
-  activePage(currentWrapper, categoryData);
+  activePage(currentWrapper);
 };
 
-export async function addEventListener(categoryData: void | Category[]): Promise<void> {
-
-
+export async function addEventListener(): Promise<void> {
   const links = document.querySelectorAll('a');
 
   links.forEach((el) => {
@@ -61,25 +54,25 @@ export async function addEventListener(categoryData: void | Category[]): Promise
         el.addEventListener('click', (event) => {
           event.preventDefault();
           onNavigate(pathname);
-          RenderPage(categoryData);
-          addEventListener(categoryData);
+          RenderPage();
+          addEventListener();
         });
     }
   });
 }
 
-export const initRouter = (wrapper: HTMLElement, categoryData: void | Category[]): void => {
+export const initRouter = (wrapper: HTMLElement): void => {
   currentWrapper = wrapper;
   window.onpopstate = (): void => {
-    RenderPage(categoryData);
+    RenderPage();
   };
-  RenderPage(categoryData);
-  addEventListener(categoryData);
+  RenderPage();
+  addEventListener();
 };
 
-export const redirect = (categoryData: void | Category[]): void => {
+export const redirect = (): void => {
   pageUrl = '/';
   onNavigate(pageUrl);
-  RenderPage(categoryData);
-  addEventListener(categoryData);
+  RenderPage();
+  addEventListener();
 };

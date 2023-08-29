@@ -7,7 +7,7 @@ import { createElement } from '../../utils/elementCreator';
 import { Category } from '@commercetools/platform-sdk';
 
 export default function showMainPage(root: HTMLElement, categoryData: void | Category[]): void {
-  showHeader(root, categoryData);
+  showHeader(root);
   const mainPage = createElement(MainPageParam, root);
   showMainContent(mainPage);
   // console.log(categoryData)
