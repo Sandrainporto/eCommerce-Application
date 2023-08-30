@@ -4,7 +4,6 @@ import { HeaderContainerParam, HeaderParam } from '../../types/types';
 import { createElement } from '../../utils/elementCreator';
 import showLogo from '../Logo/logoView';
 import showNavigation from '../Navigaition/navigationView';
-import showBreadcrumb from '../Breadcrumb/breadcrumbsView';
 
 export default function showHeader(root: HTMLElement, data: void | Category[]): void {
   const header = createElement(HeaderParam, root);
@@ -12,5 +11,4 @@ export default function showHeader(root: HTMLElement, data: void | Category[]): 
 
   showLogo(headerContainer);
   showNavigation(headerContainer, data);
-  showBreadcrumb(root);
 }

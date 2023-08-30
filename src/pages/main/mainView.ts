@@ -1,8 +1,26 @@
 import { Category } from '@commercetools/platform-sdk';
 import './main.scss';
-import showMainContent from '../../components/mainContent/mainContent';
+import showHeader from '../../components/Header/headerView';
+import showFooter from '../../components/Footer/footerView';
+import { MainPageParam } from '../../types/types';
+import { createElement } from '../../utils/elementCreator';
+import { Routes } from '../../router/routes';
+import showBreadcrumb from '../../components/Breadcrumb/breadcrumbsView';
 
-export default function showMainPage(root: HTMLElement, data: void | Category[]): void {
-  console.log(data);
-  showMainContent(root, data);
+let categoryData: void | Category[];
+let mainWrapper: HTMLElement;
+
+export default function showMainPage(currentPage: string): void {
+  const activePage = Routes[currentPage] || Routes['404'];
+  mainWrapper.innerHTML = '';
+  showBreadcrumb(mainWrapper);
+  activePage(mainWrapper, categoryData);
 }
+
+export const setData = (wrapper: HTMLElement, data: void | Category[]): void => {
+  categoryData = data;
+  showHeader(wrapper, categoryData);
+  mainWrapper = createElement(MainPageParam, wrapper);
+  showMainPage('');
+  showFooter(wrapper);
+};

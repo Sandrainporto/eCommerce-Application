@@ -6,13 +6,9 @@ import { ContentPageContainer } from '../error/types';
 import { CatalogListParam, CatalogPageParam } from './types';
 
 export default async function showCatalogPage(root: HTMLElement): Promise<void> {
-  showHeader(root);
   const catalogPage = createElement(CatalogPageParam, root);
   const pageContent = createElement(ContentPageContainer, catalogPage);
-
   const catalogList = createElement(CatalogListParam, pageContent);
 
   createCategoriesCard(catalogList);
-
-  showFooter(root);
 }
