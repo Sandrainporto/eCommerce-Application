@@ -69,7 +69,7 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
     const item = createElement(NavigationItemParam, root);
     const link = createElement(NavigationLinkParam, item) as HTMLLinkElement;
     link.innerText = arrItem.text;
-    link.href = arrItem.href;
+    link.href = `/${arrItem.id}`;
     link.id = arrItem.id;
   });
   showHideLoggedUser();
