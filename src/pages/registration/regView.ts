@@ -6,8 +6,6 @@ import { RegPageParam } from './regTypes';
 import { createElement } from '../../utils/elementCreator';
 
 export function showRegPage(root: HTMLElement): void {
-  showHeader(root);
   const mainPage = createElement(RegPageParam, root);
   showMainContent(mainPage);
-  showFooter(root);
 }
