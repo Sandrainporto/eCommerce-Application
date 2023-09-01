@@ -7,10 +7,12 @@ import {
   CategoryIconBoxParam,
   CategoryIconParam,
   CategoryLinkParam,
+  CategoryParam,
   CategoryTitleParam,
   HrefParam,
 } from './categoryCardTypes';
-import { getCategoriesList } from '../../api/getCatalog';
+
+
 
 export const categoryPathes: HrefParam[] = [];
 let categoriesData: void | Category[];
@@ -31,14 +33,14 @@ export default async function createCategoriesCard(root: HTMLElement, data: void
       const categoryIconBox = createElement(CategoryIconBoxParam, categoryBlock) as HTMLImageElement;
       const categoryIcon = createElement(CategoryIconParam, categoryIconBox) as HTMLImageElement;
       categoryIcon.alt = `${`${category.key}-icon`}`;
-      const rootToImage = '../../assets/categories/';
+      const rootToImage = CategoryParam.rootImage;
       categoryIcon.src = `${rootToImage + category.key}.png`;
 
       const categoryLink = createElement(CategoryLinkParam, categoryBlock) as HTMLLinkElement;
       categoryLink.href = `${currentUrl}/catalog/${category.key}`;
 
       categoryLink.id = `${category.key}`;
-      categoryLink.innerText = 'Show more';
+      categoryLink.innerText = CategoryParam.text;
 
       categoryPathes.push({
         href: `/${category.key}`,

@@ -24,3 +24,8 @@ export enum ErrorDescriptionParam {
   elemTag = 'div',
   classNames = 'error__description',
 }
+
+export enum ImageAltList {
+ altWitch = 'witch-image',
+ altMoon = 'moon-image',
+}

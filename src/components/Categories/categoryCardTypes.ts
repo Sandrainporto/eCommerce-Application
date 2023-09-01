@@ -28,3 +28,8 @@ export interface HrefParam {
   href: string;
   id: string;
 }
+
+export enum CategoryParam {
+  text = 'Show more',
+  rootImage = '../../assets/categories/',
+}

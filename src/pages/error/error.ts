@@ -6,6 +6,7 @@ import {
   ErrorCodeBlockParam,
   ErrorDescriptionParam,
   ContentPageContainer,
+  ImageAltList,
 } from './types';
 import { createElement } from '../../utils/elementCreator';
 import moonImg from '../../assets/errorPageImg/moon.png';
@@ -16,10 +17,10 @@ export default function showErrorPage(root: HTMLElement): void {
   const errorPageContent = createElement(ContentPageContainer, errorPage);
 
   const moonImageBlock = createElement(MoonImgBlockParam, errorPageContent);
-  moonImageBlock.innerHTML = `<img src=${moonImg} alt="moon-image">`;
+  moonImageBlock.innerHTML = `<img src=${moonImg} alt=${ImageAltList.altMoon}>`;
 
   const witchImageBlock = createElement(WitchImgBlockParam, errorPageContent);
-  witchImageBlock.innerHTML = `<img src=${witchImg} alt="moon-image">`;
+  witchImageBlock.innerHTML = `<img src=${witchImg} alt=${ImageAltList.altWitch}>`;
 
   const errorMessageCode = createElement(ErrorCodeBlockParam, errorPageContent);
   errorMessageCode.innerText = '404';
