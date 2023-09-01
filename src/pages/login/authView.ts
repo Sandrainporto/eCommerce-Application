@@ -6,8 +6,6 @@ import { AuthPageParam } from './authTypes';
 import { createElement } from '../../utils/elementCreator';
 
 export function showAuthPage(root: HTMLElement): void {
-  showHeader(root);
   const mainPage = createElement(AuthPageParam, root);
   showMainContent(mainPage);
-  showFooter(root);
 }
