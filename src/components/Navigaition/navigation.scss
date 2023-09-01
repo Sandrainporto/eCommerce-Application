@@ -61,7 +61,15 @@
   pointer-events: none;
   transition: all 0.4 ease 0s;
 }
+@media screen and (width < 810px) {
 
+  
+  .nav__subcategory-list {
+    display: none;
+  }
+  }
+
+@media screen and (width >= 810px) {
 .catalog__sub-list > li:hover{
   position: relative;
   width: 100%;
@@ -95,17 +103,7 @@
   transition: all 0.4 ease 0s;
 
 }
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
