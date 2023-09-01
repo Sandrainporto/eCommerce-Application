@@ -1,7 +1,7 @@
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
 import { apiRoot } from './createClient';
 import { INewUser } from '../pages/login/authTypes';
-import { redirect } from '../router/routes';
+// import { redirect } from '../router/routes';
 
 const updateCustomerName = (
   customerID: string,
@@ -51,7 +51,7 @@ export const createCustomer = (info: INewUser): Promise<void> => {
         .then(() => {
           const customer = body;
           localStorage.setItem('night-customer', JSON.stringify(customer));
-          redirect();
+          // redirect();
         })
         .catch();
     })

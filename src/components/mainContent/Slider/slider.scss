@@ -43,10 +43,6 @@
   transform: translateY(-50%) scale(0.9);
 }
 
-// .slider-btn i:hover {
-//   background: #f2f2f2;
-// }
-
 #prev {
   left: 1rem;
 
@@ -81,6 +77,5 @@
 
 .slider img {
   width: 100%;
-  // max-width: 70rem;
   object-fit: contain;
 }

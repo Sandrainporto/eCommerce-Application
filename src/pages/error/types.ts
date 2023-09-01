@@ -1,9 +1,9 @@
 export enum ErrorPageParam {
-  elemTag = 'div',
+  elemTag = 'main',
   classNames = 'page__error',
   id = 'error',
 }
-export enum ContentErrorPageParam {
+export enum ContentPageContainer {
   elemTag = 'div',
   classNames = 'content__container',
 }
@@ -23,4 +23,9 @@ export enum ErrorCodeBlockParam {
 export enum ErrorDescriptionParam {
   elemTag = 'div',
   classNames = 'error__description',
+}
+
+export enum ImageAltList {
+ altWitch = 'witch-image',
+ altMoon = 'moon-image',
 }

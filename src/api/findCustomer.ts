@@ -1,7 +1,7 @@
 import { apiRoot } from './createClient';
 import { INewUser } from '../pages/login/authTypes';
 import { createCustomer } from './createUser';
-import { redirect } from '../router/routes';
+// import { redirect } from '../router/routes';
 
 export const returnCustomerByEmail = (userInfo: INewUser, hint: HTMLElement): Promise<void> => {
   const element = hint;
@@ -19,7 +19,7 @@ export const returnCustomerByEmail = (userInfo: INewUser, hint: HTMLElement): Pr
       if (body.results.length === 0) {
         createCustomer(userInfo);
         element.textContent = 'User created';
-        redirect();
+        // redirect();
       } else {
         // Since there can be only one Customer resource in the result, it must be the first entry of the results array. This outputs the Customer's id.
         // console.log(body.results[0].id);

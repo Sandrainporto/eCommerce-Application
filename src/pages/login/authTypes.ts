@@ -41,6 +41,7 @@ export enum InputBlock {
   elemTag = 'div',
   classNames = 'input_block',
 }
+
 export enum LoginEmailInput {
   elemTag = 'input',
   type = 'email',
@@ -115,6 +116,7 @@ export enum UserLBirthLabel {
 export enum UserAddressBlock {
   elemTag = 'div',
   classNames = 'user-address_block',
+  innerText = 'Address',
 }
 
 export enum CountrySelectLabel {
@@ -236,10 +238,16 @@ export enum FormPasBlock {
   elemTag = 'div',
   classNames = 'form_pas_block',
 }
+
+export enum BillingBlock {
+  className = 'user-billing_block',
+  innerText = 'Billing Address',
+}
+
 export enum FormShowPasBtn {
   elemTag = 'a',
   classNames = 'show_pas',
-  innerText = 'HIDE',
+  innerText = '',
 }
 export enum PassHints {
   SPACE = 'No spaces allowed',

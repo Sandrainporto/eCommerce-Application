@@ -1,6 +1,6 @@
-@import './../../sass//abstract/constants';
-@import './../../sass//abstract/mixins';
-@import './../../sass//abstract/placeholders';
+@import './../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
 
 .header__nav {
   @include flex($gap: 10px);
@@ -35,19 +35,11 @@
 
   .nav__sub-link {
     cursor: pointer;
+    color: $color-text-dark;
   }
 
   .nav__sub-link:hover {
-    background-color: #2aa5a0;
-    background-image: radial-gradient(
-      circle farthest-corner at 10% 20%,
-      rgba(0, 221, 214, 1) 0%,
-      rgba(51, 102, 255, 1) 50%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: rgba(209, 208, 206, 0.733) 1px 0 10px;
+    @include linkHover;
   }
 }
 
@@ -142,10 +134,5 @@
 
 .name-displayed {
   text-transform: capitalize;
-  background-color: #2aa5a0;
-  background-image: radial-gradient(circle farthest-corner at 68% 75%, rgb(0, 221, 214) 47%, rgb(51, 102, 255) 114%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: rgba(209, 208, 206, 0.733) 1px 0 10px;
+  @include linkHover;
 }
