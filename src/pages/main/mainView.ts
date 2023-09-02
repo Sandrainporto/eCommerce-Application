@@ -10,10 +10,12 @@ import showBreadcrumb from '../../components/Breadcrumb/breadcrumbsView';
 let categoryData: void | Category[];
 let mainWrapper: HTMLElement;
 
-export default function showMainPage(currentPage: string): void {
+export default function showMainPage(currentPage: string, id?:string): void {
   const activePage = Routes[currentPage] || Routes['404'];
   mainWrapper.innerHTML = '';
   showBreadcrumb(mainWrapper);
+  console.log(currentPage)
+  console.log(id)
   activePage(mainWrapper, categoryData);
 }
 

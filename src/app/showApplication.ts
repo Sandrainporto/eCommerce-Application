@@ -4,9 +4,11 @@ import { createElement } from '../utils/elementCreator';
 import { routerInit } from '../router/router';
 import { getCategoriesList } from '../api/getCatalog';
 import { setData } from '../pages/main/mainView';
+import { getProductsList } from '../api/getProducts';
 export default async function showApplication(): Promise<void> {
   const wrapper = createElement(WrapperParam, document.body);
   const categoryData: void | Category[] = await getCategoriesList();
   setData(wrapper, categoryData);
   routerInit();
+  // getProductsList()
 }

@@ -37,10 +37,8 @@ async function addsubCategories(parentCateg:HTMLLIElement, subLinkID:string){
     subLink.href = `${currentUrl}/catalog/${parentCateg.id}/${category.key}`;
     subItemList.append(subItem)
     parentCateg.append(subItemList);
-    console.log(subItem)
   })
-// console.log(categoryData);
-// console.log(categoryData)
+
 }
 
 export function addSublinks(categoriesData: void | Category[], root: HTMLLinkElement): HTMLUListElement {
