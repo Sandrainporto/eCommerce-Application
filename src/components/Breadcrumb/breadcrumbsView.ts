@@ -18,7 +18,10 @@ export default function showBreadcrumb(root: HTMLElement): void {
     pathname: string,
     { rootName = 'Home', nameTransform = (s: string): string => s } = {},
   ): BreadcrumParams[] => {
-    const paths: string[] = pathname.split('/').filter(Boolean);
+    let paths: string[];
+    if (pathname.includes('-card')) {
+      paths = pathname.replace('-card', '').split('/').filter(Boolean);
+    } else paths = pathname.split('/').filter(Boolean);
 
     const breadcrumbs: BreadcrumParams[] = paths.map((path, index) => {
       const pathSegments = paths.slice(0, index + 1);

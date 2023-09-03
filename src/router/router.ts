@@ -19,6 +19,7 @@ const addListener = (): void => {
       const target = event.target as HTMLLinkElement;
       if (target.tagName === 'A' || target.closest('A')) {
         const element = target.closest('A') as HTMLLinkElement;
+        console.log(element.id)
         renderPage(element.href);
       }
     },

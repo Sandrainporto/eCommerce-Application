@@ -14,6 +14,7 @@ let mainWrapper: HTMLElement;
 export default function showMainPage(currentPage: string): void {
   const url = currentPage.split('/').filter((el) => el.length !== 0);
   let activePage = Routes[currentPage] || Routes['404'];
+  console.log(url.length)
   let id = '';
   if (url.length === 0) {
     activePage = Routes[''];
