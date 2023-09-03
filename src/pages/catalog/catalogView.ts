@@ -8,7 +8,6 @@ let categoryData: void | Category[];
 
 export default async function showCatalogPage(root: HTMLElement, data: void | Category[]): Promise<void> {
   categoryData = data;
-  console.log(12321312312312);
   const catalogPage = createElement(CatalogPageParam, root);
   const pageContent = createElement(ContentPageContainer, catalogPage);
   const catalogList = createElement(CatalogListParam, pageContent);

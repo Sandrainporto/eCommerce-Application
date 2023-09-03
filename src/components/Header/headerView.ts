@@ -1,4 +1,3 @@
-import { Category } from '@commercetools/platform-sdk';
 import './header.scss';
 import { DataType, HeaderContainerParam, HeaderParam } from '../../types/types';
 import { createElement } from '../../utils/elementCreator';
