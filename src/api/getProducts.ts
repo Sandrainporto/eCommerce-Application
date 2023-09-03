@@ -11,6 +11,7 @@ export async function getProductsList(categoryId: string): Promise<ProductProjec
       },
     })
     .execute();
+    console.log(body.results)
   return body.results;
 }
 

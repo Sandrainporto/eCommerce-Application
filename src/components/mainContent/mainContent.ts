@@ -7,6 +7,7 @@ import showPageInfo from './PageInfo/pageInfoView';
 import { showAuthContent } from '../../pages/login/authContent';
 import { ContentPageContainer } from '../../pages/error/types';
 import createCategoriesCard from '../Categories/categoryCard';
+import showProductsPage from '../../pages/products/productViewPage';
 
 let categoryData: void | Category[];
 
