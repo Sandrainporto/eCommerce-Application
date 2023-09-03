@@ -1,5 +1,11 @@
 import { returnCustomerByEmail } from '../../api/findCustomer';
-import { createCustomer, updateCustomerName } from '../../api/createUser';
+import {
+  createCustomer,
+  updateCustomerAdress,
+  updateCustomerName,
+  updateDefShipAdr,
+  updateDefBilpAdr,
+} from '../../api/createUser';
 import { loginCustomer } from '../../api/loginCustomer';
 import { checkPassword } from './inputs/checkPassword';
 import { checkEmail } from './inputs/checkEmail';
@@ -56,11 +62,17 @@ export async function addListnerToFormBtn(): Promise<void> {
     if (existUser.body.results.length === 0) {
       let newUser;
       await createCustomer(userInfo).then(({ body }) => (newUser = body));
+
       hint.textContent = 'User created';
       await updateCustomerName(newUser.customer.id, userInfo).then(({ body }) => (newUser = body));
+      await updateCustomerAdress(newUser.id, userInfo).then(({ body }) => (newUser = body));
+      console.log(newUser, newUser.id, newUser.addresses[0].id);
+      if (userInfo.defaultAdres)
+        await updateDefShipAdr(newUser.id, newUser.addresses[0].id).then(({ body }) => (newUser = body));
+      if (userInfo.shipAndBil)
+        await updateDefBilpAdr(newUser.id, newUser.addresses[0].id).then(({ body }) => (newUser = body));
       localStorage.setItem('night-customer', JSON.stringify(newUser));
       localStorage.setItem('reg-customer-name', JSON.stringify(`${userInfo.fname} ${userInfo.lname}`));
-      // await updateCustomerName()
     } else {
       hint.textContent = 'User with this email exist';
     }
