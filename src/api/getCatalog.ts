@@ -1,27 +1,13 @@
 import { Category } from '@commercetools/platform-sdk';
 import { apiRoot } from './createClient';
 
-export function getCategoriesList(): Promise<void | Category[]> {
-  return apiRoot
-    .categories()
-    .get()
-    .execute()
-    .then(({ body }) => {
-      return body.results.filter(obj => obj.ancestors.length === 0)
-    })
-    .catch();
+export async function getCategoriesList(): Promise<void | Category[]> {
+  const { body } = await apiRoot.categories().get().execute();
+  return body.results.filter((obj) => obj.ancestors.length === 0);
 }
 
-export function getSubCategoriesList(categoryId:string) {
-  return apiRoot
-    .categories()
-    .get()
-    .execute()
-    .then(({ body }) => {
-      const ancestors = body.results.filter(obj => obj.parent?.id === categoryId)
-
-      return ancestors;
-    })
-    .catch();
+export async function getSubCategoriesList(categoryId: string): Promise<Category[]> {
+  const { body } = await apiRoot.categories().get().execute();
+  const ancestors = body.results.filter((obj) => obj.parent?.id === categoryId);
+  return ancestors;
 }
-// getSubCategoriesList('26a16b07-3f68-4d31-8c3a-aaa239b28037')

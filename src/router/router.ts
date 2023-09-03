@@ -1,18 +1,10 @@
 import showMainPage from '../pages/main/mainView';
 
-const renderPage = (path: string, id?:string): void => {
-  console.log(path);
+const renderPage = (path: string): void => {
+  const pathString = path.replace(window.location.origin, '').trim();
   const currentPage = path.split('/').slice(-1).join('');
-  const productsPage = 'products';
-  if(path.includes('catalog/')){
-    window.history.pushState({}, productsPage, `${path}`);
-    showMainPage(productsPage, id);
-  }else{
-    window.history.pushState({}, currentPage, `${path}`);
-    showMainPage(currentPage);
- 
-  }
-
+  window.history.pushState({}, currentPage, `${path}`);
+  showMainPage(pathString);
 };
 
 const addListener = (): void => {
@@ -27,7 +19,7 @@ const addListener = (): void => {
       const target = event.target as HTMLLinkElement;
       if (target.tagName === 'A' || target.closest('A')) {
         const element = target.closest('A') as HTMLLinkElement;
-        renderPage(element.href, element.id);
+        renderPage(element.href);
       }
     },
     false,

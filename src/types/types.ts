@@ -1,3 +1,5 @@
+import { Category } from '@commercetools/platform-sdk';
+
 export type Callback = (e: Event) => void;
 
 export interface ElementParams {
@@ -13,6 +15,11 @@ export interface ElementParams {
   placeholder?: string;
   value?: string;
   for?: string;
+}
+
+export interface DataType {
+  category: Category;
+  subcategory: Category[];
 }
 
 export type RouterType = {

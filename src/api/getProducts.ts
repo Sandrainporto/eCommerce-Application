@@ -1,21 +1,17 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { apiRoot } from './createClient';
 
-export function getProductsList(categoryId:string): Promise<ProductProjection[]>{
-  return apiRoot
+export async function getProductsList(categoryId: string): Promise<ProductProjection[]> {
+  const { body } = await apiRoot
     .productProjections()
     .search()
     .get({
-      queryArgs:{
-        filter: `categories.id:"${categoryId}"`
-      }
+      queryArgs: {
+        filter: `categories.id:"${categoryId}"`,
+      },
     })
-    .execute()
-    .then(({ body }) => {
-      console.log(body.results)
-      return body.results
-    })
-    .catch();
+    .execute();
+  return body.results;
 }
 
 // categories.id:"{id}"
