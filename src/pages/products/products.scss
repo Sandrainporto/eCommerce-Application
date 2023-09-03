@@ -2,13 +2,11 @@
 @import './../../sass/abstract/mixins';
 @import './../../sass/abstract/placeholders';
 @import './../../sass/abstract/constants';
-.page__products{
-  width: 100%;  
-
+.page__products {
+  width: 100%;
 }
 
-.products__list{
-  width: 100%;  
-    @include flex(row, center, center, 2rem, wrap);
-  
+.products__list {
+  width: 100%;
+  @include flex(row, center, center, 2rem, wrap);
 }

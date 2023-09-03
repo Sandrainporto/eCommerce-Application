@@ -36,7 +36,6 @@ const SearchCallBack = (value: string): void => {
   updatePage();
 };
 
-
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
   CurrentId = id;
   const currentUrl = window.location.href;
@@ -67,13 +66,13 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
     }
 
     const productPrice = createElement(ProductPrice, productCard);
-      const productPricesData: Price[] | undefined = product.masterVariant.prices;
-      productPricesData?.forEach((prices) => (productPrice.innerText = `${prices.value.centAmount/100} ${prices.value.currencyCode}`));
+    const productPricesData: Price[] | undefined = product.masterVariant.prices;
+    productPricesData?.forEach(
+      (prices) => (productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`),
+    );
 
-    
     const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
     productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
-    // productLink.href = `${currentUrl}/${product.key?.toLowerCase()}`;
-
+    productLink.id = `${product.key?.toLowerCase()}`;
   });
 }

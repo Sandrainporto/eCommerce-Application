@@ -12,9 +12,8 @@ export const Routes = {
   register: showRegPage,
   catalog: showCatalogPage,
   products: showProductsPage,
-  
+
   details: showDetailsPage,
 
   '404': showErrorPage,
 };
-

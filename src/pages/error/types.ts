@@ -26,6 +26,6 @@ export enum ErrorDescriptionParam {
 }
 
 export enum ImageAltList {
- altWitch = 'witch-image',
- altMoon = 'moon-image',
+  altWitch = 'witch-image',
+  altMoon = 'moon-image',
 }

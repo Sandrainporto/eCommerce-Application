@@ -11,7 +11,6 @@ import {
   CategoryTitleParam,
 } from './categoryCardTypes';
 
-
 let categoriesData: void | Category[];
 
 export default async function createCategoriesCard(root: HTMLElement, data: void | Category[]): Promise<HTMLElement> {
@@ -37,7 +36,6 @@ export default async function createCategoriesCard(root: HTMLElement, data: void
 
       // categoryLink.id = `${category.key}`;
       categoryLink.innerText = CategoryParam.text;
-
     });
   return categoriesContainer;
 }

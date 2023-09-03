@@ -1,11 +1,7 @@
-import { createElement } from "../../utils/elementCreator";
-import { DetailsParam } from "./types";
+import { createElement } from '../../utils/elementCreator';
+import { DetailsParam } from './types';
 
-
-export default async function showDetailsPage(root: HTMLElement, id: string) {
-  console.log(id);
- 
+export default async function showDetailsPage(root: HTMLElement, key: string) {
   const productsPage = createElement(DetailsParam, root);
-  productsPage.innerHTML =`hello`
-
+  productsPage.innerHTML = `${key}`;
 }

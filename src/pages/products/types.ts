@@ -10,7 +10,6 @@ export enum ProductsList {
 export enum ProductCard {
   elemTag = 'div',
   classNames = 'products__card',
-
 }
 export enum ProductImageBox {
   elemTag = 'div',
@@ -19,7 +18,7 @@ export enum ProductImageBox {
 export enum ProductImage {
   elemTag = 'img',
   classNames = 'product__image',
-alt='product-image'
+  alt = 'product-image',
 }
 export enum ProductName {
   elemTag = 'p',
@@ -36,6 +35,5 @@ export enum ProductPrice {
 export enum ProductCardLink {
   elemTag = 'a',
   classNames = 'products__link',
-  innerText = 'View Details'
-
+  innerText = 'View Details',
 }
