@@ -36,7 +36,6 @@ export default function showMainPage(currentPage: string): void {
   mainWrapper.innerHTML = '';
   showBreadcrumb(mainWrapper);
   if (id) {
-    console.log(id);
     activePage = Routes.products;
     activePage(mainWrapper, id);
   } else activePage(mainWrapper, categoryData);

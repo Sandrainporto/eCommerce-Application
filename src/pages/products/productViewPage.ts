@@ -12,11 +12,12 @@ import {
   ProductDescription,
   ProductCardLink,
 } from './types';
+import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
-  console.log(id);
   const currentUrl = window.location.href;
   const productsPage = createElement(ProductsPageParam, root);
+  const sortPanel = showSortPanel(productsPage);
   const pageContent = createElement(ContentPageContainer, productsPage);
   const productsList = createElement(ProductsList, pageContent);
   productsList.id = id;
