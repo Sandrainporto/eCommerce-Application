@@ -13,11 +13,9 @@ import showDetailsPage from '../../pages/productDetails.ts/detailsPage';
 let categoryData: void | Category[];
 
 const getPageContent = async (root: HTMLElement): Promise<void> => {
-  // showDetailsPage(root, 'clone')
-  showProductsPage(root, '1a646b6c-dbe6-401f-ab7d-ddcdae8a3bc6')
-  // showSlider(root);
-  // createCategoriesCard(root, categoryData);
-  // showPageInfo(root);
+  showSlider(root);
+  createCategoriesCard(root, categoryData);
+  showPageInfo(root);
 };
 
 export default function showMainContent(root: HTMLElement, data: void | Category[]): void {
