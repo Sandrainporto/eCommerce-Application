@@ -1,6 +1,7 @@
 export const enum HtmlTags {
   FORM = 'form',
   INPUT = 'input',
+  SELECT = 'select',
   LABEL = 'label',
   BUTTON = 'button',
   CONTAINER = 'div',

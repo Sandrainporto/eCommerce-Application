@@ -1,4 +1,5 @@
 import { returnCustomerByEmail } from '../../api/findCustomer';
+import { createCustomer, updateCustomerName } from '../../api/createUser';
 import { loginCustomer } from '../../api/loginCustomer';
 import { checkPassword } from './inputs/checkPassword';
 import { checkEmail } from './inputs/checkEmail';
@@ -12,10 +13,14 @@ import {
   LoginEmailInput,
   LoginPaslInput,
   FormContent,
+  CountrySelectBox,
   SubmitAuthBtn,
   FormHint,
   UserLBirthlInput,
   UserLTownlInput,
+  UserLStreetlInput,
+  AddresslInputCheckbox,
+  DefAddresslInputCheckbox,
   UserLPostcodelInput,
 } from './authTypes';
 import { HtmlTags } from '../../types/htmlTags';
@@ -24,9 +29,10 @@ const HINT_TEXT = {
   create: 'User created',
 };
 
-export function addListnerToFormBtn(): void {
+export async function addListnerToFormBtn(): Promise<void> {
   const form = document.querySelector(`.${FormContent.classNames}`) as HTMLElement;
   const inputs = [...form.getElementsByTagName(`${HtmlTags.INPUT}`)];
+  const selects = [...form.getElementsByTagName(`${HtmlTags.SELECT}`)];
   const hint = inputs[inputs.length - 1].nextElementSibling?.nextElementSibling as HTMLElement;
 
   if (localStorage.getItem('night-customer')) JSON.parse(localStorage.getItem('night-customer') as string);
@@ -34,10 +40,30 @@ export function addListnerToFormBtn(): void {
     const userInfo = {
       fname: inputs.find((el) => el.id === `${UserFNamelInput.id}`)?.value as string,
       lname: inputs.find((el) => el.id === `${UserLNamelInput.id}`)?.value as string,
+      birth: inputs.find((el) => el.id === `${UserLBirthlInput.id}`)?.value as string,
       email: inputs.find((el) => el.id === `${LoginEmailInput.id}`)?.value as string,
       pas: inputs.find((el) => el.id === `${LoginPaslInput.id}`)?.value as string,
+      country: selects.find((el) => el.id === `${CountrySelectBox.id}`)?.value as string,
+      town: inputs.find((el) => el.id === `${UserLTownlInput.id}`)?.value as string,
+      street: inputs.find((el) => el.id === `${UserLStreetlInput.id}`)?.value as string,
+      postCode: inputs.find((el) => el.id === `${UserLPostcodelInput.id}`)?.value as string,
+      defaultAdres: inputs.find((el) => el.id === `${AddresslInputCheckbox.id}`)?.checked as boolean,
+      shipAndBil: inputs.find((el) => el.id === `${DefAddresslInputCheckbox.id}`)?.checked as boolean,
     };
-    returnCustomerByEmail(userInfo, hint);
+    let existUser;
+    await returnCustomerByEmail(userInfo, hint).then(({ body }) => (existUser = { body }));
+    console.log(existUser);
+    if (existUser.body.results.length === 0) {
+      let newUser;
+      await createCustomer(userInfo).then(({ body }) => (newUser = body));
+      hint.textContent = 'User created';
+      await updateCustomerName(newUser.customer.id, userInfo).then(({ body }) => (newUser = body));
+      localStorage.setItem('night-customer', JSON.stringify(newUser));
+      localStorage.setItem('reg-customer-name', JSON.stringify(`${userInfo.fname} ${userInfo.lname}`));
+      // await updateCustomerName()
+    } else {
+      hint.textContent = 'User with this email exist';
+    }
 
     if (hint) hint.textContent = `${HINT_TEXT.create}`;
   } else {
