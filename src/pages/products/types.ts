@@ -36,6 +36,6 @@ export enum ProductPrice {
 export enum ProductCardLink {
   elemTag = 'a',
   classNames = 'products__link',
-  innerText = 'show more'
+  innerText = 'View Details'
 
 }

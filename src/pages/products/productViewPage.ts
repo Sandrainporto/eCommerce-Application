@@ -11,7 +11,9 @@ import {
   ProductImageBox,
   ProductDescription,
   ProductCardLink,
+  ProductPrice,
 } from './types';
+import { Price } from '@commercetools/platform-sdk';
 
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
   console.log(id);
@@ -40,6 +42,11 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
       productDescription.innerText = '';
     }
 
+    const productPrice = createElement(ProductPrice, productCard);
+      const productPricesData: Price[] | undefined = product.masterVariant.prices;
+      productPricesData?.forEach((prices) => (productPrice.innerText = `${prices.value.centAmount/100} ${prices.value.currencyCode}`));
+
+    
     const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
     productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
     // productLink.href = `${currentUrl}/${product.key?.toLowerCase()}`;
