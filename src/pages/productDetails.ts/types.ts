@@ -25,6 +25,7 @@ export enum ProductDescription {
   elemTag = 'p',
   classNames = 'product__description',
 }
+
 export enum ProductPrice {
   elemTag = 'p',
   classNames = 'product__price',

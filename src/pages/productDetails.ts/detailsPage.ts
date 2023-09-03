@@ -1,3 +1,4 @@
+import './productDetails.scss'
 import { Price } from '@commercetools/platform-sdk';
 import { getProductDetails } from '../../api/getProductDetails';
 import { createElement } from '../../utils/elementCreator';
@@ -24,6 +25,7 @@ const datapath = productData.masterData.current;
     productDescription.innerText = 'No description';
   }
 
+  
   const productPrice = createElement(ProductPrice, productInfo);
   const productPricesData: Price[] | undefined = datapath.masterVariant.prices;
   productPricesData?.forEach(

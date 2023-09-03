@@ -1,0 +1,70 @@
+@import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
+@import './../../sass/abstract/constants';
+
+
+.product__details{
+  .content__container{
+    display: grid;
+    grid-template-rows: 1fr 0.3fr;
+    grid-template-columns: 0.7fr 1fr;
+    justify-items: center;
+grid-template-areas: 
+"slider info"
+"link link";
+  }
+width: 85%;
+margin: 30px auto;
+padding: 0 40px;
+  background: #79727234;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 15px;
+  border: 3px solid $color-violet;
+
+}
+
+
+.product__name {
+  @include font($size: 2.5rem, $height: 2.6rem, $weight: normal);
+  @extend %font-prim;
+  @include linkHover;
+}
+
+
+.product__description {
+  @include font($size: 1.5rem, $height: 2.6rem, $weight: normal);
+  text-align: justify;
+  height: 150px;
+  padding-right: 10px;
+  overflow-y: scroll;
+  @extend %custom-scroll;
+  margin: 30px 0px;
+}
+
+.products__link {
+  grid-area: link;
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(93, 28, 199, 0.658) 60%);
+  padding: 1rem 2.8rem 1rem 2.5rem;
+  @include font($size: 1.6rem, $height: 2.6rem, $weight: 700);
+  color: $color-text-light;
+  border-radius: 1rem;
+  border: none;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: 0.4s;
+
+  &:hover {
+    transition: 0.4s;
+    border: 2px dashed #ccc5cb;
+    background-color: $color-text-light;
+    color: rgb(4, 4, 38);
+  }
+
+  &:active {
+    background-color: #87dbd0;
+  }
+}
+
+
+
