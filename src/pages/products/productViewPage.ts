@@ -41,6 +41,8 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
     }
 
     const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
-    productLink.href = `${currentUrl}/product/${product.key}`;
+    productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
+    // productLink.href = `${currentUrl}/${product.key?.toLowerCase()}`;
+
   });
 }
