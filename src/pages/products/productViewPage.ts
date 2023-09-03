@@ -17,6 +17,7 @@ import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 let SortParameter = 0;
 let SearchParameter = '';
 let ContentRoot: HTMLElement;
+let CurrentId: string;
 
 const updatePage = (): void => {
   ContentRoot.innerHTML = '';
@@ -34,6 +35,7 @@ const SearchCallBack = (value: string): void => {
 };
 
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
+  CurrentId = id;
   const currentUrl = window.location.href;
   const productsPage = createElement(ProductsPageParam, root);
   const sortPanel = showSortPanel(productsPage, SortCallBack, SearchCallBack);
