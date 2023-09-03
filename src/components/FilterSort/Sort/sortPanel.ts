@@ -1,5 +1,7 @@
-import { createElement } from '../../../utils/elementCreator';
 import './sortPanel.scss';
+import { createElement } from '../../../utils/elementCreator';
+import { Callback } from '../../../types/types';
+import { inputCreator } from '../../../utils/inputCreator';
 import {
   SortBlockParam,
   SearchContentParam,
@@ -9,7 +11,6 @@ import {
   SearchFieldButton,
   SortSelect,
 } from './sortTypes';
-import { inputCreator } from '../../../utils/inputCreator';
 
 const PLACEHOLDERS = {
   search: 'Search',
@@ -34,17 +35,17 @@ const createSearchInput = (root: HTMLElement): HTMLElement => {
   return searchPanel;
 };
 
-const createSearchButton = (root: HTMLElement): void => {
+const createSearchButton = (root: HTMLElement, callback: { (value: string): void; (arg0: string): void }): void => {
   const button = createElement(SearchFieldButton, root);
   button.innerText = BUTTONS.search;
   const input = root.querySelector(`.${SearchFieldInput.classNames}`) as HTMLInputElement;
   button.addEventListener('click', () => {
-    console.log(input?.value);
-    // Тут надо вызвать колбек
+    const value = input?.value;
+    callback(value);
   });
 };
 
-const createSortInput = (root: HTMLElement): HTMLElement => {
+const createSortInput = (root: HTMLElement, callback: { (value: string): void; (arg0: string): void }): HTMLElement => {
   const sortPanel = createElement(SortContentParam, root);
   const select = createElement(SortSelect, sortPanel);
   if (!ActiveSelect) {
@@ -60,16 +61,19 @@ const createSortInput = (root: HTMLElement): HTMLElement => {
 
   select.addEventListener('change', (event) => {
     const target = event.target as HTMLInputElement;
-    console.log(target?.value);
-    // Тут надо вызвать колбек
+    callback(target?.value);
   });
 
   return select;
 };
 
-export const showSortPanel = (root: HTMLElement): void => {
+export const showSortPanel = (
+  root: HTMLElement,
+  SortCallBack: (value: string) => void,
+  SearchCallBack: (value: string) => void,
+): void => {
   const wrapper = createElement(SortBlockParam, root);
   const searchInput = createSearchInput(wrapper);
-  const button = createSearchButton(searchInput);
-  const select = createSortInput(wrapper);
+  const button = createSearchButton(searchInput, SearchCallBack);
+  const select = createSortInput(wrapper, SortCallBack);
 };

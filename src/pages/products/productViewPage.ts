@@ -14,11 +14,31 @@ import {
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 
+let SortParameter = 0;
+let SearchParameter = '';
+let ContentRoot: HTMLElement;
+
+const updatePage = (): void => {
+  ContentRoot.innerHTML = '';
+  console.log(SortParameter, SearchParameter);
+};
+
+const SortCallBack = (value: string): void => {
+  SortParameter = Number(value);
+  updatePage();
+};
+
+const SearchCallBack = (value: string): void => {
+  SearchParameter = value;
+  updatePage();
+};
+
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
   const currentUrl = window.location.href;
   const productsPage = createElement(ProductsPageParam, root);
-  const sortPanel = showSortPanel(productsPage);
+  const sortPanel = showSortPanel(productsPage, SortCallBack, SearchCallBack);
   const pageContent = createElement(ContentPageContainer, productsPage);
+  ContentRoot = pageContent;
   const productsList = createElement(ProductsList, pageContent);
   productsList.id = id;
   const productData = await getProductsList(id);
