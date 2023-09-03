@@ -1,4 +1,37 @@
 export enum DetailsParam {
   elemTag = 'div',
-  classNames = 'breadcrumb__container',
+  classNames = 'product__details',
+}
+
+export enum ContentPageContainer {
+  elemTag = 'div',
+  classNames = 'content__container',
+} 
+export enum ProductSlider {
+  elemTag = 'div',
+  classNames = 'products__slider',
+}
+
+export enum ProductInfo {
+  elemTag = 'div',
+  classNames = 'product__info',
+}
+
+export enum ProductName {
+  elemTag = 'p',
+  classNames = 'product__name',
+}
+export enum ProductDescription {
+  elemTag = 'p',
+  classNames = 'product__description',
+}
+export enum ProductPrice {
+  elemTag = 'p',
+  classNames = 'product__price',
+}
+export enum ProductCardLink {
+  elemTag = 'a',
+  classNames = 'products__link',
+  href ="#",
+  innerText = 'add to cart',
 }
