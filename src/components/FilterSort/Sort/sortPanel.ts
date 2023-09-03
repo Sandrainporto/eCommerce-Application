@@ -1,6 +1,5 @@
 import './sortPanel.scss';
 import { createElement } from '../../../utils/elementCreator';
-import { Callback } from '../../../types/types';
 import { inputCreator } from '../../../utils/inputCreator';
 import {
   SortBlockParam,

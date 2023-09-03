@@ -15,6 +15,7 @@ import {
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { Price } from '@commercetools/platform-sdk';
+import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
 
 let SortParameter = 0;
 let SearchParameter = '';
@@ -36,12 +37,14 @@ const SearchCallBack = (value: string): void => {
   updatePage();
 };
 
+// eslint-disable-next-line max-lines-per-function
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
   CurrentId = id;
   const currentUrl = window.location.href;
   const productsPage = createElement(ProductsPageParam, root);
   const sortPanel = showSortPanel(productsPage, SortCallBack, SearchCallBack);
   const pageContent = createElement(ContentPageContainer, productsPage);
+  const filterPanel = showFilterPanel(pageContent);
   ContentRoot = pageContent;
   const productsList = createElement(ProductsList, pageContent);
   productsList.id = id;

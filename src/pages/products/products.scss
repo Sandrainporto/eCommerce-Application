@@ -4,6 +4,9 @@
 @import './../../sass/abstract/constants';
 .page__products {
   width: 100%;
+  .content__container {
+    @include flex();
+  }
 }
 
 .products__list {
