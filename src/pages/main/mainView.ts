@@ -36,7 +36,9 @@ export default function showMainPage(currentPage: string, key?: string): void {
       });
     });
   }
-
+  console.log(activePage);
+  console.log(url);
+  console.log(currentPage);
   mainWrapper.innerHTML = '';
   showBreadcrumb(mainWrapper);
   if (id) {
