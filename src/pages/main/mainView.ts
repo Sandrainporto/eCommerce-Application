@@ -13,8 +13,6 @@ let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
 export default function showMainPage(currentPage: string, value?: string): void {
-  console.log('перерисовка');
-  console.log(currentPage);
   mainWrapper.innerHTML = '';
   const url = currentPage.split('/').filter((el) => el.length !== 0);
   let id = '';
@@ -54,7 +52,7 @@ export default function showMainPage(currentPage: string, value?: string): void 
   if (activePage === Routes['404']) {
     const path = window.location.host;
     activePage(mainWrapper, key || id || categoryData);
-    window.history.pushState(null, '', `http://${path}/404`);
+    window.history.pushState(null, '', `${path}/404`);
   }
   showBreadcrumb(mainWrapper);
   if (activePage !== Routes['404']) {
