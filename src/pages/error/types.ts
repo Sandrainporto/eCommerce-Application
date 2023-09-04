@@ -1,5 +1,5 @@
 export enum ErrorPageParam {
-  elemTag = 'main',
+  elemTag = 'div',
   classNames = 'page__error',
   id = 'error',
 }
@@ -26,6 +26,6 @@ export enum ErrorDescriptionParam {
 }
 
 export enum ImageAltList {
- altWitch = 'witch-image',
- altMoon = 'moon-image',
+  altWitch = 'witch-image',
+  altMoon = 'moon-image',
 }

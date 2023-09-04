@@ -42,7 +42,6 @@ import {
   AuthPageParam,
   BillingBlock,
 } from './authTypes';
-import { ElementParams, Callback } from '../../types/types';
 import { checkForm } from './formValidation';
 import { RegPageParam } from '../registration/regTypes';
 import { ButtonClass } from '../../types/htmlClasses';

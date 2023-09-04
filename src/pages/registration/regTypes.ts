@@ -1,5 +1,5 @@
 export enum RegPageParam {
-  elemTag = 'main',
+  elemTag = 'div',
   classNames = 'page__registration',
   id = 'registration',
 }

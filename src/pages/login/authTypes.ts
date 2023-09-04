@@ -1,5 +1,5 @@
 export enum AuthPageParam {
-  elemTag = 'main',
+  elemTag = 'div',
   classNames = 'page__auth',
   id = 'auth',
 }

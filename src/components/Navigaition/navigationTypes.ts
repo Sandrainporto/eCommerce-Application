@@ -17,7 +17,7 @@ export enum NavigationLinkParam {
 export enum NavigationSubLink {
   elemTag = 'a',
   classNames = 'nav__sub-link',
-  listenerType= "mouseover"
+  listenerType = 'mouseover',
 }
 export enum NavigationSubCategList {
   classNames = 'nav__subcategory-list',

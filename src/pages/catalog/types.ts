@@ -1,5 +1,5 @@
 export enum CatalogPageParam {
-  elemTag = 'main',
+  elemTag = 'div',
   classNames = 'page__catalog',
   id = 'catalog',
 }

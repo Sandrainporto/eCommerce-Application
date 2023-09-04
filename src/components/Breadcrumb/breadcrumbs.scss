@@ -22,7 +22,7 @@
       pointer-events: none;
     }
 
-  &:not(:last-child)::after{
+    &:not(:last-child)::after {
       content: '>';
       display: inline-block;
       margin: 0px 5px;
