@@ -4,7 +4,6 @@ import { createElement } from '../utils/elementCreator';
 import { routerInit } from '../router/router';
 import { getCategoriesList, getSubCategoriesList } from '../api/getCatalog';
 import { setData } from '../pages/main/mainView';
-import { getProductsList } from '../api/getProducts';
 
 export default async function showApplication(): Promise<void> {
   const wrapper = createElement(WrapperParam, document.body);

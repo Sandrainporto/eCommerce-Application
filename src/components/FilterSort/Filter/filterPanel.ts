@@ -26,15 +26,16 @@ const createColorCheckbox = (root: HTMLElement): HTMLElement => {
     checkbox.setAttribute('checked', 'false');
     checkbox.id = `color-${el}`;
     checkbox.value = el;
-    checkbox.addEventListener('click', (event) => {
-      event.preventDefault();
-      const target = event.target as HTMLInputElement;
-      if (!target.hasAttribute('checked')) {
-        target.setAttribute('checked', 'true');
-      } else {
-        target.removeAttribute('checked');
-      }
-    });
+    checkbox.checked = false;
+    // checkbox.addEventListener('click', (event) => {
+    //   event.preventDefault();
+    //   const target = event.target as HTMLInputElement;
+    //   if (!target.hasAttribute('checked')) {
+    //     target.setAttribute('checked', 'true');
+    //   } else {
+    //     target.removeAttribute('checked');
+    //   }
+    // });
   });
   return checkboxContainer;
 };
