@@ -1,5 +1,5 @@
 import './products.scss';
-import { Image, Price } from '@commercetools/platform-sdk';
+import { Image, Price, Product, ProductProjection } from '@commercetools/platform-sdk';
 import { getProductsList } from '../../api/getProducts';
 import { createElement } from '../../utils/elementCreator';
 import { ContentPageContainer } from '../error/types';
@@ -15,6 +15,7 @@ import {
   ProductPrice,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
+import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
 
 let SortParameter = 0;
 let SearchParameter = '';
@@ -22,8 +23,12 @@ let ContentRoot: HTMLElement;
 let CurrentId: string;
 
 const updatePage = (): void => {
-  ContentRoot.innerHTML = '';
-  console.log(SortParameter, SearchParameter);
+  ContentRoot.innerHTML =``
+  const productsList =  document.querySelector('.products__list') as HTMLElement
+showCards(CurrentId, productsList)
+
+
+  
 };
 
 const SortCallBack = (value: string): void => {
@@ -36,17 +41,38 @@ const SearchCallBack = (value: string): void => {
   updatePage();
 };
 
+// eslint-disable-next-line max-lines-per-function
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
   CurrentId = id;
-  const currentUrl = window.location.href;
   const productsPage = createElement(ProductsPageParam, root);
   const sortPanel = showSortPanel(productsPage, SortCallBack, SearchCallBack);
+  console.log(sortPanel)
   const pageContent = createElement(ContentPageContainer, productsPage);
-  ContentRoot = pageContent;
+  const filterPanel = showFilterPanel(pageContent);
   const productsList = createElement(ProductsList, pageContent);
   productsList.id = id;
+  ContentRoot = productsList;
 
-  const productData = await getProductsList(id);
+
+  showCards(id, productsList)
+}
+export async function showCards(id:string, productsList:HTMLElement):Promise<void>{
+  const currentUrl = window.location.href;
+console.log(SortParameter, SearchParameter)
+let productData : ProductProjection[] =await getProductsList(id, ["name.en-us asc"]);
+if(SortParameter ==0){
+ productData = await getProductsList(id, ["name.en-us asc"]);
+}else if(SortParameter ==1){
+  productData = await getProductsList(id, ["name.en-us desc"]);
+}
+// }else if(SortParameter ==2){
+//   productData = await getProductsList(id, ["name.en-us desc"]);
+
+// }else if(SortParameter ==3){
+//   productData = await getProductsList(id, ["name.en-us desc"]);
+
+// }
+
   productData.forEach((product) => {
     const productCard = createElement(ProductCard, productsList);
     const productIconBox = createElement(ProductImageBox, productCard);
@@ -73,4 +99,6 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
     productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
     productLink.id = `${product.key?.toLowerCase()}`;
   });
+
+
 }

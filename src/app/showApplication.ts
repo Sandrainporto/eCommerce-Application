@@ -24,5 +24,5 @@ export default async function showApplication(): Promise<void> {
   }
 
   routerInit();
-  getProductsList('1a646b6c-dbe6-401f-ab7d-ddcdae8a3bc6');
+  // getProductsList('1a646b6c-dbe6-401f-ab7d-ddcdae8a3bc6');
 }

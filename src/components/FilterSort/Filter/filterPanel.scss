@@ -1,0 +1,54 @@
+@import './../../../sass/abstract/mixins';
+@import './../../../sass/abstract/placeholders';
+@import './../../../sass/abstract/constants';
+
+.filter__panel {
+  align-self: flex-start;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 2rem;
+  height: 100%;
+  background-color: $background-color-dark;
+
+  .panel__container {
+    @include flex(column);
+    width: 200px;
+  }
+
+  .filter {
+    width: 100%;
+    @include flex(row, center, space-between);
+  }
+
+  .filter__button {
+    margin-top: 2rem;
+    @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
+    @extend %font-add;
+    text-transform: uppercase;
+    outline: none;
+    color: $color-link;
+    position: relative;
+    background: rgb(2, 29, 78);
+    background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+    padding: 1rem 2.8rem 1rem 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    border-radius: 1rem;
+    border: none;
+    box-shadow:
+      rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s;
+
+    &:hover {
+      transition: 0.4s;
+      border: 2px dashed #00bfa6;
+      background-color: $color-text-light;
+      color: rgb(4, 4, 38);
+    }
+
+    &:active {
+      background-color: #87dbd0;
+    }
+  }
+}
