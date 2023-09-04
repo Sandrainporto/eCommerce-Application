@@ -12,7 +12,6 @@ import {
   NavigationSubCategList,
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
-import { getCategoriesList, getSubCategoriesList } from '../../api/getCatalog';
 import { DataType } from '../../types/types';
 
 let Data: DataType[];

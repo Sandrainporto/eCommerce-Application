@@ -6,7 +6,7 @@ export enum DetailsParam {
 export enum ContentPageContainer {
   elemTag = 'div',
   classNames = 'content__container',
-} 
+}
 export enum ProductSlider {
   elemTag = 'div',
   classNames = 'products__slider',
@@ -33,6 +33,6 @@ export enum ProductPrice {
 export enum ProductCardLink {
   elemTag = 'a',
   classNames = 'products__link',
-  href ="#",
-  innerText = 'add to cart',
+  href = '#',
+  innerText = 'Add to cart',
 }

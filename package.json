@@ -50,7 +50,8 @@
     "@commercetools/sdk-client-v2": "^2.2.0",
     "highlight.js": "^11.8.0",
     "identity-obj-proxy": "^3.0.0",
-    "jest-environment-jsdom": "^29.6.2"
+    "jest-environment-jsdom": "^29.6.2",
+    "swiper": "^10.2.0"
   },
   "repository": {
     "type": "git",

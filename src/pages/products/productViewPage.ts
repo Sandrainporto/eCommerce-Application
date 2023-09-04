@@ -1,4 +1,5 @@
 import './products.scss';
+import { Image, Price } from '@commercetools/platform-sdk';
 import { getProductsList } from '../../api/getProducts';
 import { createElement } from '../../utils/elementCreator';
 import { ContentPageContainer } from '../error/types';
@@ -14,7 +15,6 @@ import {
   ProductPrice,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
-import { Price } from '@commercetools/platform-sdk';
 
 let SortParameter = 0;
 let SearchParameter = '';
@@ -45,32 +45,30 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
   ContentRoot = pageContent;
   const productsList = createElement(ProductsList, pageContent);
   productsList.id = id;
-  const productData = await getProductsList(id);
 
+  const productData = await getProductsList(id);
   productData.forEach((product) => {
     const productCard = createElement(ProductCard, productsList);
-
     const productIconBox = createElement(ProductImageBox, productCard);
     const productIcon = createElement(ProductImage, productIconBox) as HTMLImageElement;
-    const productImagesData = product.masterVariant.images;
-    productImagesData?.forEach((image) => (productIcon.src = image.url));
-
+    const productImagesData: Image[] | undefined = product.masterVariant.images;
+    if (productImagesData) {
+      const mainImage = productImagesData[0];
+      productIcon.src = mainImage.url;
+    }
     const productTitle = createElement(ProductName, productCard);
     productTitle.innerText = product.name['en-US'];
-
     const productDescription = createElement(ProductDescription, productCard);
     if (product.description) {
       productDescription.innerText = product.description['en-US'];
     } else {
       productDescription.innerText = '';
     }
-
-    const productPrice = createElement(ProductPrice, productCard);
     const productPricesData: Price[] | undefined = product.masterVariant.prices;
-    productPricesData?.forEach(
-      (prices) => (productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`),
-    );
-
+    productPricesData?.forEach((prices) => {
+      const productPrice = createElement(ProductPrice, productCard);
+      productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`;
+    });
     const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
     productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
     productLink.id = `${product.key?.toLowerCase()}`;

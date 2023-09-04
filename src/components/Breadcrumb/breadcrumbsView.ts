@@ -30,7 +30,6 @@ export default function showBreadcrumb(root: HTMLElement): void {
         name: nameTransform(path),
       };
     });
-
     breadcrumbs.unshift({ path: '/', name: rootName });
     return breadcrumbs;
   };
