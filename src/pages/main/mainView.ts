@@ -83,7 +83,9 @@ export default function showMainPage(currentPage: string, value?: string): void 
     window.location.href = `http://${path}/404`;
   }
   showBreadcrumb(mainWrapper);
-  activePage(mainWrapper, key || id || categoryData);
+  if (activePage !== Routes['404']) {
+    activePage(mainWrapper, key || id || categoryData);
+  }
 }
 
 export const setData = (wrapper: HTMLElement, data: DataType[]): void => {
