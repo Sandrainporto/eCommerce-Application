@@ -4,7 +4,6 @@ import { createElement } from '../utils/elementCreator';
 import { routerInit } from '../router/router';
 import { getCategoriesList, getSubCategoriesList } from '../api/getCatalog';
 import { setData } from '../pages/main/mainView';
-import { getProductsList } from '../api/getProducts';
 
 export default async function showApplication(): Promise<void> {
   const wrapper = createElement(WrapperParam, document.body);
@@ -24,5 +23,5 @@ export default async function showApplication(): Promise<void> {
   }
 
   routerInit();
-  getProductsList('1a646b6c-dbe6-401f-ab7d-ddcdae8a3bc6');
+  // getProductsList('1a646b6c-dbe6-401f-ab7d-ddcdae8a3bc6');
 }
