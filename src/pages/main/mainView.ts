@@ -13,6 +13,8 @@ let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
 export default function showMainPage(currentPage: string, value?: string): void {
+  console.log('перерисовка');
+  console.log(currentPage);
   const url = currentPage.split('/').filter((el) => el.length !== 0);
   let id = '';
   let key = value || '';
