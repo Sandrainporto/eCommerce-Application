@@ -10,6 +10,8 @@ const renderPage = (path: string, productKey?: string): void => {
 const addListener = (): void => {
   window.onpopstate = (): void => {
     const path = window.location.href;
+    console.log('отловили изменение');
+    console.log(path);
     renderPage(path);
   };
   window.addEventListener(

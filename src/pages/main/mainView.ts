@@ -15,6 +15,7 @@ let mainWrapper: HTMLElement;
 export default function showMainPage(currentPage: string, value?: string): void {
   console.log('перерисовка');
   console.log(currentPage);
+  mainWrapper.innerHTML = '';
   const url = currentPage.split('/').filter((el) => el.length !== 0);
   let id = '';
   let key = value || '';
@@ -50,39 +51,10 @@ export default function showMainPage(currentPage: string, value?: string): void 
   } else if (key) {
     activePage = Routes.details;
   }
-  // if (url.length === 0) {
-  //   activePage = Routes[currentPage];
-  // } else if (url.length === 1) {
-  //   activePage = Routes[url[0]] || Routes['404'];
-  // } else if (url.length === 2) {
-
-  // } else if (url.length > 2) {
-  // Data.forEach((el) => {
-  //   el.subcategory.forEach((elem) => {
-  //     if (elem.key === url[2]) id = elem.id;
-  //   });
-  // });
-  // }
-  // console.log(activePage);
-  // console.log(url);
-  // console.log(currentPage);
-  // if (id) {
-  //   activePage = Routes.products;
-  //   activePage(mainWrapper, id);
-  // } else if (key && url.length === 3) {
-  // activePage = Routes.details;
-  //   activePage(mainWrapper, key);
-  // } else if (!id && activePage === Routes['404']) {
-  //   activePage(mainWrapper, categoryData);
-  // } else {
-  //   console.log(123123);
-  //   activePage(mainWrapper, categoryData);
-  // }
-  mainWrapper.innerHTML = '';
   if (activePage === Routes['404']) {
     const path = window.location.host;
     activePage(mainWrapper, key || id || categoryData);
-    window.location.href = `http://${path}/404`;
+    window.history.pushState(null, '', `http://${path}/404`);
   }
   showBreadcrumb(mainWrapper);
   if (activePage !== Routes['404']) {
