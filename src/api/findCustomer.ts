@@ -28,3 +28,13 @@ export const returnCustomerByEmail = (userInfo: INewUser, hint: HTMLElement) => 
   // })
   // .catch();
 };
+export const getCustomerByEmail = async (email: string) => {
+  return apiRoot
+    .customers()
+    .get({
+      queryArgs: {
+        where: `email=${email}`,
+      },
+    })
+    .execute();
+};

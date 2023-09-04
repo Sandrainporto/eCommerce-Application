@@ -7,6 +7,8 @@ import showPageInfo from './PageInfo/pageInfoView';
 import { showAuthContent } from '../../pages/login/authContent';
 import { ContentPageContainer } from '../../pages/error/types';
 import createCategoriesCard from '../Categories/categoryCard';
+import { showProfPage } from '../../pages/profile/profileView';
+import { showProfileContent } from '../../pages/profile/profileContent';
 
 let categoryData: void | Category[];
 
@@ -20,10 +22,12 @@ export default function showMainContent(root: HTMLElement, data: void | Category
   categoryData = data;
   const activePage: ElementParams = ContentPageContainer;
   let activePageContent: (root: HTMLElement) => void;
-  if (root.id !== 'main') {
-    activePageContent = showAuthContent;
-  } else {
+  if (root.id === 'main') {
     activePageContent = getPageContent;
+  } else if (root.id === 'prof') {
+    activePageContent = showProfileContent;
+  } else {
+    activePageContent = showAuthContent;
   }
   const pageContent = createElement(activePage, root);
   activePageContent(pageContent);

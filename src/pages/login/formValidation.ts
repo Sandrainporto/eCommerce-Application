@@ -111,7 +111,7 @@ export function checkBtn(): void {
   }
 }
 
-function addHintContent(element: HTMLElement, str?: string): void {
+export function addHintContent(element: HTMLElement, str?: string): void {
   const curHintBlock = element;
   curHintBlock.textContent = '';
   if (str) curHintBlock.textContent = `${str}`;

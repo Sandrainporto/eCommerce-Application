@@ -47,7 +47,7 @@ import { checkForm } from './formValidation';
 import { RegPageParam } from '../registration/regTypes';
 import { ButtonClass } from '../../types/htmlClasses';
 
-const countries = {
+export const countries = {
   USA: CountryOptionUSA,
   Belarus: CountryOptionBelarus,
 };
