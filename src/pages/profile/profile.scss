@@ -1,0 +1,44 @@
+@import '../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
+
+.profile_info {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  width: 32rem;
+}
+.profile_info__user-info,
+.profile_info__user-adr {
+  color: $color-link;
+  border: 1px solid $color-link;
+  border-radius: 10px;
+  margin: 10px 0px;
+  padding: 10px;
+}
+input {
+  width: 25rem;
+  cursor: pointer;
+  color: $color-link;
+}
+
+label {
+  color: rgba(31, 215, 232, 0.873);
+  font-size: smaller;
+  order: -1;
+  width: 100%;
+  text-align: left;
+}
+.form_hint {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 10px;
+  height: 1.5rem;
+  color: rgba(31, 215, 232, 0.873);
+  line-height: 1.5rem;
+  text-align: left;
+}
+.profile_adr-block {
+  border-radius: 10px;
+  background-color: black;
+}

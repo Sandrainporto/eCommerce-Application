@@ -198,7 +198,7 @@ export enum AddressLabelCheckbox {
   for = 'user-laddress-checkbox',
   classNames = 'user_laddress_label-checkbox',
   innerText = 'Set as default address',
-  value = 'chosen',
+  // value = 'chosen',
 }
 export enum DefAddresslInputCheckbox {
   elemTag = 'input',

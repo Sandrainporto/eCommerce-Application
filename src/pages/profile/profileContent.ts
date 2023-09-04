@@ -1,3 +1,4 @@
+import { Customer } from '@commercetools/platform-sdk';
 import { getCustomerByEmail } from '../../api/findCustomer';
 import { createElement } from '../../utils/elementCreator';
 import {
@@ -13,7 +14,6 @@ import {
   LoginNewPaslInput,
 } from './profileTypes';
 import { inputProfileCreator } from '../../utils/inputCreator';
-import { Customer } from '@commercetools/platform-sdk';
 import { addHintContent } from '../login/formValidation';
 import {
   UserFNamelInput,
@@ -24,14 +24,14 @@ import {
   UserLTownlInput,
   UserLPostcodelInput,
   InputBlock,
-} from '../login/authTypes';
+ FormHint } from '../login/authTypes';
 import { checkDate } from '../login/inputs/checkDate';
 import { checkEmail } from '../login/inputs/checkEmail';
 import { checkName } from '../login/inputs/checkName';
 import { checkPassword } from '../login/inputs/checkPassword';
 import { checkPostCode } from '../login/inputs/checkPostCode';
 import { HtmlTags } from '../../types/htmlTags';
-import { FormHint } from '../login/authTypes';
+
 import { ButtonClass } from '../../types/htmlClasses';
 import {
   updateUserBDay,
@@ -156,7 +156,7 @@ function showUserInfo(root: HTMLElement, customer: Customer): void {
     if (input.id === UserFNamelInput.id) input.value = customer.firstName as string;
     if (input.id === UserLNamelInput.id) input.value = customer.lastName as string;
     if (input.id === UserLBirthlInput.id) input.value = customer.dateOfBirth as string;
-    if (input.id === LoginEmailInput.id) input.value = customer.email as string;
+    if (input.id === LoginEmailInput.id) input.value = customer.email ;
     input.addEventListener('input', (e) => checkProfileForm(e));
   });
   Object.values(UserPasFields).forEach((el) => {
@@ -197,7 +197,7 @@ async function saveUserPas(e: Event): Promise<void> {
   e.preventDefault();
   const btn = e.target as HTMLElement;
   const block = btn.parentElement as HTMLElement;
-  let data = JSON.parse(localStorage.getItem('night-customer') as string);
+  const data = JSON.parse(localStorage.getItem('night-customer') as string);
   const hint = [...block.querySelectorAll(`.${FormHint.classNames}`)][1] as HTMLElement;
   const pasCur = block.querySelector(`.${LoginCurPaslInput.classNames}`) as HTMLInputElement;
   const pasNew = block.querySelector(`.${LoginNewPaslInput.classNames}`) as HTMLInputElement;

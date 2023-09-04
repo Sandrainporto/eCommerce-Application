@@ -1,10 +1,14 @@
 import { apiRoot } from './createClient';
 import { INewUser } from '../pages/login/authTypes';
-import { createCustomer } from './createUser';
+import { ClientResponse, CustomerPagedQueryResponse } from '@commercetools/platform-sdk';
+
 // import { redirect } from '../router/routes';: Promise<void>
 
-export const returnCustomerByEmail = (userInfo: INewUser, hint: HTMLElement) => {
-  const element = hint;
+export const returnCustomerByEmail = (
+  userInfo: INewUser,
+  hint: HTMLElement,
+): Promise<ClientResponse<CustomerPagedQueryResponse>> => {
+  // const element = hint;
   return apiRoot
     .customers()
     .get({
@@ -28,7 +32,7 @@ export const returnCustomerByEmail = (userInfo: INewUser, hint: HTMLElement) => 
   // })
   // .catch();
 };
-export const getCustomerByEmail = async (email: string) => {
+export const getCustomerByEmail = async (email: string): Promise<ClientResponse<CustomerPagedQueryResponse>> => {
   return apiRoot
     .customers()
     .get({

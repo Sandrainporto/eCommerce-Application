@@ -15,9 +15,9 @@ const addListener = (): void => {
   window.addEventListener(
     'click',
     (event) => {
-      event.preventDefault();
       const target = event.target as HTMLLinkElement;
       if (target.tagName === 'A' || target.closest('A')) {
+        event.preventDefault();
         const element = target.closest('A') as HTMLLinkElement;
         renderPage(element.href);
       }

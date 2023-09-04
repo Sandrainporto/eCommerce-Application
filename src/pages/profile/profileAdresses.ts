@@ -1,4 +1,5 @@
 import { Customer, Address } from '@commercetools/platform-sdk';
+import { addNewBilAdr, addNewShipAdr, addNewCustomerAdress, updateUserAdress } from '../../api/changeProfile';
 import { ButtonClass } from '../../types/htmlClasses';
 import { HtmlTags } from '../../types/htmlTags';
 import { createElement } from '../../utils/elementCreator';
@@ -6,6 +7,7 @@ import { inputProfileAdrCreator, inputCreator } from '../../utils/inputCreator';
 import { countries } from '../login/authContent';
 import { CountrySelectBox, FormHint } from '../login/authTypes';
 import { addHintContent } from '../login/formValidation';
+import { checkName } from '../login/inputs/checkName';
 import { checkPostCode } from '../login/inputs/checkPostCode';
 import {
   AdrBlock,
@@ -21,9 +23,46 @@ import {
   SaveAdrBtn,
   DelAdrBtn,
   DefHeader,
+  ProfileUserNewAdr,
+  ProfileUserNewAdrHeader,
+  ProfileNewAdrCheckboxBlock,
+  ProfileBilAddresslInputCheckbox,
+  ProfileBilAddressLabelCheckbox,
+  ProfileShipAddresslInputCheckbox,
+  ProfileShipAddressLabelCheckbox,
+  ProfileDefAddresslInputCheckbox,
+  ProfileDefAddressLabelCheckbox,
+  INewDataAddress,
 } from './profileTypes';
 
-function updateAddress() {}
+async function updateAddress(e: Event) {
+  e.preventDefault();
+  console.log('тут');
+  const btn = e.target as HTMLElement;
+  const block = btn.parentElement as HTMLElement;
+  const type = block?.parentElement?.classList.value;
+  const inputs = [...block.getElementsByTagName(`${HtmlTags.INPUT}`)];
+  const selects = [...block.getElementsByTagName(`${HtmlTags.SELECT}`)];
+  let userData = JSON.parse(localStorage.getItem('night-customer') as string);
+  const dataAdress = {
+    id: block.getAttribute('data-id') as string,
+    country: selects.find((el) => el.id === `${CountrySelectBox.id}`)?.value as string,
+    town: inputs.find((el) => el.className === `${ProfLTownlInput.classNames}`)?.value as string,
+    street: inputs.find((el) => el.className === `${ProfStreetlInput.classNames}`)?.value as string,
+    postCode: inputs.find((el) => el.className === `${ProfPostcodelInput.classNames}`)?.value as string,
+  };
+  await updateUserAdress(userData.id, dataAdress, Number(userData.version))
+    .then(({ body }) => (userData = body))
+    .catch();
+  localStorage.setItem('night-customer', JSON.stringify(userData));
+  console.log(block, type, dataAdress);
+}
+
+function deleteAddress(e: Event) {
+  // if (type === ProfileUserBilAdr.classNames) {
+  // } else {
+  // }
+}
 
 function checkAdrBtn(input: HTMLInputElement) {
   const block = input.parentElement?.parentElement as HTMLElement;
@@ -46,7 +85,7 @@ function checkAdrBtn(input: HTMLInputElement) {
   }
 }
 
-function checkPostCodeInput(e: Event): void {
+function checkAdrInput(e: Event, flag?: boolean): void {
   const input = e.target;
   if (input instanceof HTMLInputElement) {
     const hint = input.nextElementSibling as HTMLElement;
@@ -54,20 +93,25 @@ function checkPostCodeInput(e: Event): void {
     if (hint !== null) {
       hint.textContent = text;
       let errorMessage = ' ';
-      errorMessage = checkPostCode(text);
+      if (input.classList.contains(ProfLTownlInput.classNames)) {
+        errorMessage = checkName(text);
+      }
+      if (input.classList.contains(ProfPostcodelInput.classNames)) {
+        errorMessage = checkPostCode(text);
+      }
       if (errorMessage) {
         addHintContent(hint, errorMessage);
       } else {
         addHintContent(hint);
       }
     }
-    checkAdrBtn(input);
+    if (flag === undefined) checkAdrBtn(input);
   }
 }
 
-function setSelectedCountry(select: HTMLElement, country: string = 'Belarus') {
+function setSelectedCountry(select: HTMLElement, country = 'RU') {
   [...select.querySelectorAll(`.${countries.USA.classNames}`)].find((el) => {
-    el.textContent === country;
+    el.textContent === (country === 'RU' ? 'Belarus' : 'USA');
     el.setAttribute('selected', 'selected');
   });
 }
@@ -75,7 +119,7 @@ function setSelectedCountry(select: HTMLElement, country: string = 'Belarus') {
 function createAdrBlock(adress: Address | undefined, root: HTMLElement, defAdr: string | undefined): void {
   if (adress) {
     const adrBlock = createElement(AdrBlock, root);
-    adrBlock.classList.add(adress.id as string);
+    adrBlock.setAttribute('data-id', adress.id as string);
     if (defAdr && adress.id === defAdr) {
       createElement(DefHeader, adrBlock);
       adrBlock.classList.add('default');
@@ -90,20 +134,18 @@ function createAdrBlock(adress: Address | undefined, root: HTMLElement, defAdr: 
     if (adress.country === 'EN') {
       setSelectedCountry(select, adress.country);
     } else {
-      setSelectedCountry(select);
+      setSelectedCountry(select, 'RU');
     }
 
     Object.values(addressProfFields).forEach((el) => inputProfileAdrCreator(el.label, el.input, adrBlock));
     [...adrBlock.getElementsByTagName(HtmlTags.INPUT)].forEach((input) => {
       if (input.classList.contains(ProfLTownlInput.classNames)) input.value = adress.city as string;
       if (input.classList.contains(ProfStreetlInput.classNames)) input.value = adress.streetName as string;
-      if (input.classList.contains(ProfPostcodelInput.classNames)) {
-        input.value = adress.postalCode as string;
-        input.addEventListener('input', (e: Event) => checkPostCodeInput(e));
-      }
+      if (input.classList.contains(ProfPostcodelInput.classNames)) input.value = adress.postalCode as string;
+      input.addEventListener('input', (e: Event) => checkAdrInput(e));
     });
-    createElement(SaveAdrBtn, adrBlock);
-    createElement(DelAdrBtn, adrBlock);
+    createElement(SaveAdrBtn, adrBlock, updateAddress);
+    createElement(DelAdrBtn, adrBlock, deleteAddress);
   }
 }
 
@@ -125,10 +167,90 @@ function fillAdrBlock(
   });
 }
 
-export function showAdresess(root: HTMLElement, customer: Customer) {
+function checkNewChecbox(e: Event) {
+  const curChecBox = e.target as HTMLInputElement;
+  const block = curChecBox.parentElement?.parentElement as HTMLElement;
+  const bilCheck = block.querySelector(`#${ProfileBilAddresslInputCheckbox.id}`) as HTMLInputElement;
+  const ship = block.querySelector(`#${ProfileShipAddresslInputCheckbox.id}`) as HTMLInputElement;
+  console.log(bilCheck, ship, curChecBox.checked);
+  if (curChecBox.id === ProfileBilAddresslInputCheckbox.id) {
+    if (curChecBox.checked) {
+      ship.checked = false;
+    }
+  }
+  if (curChecBox.id === ProfileShipAddresslInputCheckbox.id) {
+    if (curChecBox.checked) {
+      bilCheck.checked = false;
+    }
+  }
+}
+async function createAdress(e: Event) {
+  const btn = e.target as HTMLElement;
+  const block = btn.parentElement as HTMLElement;
+  const inputs = [...block.getElementsByTagName(HtmlTags.INPUT)];
+  const selects = [...block.getElementsByTagName(`${HtmlTags.SELECT}`)];
+  let userData = JSON.parse(localStorage.getItem('night-customer') as string);
+  const newAdrData: INewDataAddress = {
+    country: selects.find((el) => el.className === `${CountrySelectBox.classNames}`)?.value as string,
+    town: inputs.find((el) => el.className === `${ProfLTownlInput.classNames}`)?.value as string,
+    street: inputs.find((el) => el.className === `${ProfStreetlInput.classNames}`)?.value as string,
+    postCode: inputs.find((el) => el.className === `${ProfPostcodelInput.classNames}`)?.value as string,
+    bil: inputs.find((el) => el.className === `${ProfileBilAddresslInputCheckbox.classNames}`)?.checked as boolean,
+    ship: inputs.find((el) => el.className === `${ProfileShipAddresslInputCheckbox.classNames}`)?.checked as boolean,
+    def: inputs.find((el) => el.className === `${ProfileDefAddresslInputCheckbox.classNames}`)?.checked as boolean,
+  };
+  await addNewCustomerAdress(userData.id as string, newAdrData, userData.version).then(({ body }) => (userData = body));
+  const createdAdr = userData.addresses[userData.addresses.length - 1];
+  console.log(newAdrData.bil, newAdrData.ship, createdAdr);
+  if (newAdrData.bil) {
+    if (newAdrData.def) {
+    } else {
+      await addNewBilAdr(userData.id as string, createdAdr.id as string, userData.version).then(
+        ({ body }) => (userData = body),
+      );
+    }
+  }
+  if (newAdrData.ship) {
+    if (newAdrData.def) {
+    } else {
+      await addNewShipAdr(userData.id as string, createdAdr.id as string, userData.version).then(
+        ({ body }) => (userData = body),
+      );
+    }
+  }
+  localStorage.setItem('night-customer', JSON.stringify(userData));
+}
+
+function fillNewAdrBlock(root: HTMLElement): void {
+  createElement(ProfileUserNewAdrHeader, root);
+  const selectAddress = inputCreator(CountryProFSelectLabel, CountrySelectBox, root);
+
+  const select = selectAddress.querySelector(`#${CountrySelectBox.id}`) as HTMLElement;
+
+  Object.values(countries).forEach((el) => {
+    createElement(el, select, (e: Event) => {});
+  });
+  Object.values(addressProfFields).forEach((el) => inputProfileAdrCreator(el.label, el.input, root));
+  [...root.getElementsByTagName(HtmlTags.INPUT)].forEach((input) => {
+    input.addEventListener('input', (e: Event) => checkAdrInput(e, false));
+  });
+  const checkboxBlock = createElement(ProfileNewAdrCheckboxBlock, root);
+  inputProfileAdrCreator(ProfileBilAddresslInputCheckbox, ProfileBilAddressLabelCheckbox, checkboxBlock);
+  inputProfileAdrCreator(ProfileShipAddresslInputCheckbox, ProfileShipAddressLabelCheckbox, checkboxBlock);
+  inputProfileAdrCreator(ProfileDefAddresslInputCheckbox, ProfileDefAddressLabelCheckbox, checkboxBlock);
+  [...checkboxBlock.getElementsByTagName(HtmlTags.INPUT)].forEach((chbx) => {
+    chbx.addEventListener('click', checkNewChecbox);
+    chbx.checked = false;
+  });
+
+  createElement(SaveAdrBtn, root, createAdress);
+}
+export function showAdresess(root: HTMLElement, customer: Customer): void {
   console.log(root, customer);
   const bilAdrBlock = createElement(ProfileUserBilAdr, root);
   fillAdrBlock(bilAdrBlock, customer.addresses, customer.billingAddressIds, customer.defaultBillingAddressId);
   const shipAdrBlock = createElement(ProfileUserShipAdr, root);
   fillAdrBlock(shipAdrBlock, customer.addresses, customer.shippingAddressIds, customer.defaultShippingAddressId);
+  const newAdrBlock = createElement(ProfileUserNewAdr, root);
+  fillNewAdrBlock(newAdrBlock);
 }

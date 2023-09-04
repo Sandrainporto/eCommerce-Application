@@ -39,6 +39,15 @@ export enum ProfileUserShipAdr {
   elemTag = 'div',
   classNames = 'profile_adr__ship',
 }
+export enum ProfileUserNewAdr {
+  elemTag = 'div',
+  classNames = 'profile_adr__new',
+}
+export enum ProfileUserNewAdrHeader {
+  elemTag = 'h3',
+  classNames = 'profile_adr__new-header',
+  innerText = 'Add adress',
+}
 
 export const userProfileFields = {
   firstName: {
@@ -191,4 +200,64 @@ export enum DefHeader {
   elemTag = 'h3',
   className = 'defheader',
   innerText = 'Deafault address',
+}
+
+export interface IDataAddress {
+  id: string;
+  country: string;
+  town: string;
+  street: string;
+  postCode: string;
+}
+export interface INewDataAddress {
+  country: string;
+  town: string;
+  street: string;
+  postCode: string;
+  bil?: boolean;
+  ship?: boolean;
+  def?: boolean;
+}
+
+export enum ProfileNewAdrCheckboxBlock {
+  elemTag = 'div',
+  classNames = 'new-adr_checkbox-block',
+}
+export enum ProfileBilAddresslInputCheckbox {
+  elemTag = 'input',
+  type = 'checkbox',
+  classNames = 'new-bil_laddress-checkbox',
+  id = 'new-billing-adr',
+}
+export enum ProfileBilAddressLabelCheckbox {
+  elemTag = 'label',
+  for = 'new-billing-adr',
+  classNames = 'new-bil_label-checkbox',
+  innerText = 'Set as billing address',
+  // value = 'chosen',
+}
+export enum ProfileShipAddresslInputCheckbox {
+  elemTag = 'input',
+  type = 'checkbox',
+  classNames = 'new-ship_laddress-checkbox',
+  id = 'new-ship-adr',
+}
+export enum ProfileShipAddressLabelCheckbox {
+  elemTag = 'label',
+  for = 'new-ship-adr',
+  classNames = 'new-ship_label-checkbox',
+  innerText = 'Set as shipping address',
+  // value = 'chosen',
+}
+export enum ProfileDefAddresslInputCheckbox {
+  elemTag = 'input',
+  type = 'checkbox',
+  classNames = 'new_def_adr-checkbox',
+  id = 'new-default-adr',
+}
+export enum ProfileDefAddressLabelCheckbox {
+  elemTag = 'label',
+  for = 'new-default-adr',
+  classNames = 'new_def_adr-label',
+  innerText = 'Set as default',
 }

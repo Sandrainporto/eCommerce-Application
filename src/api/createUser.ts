@@ -1,15 +1,19 @@
-import { ClientResponse, Customer, _BaseAddress } from '@commercetools/platform-sdk';
+import { ClientResponse, Customer, _BaseAddress, CustomerSignInResult } from '@commercetools/platform-sdk';
 import { apiRoot } from './createClient';
 import { INewUser } from '../pages/login/authTypes';
 // import { redirect } from '../router/routes';
 
-export const updateDefShipAdr = (customerID: string, shipID: string) => {
+export const updateDefShipAdr = (
+  customerID: string,
+  shipID: string,
+  version: number,
+): Promise<ClientResponse<Customer>> => {
   return apiRoot
     .customers()
     .withId({ ID: customerID })
     .post({
       body: {
-        version: 5,
+        version,
         actions: [
           {
             action: 'addShippingAddressId',
@@ -26,13 +30,17 @@ export const updateDefShipAdr = (customerID: string, shipID: string) => {
 
     .catch();
 };
-export const updateDefBilpAdr = (customerID: string, bilID: string) => {
+export const updateDefBilpAdr = (
+  customerID: string,
+  bilID: string,
+  version: number,
+): Promise<ClientResponse<Customer>> => {
   return apiRoot
     .customers()
     .withId({ ID: customerID })
     .post({
       body: {
-        version: 7,
+        version,
         actions: [
           {
             action: 'addBillingAddressId',
@@ -49,14 +57,18 @@ export const updateDefBilpAdr = (customerID: string, bilID: string) => {
 
     .catch();
 };
-export const updateCustomerAdress = (customerID: string, userinfo: INewUser) => {
+export const updateCustomerAdress = (
+  customerID: string,
+  userinfo: INewUser,
+  version: number,
+): Promise<ClientResponse<Customer>> => {
   return (
     apiRoot
       .customers()
       .withId({ ID: customerID })
       .post({
         body: {
-          version: 4,
+          version,
           actions: [
             {
               action: 'addAddress',
@@ -81,14 +93,18 @@ export const updateCustomerAdress = (customerID: string, userinfo: INewUser) => 
   );
 };
 // : Promise<void | ClientResponse<Customer>>
-export const updateCustomerName = (customerID: string, userinfo: INewUser) => {
+export const updateCustomerName = (
+  customerID: string,
+  userinfo: INewUser,
+  version: number,
+): Promise<ClientResponse<Customer>> => {
   return (
     apiRoot
       .customers()
       .withId({ ID: customerID })
       .post({
         body: {
-          version: 1,
+          version,
           actions: [
             {
               action: 'setFirstName',
@@ -116,7 +132,7 @@ export const updateCustomerName = (customerID: string, userinfo: INewUser) => {
   );
 };
 // : Promise<void>
-export const createCustomer = (info: INewUser) => {
+export const createCustomer = (info: INewUser): Promise<ClientResponse<CustomerSignInResult>> => {
   return (
     apiRoot
       .customers()
