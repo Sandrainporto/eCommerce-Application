@@ -15,6 +15,7 @@ export default function showMainPage(currentPage: string, key?: string): void {
   const url = currentPage.split('/').filter((el) => el.length !== 0);
   let activePage = Routes[currentPage] || Routes['404'];
   let id = '';
+
   if (url.length === 0) {
     activePage = Routes[''];
   } else if (url.length === 1) {
@@ -23,10 +24,12 @@ export default function showMainPage(currentPage: string, key?: string): void {
     Data.map((el) => {
       if (el.category.key === url[1]) {
         id = el.category.id;
+      } else {
+        activePage = Routes['404'];
       }
       return undefined;
     });
-  } else if (url.length === 3) {
+  } else if (url.length > 2) {
     Data.forEach((el) => {
       el.subcategory.forEach((elem) => {
         if (elem.key === url[2]) id = elem.id;
@@ -42,6 +45,8 @@ export default function showMainPage(currentPage: string, key?: string): void {
   } else if (key && url.length === 3) {
     activePage = Routes.details;
     activePage(mainWrapper, key);
+  } else if (!id && activePage === Routes['404']) {
+    activePage(mainWrapper, categoryData);
   } else activePage(mainWrapper, categoryData);
 }
 
