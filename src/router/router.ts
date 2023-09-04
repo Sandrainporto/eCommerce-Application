@@ -14,6 +14,9 @@ const addListener = (): void => {
     console.log(path);
     renderPage(path);
   };
+  window.addEventListener('popstate', (event) => {
+    alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`);
+  });
   window.addEventListener(
     'click',
     (event) => {
