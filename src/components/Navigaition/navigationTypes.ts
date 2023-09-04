@@ -14,10 +14,19 @@ export enum NavigationLinkParam {
   elemTag = 'a',
   classNames = 'nav__link',
 }
-export enum NavigationSubLinkParam {
+export enum NavigationSubLink {
   elemTag = 'a',
   classNames = 'nav__sub-link',
+  listenerType = 'mouseover',
 }
+export enum NavigationSubCategList {
+  classNames = 'nav__subcategory-list',
+}
+export enum NavigationSubCategLink {
+  elemTag = 'a',
+  classNames = 'nav__subcategory-link',
+}
+
 export interface NavigationLink {
   text: string;
   id: string;

@@ -7,29 +7,52 @@ import {
   NavigationBlockParam,
   NavigationListParam,
   navigationLinksData,
-  NavigationSubLinkParam,
+  NavigationSubLink,
+  NavigationSubCategLink,
+  NavigationSubCategList,
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
-import { getCategoriesList } from '../../api/getCatalog';
+import { DataType } from '../../types/types';
 
-let categoryData: void | Category[];
+let Data: DataType[];
+let categoryData: Category[];
+const currentUrl = window.location.origin;
 
-export function createSublinks(categoriesData: void | Category[], root: HTMLLinkElement): HTMLUListElement {
-  const currentUrl = window.location.origin;
+async function addsubCategories(parentCateg: HTMLLIElement, subLinkID: string): Promise<void> {
+  const subcategoryData = Data.filter((el) => el.category.id === subLinkID);
+  const subItemList = document.createElement('ul');
 
+  subcategoryData?.forEach((category) => {
+    if (category.subcategory.length > 0) {
+      category.subcategory.forEach((subcategory) => {
+        subItemList.className = NavigationSubCategList.classNames;
+        const subItem = document.createElement('li');
+        const subLink = createElement(NavigationSubCategLink, subItem) as HTMLAnchorElement;
+        subLink.innerText = subcategory.name['en-US'];
+        subLink.id = `${subcategory.id}`;
+        subLink.href = `${currentUrl}/catalog/${parentCateg.id}/${subcategory.key}`;
+        subItemList.append(subItem);
+        parentCateg.append(subItemList);
+      });
+    }
+  });
+}
+
+export function addSublinks(categoriesData: void | Category[], root: HTMLLinkElement): HTMLUListElement {
   const subList = document.createElement('ul');
   subList.className = 'catalog__sub-list';
-  if (categoriesData)
-    categoriesData.forEach((category) => {
-      const subItem = document.createElement('li');
-      const subLink = createElement(NavigationSubLinkParam, subItem) as HTMLAnchorElement;
-      subLink.innerText = category.name['en-US'];
-      subLink.id = `${category.key}`;
+  categoriesData?.forEach((category) => {
+    const subItem = document.createElement('li');
+    subItem.id = `${category.key}`;
+    const subLink = createElement(NavigationSubLink, subItem) as HTMLAnchorElement;
+    subLink.innerText = category.name['en-US'];
+    subLink.id = `${category.id}`;
 
-      subLink.href = `${currentUrl}/catalog/${category.key}`;
+    subLink.href = `${currentUrl}/catalog/${category.key}`;
 
-      subList.append(subItem);
-    });
+    subList.append(subItem);
+    addsubCategories(subItem, subLink.id);
+  });
   root.after(subList);
   return subList;
 }
@@ -75,12 +98,13 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
   showHideLoggedUser();
   const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
   if (catalogeLink) {
-    createSublinks(categoryData, catalogeLink);
+    addSublinks(categoryData, catalogeLink);
   }
 }
 
-export default function showNavigation(root: HTMLElement, data: void | Category[]): HTMLElement {
-  categoryData = data;
+export default function showNavigation(root: HTMLElement, data: DataType[]): HTMLElement {
+  Data = data;
+  categoryData = data.map((el) => el.category);
 
   const navBlock = createElement(NavigationBlockParam, root);
 

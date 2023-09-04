@@ -33,12 +33,14 @@
   visibility: visible;
   pointer-events: all;
 
-  .nav__sub-link {
+  .nav__sub-link,
+  .nav__subcategory-link {
     cursor: pointer;
     color: $color-text-dark;
   }
 
-  .nav__sub-link:hover {
+  .nav__sub-link:hover,
+  .nav__subcategory-link:hover {
     @include linkHover;
   }
 }
@@ -59,6 +61,44 @@
   visibility: hidden;
   pointer-events: none;
   transition: all 0.4 ease 0s;
+}
+@media screen and (width < 810px) {
+  .nav__subcategory-list {
+    display: none;
+  }
+}
+
+@media screen and (width >= 810px) {
+  .catalog__sub-list > li:hover {
+    position: relative;
+    width: 100%;
+    text-align: center;
+  }
+
+  .catalog__sub-list > li:hover .nav__subcategory-list {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .nav__subcategory-list {
+    position: absolute;
+    z-index: 10;
+    width: 50rem;
+    top: -2.3rem;
+    left: 115px;
+    @include flex(row, center, center, 1.5rem);
+    @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
+    font-weight: 800;
+    padding: 2rem 2.5rem;
+    background: $background-color-dark;
+    border-radius: 1rem;
+    color: $color-text-dark;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.4 ease 0s;
+  }
 }
 
 #login,
