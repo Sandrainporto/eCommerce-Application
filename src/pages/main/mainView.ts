@@ -67,6 +67,6 @@ export const setData = (wrapper: HTMLElement, data: DataType[]): void => {
   }
   showHeader(wrapper, Data);
   mainWrapper = createElement(MainPageParam, wrapper);
-  showMainPage('');
+  // showMainPage('');
   showFooter(wrapper);
 };
