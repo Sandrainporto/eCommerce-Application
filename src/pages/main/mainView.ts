@@ -12,15 +12,15 @@ let Data: DataType[];
 let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
-export default function showMainPage(currentPage: string, key?: string): void {
+export default function showMainPage(currentPage: string, value?: string): void {
   const url = currentPage.split('/').filter((el) => el.length !== 0);
-  console.log(currentPage);
-  console.log(url);
   let id = '';
+  let key = value || '';
   let activePage;
   if (url.length === 0 || !currentPage) {
     activePage = Routes[''];
   } else if (url.length === 1) {
+    key = '';
     activePage = Routes[url[0]] || Routes['404'];
   } else if (url.length === 2) {
     Data.forEach((el) => {
@@ -79,6 +79,7 @@ export default function showMainPage(currentPage: string, key?: string): void {
   mainWrapper.innerHTML = '';
   if (activePage === Routes['404']) {
     const path = window.location.host;
+    activePage(mainWrapper, key || id || categoryData);
     window.location.href = `http://${path}/404`;
   }
   showBreadcrumb(mainWrapper);
