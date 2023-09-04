@@ -48,7 +48,7 @@ const createSortInput = (root: HTMLElement, callback: { (value: string): void; (
   const sortPanel = createElement(SortContentParam, root);
   const select = createElement(SortSelect, sortPanel);
   if (!ActiveSelect) {
-    ActiveSelect = 1;
+    ActiveSelect = 0;
   }
   SELECTS.forEach((el, index) => {
     const option = new Option(el, `${index}`);

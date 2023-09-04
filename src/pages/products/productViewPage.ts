@@ -25,6 +25,7 @@ let CurrentId: string;
 const updatePage = (): void => {
   ContentRoot.innerHTML =``
   const productsList =  document.querySelector('.products__list') as HTMLElement
+  console.log(SortParameter, SearchParameter);
 showCards(CurrentId, productsList)
 
 
@@ -46,7 +47,6 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
   CurrentId = id;
   const productsPage = createElement(ProductsPageParam, root);
   const sortPanel = showSortPanel(productsPage, SortCallBack, SearchCallBack);
-  console.log(sortPanel)
   const pageContent = createElement(ContentPageContainer, productsPage);
   const filterPanel = showFilterPanel(pageContent);
   const productsList = createElement(ProductsList, pageContent);
@@ -65,13 +65,12 @@ if(SortParameter ==0){
 }else if(SortParameter ==1){
   productData = await getProductsList(id, ["name.en-us desc"]);
 }
-// }else if(SortParameter ==2){
-//   productData = await getProductsList(id, ["name.en-us desc"]);
-
-// }else if(SortParameter ==3){
-//   productData = await getProductsList(id, ["name.en-us desc"]);
-
-// }
+else if(SortParameter ==2){
+  productData = await getProductsList(id, ["price desc"]);
+}
+else if(SortParameter ==3){
+  productData = await getProductsList(id, ["price asc"]);
+}
 
   productData.forEach((product) => {
     const productCard = createElement(ProductCard, productsList);
