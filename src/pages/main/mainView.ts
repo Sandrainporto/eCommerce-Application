@@ -14,6 +14,8 @@ let mainWrapper: HTMLElement;
 
 export default function showMainPage(currentPage: string, key?: string): void {
   const url = currentPage.split('/').filter((el) => el.length !== 0);
+  console.log(currentPage);
+  console.log(url);
   let id = '';
   let activePage;
   if (url.length === 0 || !currentPage) {
