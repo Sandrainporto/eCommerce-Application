@@ -1,19 +1,20 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { apiRoot } from './createClient';
 
-export async function getProductsList(categoryId: string, sortparam:string[]): Promise<ProductProjection[]> {
+export async function getProductsList(categoryId: string, sortparam:string[], searchText:string, fuzzyLevel:number|undefined): Promise<ProductProjection[]> {
   const { body } = await apiRoot
     .productProjections()
     .search()
+    
     .get({
       queryArgs: {
         filter: `categories.id:"${categoryId}"`,
-        sort:sortparam
+        sort:sortparam,
+        "text.en-us": searchText,
+        fuzzy:true,
+        fuzzyLevel: fuzzyLevel
       },
     })
     .execute();
-  console.log(body.results)
   return body.results;
 }
-
-// categories.id:"{id}"
