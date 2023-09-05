@@ -189,6 +189,14 @@ function checkNewChecbox(e: Event): void {
       bilCheck.checked = false;
     }
   }
+  if (curChecBox.id === ProfileDefAddresslInputCheckbox.id) {
+    const chbxHint = curChecBox.nextElementSibling?.nextElementSibling as HTMLElement;
+    if (curChecBox.checked) {
+      chbxHint.textContent = 'dont relaized';
+    } else {
+      chbxHint.textContent = '';
+    }
+  }
 }
 async function createAdress(e: Event): Promise<void> {
   const btn = e.target as HTMLElement;
