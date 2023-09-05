@@ -1,4 +1,11 @@
 import { returnCustomerByEmail } from '../../api/findCustomer';
+import {
+  createCustomer,
+  updateCustomerAdress,
+  updateCustomerName,
+  updateDefShipAdr,
+  updateDefBilpAdr,
+} from '../../api/createUser';
 import { loginCustomer } from '../../api/loginCustomer';
 import { checkPassword } from './inputs/checkPassword';
 import { checkEmail } from './inputs/checkEmail';
@@ -12,32 +19,97 @@ import {
   LoginEmailInput,
   LoginPaslInput,
   FormContent,
+  CountrySelectBox,
   SubmitAuthBtn,
   FormHint,
   UserLBirthlInput,
   UserLTownlInput,
+  UserLStreetlInput,
+  AddresslInputCheckbox,
+  DefAddresslInputCheckbox,
   UserLPostcodelInput,
+  INewUser,
 } from './authTypes';
 import { HtmlTags } from '../../types/htmlTags';
+import { showProfileLink } from '../../components/Navigaition/navigationView';
 
 const HINT_TEXT = {
   create: 'User created',
 };
 
-export function addListnerToFormBtn(): void {
+export async function addListnerToFormBtn(): Promise<void> {
   const form = document.querySelector(`.${FormContent.classNames}`) as HTMLElement;
   const inputs = [...form.getElementsByTagName(`${HtmlTags.INPUT}`)];
+  const selects = [...form.getElementsByTagName(`${HtmlTags.SELECT}`)];
   const hint = inputs[inputs.length - 1].nextElementSibling?.nextElementSibling as HTMLElement;
+  const bilBlock = document.querySelector('.user-billing_block');
 
   if (localStorage.getItem('night-customer')) JSON.parse(localStorage.getItem('night-customer') as string);
   if (inputs.length > 2) {
     const userInfo = {
       fname: inputs.find((el) => el.id === `${UserFNamelInput.id}`)?.value as string,
       lname: inputs.find((el) => el.id === `${UserLNamelInput.id}`)?.value as string,
+      birth: inputs.find((el) => el.id === `${UserLBirthlInput.id}`)?.value as string,
       email: inputs.find((el) => el.id === `${LoginEmailInput.id}`)?.value as string,
       pas: inputs.find((el) => el.id === `${LoginPaslInput.id}`)?.value as string,
+      country: selects.find((el) => el.id === `${CountrySelectBox.id}`)?.value as string,
+      town: inputs.find((el) => el.id === `${UserLTownlInput.id}`)?.value as string,
+      street: inputs.find((el) => el.id === `${UserLStreetlInput.id}`)?.value as string,
+      postCode: inputs.find((el) => el.id === `${UserLPostcodelInput.id}`)?.value as string,
+      defaultAdres: inputs.find((el) => el.id === `${AddresslInputCheckbox.id}`)?.checked as boolean,
+      shipAndBil: inputs.find((el) => el.id === `${DefAddresslInputCheckbox.id}`)?.checked as boolean,
     };
-    returnCustomerByEmail(userInfo, hint);
+    let existUser;
+    await returnCustomerByEmail(userInfo, hint).then(({ body }) => {
+      existUser = { body };
+    });
+    if (existUser.body.results.length === 0) {
+      let newUser;
+      await createCustomer(userInfo).then(({ body }) => {
+        newUser = body.customer;
+      });
+      console.log(newUser);
+      hint.textContent = 'User created';
+      await updateCustomerName(newUser.id, userInfo, Number(newUser.version)).then(({ body }) => {
+        newUser = body;
+      });
+      console.log(newUser);
+      await updateCustomerAdress(newUser.id, userInfo, Number(newUser.version)).then(({ body }) => {
+        newUser = body;
+      });
+      console.log(newUser, newUser.id, newUser.addresses[0].id);
+      if (userInfo.defaultAdres)
+        await updateDefShipAdr(newUser.id, newUser.addresses[0].id, Number(newUser.version)).then(({ body }) => {
+          newUser = body;
+        });
+      if (userInfo.shipAndBil && bilBlock !== null) {
+        await updateDefBilpAdr(newUser.id, newUser.addresses[0].id, Number(newUser.version)).then(({ body }) => {
+          newUser = body;
+        });
+      } else {
+        if (bilBlock) {
+          const billingData = userInfo;
+          const inputsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.INPUT}`)];
+          const selectsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.SELECT}`)];
+          billingData.country = selectsBil.find((el) => el.id === `${CountrySelectBox.id}`)?.value as string;
+          billingData.town = inputsBil.find((el) => el.id === `${UserLTownlInput.id}`)?.value as string;
+          billingData.street = inputsBil.find((el) => el.id === `${UserLStreetlInput.id}`)?.value as string;
+          billingData.postCode = inputsBil.find((el) => el.id === `${UserLPostcodelInput.id}`)?.value as string;
+          await updateCustomerAdress(newUser.id, billingData, Number(newUser.version)).then(({ body }) => {
+            newUser = body;
+          });
+          await updateDefBilpAdr(newUser.id, newUser.addresses[1].id, Number(newUser.version)).then(({ body }) => {
+            newUser = body;
+          });
+        }
+      }
+
+      localStorage.setItem('night-customer', JSON.stringify(newUser));
+      localStorage.setItem('reg-customer-name', JSON.stringify(`${userInfo.fname} ${userInfo.lname}`));
+      localStorage.setItem('night-customer-email', JSON.stringify(newUser.email));
+    } else {
+      hint.textContent = 'User with this email exist';
+    }
 
     if (hint) hint.textContent = `${HINT_TEXT.create}`;
   } else {
@@ -47,7 +119,8 @@ export function addListnerToFormBtn(): void {
       email: inputs.find((el) => el.id === `${LoginEmailInput.id}`)?.value as string,
       pas: inputs.find((el) => el.id === `${LoginPaslInput.id}`)?.value as string,
     };
-    loginCustomer(userLogInfo, loginHint);
+    await loginCustomer(userLogInfo, loginHint);
+    showProfileLink();
   }
 }
 
@@ -73,7 +146,7 @@ export function checkBtn(): void {
   }
 }
 
-function addHintContent(element: HTMLElement, str?: string): void {
+export function addHintContent(element: HTMLElement, str?: string): void {
   const curHintBlock = element;
   curHintBlock.textContent = '';
   if (str) curHintBlock.textContent = `${str}`;

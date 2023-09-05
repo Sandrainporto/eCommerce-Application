@@ -57,7 +57,30 @@ export function addSublinks(categoriesData: void | Category[], root: HTMLLinkEle
   return subList;
 }
 
-function showHideLoggedUser(): void {
+// export function displayProfileLink(): void {
+//   const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
+//   const registerBtn = document.querySelector('#register') as HTMLAnchorElement;
+//   const profileBtn = document.querySelector('#profile') as HTMLAnchorElement;
+
+//   const loggedUserName = localStorage.getItem('userName');
+//   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
+
+//   if (loggedUserName || registratedUserName) {
+//     registerBtn.classList.add('hide');
+//     loginBtn.classList.add('logged');
+//     loginBtn.innerText = 'Log Out';
+//     profileBtn.classList.add('name-displayed');
+//     if (loggedUserName) {
+//       profileBtn.innerText = `Hello ${loggedUserName}`;
+//     }
+//     if (registratedUserName) {
+//       profileBtn.innerText = `Hello ${registratedUserName}`;
+//     }
+//   }
+
+// }
+
+export function showProfileLink(): void {
   const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
   const registerBtn = document.querySelector('#register') as HTMLAnchorElement;
   const profileBtn = document.querySelector('#profile') as HTMLAnchorElement;
@@ -66,6 +89,7 @@ function showHideLoggedUser(): void {
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
 
   if (loggedUserName || registratedUserName) {
+    profileBtn.classList.remove('hide');
     registerBtn.classList.add('hide');
     loginBtn.classList.add('logged');
     loginBtn.innerText = 'Log Out';
@@ -77,13 +101,14 @@ function showHideLoggedUser(): void {
       profileBtn.innerText = `Hello ${registratedUserName}`;
     }
   }
-
   if (loginBtn.classList.contains('logged')) {
     loginBtn.addEventListener('click', () => {
       localStorage.clear();
+      profileBtn.classList.add('hide');
+      registerBtn.classList.remove('hide');
+      loginBtn.classList.remove('logged');
+      loginBtn.innerText = 'Login';
     });
-    loginBtn.href = '/';
-    loginBtn.id = '';
   }
 }
 
@@ -95,11 +120,13 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
     link.href = `/${arrItem.id}`;
     link.id = arrItem.id;
   });
-  showHideLoggedUser();
+  showProfileLink();
   const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
   if (catalogeLink) {
     addSublinks(categoryData, catalogeLink);
   }
+  const profileLink: HTMLLinkElement | null = document.querySelector('#profile');
+  profileLink?.classList.add('hide');
 }
 
 export default function showNavigation(root: HTMLElement, data: DataType[]): HTMLElement {

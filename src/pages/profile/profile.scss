@@ -1,0 +1,64 @@
+@import '../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
+
+.profile_info {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  width: 32rem;
+  .save-user-info,
+  .save-adr-btn,
+  .del-adr-btn {
+    border-radius: 5px;
+    border: 1px solid rgba(31, 215, 232, 0.873);
+    padding: 5px;
+    color: rgba(31, 215, 232, 0.873);
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0 10px;
+  }
+  .input_block,
+  .profile_adr-block {
+    margin: 10px 0;
+  }
+  .input-pas_block,
+  .input_block {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+.profile_info__user-info,
+.profile_adr__bil,
+.profile_adr__ship,
+.profile_adr__new {
+  color: $color-link;
+  border: 1px solid $color-link;
+  border-radius: 10px;
+  margin: 10px 0px;
+  padding: 10px;
+}
+input {
+  width: 25rem;
+  cursor: pointer;
+  color: black;
+}
+
+label {
+  color: rgba(31, 215, 232, 0.873);
+  font-size: smaller;
+  order: -1;
+  width: 100%;
+  text-align: left;
+}
+.form_hint {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 10px;
+  height: 1.5rem;
+  color: rgba(31, 215, 232, 0.873);
+  line-height: 1.5rem;
+  text-align: left;
+}
+.profile_adr-block {
+  border-radius: 10px;
+  background-color: black;
+}

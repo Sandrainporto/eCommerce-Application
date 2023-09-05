@@ -3,10 +3,10 @@
 @import './../../../sass/abstract/constants';
 .products__panel {
   @include flex(row, center, center, 1rem);
-  @media screen and (max-width:613px) {
+  @media screen and (max-width: 613px) {
     flex-direction: column;
   }
-padding: 0 10px;
+  padding: 0 10px;
   .panel__search {
     grid-gap: 1rem;
     align-items: center;
