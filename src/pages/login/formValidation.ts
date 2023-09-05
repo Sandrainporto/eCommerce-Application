@@ -86,8 +86,7 @@ export async function addListnerToFormBtn(): Promise<void> {
         await updateDefBilpAdr(newUser.id, newUser.addresses[0].id, Number(newUser.version)).then(({ body }) => {
           newUser = body;
         });
-      } else {
-        if (bilBlock) {
+      } else if (bilBlock) {
           const billingData = userInfo;
           const inputsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.INPUT}`)];
           const selectsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.SELECT}`)];
@@ -102,7 +101,6 @@ export async function addListnerToFormBtn(): Promise<void> {
             newUser = body;
           });
         }
-      }
 
       localStorage.setItem('night-customer', JSON.stringify(newUser));
       localStorage.setItem('reg-customer-name', JSON.stringify(`${userInfo.fname} ${userInfo.lname}`));

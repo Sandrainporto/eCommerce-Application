@@ -7,10 +7,7 @@ import { ElementParams } from '../../types/types';
 import { createElement } from '../../utils/elementCreator';
 import { showAuthContent } from '../../pages/login/authContent';
 import { ContentPageContainer } from '../../pages/error/types';
-import showProductsPage from '../../pages/products/productViewPage';
 import { showProfileContent } from '../../pages/profile/profileContent';
-
-// import showDetailsPage from '../../pages/productDetails.ts/detailsPage';
 
 let categoryData: void | Category[];
 
