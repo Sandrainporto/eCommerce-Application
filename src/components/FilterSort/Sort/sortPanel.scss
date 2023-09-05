@@ -3,7 +3,7 @@
 @import './../../../sass/abstract/constants';
 .products__panel {
   @include flex(row, center, center, 1rem);
-  @media screen and (max-width: 613px) {
+  @media screen and (max-width: 738px) {
     flex-direction: column;
   }
   padding: 0 10px;

@@ -13,13 +13,13 @@
   background-color: $background-color-dark;
   width: 100%;
   max-width: 70rem;
-  @media screen and (max-width: 613px) {
+  @media screen and (max-width: 738px) {
     width: 200px;
   }
   .panel__container {
     @include flex(row, center, space-between, 20px);
     width: 100%;
-    @media screen and (max-width: 613px) {
+    @media screen and (max-width: 738px) {
       flex-direction: column;
     }
   }
@@ -27,7 +27,7 @@
   .filter {
     width: 60px;
     @include flex(row, center, center, 1rem, nowrap);
-    @media screen and (max-width: 613px) {
+    @media screen and (max-width: 738px) {
       justify-content: flex-start;
     }
   }
@@ -62,4 +62,14 @@
       background-color: #87dbd0;
     }
   }
+}
+.filter__button{
+  cursor: pointer;
+}
+div.filter__button:last-child {
+  background: none;
+  padding: 3px;
+  color: $color-text-dark;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
