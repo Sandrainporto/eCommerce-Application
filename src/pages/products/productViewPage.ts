@@ -13,6 +13,8 @@ import {
   ProductDescription,
   ProductCardLink,
   ProductPrice,
+  ProductDiscount,
+  ProductPrices,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
@@ -47,11 +49,22 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
   } else {
     productDescription.innerText = '';
   }
+const priceList = createElement(ProductPrices, productCard)
+
   const productPricesData: Price[] | undefined = product.masterVariant.prices;
   productPricesData?.forEach((prices) => {
-    const productPrice = createElement(ProductPrice, productCard);
+    const productPrice = createElement(ProductPrice,priceList);
     productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`;
+
+    const productDiscount = createElement(ProductDiscount, priceList);
+    if(prices.discounted?.value.centAmount){
+    productDiscount.innerText = `${prices.discounted?.value.centAmount / 100} ${prices.value.currencyCode}`;
+productDiscount.setAttribute('keyD', `${product.key}`)
+productPrice.setAttribute('keyF', `${product.key}`)
+    }
   });
+  console.log(product)
+
   const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
   productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
   productLink.id = `${product.key?.toLowerCase()}`;
@@ -75,6 +88,7 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
     SearchParameter.toLocaleLowerCase(),
     fuzzyLevel,
   );
+
   productData.forEach((product) => {
     createCard(productsList, product);
   });
