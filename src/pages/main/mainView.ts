@@ -13,7 +13,6 @@ let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
 export default function showMainPage(currentPage: string, value?: string): void {
-  console.log(currentPage);
   mainWrapper.innerHTML = '';
   const url = currentPage.split('/').filter((el) => el.length !== 0);
   let id = '';
@@ -35,10 +34,10 @@ export default function showMainPage(currentPage: string, value?: string): void 
         activePage = Routes['404'];
       }
     });
-  } else if (url.length === 3 && !key) {
+  } else if ((url.length === 3 && !key) || url.length === 4) {
     Data.forEach((el) => {
       el.subcategory.forEach((elem) => {
-        if (elem.key === url[2]) {
+        if (elem.key === url[3]) {
           id = elem.id;
           activePage = Routes.products;
         }
