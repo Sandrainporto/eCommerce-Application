@@ -9,7 +9,7 @@ import {
   FilterButton,
 } from './filterTypes';
 
-const COLORS = ['black', 'white', 'red', 'green', 'blue'];
+const COLORS = ['black', 'brown', 'red', 'green', 'blue'];
 const BUTTONS = {
   filter: 'FILTER',
 };
@@ -27,26 +27,28 @@ const createColorCheckbox = (root: HTMLElement): HTMLElement => {
     checkbox.id = `color-${el}`;
     checkbox.value = el;
     checkbox.checked = false;
-    // checkbox.addEventListener('click', (event) => {
-    //   event.preventDefault();
-    //   const target = event.target as HTMLInputElement;
-    //   if (!target.hasAttribute('checked')) {
-    //     target.setAttribute('checked', 'true');
-    //   } else {
-    //     target.removeAttribute('checked');
-    //   }
-    // });
   });
   return checkboxContainer;
 };
 
-const createFilterButton = (root: HTMLElement): void => {
+const createFilterButton = (root: HTMLElement, callback: { (value: string[]): void; (arg0: string[]): void }): void => {
   const button = createElement(FilterButton, root);
   button.innerText = BUTTONS.filter;
+  button.addEventListener('click', () => {
+    const result: string[] = [];
+    const checkboxes = document.querySelectorAll(`.${FilterInputColorCheckbox.classNames}`);
+    checkboxes.forEach((el) => {
+      const element = el as HTMLInputElement;
+      if (element.checked) {
+        result.push(element.value);
+      }
+    });
+    callback(result);
+  });
 };
 
-export const showFilterPanel = (root: HTMLElement): void => {
+export const showFilterPanel = (root: HTMLElement, FilterCallBack: (value: string[]) => void): void => {
   const wrapper = createElement(FilterBlockParam, root);
   const checkboxContainer = createColorCheckbox(wrapper);
-  createFilterButton(checkboxContainer);
+  createFilterButton(checkboxContainer, FilterCallBack);
 };

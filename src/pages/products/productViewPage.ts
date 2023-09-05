@@ -23,6 +23,7 @@ let SortParameter = 0;
 let SearchParameter = '';
 let ContentRoot: HTMLElement;
 let CurrentId: string;
+let Filter: string[] = [];
 
 const SortParams = {
   0: 'name.en-us asc',
@@ -49,21 +50,21 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
   } else {
     productDescription.innerText = '';
   }
-const priceList = createElement(ProductPrices, productCard)
+  const priceList = createElement(ProductPrices, productCard);
 
   const productPricesData: Price[] | undefined = product.masterVariant.prices;
   productPricesData?.forEach((prices) => {
-    const productPrice = createElement(ProductPrice,priceList);
+    const productPrice = createElement(ProductPrice, priceList);
     productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`;
 
     const productDiscount = createElement(ProductDiscount, priceList);
-    if(prices.discounted?.value.centAmount){
-    productDiscount.innerText = `${prices.discounted?.value.centAmount / 100} ${prices.value.currencyCode}`;
-productDiscount.setAttribute('keyD', `${product.key}`)
-productPrice.setAttribute('keyF', `${product.key}`)
+    if (prices.discounted?.value.centAmount) {
+      productDiscount.innerText = `${prices.discounted?.value.centAmount / 100} ${prices.value.currencyCode}`;
+      productDiscount.setAttribute('keyD', `${product.key}`);
+      productPrice.setAttribute('keyF', `${product.key}`);
     }
   });
-  console.log(product)
+  console.log(product);
 
   const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
   productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
@@ -86,6 +87,7 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
     id,
     [SortParams[SortParameter]],
     SearchParameter.toLocaleLowerCase(),
+    Filter,
     fuzzyLevel,
   );
 
@@ -110,12 +112,18 @@ const SearchCallBack = (value: string): void => {
   updatePage();
 };
 
+const FilterCallBack = (value: string[]): void => {
+  Filter = value;
+  updatePage();
+};
+
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
   CurrentId = id;
+  Filter = [];
   const productsPage = createElement(ProductsPageParam, root);
   const sortPanel = showSortPanel(productsPage, SortCallBack, SearchCallBack);
   const pageContent = createElement(ContentPageContainer, productsPage);
-  const filterPanel = showFilterPanel(pageContent);
+  const filterPanel = showFilterPanel(pageContent, FilterCallBack);
   const productsList = createElement(ProductsList, pageContent);
   productsList.id = id;
   ContentRoot = productsList;
