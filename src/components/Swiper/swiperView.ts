@@ -23,9 +23,9 @@ export function addSwiper(root, allImages: string[]): HTMLElement {
     swiperImage.src = image;
   });
 
- createElement(SwiperPagination, swiper);
-createElement(SwiperBtnPrev, swiper);
-createElement(SwiperBtnNext, swiper);
-createElement(SwiperScroll, swiper);
+  createElement(SwiperPagination, swiper);
+  createElement(SwiperBtnPrev, swiper);
+  createElement(SwiperBtnNext, swiper);
+  createElement(SwiperScroll, swiper);
   return swiper;
 }

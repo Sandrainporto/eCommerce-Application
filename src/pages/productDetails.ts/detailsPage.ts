@@ -15,7 +15,7 @@ import {
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 
-export default async function showDetailsPage(root: HTMLElement, key: string):Promise<void> {
+export default async function showDetailsPage(root: HTMLElement, key: string): Promise<void> {
   const productsPage = createElement(DetailsParam, root);
   const pageContent = createElement(ContentPageContainer, productsPage);
   const productSlider = createElement(ProductSlider, pageContent);
@@ -48,7 +48,7 @@ export default async function showDetailsPage(root: HTMLElement, key: string):Pr
   const productPricesData: Price[] | undefined = datapath.masterVariant.prices;
   productPricesData?.forEach((prices) => {
     productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`;
-    });
+  });
 
   createElement(ProductCardLink, productInfo) as HTMLAnchorElement;
 }
