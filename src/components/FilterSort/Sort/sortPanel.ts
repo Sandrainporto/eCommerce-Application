@@ -12,7 +12,7 @@ import {
 } from './sortTypes';
 
 const PLACEHOLDERS = {
-  search: 'Search',
+  search: 'Enter first 4 letters',
 };
 
 const BUTTONS = {
