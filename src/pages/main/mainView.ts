@@ -49,11 +49,11 @@ export default function showMainPage(currentPage: string, value?: string): void 
   } else if (key) {
     activePage = Routes.details;
   }
+  showBreadcrumb(mainWrapper);
   if (activePage === Routes['404']) {
     activePage(mainWrapper, key || id || categoryData);
     window.history.pushState(null, '', `/404`);
   }
-  showBreadcrumb(mainWrapper);
   if (activePage !== Routes['404']) {
     activePage(mainWrapper, key || id || categoryData);
   }
