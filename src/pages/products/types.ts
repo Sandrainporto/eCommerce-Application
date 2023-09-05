@@ -28,9 +28,17 @@ export enum ProductDescription {
   elemTag = 'p',
   classNames = 'product__description',
 }
+export enum ProductPrices {
+  elemTag = 'div',
+  classNames = 'product__prices',
+}
 export enum ProductPrice {
   elemTag = 'p',
   classNames = 'product__price',
+}
+export enum ProductDiscount {
+  elemTag = 'p',
+  classNames = 'product__discount',
 }
 export enum ProductCardLink {
   elemTag = 'a',

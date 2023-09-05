@@ -15,6 +15,7 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
   border: 3px solid $color-violet;
+
   &:hover {
     backdrop-filter: blur(7px);
     border-radius: 20px;
@@ -44,12 +45,14 @@
       filter: drop-shadow(0 0 0.95rem rgb(248, 248, 248));
     }
   }
+
   .product__name {
     margin-top: 10px;
     @include font($size: 2.5rem, $height: 2.6rem, $weight: normal);
     @extend %font-prim;
     @include linkHover;
   }
+
   .product__description {
     @include font($size: 1.5rem, $height: 2.6rem, $weight: normal);
     text-align: justify;
@@ -59,6 +62,22 @@
     @extend %custom-scroll;
     margin-bottom: 10px;
   }
+
+  .product__prices {
+    display: flex;
+    gap: 10px;
+
+    p[keyf] {
+      text-decoration: line-through;
+      color: $color-text-dark;
+    }
+
+    p[keyd] {
+      @include linkHover;
+
+    }
+  }
+
   .products__link {
     background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(93, 28, 199, 0.658) 60%);
     padding: 1rem 2.8rem 1rem 2.5rem;
