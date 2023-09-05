@@ -3,25 +3,37 @@
 @import './../../../sass/abstract/constants';
 
 .filter__panel {
-  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   border: 1px solid gray;
   border-radius: 5px;
-  padding: 2rem;
+  padding:1rem 2rem;
   height: 100%;
   background-color: $background-color-dark;
-
+  width: 100%;
+  max-width: 670px;
+  @media screen and (max-width:613px) {
+    width:200px;
+  }
   .panel__container {
-    @include flex(column);
-    width: 200px;
+    @include flex(row, center, space-between,20px);
+    width: 100%;
+    @media screen and (max-width:613px) {
+      flex-direction: column;
+    }
+  
   }
 
   .filter {
-    width: 100%;
-    @include flex(row, center, space-between);
+    width: 60px;
+    @include flex(row, center, center,1rem ,nowrap);
+    @media screen and (max-width:613px) {
+      justify-content: flex-start;
+    }
   }
 
   .filter__button {
-    margin-top: 2rem;
     @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
     @extend %font-add;
     text-transform: uppercase;
