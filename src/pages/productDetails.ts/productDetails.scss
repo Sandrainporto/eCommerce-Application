@@ -8,9 +8,14 @@
     flex-direction: row;
     gap: 6rem;
     align-items: center;
+    margin: 40px auto 40px;
+    @media screen and (max-width:809px) {
+      flex-direction: column;
+    }
   }
 
-  width: 90%;
+  width: 100%;
+  max-width: 1000px;
   margin: 30px auto;
   padding: 0 40px;
   background: #79727234;
@@ -39,6 +44,10 @@
     overflow-y: scroll;
     @extend %custom-scroll;
     margin: 35px 0px;
+    @media screen and (max-width:809px) {
+      margin: 25px 0px;
+      min-width: 240px;
+    }
   }
 
   .products__link {
@@ -69,5 +78,9 @@
   }
   .product__price {
     margin-bottom: 50px;
+    @media screen and (max-width:809px) {
+      text-align: center;
+      margin-bottom: 25px;
+    }
   }
 }

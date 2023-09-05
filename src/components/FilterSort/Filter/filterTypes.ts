@@ -16,6 +16,11 @@ export enum FilterButton {
   elemTag = 'div',
   classNames = 'filter__button',
 }
+
+export enum ResetButton {
+  elemTag = 'div',
+  classNames = 'reset__button',
+}
 export enum FilterInputColorCheckbox {
   elemTag = 'input',
   type = 'checkbox',

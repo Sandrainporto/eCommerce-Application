@@ -12,6 +12,7 @@ import {
 const COLORS = ['black', 'brown', 'red', 'green', 'blue'];
 const BUTTONS = {
   filter: 'FILTER',
+  reset: 'RESET',
 };
 
 const createColorCheckbox = (root: HTMLElement): HTMLElement => {
@@ -47,8 +48,23 @@ const createFilterButton = (root: HTMLElement, callback: { (value: string[]): vo
   });
 };
 
+const createResetButton = (root: HTMLElement, callback: { (value: string[]): void; (arg0: string[]): void }): void => {
+  const button = createElement(FilterButton, root);
+  button.innerText = BUTTONS.reset;
+  button.addEventListener('click', () => {
+    const result: string[] = [];
+    const checkboxes = document.querySelectorAll(`.${FilterInputColorCheckbox.classNames}`);
+    checkboxes.forEach((el) => {
+      const element = el as HTMLInputElement;
+      element.checked = false;
+    });
+    callback(result);
+  });
+};
+
 export const showFilterPanel = (root: HTMLElement, FilterCallBack: (value: string[]) => void): void => {
   const wrapper = createElement(FilterBlockParam, root);
   const checkboxContainer = createColorCheckbox(wrapper);
   createFilterButton(checkboxContainer, FilterCallBack);
+  createResetButton(checkboxContainer, FilterCallBack);
 };
