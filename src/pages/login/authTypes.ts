@@ -227,8 +227,15 @@ export enum FormHint {
 export interface INewUser {
   fname: string;
   lname: string;
+  birth: string;
   email: string;
   pas: string;
+  country: string;
+  town: string;
+  street: string;
+  postCode: string;
+  defaultAdres: boolean;
+  shipAndBil: boolean;
 }
 export interface ILoginUser {
   email: string;

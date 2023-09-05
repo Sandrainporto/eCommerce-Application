@@ -8,7 +8,7 @@ export async function getProductsList(
   filter: string[],
   fuzzyLevel: number | undefined,
 ): Promise<ProductProjection[]> {
-  const filterColors = filter.length !== 0 ? `variants.attributes.Color:"${filter.join()}"` : '';
+  const filterColors = filter.length !== 0 ? `variants.attributes.Color:${filter.map((el) => `"${el}"`)}` : '';
   const { body } = await apiRoot
     .productProjections()
     .search()

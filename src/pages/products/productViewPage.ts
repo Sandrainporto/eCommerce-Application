@@ -115,11 +115,11 @@ const SearchCallBack = (value: string): void => {
 const FilterCallBack = (value: string[]): void => {
   Filter = value;
   updatePage();
-  Filter = [];
 };
 
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
   CurrentId = id;
+  Filter = [];
   const productsPage = createElement(ProductsPageParam, root);
   const sortPanel = showSortPanel(productsPage, SortCallBack, SearchCallBack);
   const pageContent = createElement(ContentPageContainer, productsPage);
