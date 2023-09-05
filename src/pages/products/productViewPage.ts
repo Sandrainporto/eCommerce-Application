@@ -73,7 +73,7 @@ productPrice.setAttribute('keyF', `${product.key}`)
 export async function showCards(id: string, productsList: HTMLElement): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
 
-  if (fuzzyLevel == 1 || fuzzyLevel == 2) {
+  if (fuzzyLevel === 1 || fuzzyLevel === 2) {
     fuzzyLevel = 0;
   } else if (fuzzyLevel > 2 && fuzzyLevel < 6) {
     fuzzyLevel = 1;
@@ -82,7 +82,13 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
   } else {
     fuzzyLevel = undefined;
   }
-  const productData: ProductProjection[] = await getProductsList(id, [SortParams[SortParameter]], SearchParameter.toLocaleLowerCase(), fuzzyLevel);
+  const productData: ProductProjection[] = await getProductsList(
+    id,
+    [SortParams[SortParameter]],
+    SearchParameter.toLocaleLowerCase(),
+    fuzzyLevel,
+  );
+
   productData.forEach((product) => {
     createCard(productsList, product);
   });

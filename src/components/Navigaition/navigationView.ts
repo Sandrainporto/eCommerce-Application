@@ -30,7 +30,7 @@ async function addsubCategories(parentCateg: HTMLLIElement, subLinkID: string): 
         const subLink = createElement(NavigationSubCategLink, subItem) as HTMLAnchorElement;
         subLink.innerText = subcategory.name['en-US'];
         subLink.id = `${subcategory.id}`;
-        subLink.href = `${currentUrl}/catalog/${parentCateg.id}/${subcategory.key}`;
+        subLink.href = `${currentUrl}/catalog/${parentCateg.id}/sbc/${subcategory.key}`;
         subItemList.append(subItem);
         parentCateg.append(subItemList);
       });

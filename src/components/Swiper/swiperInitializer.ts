@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-export function initSlider():void {
+export function initSlider(): void {
   const swiper = new Swiper('.swiper', {
     modules: [Navigation, Scrollbar],
 

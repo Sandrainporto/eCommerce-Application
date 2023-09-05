@@ -27,5 +27,7 @@ const addListener = (): void => {
 };
 
 export const routerInit = (): void => {
+  const path = window.location.href;
+  renderPage(path);
   addListener();
 };

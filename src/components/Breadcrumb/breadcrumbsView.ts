@@ -19,8 +19,10 @@ export default function showBreadcrumb(root: HTMLElement): void {
     { rootName = 'Home', nameTransform = (s: string): string => s } = {},
   ): BreadcrumParams[] => {
     let paths: string[];
-    if (pathname.includes('-card')) {
+    if (pathname.includes('-card') || pathname.includes('sbc')) {
       paths = pathname.replace('-card', '').split('/').filter(Boolean);
+      paths = pathname.replace('sbc', '').split('/').filter(Boolean);
+      paths = pathname.replace('sbc', '').split('/').filter(Boolean);
     } else paths = pathname.split('/').filter(Boolean);
 
     const breadcrumbs: BreadcrumParams[] = paths.map((path, index) => {
@@ -33,11 +35,9 @@ export default function showBreadcrumb(root: HTMLElement): void {
     breadcrumbs.unshift({ path: '/', name: rootName });
     return breadcrumbs;
   };
-
   const currentUrl: string = window.location.href;
   const { pathname } = new URL(currentUrl);
   const breadcrumbs = splitToBreadcrumbs(pathname, { nameTransform: kebabToTitle });
-
   breadcrumbs.map(({ path, name }): HTMLElement => {
     const breadcrumb = createElement(BreadcrumLinkParam, breadcrumbList);
     if (breadcrumb instanceof HTMLAnchorElement) {

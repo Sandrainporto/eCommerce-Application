@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { Category } from '@commercetools/platform-sdk';
 import './main.scss';
 import showHeader from '../../components/Header/headerView';
@@ -11,38 +12,51 @@ let Data: DataType[];
 let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
-export default function showMainPage(currentPage: string, key?: string): void {
+export default function showMainPage(currentPage: string, value?: string): void {
+  mainWrapper.innerHTML = '';
   const url = currentPage.split('/').filter((el) => el.length !== 0);
-  let activePage = Routes[currentPage] || Routes['404'];
   let id = '';
-  if (url.length === 0) {
+  let key = value || '';
+  let activePage;
+  if (url.length === 0 || !currentPage) {
     activePage = Routes[''];
   } else if (url.length === 1) {
+    key = '';
     activePage = Routes[url[0]] || Routes['404'];
   } else if (url.length === 2) {
-    Data.map((el) => {
+    Data.forEach((el) => {
       if (el.category.key === url[1]) {
         id = el.category.id;
+        activePage = Routes.products;
+        return;
       }
-      return undefined;
+      if (!id) {
+        activePage = Routes['404'];
+      }
     });
-  } else if (url.length === 3) {
+  } else if ((url.length === 3 && !key) || url.length === 4) {
     Data.forEach((el) => {
       el.subcategory.forEach((elem) => {
-        if (elem.key === url[2]) id = elem.id;
+        if (elem.key === url[3]) {
+          id = elem.id;
+          activePage = Routes.products;
+        }
+        if (!id) {
+          activePage = Routes['404'];
+        }
       });
     });
-  }
-
-  mainWrapper.innerHTML = '';
-  showBreadcrumb(mainWrapper);
-  if (id) {
-    activePage = Routes.products;
-    activePage(mainWrapper, id);
-  } else if (key && url.length === 3) {
+  } else if (key) {
     activePage = Routes.details;
-    activePage(mainWrapper, key);
-  } else activePage(mainWrapper, categoryData);
+  }
+  showBreadcrumb(mainWrapper);
+  if (activePage === Routes['404']) {
+    activePage(mainWrapper, key || id || categoryData);
+    window.history.pushState(null, '', `/404`);
+  }
+  if (activePage !== Routes['404']) {
+    activePage(mainWrapper, key || id || categoryData);
+  }
 }
 
 export const setData = (wrapper: HTMLElement, data: DataType[]): void => {
@@ -52,6 +66,5 @@ export const setData = (wrapper: HTMLElement, data: DataType[]): void => {
   }
   showHeader(wrapper, Data);
   mainWrapper = createElement(MainPageParam, wrapper);
-  showMainPage('');
   showFooter(wrapper);
 };
