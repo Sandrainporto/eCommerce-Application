@@ -8,6 +8,7 @@ import { createElement } from '../../utils/elementCreator';
 import { showAuthContent } from '../../pages/login/authContent';
 import { ContentPageContainer } from '../../pages/error/types';
 import showProductsPage from '../../pages/products/productViewPage';
+import { showProfileContent } from '../../pages/profile/profileContent';
 
 // import showDetailsPage from '../../pages/productDetails.ts/detailsPage';
 
@@ -23,10 +24,12 @@ export default function showMainContent(root: HTMLElement, data: void | Category
   categoryData = data;
   const activePage: ElementParams = ContentPageContainer;
   let activePageContent: (root: HTMLElement) => void;
-  if (root.id !== 'main') {
-    activePageContent = showAuthContent;
-  } else {
+  if (root.id === 'main') {
     activePageContent = getPageContent;
+  } else if (root.id === 'prof') {
+    activePageContent = showProfileContent;
+  } else {
+    activePageContent = showAuthContent;
   }
   const pageContent = createElement(activePage, root);
   activePageContent(pageContent);
