@@ -5,7 +5,8 @@
 .page__products {
   width: 100%;
   .content__container {
-    @include flex();
+    @include flex(column, center, center, 2rem, nowrap);
+    margin: 40px auto 40px;
   }
 }
 
