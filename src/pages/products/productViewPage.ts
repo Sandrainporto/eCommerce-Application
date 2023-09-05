@@ -49,21 +49,21 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
   } else {
     productDescription.innerText = '';
   }
-const priceList = createElement(ProductPrices, productCard)
+  const priceList = createElement(ProductPrices, productCard);
 
   const productPricesData: Price[] | undefined = product.masterVariant.prices;
   productPricesData?.forEach((prices) => {
-    const productPrice = createElement(ProductPrice,priceList);
+    const productPrice = createElement(ProductPrice, priceList);
     productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`;
 
     const productDiscount = createElement(ProductDiscount, priceList);
-    if(prices.discounted?.value.centAmount){
-    productDiscount.innerText = `${prices.discounted?.value.centAmount / 100} ${prices.value.currencyCode}`;
-productDiscount.setAttribute('keyD', `${product.key}`)
-productPrice.setAttribute('keyF', `${product.key}`)
+    if (prices.discounted?.value.centAmount) {
+      productDiscount.innerText = `${prices.discounted?.value.centAmount / 100} ${prices.value.currencyCode}`;
+      productDiscount.setAttribute('keyD', `${product.key}`);
+      productPrice.setAttribute('keyF', `${product.key}`);
     }
   });
-  console.log(product)
+  console.log(product);
 
   const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
   productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;

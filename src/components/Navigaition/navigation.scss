@@ -175,4 +175,7 @@
 .name-displayed {
   text-transform: capitalize;
   @include linkHover;
+  #profile {
+    display: block;
+  }
 }

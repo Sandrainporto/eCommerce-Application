@@ -31,6 +31,7 @@ import {
   INewUser,
 } from './authTypes';
 import { HtmlTags } from '../../types/htmlTags';
+import { showProfileLink } from '../../components/Navigaition/navigationView';
 
 const HINT_TEXT = {
   create: 'User created',
@@ -118,7 +119,8 @@ export async function addListnerToFormBtn(): Promise<void> {
       email: inputs.find((el) => el.id === `${LoginEmailInput.id}`)?.value as string,
       pas: inputs.find((el) => el.id === `${LoginPaslInput.id}`)?.value as string,
     };
-    loginCustomer(userLogInfo, loginHint);
+    await loginCustomer(userLogInfo, loginHint);
+    showProfileLink();
   }
 }
 
