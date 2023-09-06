@@ -14,6 +14,9 @@
     gap: 1rem;
     grid-template-columns: minmax(15rem, 120rem) 0.5fr;
     justify-content: center;
+    .input_block{
+      margin-top: 25px;
+    }
   }
 
   .search__button {

@@ -3,6 +3,7 @@
 @import './../../sass/abstract/constants';
 
 .products__card {
+  position: relative;
   max-width: 265px;
   height: 430px;
   display: flex;
@@ -99,5 +100,12 @@
     &:active {
       background-color: #87dbd0;
     }
+  }
+  .products__color{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    right: 20px;
   }
 }
