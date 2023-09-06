@@ -56,10 +56,10 @@ async function updateAddress(e: Event): Promise<void> {
     })
     .catch();
   localStorage.setItem('night-customer', JSON.stringify(userData));
-  console.log(block, type, dataAdress);
+  // console.log(block, type, dataAdress);
 }
 
-function deleteAddress(e: Event): void {
+function deleteAddress(): void {
   // if (type === ProfileUserBilAdr.classNames) {
   // } else {
   // }
