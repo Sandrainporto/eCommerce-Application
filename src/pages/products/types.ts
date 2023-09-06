@@ -45,3 +45,8 @@ export enum ProductCardLink {
   classNames = 'products__link',
   innerText = 'View Details',
 }
+
+export enum ProductColor {
+  elemTag = 'div',
+  classNames = 'products__color',
+}

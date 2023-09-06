@@ -15,6 +15,7 @@ import {
   ProductPrice,
   ProductDiscount,
   ProductPrices,
+  ProductColor,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
@@ -63,6 +64,11 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
       productDiscount.setAttribute('keyD', `${product.key}`);
       productPrice.setAttribute('keyF', `${product.key}`);
     }
+    if(product.masterVariant.attributes){
+      const productColor = createElement(ProductColor, productCard);
+productColor.style.background = product.masterVariant.attributes[0].value
+    }
+
   });
   console.log(product);
 
