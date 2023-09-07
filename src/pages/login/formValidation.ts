@@ -155,7 +155,7 @@ export function checkForm(e: Event): void {
   if (input instanceof HTMLInputElement) {
     const hint = input.nextElementSibling?.nextElementSibling as HTMLElement;
     const text = input.value;
-    if (hint !== null) {
+    if (hint) {
       hint.textContent = text;
       let errorMessage = ' ';
 

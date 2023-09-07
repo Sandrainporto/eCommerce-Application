@@ -27,8 +27,6 @@ export const updateDefShipAdr = (
       },
     })
     .execute()
-
-    .catch();
 };
 export const updateDefBilpAdr = (
   customerID: string,
@@ -54,8 +52,6 @@ export const updateDefBilpAdr = (
       },
     })
     .execute()
-
-    .catch();
 };
 export const updateCustomerAdress = (
   customerID: string,
@@ -89,7 +85,6 @@ export const updateCustomerAdress = (
       //   localStorage.setItem('reg-customer-name', JSON.stringify(`${customer.firstName} ${customer.lastName}`));
       //   console.log(customer, customerID, userinfo);
       // })
-      .catch()
   );
 };
 // : Promise<void | ClientResponse<Customer>>
@@ -153,6 +148,5 @@ export const createCustomer = (info: INewUser): Promise<ClientResponse<CustomerS
       //     })
       //     .catch();
       // })
-      .catch()
   );
 };
