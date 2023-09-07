@@ -36,3 +36,15 @@ export enum ProductCardLink {
   href = '#',
   innerText = 'Add to cart',
 }
+export enum ProductPrices {
+  elemTag = 'div',
+  classNames = 'product__prices',
+}
+export enum ProductDiscount {
+  elemTag = 'p',
+  classNames = 'product__discount',
+}
+export enum ProductColor {
+  elemTag = 'div',
+  classNames = 'products__color',
+}

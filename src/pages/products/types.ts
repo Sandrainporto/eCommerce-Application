@@ -53,7 +53,6 @@ export enum ProductColor {
 export enum CardPopup {
   popup = 'image__popup',
   popupClose = 'image__popup',
-
 }
 export enum CardPopupClose {
   elemTag = 'div',

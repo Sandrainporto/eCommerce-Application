@@ -21,7 +21,7 @@ export const updateUserName = (
         ],
       },
     })
-    .execute()
+    .execute();
 };
 export const updateUserLName = (
   customerID: string,
@@ -42,7 +42,7 @@ export const updateUserLName = (
         ],
       },
     })
-    .execute()
+    .execute();
 };
 export const updateUserBDay = (
   customerID: string,
@@ -63,7 +63,7 @@ export const updateUserBDay = (
         ],
       },
     })
-    .execute()
+    .execute();
 };
 export const updateUserEmail = (
   customerID: string,
@@ -84,7 +84,7 @@ export const updateUserEmail = (
         ],
       },
     })
-    .execute()
+    .execute();
 };
 
 export const updateUserPas = (curPas: string, newPas: string, version: number): Promise<ClientResponse<Customer>> => {
@@ -98,7 +98,7 @@ export const updateUserPas = (curPas: string, newPas: string, version: number): 
         newPassword: newPas,
       },
     })
-    .execute()
+    .execute();
 };
 
 export const updateUserAdress = (
@@ -126,7 +126,7 @@ export const updateUserAdress = (
         ],
       },
     })
-    .execute()
+    .execute();
 };
 
 export const addNewCustomerAdress = (
@@ -153,7 +153,7 @@ export const addNewCustomerAdress = (
         ],
       },
     })
-    .execute()
+    .execute();
 };
 
 export const addNewBilAdr = (customerID: string, bilID: string, version: number): Promise<ClientResponse<Customer>> => {
@@ -171,7 +171,7 @@ export const addNewBilAdr = (customerID: string, bilID: string, version: number)
         ],
       },
     })
-    .execute()
+    .execute();
 };
 export const addNewShipAdr = (
   customerID: string,
@@ -192,5 +192,5 @@ export const addNewShipAdr = (
         ],
       },
     })
-    .execute()
+    .execute();
 };

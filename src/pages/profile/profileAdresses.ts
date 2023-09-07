@@ -50,10 +50,9 @@ async function updateAddress(e: Event): Promise<void> {
     street: inputs.find((el) => el.className === `${ProfStreetlInput.classNames}`)?.value as string,
     postCode: inputs.find((el) => el.className === `${ProfPostcodelInput.classNames}`)?.value as string,
   };
-  await updateUserAdress(userData.id, dataAdress, Number(userData.version))
-    .then(({ body }) => {
-      userData = body;
-    })
+  await updateUserAdress(userData.id, dataAdress, Number(userData.version)).then(({ body }) => {
+    userData = body;
+  });
   localStorage.setItem('night-customer', JSON.stringify(userData));
   // console.log(block, type, dataAdress);
 }
