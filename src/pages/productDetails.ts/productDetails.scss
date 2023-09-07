@@ -9,7 +9,7 @@
     gap: 6rem;
     align-items: center;
     margin: 40px auto 40px;
-    @media screen and (max-width:809px) {
+    @media screen and (max-width: 809px) {
       flex-direction: column;
     }
   }
@@ -44,7 +44,7 @@
     overflow-y: scroll;
     @extend %custom-scroll;
     margin: 35px 0px;
-    @media screen and (max-width:809px) {
+    @media screen and (max-width: 809px) {
       margin: 25px 0px;
       min-width: 240px;
     }
@@ -78,9 +78,17 @@
   }
   .product__price {
     margin-bottom: 50px;
-    @media screen and (max-width:809px) {
+    @media screen and (max-width: 809px) {
       text-align: center;
       margin-bottom: 25px;
     }
+  }
+  p[keyf] {
+    text-decoration: line-through;
+    color: $color-text-dark;
+  }
+
+  p[keyd] {
+    @include linkHover;
   }
 }

@@ -68,7 +68,6 @@
   .product__prices {
     display: flex;
     gap: 10px;
-
     p[keyf] {
       text-decoration: line-through;
       color: $color-text-dark;
@@ -102,7 +101,7 @@
       background-color: #87dbd0;
     }
   }
-  .products__color{
+  .products__color {
     position: absolute;
     width: 15px;
     height: 15px;

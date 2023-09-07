@@ -26,7 +26,7 @@ export const updateDefShipAdr = (
         ],
       },
     })
-    .execute()
+    .execute();
 };
 export const updateDefBilpAdr = (
   customerID: string,
@@ -51,41 +51,39 @@ export const updateDefBilpAdr = (
         ],
       },
     })
-    .execute()
+    .execute();
 };
 export const updateCustomerAdress = (
   customerID: string,
   userinfo: INewUser,
   version: number,
 ): Promise<ClientResponse<Customer>> => {
-  return (
-    apiRoot
-      .customers()
-      .withId({ ID: customerID })
-      .post({
-        body: {
-          version,
-          actions: [
-            {
-              action: 'addAddress',
-              address: {
-                country: `${userinfo.country === 'USA' ? 'EN' : 'RU'}`,
-                city: `${userinfo.town}`,
-                streetName: `${userinfo.street}`,
-                postalCode: `${userinfo.postCode}`,
-              },
+  return apiRoot
+    .customers()
+    .withId({ ID: customerID })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'addAddress',
+            address: {
+              country: `${userinfo.country === 'USA' ? 'EN' : 'RU'}`,
+              city: `${userinfo.town}`,
+              streetName: `${userinfo.street}`,
+              postalCode: `${userinfo.postCode}`,
             },
-          ],
-        },
-      })
-      .execute()
-      // .then(({ body }) => {
-      //   const customer = body;
-      //   localStorage.setItem('night-customer', JSON.stringify(customer));
-      //   localStorage.setItem('reg-customer-name', JSON.stringify(`${customer.firstName} ${customer.lastName}`));
-      //   console.log(customer, customerID, userinfo);
-      // })
-  );
+          },
+        ],
+      },
+    })
+    .execute();
+  // .then(({ body }) => {
+  //   const customer = body;
+  //   localStorage.setItem('night-customer', JSON.stringify(customer));
+  //   localStorage.setItem('reg-customer-name', JSON.stringify(`${customer.firstName} ${customer.lastName}`));
+  //   console.log(customer, customerID, userinfo);
+  // })
 };
 // : Promise<void | ClientResponse<Customer>>
 export const updateCustomerName = (
@@ -128,25 +126,23 @@ export const updateCustomerName = (
 };
 // : Promise<void>
 export const createCustomer = (info: INewUser): Promise<ClientResponse<CustomerSignInResult>> => {
-  return (
-    apiRoot
-      .customers()
-      .post({
-        // The CustomerDraft is the object within the body
-        body: {
-          email: info.email,
-          password: info.pas,
-        },
-      })
-      .execute()
-      // .then(({ body }) => {
-      //   updateCustomerName(body.customer.id, info)
-      //     .then(() => {
-      //       const customer = body;
-      //       localStorage.setItem('night-customer', JSON.stringify(customer));
-      //       // redirect();
-      //     })
-      //     .catch();
-      // })
-  );
+  return apiRoot
+    .customers()
+    .post({
+      // The CustomerDraft is the object within the body
+      body: {
+        email: info.email,
+        password: info.pas,
+      },
+    })
+    .execute();
+  // .then(({ body }) => {
+  //   updateCustomerName(body.customer.id, info)
+  //     .then(() => {
+  //       const customer = body;
+  //       localStorage.setItem('night-customer', JSON.stringify(customer));
+  //       // redirect();
+  //     })
+  //     .catch();
+  // })
 };

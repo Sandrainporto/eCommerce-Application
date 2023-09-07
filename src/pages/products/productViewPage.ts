@@ -38,34 +38,35 @@ const SortParams = {
   3: 'price asc',
 };
 
-function showProductImages(productImagesData:string[]){
- const popUp = document.createElement('div');
- popUp.className = CardPopup.popup;
- const popUpClose = createElement(CardPopupClose, popUp);
- popUpClose.addEventListener('click',()=>{
-  popUp.remove()
- })
- const popUpSlider = createElement(ProductSlider, popUp);
- console.log(productImagesData)
+function showProductImages(productImagesData: string[]) {
+  const popUp = document.createElement('div');
+  popUp.className = CardPopup.popup;
+  const popUpClose = createElement(CardPopupClose, popUp);
+  popUpClose.addEventListener('click', () => {
+    popUp.remove();
+  });
+  const popUpSlider = createElement(ProductSlider, popUp);
+  console.log(productImagesData);
 
- addSwiper(popUp, productImagesData);
- document.querySelector('.page__main')?.prepend(popUp);
+  addSwiper(popUp, productImagesData);
+  document.querySelector('.page__main')?.prepend(popUp);
 }
+
 const createCard = (root: HTMLElement, product: ProductProjection): void => {
   const currentUrl = window.location.href;
   const productCard = createElement(ProductCard, root);
   const productIconBox = createElement(ProductImageBox, productCard);
   const productIcon = createElement(ProductImage, productIconBox) as HTMLImageElement;
   const productImagesData: Image[] | undefined = product.masterVariant.images;
-  productIconBox.addEventListener('click', ()=>{
+  productIconBox.addEventListener('click', () => {
     const slides: string[] = [];
     productImagesData?.forEach((image: Image) => {
       const imageUrl = image.url;
       slides.push(imageUrl);
     });
     showProductImages(slides);
-    initSlider()
-  })
+    initSlider();
+  });
   if (productImagesData) {
     const mainImage = productImagesData[0];
     productIcon.src = mainImage.url;
@@ -86,16 +87,16 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
     const productDiscount = createElement(ProductDiscount, priceList);
     if (prices.discounted?.value.centAmount) {
       const discountedAmount = prices.discounted.value.centAmount;
-      const {currencyCode} = prices.value;
+      const { currencyCode } = prices.value;
       const calculatedAmount = discountedAmount / 100;
       const displayText = `${calculatedAmount} ${currencyCode}`;
       productDiscount.innerText = displayText;
       productDiscount.setAttribute('keyD', `${product.key}`);
       productPrice.setAttribute('keyF', `${product.key}`);
     }
-    if(product.masterVariant.attributes){
+    if (product.masterVariant.attributes) {
       const productColor = createElement(ProductColor, productCard);
-productColor.style.background = product.masterVariant.attributes[0].value
+      productColor.style.background = product.masterVariant.attributes[0].value;
     }
   });
   const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;

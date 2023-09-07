@@ -86,20 +86,20 @@ export async function addListnerToFormBtn(): Promise<void> {
           newUser = body;
         });
       } else if (bilBlock) {
-          const billingData = userInfo;
-          const inputsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.INPUT}`)];
-          const selectsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.SELECT}`)];
-          billingData.country = selectsBil.find((el) => el.id === `${CountrySelectBox.id}`)?.value as string;
-          billingData.town = inputsBil.find((el) => el.id === `${UserLTownlInput.id}`)?.value as string;
-          billingData.street = inputsBil.find((el) => el.id === `${UserLStreetlInput.id}`)?.value as string;
-          billingData.postCode = inputsBil.find((el) => el.id === `${UserLPostcodelInput.id}`)?.value as string;
-          await updateCustomerAdress(newUser.id, billingData, Number(newUser.version)).then(({ body }) => {
-            newUser = body;
-          });
-          await updateDefBilpAdr(newUser.id, newUser.addresses[1].id, Number(newUser.version)).then(({ body }) => {
-            newUser = body;
-          });
-        }
+        const billingData = userInfo;
+        const inputsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.INPUT}`)];
+        const selectsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.SELECT}`)];
+        billingData.country = selectsBil.find((el) => el.id === `${CountrySelectBox.id}`)?.value as string;
+        billingData.town = inputsBil.find((el) => el.id === `${UserLTownlInput.id}`)?.value as string;
+        billingData.street = inputsBil.find((el) => el.id === `${UserLStreetlInput.id}`)?.value as string;
+        billingData.postCode = inputsBil.find((el) => el.id === `${UserLPostcodelInput.id}`)?.value as string;
+        await updateCustomerAdress(newUser.id, billingData, Number(newUser.version)).then(({ body }) => {
+          newUser = body;
+        });
+        await updateDefBilpAdr(newUser.id, newUser.addresses[1].id, Number(newUser.version)).then(({ body }) => {
+          newUser = body;
+        });
+      }
 
       localStorage.setItem('night-customer', JSON.stringify(newUser));
       localStorage.setItem('reg-customer-name', JSON.stringify(`${userInfo.fname} ${userInfo.lname}`));

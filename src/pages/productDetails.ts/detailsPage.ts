@@ -1,5 +1,5 @@
 import './productDetails.scss';
-import { Image, Price } from '@commercetools/platform-sdk';
+import { Image, Price, ProductProjection } from '@commercetools/platform-sdk';
 import { getProductDetails } from '../../api/getProductDetails';
 import { createElement } from '../../utils/elementCreator';
 import {
@@ -11,6 +11,9 @@ import {
   ProductName,
   ProductPrice,
   ProductSlider,
+  ProductPrices,
+  ProductDiscount,
+  ProductColor
 } from './types';
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
@@ -43,12 +46,33 @@ export default async function showDetailsPage(root: HTMLElement, key: string): P
   } else {
     productDescription.innerText = 'No description';
   }
+  
 
-  const productPrice = createElement(ProductPrice, productInfo);
+  const priceList = createElement(ProductPrices,productInfo);
+console.log(datapath)
   const productPricesData: Price[] | undefined = datapath.masterVariant.prices;
   productPricesData?.forEach((prices) => {
+    console.log(prices)
+    const productPrice = createElement(ProductPrice, productInfo);
     productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`;
-  });
+    const productDiscount = createElement(ProductDiscount, priceList);
+    if (prices.discounted?.value.centAmount) {
+      const discountedAmount = prices.discounted.value.centAmount;
+      const { currencyCode } = prices.value;
+      const calculatedAmount = discountedAmount / 100;
+      const displayText = `${calculatedAmount} ${currencyCode}`;
+      productDiscount.innerText = displayText;
+      productDiscount.setAttribute('keyD', `${prices.id}`);
+      productPrice.setAttribute('keyF', `${prices.id}`);
+    }
+
+  })
+
+
 
   createElement(ProductCardLink, productInfo) as HTMLAnchorElement;
 }
+
+
+
+
