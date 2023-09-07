@@ -28,7 +28,6 @@ import {
   AddresslInputCheckbox,
   DefAddresslInputCheckbox,
   UserLPostcodelInput,
-  INewUser,
 } from './authTypes';
 import { HtmlTags } from '../../types/htmlTags';
 import { showProfileLink } from '../../components/Navigaition/navigationView';
@@ -68,16 +67,16 @@ export async function addListnerToFormBtn(): Promise<void> {
       await createCustomer(userInfo).then(({ body }) => {
         newUser = body.customer;
       });
-      console.log(newUser);
+      // console.log(newUser);
       hint.textContent = 'User created';
       await updateCustomerName(newUser.id, userInfo, Number(newUser.version)).then(({ body }) => {
         newUser = body;
       });
-      console.log(newUser);
+      // console.log(newUser);
       await updateCustomerAdress(newUser.id, userInfo, Number(newUser.version)).then(({ body }) => {
         newUser = body;
       });
-      console.log(newUser, newUser.id, newUser.addresses[0].id);
+      // console.log(newUser, newUser.id, newUser.addresses[0].id);
       if (userInfo.defaultAdres)
         await updateDefShipAdr(newUser.id, newUser.addresses[0].id, Number(newUser.version)).then(({ body }) => {
           newUser = body;

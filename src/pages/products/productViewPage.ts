@@ -70,7 +70,6 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
       const productColor = createElement(ProductColor, productCard);
 productColor.style.background = product.masterVariant.attributes[0].value
     }
-
   });
   const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
   productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;

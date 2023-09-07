@@ -73,6 +73,6 @@ export const showSortPanel = (
 ): void => {
   const wrapper = createElement(SortBlockParam, root);
   const searchInput = createSearchInput(wrapper);
-  const button = createSearchButton(searchInput, SearchCallBack);
-  const select = createSortInput(wrapper, SortCallBack);
+  createSearchButton(searchInput, SearchCallBack);
+  createSortInput(wrapper, SortCallBack);
 };
