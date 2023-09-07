@@ -50,3 +50,13 @@ export enum ProductColor {
   elemTag = 'div',
   classNames = 'products__color',
 }
+export enum CardPopup {
+  popup = 'image__popup',
+  popupClose = 'image__popup',
+
+}
+export enum CardPopupClose {
+  elemTag = 'div',
+  classNames = 'image__popup-close',
+  innerText = 'X',
+}

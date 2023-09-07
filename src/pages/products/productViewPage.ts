@@ -16,9 +16,14 @@ import {
   ProductDiscount,
   ProductPrices,
   ProductColor,
+  CardPopup,
+  CardPopupClose,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
+import { addSwiper } from '../../components/Swiper/swiperView';
+import { initSlider } from '../../components/Swiper/swiperInitializer';
+import { ProductSlider } from '../productDetails.ts/types';
 
 let SortParameter = 0;
 let SearchParameter = '';
@@ -33,12 +38,34 @@ const SortParams = {
   3: 'price asc',
 };
 
+function showProductImages(productImagesData:string[]){
+ const popUp = document.createElement('div');
+ popUp.className = CardPopup.popup;
+ const popUpClose = createElement(CardPopupClose, popUp);
+ popUpClose.addEventListener('click',()=>{
+  popUp.remove()
+ })
+ const popUpSlider = createElement(ProductSlider, popUp);
+ console.log(productImagesData)
+
+ addSwiper(popUp, productImagesData);
+ document.querySelector('.page__main')?.prepend(popUp);
+}
 const createCard = (root: HTMLElement, product: ProductProjection): void => {
   const currentUrl = window.location.href;
   const productCard = createElement(ProductCard, root);
   const productIconBox = createElement(ProductImageBox, productCard);
   const productIcon = createElement(ProductImage, productIconBox) as HTMLImageElement;
   const productImagesData: Image[] | undefined = product.masterVariant.images;
+  productIconBox.addEventListener('click', ()=>{
+    const slides: string[] = [];
+    productImagesData?.forEach((image: Image) => {
+      const imageUrl = image.url;
+      slides.push(imageUrl);
+    });
+    showProductImages(slides);
+    initSlider()
+  })
   if (productImagesData) {
     const mainImage = productImagesData[0];
     productIcon.src = mainImage.url;
