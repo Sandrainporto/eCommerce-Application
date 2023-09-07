@@ -54,7 +54,6 @@ async function updateAddress(e: Event): Promise<void> {
     .then(({ body }) => {
       userData = body;
     })
-    .catch();
   localStorage.setItem('night-customer', JSON.stringify(userData));
   // console.log(block, type, dataAdress);
 }

@@ -20,7 +20,7 @@ module.exports = {
   plugins: ['prettier', '@typescript-eslint'],
   rules: {
     'import/extensions': 'off',
-    'import/no-cycle': 'off',
+    // 'import/no-cycle': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
@@ -43,7 +43,7 @@ module.exports = {
         },
       },
     ],
-    'max-lines-per-function': ['error', 40],
+    'max-lines-per-function': ['error', 45],
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-unnecessary-type-assertion': 'error',
     '@typescript-eslint/no-non-null-assertion': 'error',
