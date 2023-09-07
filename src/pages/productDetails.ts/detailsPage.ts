@@ -13,7 +13,7 @@ import {
   ProductSlider,
   ProductPrices,
   ProductDiscount,
-  ProductColor
+  ProductColor,
 } from './types';
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
@@ -46,13 +46,12 @@ export default async function showDetailsPage(root: HTMLElement, key: string): P
   } else {
     productDescription.innerText = 'No description';
   }
-  
 
-  const priceList = createElement(ProductPrices,productInfo);
-console.log(datapath)
+  const priceList = createElement(ProductPrices, productInfo);
+  console.log(datapath);
   const productPricesData: Price[] | undefined = datapath.masterVariant.prices;
   productPricesData?.forEach((prices) => {
-    console.log(prices)
+    console.log(prices);
     const productPrice = createElement(ProductPrice, productInfo);
     productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`;
     const productDiscount = createElement(ProductDiscount, priceList);
@@ -65,14 +64,7 @@ console.log(datapath)
       productDiscount.setAttribute('keyD', `${prices.id}`);
       productPrice.setAttribute('keyF', `${prices.id}`);
     }
-
-  })
-
-
+  });
 
   createElement(ProductCardLink, productInfo) as HTMLAnchorElement;
 }
-
-
-
-
