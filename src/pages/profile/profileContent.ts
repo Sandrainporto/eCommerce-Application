@@ -192,18 +192,28 @@ async function saveUserPas(e: Event): Promise<void> {
   e.preventDefault();
   const btn = e.target as HTMLElement;
   const block = btn.parentElement as HTMLElement;
-  const data = JSON.parse(localStorage.getItem('night-customer') as string);
+  let data = JSON.parse(localStorage.getItem('night-customer') as string);
   const hint = [...block.querySelectorAll(`.${FormHint.classNames}`)][1] as HTMLElement;
   const pasCur = block.querySelector(`.${LoginCurPaslInput.classNames}`) as HTMLInputElement;
   const pasNew = block.querySelector(`.${LoginNewPaslInput.classNames}`) as HTMLInputElement;
-  // await updateUserPas(pasCur.value, pasNew.value, Number(data.version)).then(({ body }) => (data = body));
-  // localStorage.setItem('night-customer', JSON.stringify(data));
   console.log(
     hint,
     [...block.querySelectorAll(`.${FormHint.classNames}`)],
     [...block.querySelectorAll(`.${FormHint.classNames}`)][-1],
   );
-  hint.textContent = 'still no work';
+  if (pasCur.value !== pasNew.value) {
+    try {
+      await updateUserPas(data.id, pasCur.value, pasNew.value, Number(data.version), hint).then(({ body }) => {
+        data = body;
+      });
+      localStorage.setItem('night-customer', JSON.stringify(data));
+      hint.textContent = '';
+    } catch (er) {
+      hint.textContent = 'Current password is incorrect';
+    }
+  } else {
+    hint.textContent = 'Its your current password';
+  }
 }
 
 function checkProfilePasBtn(root: HTMLElement): void {

@@ -1,6 +1,7 @@
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
 import { apiRoot } from './createClient';
 import { IDataAddress, INewDataAddress } from '../pages/profile/profileTypes';
+import { addHintText } from './loginCustomer';
 
 export const updateUserName = (
   customerID: string,
@@ -95,13 +96,20 @@ export const updateUserEmail = (
     .catch();
 };
 
-export const updateUserPas = (curPas: string, newPas: string, version: number): Promise<ClientResponse<Customer>> => {
+export const updateUserPas = (
+  id: string,
+  curPas: string,
+  newPas: string,
+  version: number,
+  hint: HTMLElement,
+): Promise<ClientResponse<Customer>> => {
   return apiRoot
-    .me()
+    .customers()
     .password()
     .post({
       body: {
-        version,
+        id: id,
+        version: version,
         currentPassword: curPas,
         newPassword: newPas,
       },
@@ -203,6 +211,56 @@ export const addNewShipAdr = (
           {
             action: 'addShippingAddressId',
             addressId: shipID,
+          },
+        ],
+      },
+    })
+    .execute()
+
+    .catch();
+};
+export const removeBilAdr = (customerID: string, bilID: string, version: number): Promise<ClientResponse<Customer>> => {
+  return apiRoot
+    .customers()
+    .withId({ ID: customerID })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'removeBillingAddressId',
+            addressId: bilID,
+          },
+          {
+            action: 'removeAddress',
+            addressId: bilID,
+          },
+        ],
+      },
+    })
+    .execute()
+
+    .catch();
+};
+export const removeShipAdr = (
+  customerID: string,
+  bilID: string,
+  version: number,
+): Promise<ClientResponse<Customer>> => {
+  return apiRoot
+    .customers()
+    .withId({ ID: customerID })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'removeShippingAddressId',
+            addressId: bilID,
+          },
+          {
+            action: 'removeAddress',
+            addressId: bilID,
           },
         ],
       },
