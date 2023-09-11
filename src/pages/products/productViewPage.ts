@@ -18,6 +18,7 @@ import {
   ProductColor,
   CardPopup,
   CardPopupClose,
+  SearchParams,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
@@ -38,7 +39,7 @@ const SortParams = {
   3: 'price asc',
 };
 
-function showProductImages(productImagesData: string[]) {
+function showProductImages(productImagesData: string[]): void {
   const popUp = document.createElement('div');
   popUp.className = CardPopup.popup;
   const popUpClose = createElement(CardPopupClose, popUp);
@@ -46,8 +47,6 @@ function showProductImages(productImagesData: string[]) {
     popUp.remove();
   });
   const popUpSlider = createElement(ProductSlider, popUp);
-  console.log(productImagesData);
-
   addSwiper(popUp, productImagesData);
   document.querySelector('.page__main')?.prepend(popUp);
 }
@@ -116,13 +115,12 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
   } else {
     fuzzyLevel = undefined;
   }
-  const productData: ProductProjection[] = await getProductsList(
-    id,
-    [SortParams[SortParameter]],
-    SearchParameter.toLocaleLowerCase(),
-    Filter,
-    fuzzyLevel,
-  );
+  const url = new URL(`${window.location.href.split('?')[0]}`);
+  url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
+  if (Filter.length !== 0) url.searchParams.set(SearchParams.filter, `${Filter}`);
+  if (SearchParameter) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
+  window.history.pushState({}, '', url.href);
+  const productData: ProductProjection[] = await getProductsList(id, fuzzyLevel);
 
   productData.forEach((product) => {
     createCard(productsList, product);

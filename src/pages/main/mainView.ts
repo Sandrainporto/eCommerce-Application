@@ -13,9 +13,16 @@ let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
 export default function showMainPage(currentPage: string, value?: string): void {
-  console.log(currentPage, value);
   mainWrapper.innerHTML = '';
-  const url = currentPage.split('/').filter((el) => el.length !== 0);
+  let url: string[] = [];
+  if (currentPage.includes('?')) {
+    url = currentPage
+      .split('?')[0]
+      .split('/')
+      .filter((el) => el.length !== 0);
+  } else {
+    url = currentPage.split('/').filter((el) => el.length !== 0);
+  }
   let id = '';
   let key = value || '';
   let activePage;

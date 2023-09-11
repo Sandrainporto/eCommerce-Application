@@ -59,3 +59,9 @@ export enum CardPopupClose {
   classNames = 'image__popup-close',
   innerText = 'X',
 }
+
+export enum SearchParams {
+  sort = 'sort',
+  filter = 'filter',
+  search = 'search',
+}
