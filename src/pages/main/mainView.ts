@@ -13,6 +13,7 @@ let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
 export default function showMainPage(currentPage: string, value?: string): void {
+  console.log(currentPage, value);
   mainWrapper.innerHTML = '';
   const url = currentPage.split('/').filter((el) => el.length !== 0);
   let id = '';
@@ -51,8 +52,8 @@ export default function showMainPage(currentPage: string, value?: string): void 
   }
   showBreadcrumb(mainWrapper);
   if (activePage === Routes['404']) {
+    window.history.replaceState({}, '', `/404`);
     activePage(mainWrapper, key || id || categoryData);
-    window.history.pushState(null, '', `/404`);
   }
   if (activePage !== Routes['404']) {
     activePage(mainWrapper, key || id || categoryData);
