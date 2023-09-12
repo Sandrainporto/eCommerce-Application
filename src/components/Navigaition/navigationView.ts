@@ -81,9 +81,9 @@ export function addSublinks(categoriesData: void | Category[], root: HTMLLinkEle
 // }
 
 export function showProfileLink(): void {
-  const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
-  const registerBtn = document.querySelector('#register') as HTMLAnchorElement;
-  const profileBtn = document.querySelector('#profile') as HTMLAnchorElement;
+  const loginBtn = document.querySelector(`.navigation__login`) as HTMLAnchorElement;
+  const registerBtn = document.querySelector('.navigation__register') as HTMLAnchorElement;
+  const profileBtn = document.querySelector('.navigation__profile') as HTMLAnchorElement;
 
   const loggedUserName = localStorage.getItem('userName');
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
@@ -117,8 +117,8 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
     const item = createElement(NavigationItemParam, root);
     const link = createElement(NavigationLinkParam, item) as HTMLLinkElement;
     link.innerText = arrItem.text;
-    link.href = `/${arrItem.id}`;
-    link.id = arrItem.id;
+    link.href = `/${arrItem.text.toLowerCase()}`;
+    link.classList.add(arrItem.class);
   });
   showProfileLink();
   const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');

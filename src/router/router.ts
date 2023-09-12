@@ -2,7 +2,7 @@ import showMainPage from '../pages/main/mainView';
 
 const renderPage = (productKey?: string): void => {
   const pathString = window.location.href.replace(window.location.origin, '').trim();
-  showMainPage(pathString, productKey);
+  showMainPage(productKey);
 };
 
 const addListener = (): void => {

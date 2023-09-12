@@ -12,67 +12,104 @@ let Data: DataType[];
 let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
-export default function showMainPage(currentPage: string, value?: string): void {
-  console.log(currentPage);
-  mainWrapper.innerHTML = '';
+export default function showMainPage(value?: string): void {
+  console.log(value);
+  let activePage;
   let id = '';
   let key = value || '';
-  let activePage;
-  let url: string[] = [];
-  if (currentPage.includes('?')) {
-    url = currentPage
-      .split('?')[0]
-      .split('/')
-      .filter((el) => el.length !== 0);
-  } else {
-    url = currentPage.split('/').filter((el) => el.length !== 0);
-  }
+  mainWrapper.innerHTML = '';
+  const url = new URL(window.location.href);
+  const page = url.pathname.split('/').slice(-1)[0];
 
-  if (url.length === 0 || !currentPage) {
-    activePage = Routes[''];
-  } else if (url.length === 1) {
-    key = '';
-    activePage = Routes[url[0]] || Routes['404'];
-  } else if (url.length === 2) {
-    Data.forEach((el) => {
-      if (el.category.key === url[1]) {
-        id = el.category.id;
-        activePage = Routes.products;
-        return;
-      }
-      if (!id) {
-        activePage = Routes['404'];
-      }
-    });
-  } else if ((url.length === 3 && !key) || url.length === 4) {
-    Data.forEach((el) => {
+  Data.forEach((el) => {
+    if (el.category.key === page) {
+      id = el.category.id;
+    } else {
       el.subcategory.forEach((elem) => {
-        if (elem.key === url[3]) {
+        if (elem.key === page) {
           id = elem.id;
-          activePage = Routes.products;
-        }
-        if (!id) {
-          activePage = Routes['404'];
         }
       });
-    });
-  } else if (key) {
+    }
+  });
+  console.log(Routes[page]);
+  if (id) {
+    activePage = Routes.products;
+  } else if (Routes[page]) {
+    activePage = Routes[page];
+  } else if (value) {
+    id = value;
     activePage = Routes.details;
+  } else {
+    activePage = Routes['404'];
   }
   showBreadcrumb(mainWrapper);
-  if (activePage === Routes['404']) {
-    window.history.replaceState({}, '', `/404`);
-    activePage(mainWrapper, key || id || categoryData);
-  }
-  if (activePage !== Routes['404']) {
-    activePage(mainWrapper, key || id || categoryData);
-  }
+  activePage(mainWrapper, id || categoryData);
 }
+
+// export default function showMainPage(currentPage: string, value?: string): void {
+//   const url1 = new URL(window.location.href);
+//   console.log(url1);
+//   mainWrapper.innerHTML = '';
+//   let id = '';
+//   let key = value || '';
+//   let activePage;
+//   let url: string[] = [];
+//   if (currentPage.includes('?')) {
+//     url = currentPage
+//       .split('?')[0]
+//       .split('/')
+//       .filter((el) => el.length !== 0);
+//   } else {
+//     url = currentPage.split('/').filter((el) => el.length !== 0);
+//   }
+//   if (url.length === 0 || !currentPage) {
+//     activePage = Routes[''];
+//   } else if (url.length === 1) {
+//     key = '';
+//     activePage = Routes[url[0]] || Routes['404'];
+//   } else if (url.length === 2) {
+//     Data.forEach((el) => {
+//       if (el.category.key === url[1]) {
+//         id = el.category.id;
+//         activePage = Routes.products;
+//         return;
+//       }
+//       if (!id) {
+//         activePage = Routes['404'];
+//       }
+//     });
+//   } else if ((url.length === 3 && !key) || url.length === 4) {
+//     Data.forEach((el) => {
+//       el.subcategory.forEach((elem) => {
+//         if (elem.key === url[3]) {
+//           id = elem.id;
+//           activePage = Routes.products;
+//         }
+//         if (!id) {
+//           activePage = Routes['404'];
+//         }
+//       });
+//     });
+//   } else if (key) {
+//     activePage = Routes.details;
+//   }
+//   showBreadcrumb(mainWrapper);
+//   if (activePage === Routes['404']) {
+//     window.history.replaceState({}, '', `/404`);
+//     activePage(mainWrapper, key || id || categoryData);
+//   }
+//   if (activePage !== Routes['404']) {
+//     activePage(mainWrapper, key || id || categoryData);
+//   }
+// }
 
 export const setData = (wrapper: HTMLElement, data: DataType[]): void => {
   if (data) {
     Data = data;
     categoryData = data.map((el) => el.category);
+    console.log(Data);
+    console.log(categoryData);
   }
   showHeader(wrapper, Data);
   mainWrapper = createElement(MainPageParam, wrapper);

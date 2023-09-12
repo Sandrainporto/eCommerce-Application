@@ -29,27 +29,33 @@ export enum NavigationSubCategLink {
 
 export interface NavigationLink {
   text: string;
-  id: string;
+  class: string;
+  id?: string;
 }
 export const navigationLinksData: NavigationLink[] = [
   {
     text: 'Catalog',
-    id: 'catalog',
+    class: 'navigation__catalog',
+    // id: 'catalog',
   },
   {
     text: 'Basket',
-    id: 'basket',
+    class: 'navigation__basket',
+    // id: 'basket',
   },
   {
     text: 'Profile',
-    id: 'profile',
+    class: 'navigation__profile',
+    // id: 'profile',
   },
   {
     text: 'Login',
-    id: 'login',
+    class: 'navigation__login',
+    // id: 'login',
   },
   {
     text: 'Register',
-    id: 'register',
+    class: 'navigation__register',
+    // id: 'register',
   },
 ];
