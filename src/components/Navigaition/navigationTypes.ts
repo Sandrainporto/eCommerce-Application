@@ -37,6 +37,10 @@ export const navigationLinksData: NavigationLink[] = [
     id: 'catalog',
   },
   {
+    text: 'Sale',
+    id: 'sale',
+  },
+  {
     text: 'Basket',
     id: 'basket',
   },
