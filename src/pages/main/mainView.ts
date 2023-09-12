@@ -13,7 +13,11 @@ let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
 export default function showMainPage(currentPage: string, value?: string): void {
+  console.log(currentPage);
   mainWrapper.innerHTML = '';
+  let id = '';
+  let key = value || '';
+  let activePage;
   let url: string[] = [];
   if (currentPage.includes('?')) {
     url = currentPage
@@ -23,9 +27,7 @@ export default function showMainPage(currentPage: string, value?: string): void 
   } else {
     url = currentPage.split('/').filter((el) => el.length !== 0);
   }
-  let id = '';
-  let key = value || '';
-  let activePage;
+
   if (url.length === 0 || !currentPage) {
     activePage = Routes[''];
   } else if (url.length === 1) {

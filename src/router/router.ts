@@ -1,24 +1,24 @@
 import showMainPage from '../pages/main/mainView';
 
-const renderPage = (path: string, productKey?: string): void => {
-  const pathString = path.replace(window.location.origin, '').trim();
+const renderPage = (productKey?: string): void => {
+  const pathString = window.location.href.replace(window.location.origin, '').trim();
   showMainPage(pathString, productKey);
 };
 
 const addListener = (): void => {
   window.onpopstate = (): void => {
-    const path = window.location.href;
-    renderPage(path);
+    renderPage();
   };
   window.addEventListener(
     'click',
     (event) => {
+      console.log('Переход по ссылке А');
       const target = event.target as HTMLLinkElement;
       if (target.tagName === 'A' || target.closest('A')) {
         event.preventDefault();
         const element = target.closest('A') as HTMLLinkElement;
-        window.history.pushState({}, '', target.href);
-        renderPage(window.location.href, element.id);
+        window.history.pushState({}, '', element.href);
+        renderPage(element.id);
       }
     },
     false,
@@ -26,8 +26,6 @@ const addListener = (): void => {
 };
 
 export const routerInit = (): void => {
-  const path = window.location.href;
-  console.log(path);
-  renderPage(path);
+  renderPage();
   addListener();
 };

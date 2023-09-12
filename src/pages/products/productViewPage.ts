@@ -31,6 +31,7 @@ let SearchParameter = '';
 let ContentRoot: HTMLElement;
 let CurrentId: string;
 let Filter: string[] = [];
+let url;
 
 const SortParams = {
   0: 'name.en-us asc',
@@ -112,10 +113,7 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
   } else {
     fuzzyLevel = undefined;
   }
-  const url = new URL(`${window.location.href.split('?')[0]}`);
-  url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
-  if (Filter.length !== 0) url.searchParams.set(SearchParams.filter, `${Filter}`);
-  if (SearchParameter) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
+
   window.history.pushState({}, '', url.href);
   const productData: ProductProjection[] = await getProductsList(id, fuzzyLevel);
 
@@ -138,20 +136,27 @@ const updatePage = (): void => {
 
 const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
+  url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
   updatePage();
 };
 
 const SearchCallBack = (value: string): void => {
   SearchParameter = value;
+  if (SearchParameter) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
   updatePage();
 };
 
 const FilterCallBack = (value: string[]): void => {
-  Filter = value;
+  if (value.length !== 0) {
+    url.searchParams.set(SearchParams.filter, `${value}`);
+  } else {
+    url.searchParams.delete(SearchParams.filter);
+  }
   updatePage();
 };
 
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
+  url = new URL(`${window.location.href.split('?')[0]}`);
   CurrentId = id;
   Filter = [];
   const productsPage = createElement(ProductsPageParam, root);

@@ -17,6 +17,7 @@ const BUTTONS = {
 
 const createColorCheckbox = (root: HTMLElement): HTMLElement => {
   const checkboxContainer = createElement(CheckBoxFilterContainer, root);
+  console.log(window.location.href);
 
   COLORS.forEach((el) => {
     const container = createElement(ElementContainer, checkboxContainer);
