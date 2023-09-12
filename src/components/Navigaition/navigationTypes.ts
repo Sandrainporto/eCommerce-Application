@@ -41,8 +41,8 @@ export const navigationLinksData: NavigationLink[] = [
     id: 'sale',
   },
   {
-    text: 'Basket',
-    id: 'basket',
+    text: 'Cart 🛒',
+    id: 'cart',
   },
   {
     text: 'Profile',

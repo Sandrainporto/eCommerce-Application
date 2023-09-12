@@ -9,7 +9,7 @@ import {
   FilterButton,
 } from './filterTypes';
 
-const COLORS = ['black', 'brown', 'red', 'green', 'blue'];
+const COLORS = ['black', 'brown', 'red', 'green', 'blue', 'yellow', 'purple', 'white'];
 const BUTTONS = {
   filter: 'FILTER',
   reset: 'RESET',

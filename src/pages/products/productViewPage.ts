@@ -38,6 +38,12 @@ const SortParams = {
   2: 'price desc',
   3: 'price asc',
 };
+const ContentRoots = {
+  CategoryProduct: '.products__list',
+  AllProducts: '.products__list_all',
+
+};
+
 
 function showProductImages(productImagesData: string[], productCard:HTMLElement) {
   const popUp = document.createElement('div');
@@ -144,7 +150,7 @@ export async function showCards(productsList: HTMLElement, id?: string ): Promis
 }
 
 export const updatePage = (): void => {
-  const ContentRoot = document.querySelector('.products__list') as HTMLElement || document.querySelector('.products__list_all') as HTMLElement;
+  const ContentRoot = document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement || document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement;
   
   if(ContentRoot){
   ContentRoot.innerHTML = '';
