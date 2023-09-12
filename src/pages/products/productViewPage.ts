@@ -54,7 +54,7 @@ function showProductImages(productImagesData: string[], productCard:HTMLElement)
 }
 
 const createCard = (root: HTMLElement, product: ProductProjection): void => {
-  const currentUrl = window.location.href;
+  let currentUrl = window.location.href;
   const productCard = createElement(ProductCard, root);
   const productCardContainer = createElement(ProductCardContainer, productCard);
   const productIconBox = createElement(ProductImageBox, productCardContainer);
@@ -102,7 +102,13 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
     }
   });
   const productLink = createElement(ProductCardLink, productCardContainer) as HTMLAnchorElement;
+  if(currentUrl === `${window.location.origin}/catalog`){
+    currentUrl =`${window.location.origin}/catalog`;
+    if(product.metaDescription)
+    productLink.href = `${currentUrl}/${(product.metaDescription['en-US']).toString()}/${product.key?.toLowerCase()}-card`;
+  }else{
   productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
+  }
   productLink.id = `${product.key?.toLowerCase()}`;
 };
 
