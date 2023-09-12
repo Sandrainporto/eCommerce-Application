@@ -27,18 +27,25 @@ export async function getProductsList(
 }
 
 export async function getAllProducts(
-  // sortparam: string[],
-  // searchText: string,
-  // filter: string[],
-  // fuzzyLevel: number | undefined,
+  sortparam: string[],
+  searchText: string,
+  filter: string[],
+  fuzzyLevel: number | undefined,
 ): Promise<ProductProjection[]> {
-  // const filterColors = filter.length !== 0 ? `variants.attributes.Color:${filter.map((el) => `"${el}"`)}` : '';
+  const filterColors = filter.length !== 0 ? `variants.attributes.Color:${filter.map((el) => `"${el}"`)}` : '';
   const { body } = await apiRoot
     .productProjections()
+    .search()
     .get({
       queryArgs: {
         limit: 100,
         offset: 0,
+        // filter: `categories.id:"${categoryId}"`,
+        'filter.query': [`${filterColors}`],
+        sort: sortparam,
+        'text.en-us': searchText,
+        fuzzy: true,
+        fuzzyLevel,
       },
     })
     .execute();

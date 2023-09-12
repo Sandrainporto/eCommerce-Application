@@ -28,7 +28,7 @@ import { ProductSlider } from '../productDetails.ts/types';
 
 let SortParameter = 0;
 let SearchParameter = '';
-let ContentRoot: HTMLElement;
+let ContentRoot: HTMLElement|undefined;
 let CurrentId: string;
 let Filter: string[] = [];
 
@@ -124,7 +124,10 @@ export async function showCards(productsList: HTMLElement, id?: string ): Promis
   } else {
     fuzzyLevel = undefined;
   }
-  let productData: ProductProjection[] = await getAllProducts()
+  let productData: ProductProjection[] = await getAllProducts([SortParams[SortParameter]],
+    SearchParameter.toLocaleLowerCase(),
+    Filter,
+    fuzzyLevel,)
   if(id){
   productData = await getProductsList(
     id,
@@ -140,23 +143,27 @@ export async function showCards(productsList: HTMLElement, id?: string ): Promis
 
 }
 
-const updatePage = (): void => {
-  ContentRoot.innerHTML = ``;
-  const productsList = document.querySelector('.products__list') as HTMLElement;
+export const updatePage = (): void => {
+  const ContentRoot = document.querySelector('.products__list') as HTMLElement || document.querySelector('.products__list_all') as HTMLElement;
+  
+  if(ContentRoot){
+  ContentRoot.innerHTML = '';
+  const productsList = ContentRoot;
   showCards(productsList, CurrentId);
-};
+  }
+  };
 
-const SortCallBack = (value: string): void => {
+export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
   updatePage();
 };
 
-const SearchCallBack = (value: string): void => {
+export const SearchCallBack = (value: string): void => {
   SearchParameter = value;
   updatePage();
 };
 
-const FilterCallBack = (value: string[]): void => {
+export const FilterCallBack = (value: string[]): void => {
   Filter = value;
   updatePage();
 };

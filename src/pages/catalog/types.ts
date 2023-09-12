@@ -9,5 +9,5 @@ export enum CatalogListParam {
 }
 export enum AllProductList {
   elemTag = 'div',
-  classNames = 'products__list',
+  classNames = 'products__list_all',
 }

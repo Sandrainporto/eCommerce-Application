@@ -10,10 +10,11 @@
   }
 }
 
-.products__list {
+.products__list, .products__list_all {
   width: 100%;
   @include flex(row, center, center, 2rem, wrap);
 }
+
 
 .image__popup {
   width: 400px;
