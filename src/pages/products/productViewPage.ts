@@ -1,6 +1,6 @@
 import './products.scss';
 import { Image, Price, ProductProjection } from '@commercetools/platform-sdk';
-import { getProductsList } from '../../api/getProducts';
+import { getAllProducts, getProductsList } from '../../api/getProducts';
 import { createElement } from '../../utils/elementCreator';
 import { ContentPageContainer } from '../error/types';
 import {
@@ -106,7 +106,7 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
   productLink.id = `${product.key?.toLowerCase()}`;
 };
 
-export async function showCards(id: string, productsList: HTMLElement): Promise<void> {
+export async function showCards(productsList: HTMLElement, id?: string ): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
 
   if (fuzzyLevel === 1 || fuzzyLevel === 2) {
@@ -118,23 +118,26 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
   } else {
     fuzzyLevel = undefined;
   }
-  const productData: ProductProjection[] = await getProductsList(
+  let productData: ProductProjection[] = await getAllProducts()
+  if(id){
+  productData = await getProductsList(
     id,
     [SortParams[SortParameter]],
     SearchParameter.toLocaleLowerCase(),
     Filter,
     fuzzyLevel,
   );
-
+  }
   productData.forEach((product) => {
     createCard(productsList, product);
   });
+
 }
 
 const updatePage = (): void => {
   ContentRoot.innerHTML = ``;
   const productsList = document.querySelector('.products__list') as HTMLElement;
-  showCards(CurrentId, productsList);
+  showCards(productsList, CurrentId);
 };
 
 const SortCallBack = (value: string): void => {
@@ -163,5 +166,5 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
   productsList.id = id;
   ContentRoot = productsList;
 
-  showCards(id, productsList);
+  showCards(productsList, id);
 }
