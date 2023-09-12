@@ -51,8 +51,9 @@ function showProductImages(productImagesData: string[]): void {
   document.querySelector('.page__main')?.prepend(popUp);
 }
 
+// eslint-disable-next-line max-lines-per-function
 const createCard = (root: HTMLElement, product: ProductProjection): void => {
-  const currentUrl = window.location.href;
+  const currentUrl = window.location.pathname;
   const productCard = createElement(ProductCard, root);
   const productIconBox = createElement(ProductImageBox, productCard);
   const productIcon = createElement(ProductImage, productIconBox) as HTMLImageElement;
@@ -73,11 +74,7 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
   const productTitle = createElement(ProductName, productCard);
   productTitle.innerText = product.name['en-US'];
   const productDescription = createElement(ProductDescription, productCard);
-  if (product.description) {
-    productDescription.innerText = product.description['en-US'];
-  } else {
-    productDescription.innerText = '';
-  }
+  if (product.description) productDescription.innerText = product.description['en-US'];
   const priceList = createElement(ProductPrices, productCard);
   const productPricesData: Price[] | undefined = product.masterVariant.prices;
   productPricesData?.forEach((prices) => {
@@ -121,6 +118,12 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
   if (SearchParameter) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
   window.history.pushState({}, '', url.href);
   const productData: ProductProjection[] = await getProductsList(id, fuzzyLevel);
+
+  // 	function setQueryStringParameter(name, value) {
+  //     const params = new URLSearchParams(window.location.search);
+  //     params.set(name, value);
+  //     window.history.replaceState({}, "", decodeURIComponent(`${window.location.pathname}?${params}`));
+  // }
 
   productData.forEach((product) => {
     createCard(productsList, product);
