@@ -105,9 +105,7 @@ export function showProfileLink(): void {
   if (loginBtn.classList.contains('logged')) {
     loginBtn.addEventListener('click', () => {
       localStorage.clear();
-			console.log("добавляем hide")
       profileBtn.classList.add('hide');
-			console.log(profileBtn)
       registerBtn.classList.remove('hide');
       loginBtn.classList.remove('logged');
       loginBtn.innerText = 'Login';
@@ -116,7 +114,6 @@ export function showProfileLink(): void {
 }
 
 async function createNavigationLinks(root: HTMLElement): Promise<void> {
-  console.log('создаем основной блок');
   navigationLinksData.forEach((arrItem) => {
     const item = createElement(NavigationItemParam, root);
     const link = createElement(NavigationLinkParam, item) as HTMLLinkElement;
@@ -129,8 +126,8 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
   if (catalogeLink) {
     addSublinks(categoryData, catalogeLink);
   }
-  // const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.profile}`);
-  // // profileLink?.classList.add('hide');
+  const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.register}`);
+  profileLink?.classList.add('hide');
 }
 
 export default function showNavigation(root: HTMLElement, data: DataType[]): HTMLElement {
