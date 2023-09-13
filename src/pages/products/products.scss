@@ -3,7 +3,13 @@
 @import './../../sass/abstract/placeholders';
 @import './../../sass/abstract/constants';
 .page__products {
-  width: 100%;
+
+    display: flex;
+    gap: 30px;
+    @media screen and (max-width: 1155px) {
+     flex-direction: column;
+     align-items: center;
+    }
   .content__container {
     @include flex(column, center, center, 2rem, nowrap);
     margin: 40px auto 40px;
@@ -12,7 +18,7 @@
 
 .products__list, .products__list_all {
   width: 100%;
-  @include flex(row, center, center, 2rem, wrap);
+  @include flex(row, center, center, 1.5rem, wrap);
 }
 
 
@@ -26,10 +32,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 85;
-  // background: rgb(121, 114, 114);
-  // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  // border-radius: 15px;
-  // border: 3px solid #7752be;
+
   .swiper {
     width: 70%;
     height: auto;
