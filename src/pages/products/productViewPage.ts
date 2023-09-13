@@ -113,8 +113,8 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
   } else {
     fuzzyLevel = undefined;
   }
-
-  window.history.pushState({}, '', url.href);
+  console.log(url);
+  window.history.replaceState({}, '', url.search);
   const productData: ProductProjection[] = await getProductsList(id, fuzzyLevel);
 
   // 	function setQueryStringParameter(name, value) {

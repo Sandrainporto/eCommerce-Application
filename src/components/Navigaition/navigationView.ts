@@ -10,6 +10,7 @@ import {
   NavigationSubLink,
   NavigationSubCategLink,
   NavigationSubCategList,
+  NavigationClasses,
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
 import { DataType } from '../../types/types';
@@ -39,6 +40,7 @@ async function addsubCategories(parentCateg: HTMLLIElement, subLinkID: string): 
 }
 
 export function addSublinks(categoriesData: void | Category[], root: HTMLLinkElement): HTMLUListElement {
+  console.log('Создаем линки');
   const subList = document.createElement('ul');
   subList.className = 'catalog__sub-list';
   categoriesData?.forEach((category) => {
@@ -81,9 +83,9 @@ export function addSublinks(categoriesData: void | Category[], root: HTMLLinkEle
 // }
 
 export function showProfileLink(): void {
-  const loginBtn = document.querySelector(`.navigation__login`) as HTMLAnchorElement;
-  const registerBtn = document.querySelector('.navigation__register') as HTMLAnchorElement;
-  const profileBtn = document.querySelector('.navigation__profile') as HTMLAnchorElement;
+  const loginBtn = document.querySelector(`.${NavigationClasses.login}`) as HTMLAnchorElement;
+  const registerBtn = document.querySelector(`.${NavigationClasses.register}`) as HTMLAnchorElement;
+  const profileBtn = document.querySelector(`.${NavigationClasses.profile}`) as HTMLAnchorElement;
 
   const loggedUserName = localStorage.getItem('userName');
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
@@ -113,6 +115,7 @@ export function showProfileLink(): void {
 }
 
 async function createNavigationLinks(root: HTMLElement): Promise<void> {
+  console.log('создаем основной блок');
   navigationLinksData.forEach((arrItem) => {
     const item = createElement(NavigationItemParam, root);
     const link = createElement(NavigationLinkParam, item) as HTMLLinkElement;
@@ -121,11 +124,11 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
     link.classList.add(arrItem.class);
   });
   showProfileLink();
-  const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
+  const catalogeLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.catalog}`);
   if (catalogeLink) {
     addSublinks(categoryData, catalogeLink);
   }
-  const profileLink: HTMLLinkElement | null = document.querySelector('#profile');
+  const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.profile}`);
   profileLink?.classList.add('hide');
 }
 

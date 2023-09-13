@@ -32,30 +32,39 @@ export interface NavigationLink {
   class: string;
   id?: string;
 }
+
+export enum NavigationClasses {
+  catalog = 'navigation__catalog',
+  basket = 'navigation__basket',
+  profile = 'navigation__profile',
+  login = 'navigation__login',
+  register = 'navigation__register',
+}
+
 export const navigationLinksData: NavigationLink[] = [
   {
     text: 'Catalog',
-    class: 'navigation__catalog',
+    class: NavigationClasses.catalog,
     // id: 'catalog',
   },
   {
     text: 'Basket',
-    class: 'navigation__basket',
+    class: NavigationClasses.basket,
     // id: 'basket',
   },
   {
     text: 'Profile',
-    class: 'navigation__profile',
+    class: NavigationClasses.profile,
     // id: 'profile',
   },
   {
     text: 'Login',
-    class: 'navigation__login',
+    class: NavigationClasses.login,
     // id: 'login',
   },
   {
     text: 'Register',
-    class: 'navigation__register',
+    class: NavigationClasses.register,
     // id: 'register',
   },
 ];

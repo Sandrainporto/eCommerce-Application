@@ -16,7 +16,6 @@ export default function showMainPage(value?: string): void {
   console.log(value);
   let activePage;
   let id = '';
-  let key = value || '';
   mainWrapper.innerHTML = '';
   const url = new URL(window.location.href);
   const page = url.pathname.split('/').slice(-1)[0];
@@ -32,7 +31,6 @@ export default function showMainPage(value?: string): void {
       });
     }
   });
-  console.log(Routes[page]);
   if (id) {
     activePage = Routes.products;
   } else if (Routes[page]) {
@@ -108,8 +106,6 @@ export const setData = (wrapper: HTMLElement, data: DataType[]): void => {
   if (data) {
     Data = data;
     categoryData = data.map((el) => el.category);
-    console.log(Data);
-    console.log(categoryData);
   }
   showHeader(wrapper, Data);
   mainWrapper = createElement(MainPageParam, wrapper);

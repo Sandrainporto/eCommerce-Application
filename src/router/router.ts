@@ -1,18 +1,17 @@
 import showMainPage from '../pages/main/mainView';
 
 const renderPage = (productKey?: string): void => {
-  const pathString = window.location.href.replace(window.location.origin, '').trim();
   showMainPage(productKey);
 };
 
 const addListener = (): void => {
   window.onpopstate = (): void => {
+    console.log('сработал popstate');
     renderPage();
   };
   window.addEventListener(
     'click',
     (event) => {
-      console.log('Переход по ссылке А');
       const target = event.target as HTMLLinkElement;
       if (target.tagName === 'A' || target.closest('A')) {
         event.preventDefault();
