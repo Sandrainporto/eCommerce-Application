@@ -40,7 +40,6 @@ async function addsubCategories(parentCateg: HTMLLIElement, subLinkID: string): 
 }
 
 export function addSublinks(categoriesData: void | Category[], root: HTMLLinkElement): HTMLUListElement {
-  console.log('Создаем линки');
   const subList = document.createElement('ul');
   subList.className = 'catalog__sub-list';
   categoriesData?.forEach((category) => {
@@ -106,7 +105,9 @@ export function showProfileLink(): void {
   if (loginBtn.classList.contains('logged')) {
     loginBtn.addEventListener('click', () => {
       localStorage.clear();
+			console.log("добавляем hide")
       profileBtn.classList.add('hide');
+			console.log(profileBtn)
       registerBtn.classList.remove('hide');
       loginBtn.classList.remove('logged');
       loginBtn.innerText = 'Login';
@@ -128,8 +129,8 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
   if (catalogeLink) {
     addSublinks(categoryData, catalogeLink);
   }
-  const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.profile}`);
-  profileLink?.classList.add('hide');
+  // const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.profile}`);
+  // // profileLink?.classList.add('hide');
 }
 
 export default function showNavigation(root: HTMLElement, data: DataType[]): HTMLElement {
