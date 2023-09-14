@@ -4,14 +4,18 @@
 
 .products__card {
   position: relative;
-  max-width: 265px;
+}
+
+.products__card-container {
+  position: relative;
+  max-width: 236px;
   height: 430px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   text-align: center;
-  padding: 20px;
+  padding: 15px;
   background: #79727234;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
@@ -67,7 +71,8 @@
 
   .product__prices {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+
     p[keyf] {
       text-decoration: line-through;
       color: $color-text-dark;
@@ -101,6 +106,7 @@
       background-color: #87dbd0;
     }
   }
+
   .products__color {
     position: absolute;
     width: 15px;

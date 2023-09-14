@@ -13,8 +13,8 @@ let categoryData: void | Category[];
 
 const getPageContent = async (root: HTMLElement): Promise<void> => {
   showSlider(root);
-  createCategoriesCard(root, categoryData);
   showPageInfo(root);
+  createCategoriesCard(root, categoryData);
 };
 
 export default function showMainContent(root: HTMLElement, data: void | Category[]): void {

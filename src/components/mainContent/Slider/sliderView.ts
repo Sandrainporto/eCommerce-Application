@@ -1,14 +1,17 @@
 import './slider.scss';
 import { createElement } from '../../../utils/elementCreator';
-import { LeftBtn, RightBtn, SlideParam, Slider, SliderContainer } from './sliderTypes';
+import { LeftBtn, RightBtn, SlideParamImage, SlideParamLink, Slider, SliderContainer } from './sliderTypes';
 
 function createSlider(root: HTMLElement): HTMLElement {
   const slider = createElement(Slider, root);
 
-  const numberOfSlides = 4;
+ const linkHrefs = [ '/classes', '/sale', 'link3'];
 
-  for (let i = 1; i <= numberOfSlides; i += 1) {
-    const slide = createElement(SlideParam, slider) as HTMLImageElement;
+
+  for (let i = 1; i <= linkHrefs.length; i += 1) {
+    const sliderLink = createElement(SlideParamLink, slider)as HTMLAnchorElement;
+   sliderLink.href = linkHrefs[i-1];
+    const slide = createElement(SlideParamImage, sliderLink) as HTMLImageElement;
     slide.src = `../../assets/slider/banner${i}.png`;
     slide.alt = 'slider-image';
   }
