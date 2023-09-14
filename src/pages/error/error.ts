@@ -13,7 +13,6 @@ import moonImg from '../../assets/errorPageImg/moon.png';
 import witchImg from '../../assets/errorPageImg/witch-shadow.png';
 
 export default function showErrorPage(root: HTMLElement): void {
-  console.log('показываем страницу ошибку');
   const errorPage = createElement(ErrorPageParam, root);
   const errorPageContent = createElement(ContentPageContainer, errorPage);
 

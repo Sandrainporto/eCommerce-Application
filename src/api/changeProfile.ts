@@ -22,9 +22,7 @@ export const updateUserName = (
         ],
       },
     })
-    .execute()
-
-    .catch();
+    .execute();
 };
 export const updateUserLName = (
   customerID: string,
@@ -45,9 +43,7 @@ export const updateUserLName = (
         ],
       },
     })
-    .execute()
-
-    .catch();
+    .execute();
 };
 export const updateUserBDay = (
   customerID: string,
@@ -68,9 +64,7 @@ export const updateUserBDay = (
         ],
       },
     })
-    .execute()
-
-    .catch();
+    .execute();
 };
 export const updateUserEmail = (
   customerID: string,
@@ -91,9 +85,7 @@ export const updateUserEmail = (
         ],
       },
     })
-    .execute()
-
-    .catch();
+    .execute();
 };
 
 export const updateUserPas = (
@@ -114,8 +106,7 @@ export const updateUserPas = (
         newPassword: newPas,
       },
     })
-    .execute()
-    .catch();
+    .execute();
 };
 
 export const updateUserAdress = (
@@ -143,9 +134,7 @@ export const updateUserAdress = (
         ],
       },
     })
-    .execute()
-
-    .catch();
+    .execute();
 };
 
 export const addNewCustomerAdress = (
@@ -172,9 +161,7 @@ export const addNewCustomerAdress = (
         ],
       },
     })
-    .execute()
-
-    .catch();
+    .execute();
 };
 
 export const addNewBilAdr = (customerID: string, bilID: string, version: number): Promise<ClientResponse<Customer>> => {
@@ -192,9 +179,7 @@ export const addNewBilAdr = (customerID: string, bilID: string, version: number)
         ],
       },
     })
-    .execute()
-
-    .catch();
+    .execute();
 };
 export const addNewShipAdr = (
   customerID: string,
@@ -215,9 +200,7 @@ export const addNewShipAdr = (
         ],
       },
     })
-    .execute()
-
-    .catch();
+    .execute();
 };
 export const removeBilAdr = (customerID: string, bilID: string, version: number): Promise<ClientResponse<Customer>> => {
   return apiRoot

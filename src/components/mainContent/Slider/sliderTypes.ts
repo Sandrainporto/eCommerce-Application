@@ -18,7 +18,12 @@ export enum Slider {
   elemTag = 'div',
   classNames = 'slider',
 }
-export enum SlideParam {
+export enum SlideParamLink {
+  elemTag = 'a',
+  classNames = 'slider__link',
+}
+export const linkHrefs = [ 'link1', 'linl2', 'link3'];
+export enum SlideParamImage {
   elemTag = 'img',
   classNames = 'slider__img',
 }

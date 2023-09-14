@@ -1,6 +1,6 @@
 import { createElement } from '../utils/elementCreator';
 
-describe('createElement', () => {
+describe('createElement with entereted parametrs ', () => {
   it('should create a new element with entered parameters and append it to the root element', () => {
     const rootElement = document.createElement('div');
 
@@ -25,7 +25,7 @@ describe('createElement', () => {
   });
 });
 
-describe('createElement', () => {
+describe('createElement with a listener of type "click"', () => {
   it('should add a click as eventListenerType when listenerType is not provided or skipped but has a callback function', () => {
     const rootElement = document.createElement('div');
 
@@ -44,7 +44,7 @@ describe('createElement', () => {
   });
 });
 
-describe('createElement', () => {
+describe('createElement with entered listener', () => {
   it("shouldn't add a click as eventListenerType when listenerType and callback are defined", () => {
     const rootElement = document.createElement('div');
 
