@@ -18,7 +18,7 @@ export const Routes = {
   profile: showProfPage,
   details: showDetailsPage,
   classes: showClassesPage,
-sale: showSalesPage,
+  sale: showSalesPage,
 
   '404': showErrorPage,
 };

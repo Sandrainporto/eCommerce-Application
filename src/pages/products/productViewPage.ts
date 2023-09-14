@@ -46,7 +46,7 @@ const ContentRoots = {
   AllProducts: '.products__list_all',
 };
 
-function showProductImages(productImagesData: string[], productCard: HTMLElement) {
+function showProductImages(productImagesData: string[], productCard: HTMLElement):void {
   const popUp = document.createElement('div');
   popUp.className = CardPopup.popup;
   const popUpClose = createElement(CardPopupClose, popUp);
@@ -124,6 +124,8 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
 
 export async function showCards(productsList: HTMLElement, id?: string): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
+	console.log(url)
+	console.log(id)
 
   if (fuzzyLevel === 1 || fuzzyLevel === 2) {
     fuzzyLevel = 0;
@@ -137,17 +139,12 @@ export async function showCards(productsList: HTMLElement, id?: string): Promise
 
 
   if (url && id) {
-  window.history.replaceState({}, '', url.search);
-
+    window.history.replaceState({}, '', url.search);
     const productData = await getProductsList(id, fuzzyLevel);
     productData.forEach((product) => {
       createCard(productsList, product);
     });
   } else{
-    url = window.location.href
-  window.history.replaceState({}, '', url.search);
-
-
     const productData: ProductProjection[] = await getAllProducts(fuzzyLevel)
     productData.forEach((product) => {
       createCard(productsList, product);
@@ -167,7 +164,7 @@ export async function showCards(productsList: HTMLElement, id?: string): Promise
 }
 
 export const updatePage = (): void => {
-  const ContentRoot =
+ContentRoot =
     (document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement) ||
     (document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement);
 
@@ -180,7 +177,6 @@ export const updatePage = (): void => {
 
 export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
-  console.log(value)
   url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
   updatePage();
 };
@@ -193,9 +189,6 @@ export const SearchCallBack = (value: string): void => {
 
 export const FilterCallBack = (value: string[]): void => {
   if (value.length !== 0) {
-    console.log(url)
-    console.log( url.searchParams)
-
     url.searchParams.set(SearchParams.filter, `${value}`);
   } else {
     url.searchParams.delete(SearchParams.filter);

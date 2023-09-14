@@ -9,12 +9,11 @@ import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
 
 let categoryData: void | Category[];
-let ContentRoot: HTMLElement;
+// let ContentRoot: HTMLElement;
 
 
 export default async function showCatalogPage(root: HTMLElement, data: void | Category[]): Promise<void> {
   categoryData = data;
-  // console.log(data)
   const pageContainer = createElement(ContentPageContainer, root)
   const catalogPage = createElement(CatalogPageParam, pageContainer);
   const catalogList = createElement(CatalogListParam, catalogPage);
@@ -28,10 +27,9 @@ export default async function showCatalogPage(root: HTMLElement, data: void | Ca
   const allProducts = createElement(AllProductList, productsSection);
   
   createCategoriesCard(catalogList, categoryData);
-  ContentRoot = allProducts;
-  // console.log(ContentRoot)
+  // ContentRoot = allProducts;
 
-showCards(allProducts)
+  showCards(allProducts)
 
 }
 
