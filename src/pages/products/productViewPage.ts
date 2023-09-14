@@ -30,7 +30,7 @@ import { FiltersParam } from '../catalog/types';
 
 let SortParameter = 0;
 let SearchParameter = '';
-let ContentRoot: HTMLElement|undefined;
+let ContentRoot: HTMLElement | undefined;
 let CurrentId: string;
 let Filter: string[] = [];
 let url;
@@ -44,11 +44,9 @@ const SortParams = {
 const ContentRoots = {
   CategoryProduct: '.products__list',
   AllProducts: '.products__list_all',
-
 };
 
-
-function showProductImages(productImagesData: string[], productCard:HTMLElement) {
+function showProductImages(productImagesData: string[], productCard: HTMLElement) {
   const popUp = document.createElement('div');
   popUp.className = CardPopup.popup;
   const popUpClose = createElement(CardPopupClose, popUp);
@@ -56,7 +54,7 @@ function showProductImages(productImagesData: string[], productCard:HTMLElement)
     popUp.remove();
   });
   const popUpSlider = createElement(ProductSlider, popUp);
-  console.log(productImagesData);
+  // console.log(productImagesData);
 
   addSwiper(popUpSlider, productImagesData);
   productCard.prepend(popUp);
@@ -64,7 +62,7 @@ function showProductImages(productImagesData: string[], productCard:HTMLElement)
 
 // eslint-disable-next-line max-lines-per-function
 const createCard = (root: HTMLElement, product: ProductProjection): void => {
-  const currentUrl = window.location.pathname;
+  let currentUrl = window.location.pathname;
   const productCard = createElement(ProductCard, root);
   const productCardContainer = createElement(ProductCardContainer, productCard);
   const productIconBox = createElement(ProductImageBox, productCardContainer);
@@ -76,7 +74,7 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
       const imageUrl = image.url;
       slides.push(imageUrl);
     });
-    showProductImages(slides, productCard  );
+    showProductImages(slides, productCard);
     initSlider();
   });
   if (productImagesData) {
@@ -112,17 +110,19 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
     }
   });
   const productLink = createElement(ProductCardLink, productCardContainer) as HTMLAnchorElement;
-  if(currentUrl === `${window.location.origin}/catalog`){
-    currentUrl =`${window.location.origin}/catalog`;
-    if(product.metaDescription)
-    productLink.href = `${currentUrl}/${(product.metaDescription['en-US']).toString()}/${product.key?.toLowerCase()}-card`;
-  }else{
-  productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
+  if (currentUrl === `${window.location.origin}/catalog`) {
+    currentUrl = `${window.location.origin}/catalog`;
+    if (product.metaDescription)
+      productLink.href = `${currentUrl}/${product.metaDescription[
+        'en-US'
+      ].toString()}/${product.key?.toLowerCase()}-card`;
+  } else {
+    productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
   }
   productLink.id = `${product.key?.toLowerCase()}`;
 };
 
-export async function showCards(productsList: HTMLElement, id?: string ): Promise<void> {
+export async function showCards(productsList: HTMLElement, id?: string): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
 
   if (fuzzyLevel === 1 || fuzzyLevel === 2) {
@@ -134,34 +134,53 @@ export async function showCards(productsList: HTMLElement, id?: string ): Promis
   } else {
     fuzzyLevel = undefined;
   }
-  console.log(url);
+
+
+  if (url && id) {
   window.history.replaceState({}, '', url.search);
-  const productData: ProductProjection[] = await getProductsList(id, fuzzyLevel);
 
-  // 	function setQueryStringParameter(name, value) {
-  //     const params = new URLSearchParams(window.location.search);
-  //     params.set(name, value);
-  //     window.history.replaceState({}, "", decodeURIComponent(`${window.location.pathname}?${params}`));
-  // }
+    const productData = await getProductsList(id, fuzzyLevel);
+    productData.forEach((product) => {
+      createCard(productsList, product);
+    });
+  } else{
+    url = window.location.href
+  window.history.replaceState({}, '', url.search);
 
-  productData.forEach((product) => {
-    createCard(productsList, product);
-  });
 
+    const productData: ProductProjection[] = await getAllProducts(fuzzyLevel)
+    productData.forEach((product) => {
+      createCard(productsList, product);
+    });
+  }
+
+// 	function setQueryStringParameter(name, value) {
+    //     const params = new URLSearchParams(window.location.search);
+    //     params.set(name, value);
+    //     window.history.replaceState({}, "", decodeURIComponent(`${window.location.pathname}?${params}`));
+    // }
+
+    // productData.forEach((product) => {
+    //   createCard(productsList, product);
+    // });
+  
 }
 
 export const updatePage = (): void => {
-  const ContentRoot = document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement || document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement;
-  
-  if(ContentRoot){
-  ContentRoot.innerHTML = '';
-  const productsList = ContentRoot;
-  showCards(productsList, CurrentId);
+  const ContentRoot =
+    (document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement) ||
+    (document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement);
+
+  if (ContentRoot) {
+    ContentRoot.innerHTML = '';
+    const productsList = ContentRoot;
+    showCards(productsList, CurrentId);
   }
-  };
+};
 
 export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
+  console.log(value)
   url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
   updatePage();
 };
@@ -172,8 +191,11 @@ export const SearchCallBack = (value: string): void => {
   updatePage();
 };
 
-const FilterCallBack = (value: string[]): void => {
+export const FilterCallBack = (value: string[]): void => {
   if (value.length !== 0) {
+    console.log(url)
+    console.log( url.searchParams)
+
     url.searchParams.set(SearchParams.filter, `${value}`);
   } else {
     url.searchParams.delete(SearchParams.filter);
@@ -185,7 +207,7 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
   url = new URL(`${window.location.href.split('?')[0]}`);
   CurrentId = id;
   Filter = [];
-  const pageContainer = createElement(ContentPageContainer, root)
+  const pageContainer = createElement(ContentPageContainer, root);
 
   const productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);

@@ -259,7 +259,7 @@ function fillNewAdrBlock(root: HTMLElement): void {
   createElement(SaveAdrBtn, root, createAdress);
 }
 export function showAdresess(root: HTMLElement, customer: Customer): void {
-  console.log(root, customer);
+  // console.log(root, customer);
   const bilAdrBlock = createElement(ProfileUserBilAdr, root);
   fillAdrBlock(bilAdrBlock, customer.addresses, customer.billingAddressIds, customer.defaultBillingAddressId);
   const shipAdrBlock = createElement(ProfileUserShipAdr, root);

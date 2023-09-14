@@ -20,7 +20,7 @@ const createColorCheckbox = (root: HTMLElement): HTMLElement => {
   const checkboxContainer = createElement(CheckBoxFilterContainer, root);
   const checkboxLegend = createElement(LegendColors, checkboxContainer);
 
-  console.log(window.location.href);
+  // console.log(window.location.href);
 
   COLORS.forEach((el) => {
     const container = createElement(ElementContainer, checkboxContainer);

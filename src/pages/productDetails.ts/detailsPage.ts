@@ -48,10 +48,10 @@ export default async function showDetailsPage(root: HTMLElement, key: string): P
   }
 
   const priceList = createElement(ProductPrices, productInfo);
-  console.log(datapath);
+  // console.log(datapath);
   const productPricesData: Price[] | undefined = datapath.masterVariant.prices;
   productPricesData?.forEach((prices) => {
-    console.log(prices);
+    // console.log(prices);
     const productPrice = createElement(ProductPrice, productInfo);
     productPrice.innerText = `${prices.value.centAmount / 100} ${prices.value.currencyCode}`;
     const productDiscount = createElement(ProductDiscount, priceList);
