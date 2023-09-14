@@ -18,17 +18,13 @@
   grid-template-rows: 1fr 1fr;
   align-items: center;
   gap: 2rem;
-}
 
-@media screen and (max-width: 935px) {
-  .categories {
+  @media screen and (max-width: 935px) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
   }
-}
 
-@media screen and (max-width: 510px) {
-  .categories {
+  @media screen and (max-width: 552px) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     justify-items: center;
@@ -36,7 +32,7 @@
 }
 
 .category {
-  height: 25rem;
+  height: 15rem;
   display: grid;
   grid-auto-columns: 1fr;
   grid-template-columns: 1fr 1fr;
@@ -54,27 +50,12 @@
   @extend %font-add;
   box-shadow: rgba(255, 255, 255, 0.219) 0px 4px 12px;
   background: radial-gradient(circle farthest-corner at 10% 20%, rgba(0, 221, 214, 1) 0%, rgba(51, 102, 255, 1) 90%);
-}
 
-.category:nth-child(2n) {
-  background: radial-gradient(circle 300px at 8% 89.3%, rgba(20, 157, 208, 1) 0%, rgba(140, 63, 226, 1) 90%);
-}
-
-@media screen and (max-width: 996px) {
-  .category {
+  @media screen and (max-width: 996px) {
     gap: 2rem 1.5rem;
   }
-}
 
-@media screen and (max-width: 935px) {
-  .category {
-    padding: 2.5rem 1.5rem 4rem 1.5rem;
-    height: 23rem;
-  }
-}
-
-@media screen and (max-width: 510px) {
-  .category {
+  @media screen and (max-width: 555px) {
     width: 13rem;
     height: 18rem;
     display: grid;
@@ -90,6 +71,11 @@
   }
 }
 
+.category:nth-child(2n) {
+  background: radial-gradient(circle 300px at 8% 89.3%, rgba(20, 157, 208, 1) 0%, rgba(140, 63, 226, 1) 90%);
+}
+
+
 .category__title {
   grid-area: title;
   @include font($size: 2.6rem, $height: 3.6rem, $weight: 600);
@@ -103,8 +89,13 @@
   align-items: center;
 
   position: relative;
-  max-width: 15rem;
+  max-width: 12rem;
   width: 100%;
+
+  @media screen and (max-width: 935px) {
+    max-width: 10rem;
+
+  }
 }
 
 .category__icon {
@@ -115,7 +106,7 @@
   filter: drop-shadow(0 0 0.95rem rgb(248, 248, 248));
 }
 
-@media (max-width: 510px) {
+@media (max-width: 555px) {
   .category__icon-box .category__icon {
     animation: jumping none;
   }

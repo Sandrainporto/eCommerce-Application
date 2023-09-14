@@ -35,7 +35,7 @@ export interface NavigationLink {
 
 export enum NavigationClasses {
   catalog = 'navigation__catalog',
-  basket = 'navigation__basket',
+  cart = 'navigation__basket',
   profile = 'navigation__profile',
   login = 'navigation__login',
   register = 'navigation__register',
@@ -48,9 +48,9 @@ export const navigationLinksData: NavigationLink[] = [
     // id: 'catalog',
   },
   {
-    text: 'Basket',
-    class: NavigationClasses.basket,
-    // id: 'basket',
+    text: 'Cart 🛒',
+    class: NavigationClasses.cart,
+    // id: 'cart',
   },
   {
     text: 'Profile',

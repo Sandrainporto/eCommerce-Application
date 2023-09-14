@@ -128,6 +128,14 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
   }
   const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.register}`);
   profileLink?.classList.add('hide');
+  const loggedUserName = localStorage.getItem('userName');
+  const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
+
+  if (loggedUserName || registratedUserName) {
+    profileLink?.classList.remove('hide');
+
+  }
+
 }
 
 export default function showNavigation(root: HTMLElement, data: DataType[]): HTMLElement {

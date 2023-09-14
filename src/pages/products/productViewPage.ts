@@ -1,6 +1,6 @@
 import './products.scss';
 import { Image, Price, ProductProjection } from '@commercetools/platform-sdk';
-import { getProductsList } from '../../api/getProducts';
+import { getAllProducts, getProductsList } from '../../api/getProducts';
 import { createElement } from '../../utils/elementCreator';
 import { ContentPageContainer } from '../error/types';
 import {
@@ -18,6 +18,7 @@ import {
   ProductColor,
   CardPopup,
   CardPopupClose,
+  ProductCardContainer,
   SearchParams,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
@@ -25,10 +26,11 @@ import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel'
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
+import { FiltersParam } from '../catalog/types';
 
 let SortParameter = 0;
 let SearchParameter = '';
-let ContentRoot: HTMLElement;
+let ContentRoot: HTMLElement | undefined;
 let CurrentId: string;
 let Filter: string[] = [];
 let url;
@@ -39,8 +41,12 @@ const SortParams = {
   2: 'price desc',
   3: 'price asc',
 };
+const ContentRoots = {
+  CategoryProduct: '.products__list',
+  AllProducts: '.products__list_all',
+};
 
-function showProductImages(productImagesData: string[]): void {
+function showProductImages(productImagesData: string[], productCard: HTMLElement) {
   const popUp = document.createElement('div');
   popUp.className = CardPopup.popup;
   const popUpClose = createElement(CardPopupClose, popUp);
@@ -48,15 +54,18 @@ function showProductImages(productImagesData: string[]): void {
     popUp.remove();
   });
   const popUpSlider = createElement(ProductSlider, popUp);
-  addSwiper(popUp, productImagesData);
-  document.querySelector('.page__main')?.prepend(popUp);
+  // console.log(productImagesData);
+
+  addSwiper(popUpSlider, productImagesData);
+  productCard.prepend(popUp);
 }
 
 // eslint-disable-next-line max-lines-per-function
 const createCard = (root: HTMLElement, product: ProductProjection): void => {
-  const currentUrl = window.location.pathname;
+  let currentUrl = window.location.pathname;
   const productCard = createElement(ProductCard, root);
-  const productIconBox = createElement(ProductImageBox, productCard);
+  const productCardContainer = createElement(ProductCardContainer, productCard);
+  const productIconBox = createElement(ProductImageBox, productCardContainer);
   const productIcon = createElement(ProductImage, productIconBox) as HTMLImageElement;
   const productImagesData: Image[] | undefined = product.masterVariant.images;
   productIconBox.addEventListener('click', () => {
@@ -65,18 +74,22 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
       const imageUrl = image.url;
       slides.push(imageUrl);
     });
-    showProductImages(slides);
+    showProductImages(slides, productCard);
     initSlider();
   });
   if (productImagesData) {
     const mainImage = productImagesData[0];
     productIcon.src = mainImage.url;
   }
-  const productTitle = createElement(ProductName, productCard);
+  const productTitle = createElement(ProductName, productCardContainer);
   productTitle.innerText = product.name['en-US'];
-  const productDescription = createElement(ProductDescription, productCard);
-  if (product.description) productDescription.innerText = product.description['en-US'];
-  const priceList = createElement(ProductPrices, productCard);
+  const productDescription = createElement(ProductDescription, productCardContainer);
+  if (product.description) {
+    productDescription.innerText = product.description['en-US'];
+  } else {
+    productDescription.innerText = '';
+  }
+  const priceList = createElement(ProductPrices, productCardContainer);
   const productPricesData: Price[] | undefined = product.masterVariant.prices;
   productPricesData?.forEach((prices) => {
     const productPrice = createElement(ProductPrice, priceList);
@@ -92,16 +105,24 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
       productPrice.setAttribute('keyF', `${product.key}`);
     }
     if (product.masterVariant.attributes) {
-      const productColor = createElement(ProductColor, productCard);
+      const productColor = createElement(ProductColor, productCardContainer);
       productColor.style.background = product.masterVariant.attributes[0].value;
     }
   });
-  const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
-  productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
+  const productLink = createElement(ProductCardLink, productCardContainer) as HTMLAnchorElement;
+  if (currentUrl === `${window.location.origin}/catalog`) {
+    currentUrl = `${window.location.origin}/catalog`;
+    if (product.metaDescription)
+      productLink.href = `${currentUrl}/${product.metaDescription[
+        'en-US'
+      ].toString()}/${product.key?.toLowerCase()}-card`;
+  } else {
+    productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
+  }
   productLink.id = `${product.key?.toLowerCase()}`;
 };
 
-export async function showCards(id: string, productsList: HTMLElement): Promise<void> {
+export async function showCards(productsList: HTMLElement, id?: string): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
 
   if (fuzzyLevel === 1 || fuzzyLevel === 2) {
@@ -113,41 +134,68 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
   } else {
     fuzzyLevel = undefined;
   }
-  console.log(url);
+
+
+  if (url && id) {
   window.history.replaceState({}, '', url.search);
-  const productData: ProductProjection[] = await getProductsList(id, fuzzyLevel);
 
-  // 	function setQueryStringParameter(name, value) {
-  //     const params = new URLSearchParams(window.location.search);
-  //     params.set(name, value);
-  //     window.history.replaceState({}, "", decodeURIComponent(`${window.location.pathname}?${params}`));
-  // }
+    const productData = await getProductsList(id, fuzzyLevel);
+    productData.forEach((product) => {
+      createCard(productsList, product);
+    });
+  } else{
+    url = window.location.href
+  window.history.replaceState({}, '', url.search);
 
-  productData.forEach((product) => {
-    createCard(productsList, product);
-  });
+
+    const productData: ProductProjection[] = await getAllProducts(fuzzyLevel)
+    productData.forEach((product) => {
+      createCard(productsList, product);
+    });
+  }
+
+// 	function setQueryStringParameter(name, value) {
+    //     const params = new URLSearchParams(window.location.search);
+    //     params.set(name, value);
+    //     window.history.replaceState({}, "", decodeURIComponent(`${window.location.pathname}?${params}`));
+    // }
+
+    // productData.forEach((product) => {
+    //   createCard(productsList, product);
+    // });
+  
 }
 
-const updatePage = (): void => {
-  ContentRoot.innerHTML = ``;
-  const productsList = document.querySelector('.products__list') as HTMLElement;
-  showCards(CurrentId, productsList);
+export const updatePage = (): void => {
+  const ContentRoot =
+    (document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement) ||
+    (document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement);
+
+  if (ContentRoot) {
+    ContentRoot.innerHTML = '';
+    const productsList = ContentRoot;
+    showCards(productsList, CurrentId);
+  }
 };
 
-const SortCallBack = (value: string): void => {
+export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
+  console.log(value)
   url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
   updatePage();
 };
 
-const SearchCallBack = (value: string): void => {
+export const SearchCallBack = (value: string): void => {
   SearchParameter = value;
   if (SearchParameter) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
   updatePage();
 };
 
-const FilterCallBack = (value: string[]): void => {
+export const FilterCallBack = (value: string[]): void => {
   if (value.length !== 0) {
+    console.log(url)
+    console.log( url.searchParams)
+
     url.searchParams.set(SearchParams.filter, `${value}`);
   } else {
     url.searchParams.delete(SearchParams.filter);
@@ -159,13 +207,16 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
   url = new URL(`${window.location.href.split('?')[0]}`);
   CurrentId = id;
   Filter = [];
-  const productsPage = createElement(ProductsPageParam, root);
-  const sortPanel = showSortPanel(productsPage, SortCallBack, SearchCallBack);
-  const pageContent = createElement(ContentPageContainer, productsPage);
-  const filterPanel = showFilterPanel(pageContent, FilterCallBack);
-  const productsList = createElement(ProductsList, pageContent);
+  const pageContainer = createElement(ContentPageContainer, root);
+
+  const productsPage = createElement(ProductsPageParam, pageContainer);
+  const filtersSection = createElement(FiltersParam, productsPage);
+  const sortPanel = showSortPanel(filtersSection, SortCallBack, SearchCallBack);
+  const filterPanel = showFilterPanel(filtersSection, FilterCallBack);
+
+  const productsList = createElement(ProductsList, productsPage);
   productsList.id = id;
   ContentRoot = productsList;
 
-  showCards(id, productsList);
+  showCards(productsList, id);
 }
