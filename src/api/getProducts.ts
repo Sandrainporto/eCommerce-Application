@@ -3,12 +3,10 @@ import { apiRoot } from './createClient';
 import { SearchParams } from '../pages/products/types';
 
 export async function getProductsList(
-  categoryId: string,
   fuzzyLevel: number | undefined,
+  categoryId?: string,
 ): Promise<ProductProjection[]> {
   const params = new URLSearchParams(document.location.search);
-  console.log(params);
-
   const sort = params.get(SearchParams.sort) as string;
   const filterColors = params.get(SearchParams.filter)
     ? `variants.attributes.Color:${params
@@ -33,12 +31,9 @@ export async function getProductsList(
   return body.results;
 }
 
-export async function getAllProducts(
-  fuzzyLevel: number | undefined,
-): Promise<ProductProjection[]> {
+export async function getAllProducts(fuzzyLevel: number | undefined): Promise<ProductProjection[]> {
+  console.log('Во всех продуктах');
   const params = new URLSearchParams(document.location.search);
-  console.log(params);
-
   const sort = params.get(SearchParams.sort) as string;
   const filterColors = params.get(SearchParams.filter)
     ? `variants.attributes.Color:${params
@@ -47,6 +42,7 @@ export async function getAllProducts(
         .map((el) => `"${el}"`)}`
     : '';
   const searchText = params.get(SearchParams.search) as string;
+  console.log(filterColors);
   const { body } = await apiRoot
     .productProjections()
     .search()
@@ -62,6 +58,5 @@ export async function getAllProducts(
       },
     })
     .execute();
-    console.log(body)
   return body.results;
 }

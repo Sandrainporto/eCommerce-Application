@@ -32,7 +32,6 @@ let SortParameter = 0;
 let SearchParameter = '';
 let ContentRoot: HTMLElement | undefined;
 let CurrentId: string;
-let Filter: string[] = [];
 let url;
 
 const SortParams = {
@@ -46,7 +45,7 @@ const ContentRoots = {
   AllProducts: '.products__list_all',
 };
 
-function showProductImages(productImagesData: string[], productCard: HTMLElement):void {
+function showProductImages(productImagesData: string[], productCard: HTMLElement): void {
   const popUp = document.createElement('div');
   popUp.className = CardPopup.popup;
   const popUpClose = createElement(CardPopupClose, popUp);
@@ -124,8 +123,7 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
 
 export async function showCards(productsList: HTMLElement, id?: string): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
-	console.log(url)
-	console.log(id)
+  let productData;
 
   if (fuzzyLevel === 1 || fuzzyLevel === 2) {
     fuzzyLevel = 0;
@@ -137,42 +135,25 @@ export async function showCards(productsList: HTMLElement, id?: string): Promise
     fuzzyLevel = undefined;
   }
 
-
+  window.history.pushState({}, '', url);
   if (url && id) {
-    window.history.replaceState({}, '', url.search);
-    const productData = await getProductsList(id, fuzzyLevel);
-    productData.forEach((product) => {
-      createCard(productsList, product);
-    });
-  } else{
-    const productData: ProductProjection[] = await getAllProducts(fuzzyLevel)
-    productData.forEach((product) => {
-      createCard(productsList, product);
-    });
+    productData = await getProductsList(fuzzyLevel, id);
+  } else {
+    productData = await getAllProducts(fuzzyLevel);
   }
 
-// 	function setQueryStringParameter(name, value) {
-    //     const params = new URLSearchParams(window.location.search);
-    //     params.set(name, value);
-    //     window.history.replaceState({}, "", decodeURIComponent(`${window.location.pathname}?${params}`));
-    // }
-
-    // productData.forEach((product) => {
-    //   createCard(productsList, product);
-    // });
-  
+  productData.forEach((product) => {
+    createCard(productsList, product);
+  });
 }
 
 export const updatePage = (): void => {
-ContentRoot =
+  ContentRoot =
     (document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement) ||
     (document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement);
-
-  if (ContentRoot) {
-    ContentRoot.innerHTML = '';
-    const productsList = ContentRoot;
-    showCards(productsList, CurrentId);
-  }
+  ContentRoot.innerHTML = '';
+  const productsList = ContentRoot;
+  showCards(productsList, CurrentId);
 };
 
 export const SortCallBack = (value: string): void => {
@@ -188,6 +169,7 @@ export const SearchCallBack = (value: string): void => {
 };
 
 export const FilterCallBack = (value: string[]): void => {
+  console.log(value);
   if (value.length !== 0) {
     url.searchParams.set(SearchParams.filter, `${value}`);
   } else {
@@ -196,20 +178,23 @@ export const FilterCallBack = (value: string[]): void => {
   updatePage();
 };
 
-export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
+export default async function showProductsPage(root: HTMLElement, id?: string): Promise<void> {
   url = new URL(`${window.location.href.split('?')[0]}`);
-  CurrentId = id;
-  Filter = [];
-  const pageContainer = createElement(ContentPageContainer, root);
 
+  const pageContainer = createElement(ContentPageContainer, root);
   const productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
   const sortPanel = showSortPanel(filtersSection, SortCallBack, SearchCallBack);
   const filterPanel = showFilterPanel(filtersSection, FilterCallBack);
-
   const productsList = createElement(ProductsList, productsPage);
-  productsList.id = id;
-  ContentRoot = productsList;
 
+  if (id) {
+    CurrentId = id;
+    productsList.id = id;
+  } else {
+    CurrentId = '';
+  }
+
+  ContentRoot = productsList;
   showCards(productsList, id);
 }
