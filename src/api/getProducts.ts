@@ -1,12 +1,25 @@
-import { Product, ProductProjection } from '@commercetools/platform-sdk';
+import { Product, ProductProjection, AttributeGroup } from '@commercetools/platform-sdk';
 import { apiRoot } from './createClient';
 import { SearchParams } from '../pages/products/types';
+
+export async function getAttributes(): Promise<AttributeGroup[]> {
+  const { body } = await apiRoot
+    .attributeGroups()
+    .get({
+      queryArgs: {},
+    })
+    .execute();
+  console.log('получаем атрибуты');
+  console.log(body.results);
+  return body.results;
+}
 
 export async function getProductsList(
   fuzzyLevel: number | undefined,
   categoryId?: string,
 ): Promise<ProductProjection[]> {
   const params = new URLSearchParams(document.location.search);
+  getAttributes();
   const sort = params.get(SearchParams.sort) as string;
   const filterColors = params.get(SearchParams.filter)
     ? `variants.attributes.Color:${params
