@@ -19,6 +19,7 @@ import {
   CardPopup,
   CardPopupClose,
   ProductCardContainer,
+  SearchParams,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
@@ -32,6 +33,7 @@ let SearchParameter = '';
 let ContentRoot: HTMLElement|undefined;
 let CurrentId: string;
 let Filter: string[] = [];
+let url;
 
 const SortParams = {
   0: 'name.en-us asc',
@@ -60,8 +62,9 @@ function showProductImages(productImagesData: string[], productCard:HTMLElement)
   productCard.prepend(popUp);
 }
 
+// eslint-disable-next-line max-lines-per-function
 const createCard = (root: HTMLElement, product: ProductProjection): void => {
-  let currentUrl = window.location.href;
+  const currentUrl = window.location.pathname;
   const productCard = createElement(ProductCard, root);
   const productCardContainer = createElement(ProductCardContainer, productCard);
   const productIconBox = createElement(ProductImageBox, productCardContainer);
@@ -131,19 +134,16 @@ export async function showCards(productsList: HTMLElement, id?: string ): Promis
   } else {
     fuzzyLevel = undefined;
   }
-  let productData: ProductProjection[] = await getAllProducts([SortParams[SortParameter]],
-    SearchParameter.toLocaleLowerCase(),
-    Filter,
-    fuzzyLevel,)
-  if(id){
-  productData = await getProductsList(
-    id,
-    [SortParams[SortParameter]],
-    SearchParameter.toLocaleLowerCase(),
-    Filter,
-    fuzzyLevel,
-  );
-  }
+  console.log(url);
+  window.history.replaceState({}, '', url.search);
+  const productData: ProductProjection[] = await getProductsList(id, fuzzyLevel);
+
+  // 	function setQueryStringParameter(name, value) {
+  //     const params = new URLSearchParams(window.location.search);
+  //     params.set(name, value);
+  //     window.history.replaceState({}, "", decodeURIComponent(`${window.location.pathname}?${params}`));
+  // }
+
   productData.forEach((product) => {
     createCard(productsList, product);
   });
@@ -162,20 +162,27 @@ export const updatePage = (): void => {
 
 export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
+  url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
   updatePage();
 };
 
 export const SearchCallBack = (value: string): void => {
   SearchParameter = value;
+  if (SearchParameter) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
   updatePage();
 };
 
-export const FilterCallBack = (value: string[]): void => {
-  Filter = value;
+const FilterCallBack = (value: string[]): void => {
+  if (value.length !== 0) {
+    url.searchParams.set(SearchParams.filter, `${value}`);
+  } else {
+    url.searchParams.delete(SearchParams.filter);
+  }
   updatePage();
 };
 
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
+  url = new URL(`${window.location.href.split('?')[0]}`);
   CurrentId = id;
   Filter = [];
   const pageContainer = createElement(ContentPageContainer, root)

@@ -1,16 +1,13 @@
 import showMainPage from '../pages/main/mainView';
 
-const renderPage = (path: string, productKey?: string): void => {
-  const pathString = path.replace(window.location.origin, '').trim();
-  const currentPage = path.split('/').slice(-1).join('');
-  window.history.pushState({}, currentPage, `${path}`);
-  showMainPage(pathString, productKey);
+const renderPage = (productKey?: string): void => {
+  showMainPage(productKey);
 };
 
 const addListener = (): void => {
   window.onpopstate = (): void => {
-    const path = window.location.href;
-    renderPage(path);
+    console.log('сработал popstate');
+    renderPage();
   };
   window.addEventListener(
     'click',
@@ -19,7 +16,8 @@ const addListener = (): void => {
       if (target.tagName === 'A' || target.closest('A')) {
         event.preventDefault();
         const element = target.closest('A') as HTMLLinkElement;
-        renderPage(element.href, element.id);
+        window.history.pushState({}, '', element.href);
+        renderPage(element.id);
       }
     },
     false,
@@ -27,7 +25,6 @@ const addListener = (): void => {
 };
 
 export const routerInit = (): void => {
-  const path = window.location.href;
-  renderPage(path);
+  renderPage();
   addListener();
 };

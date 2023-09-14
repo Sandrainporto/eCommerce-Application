@@ -10,6 +10,7 @@ import {
   NavigationSubLink,
   NavigationSubCategLink,
   NavigationSubCategList,
+  NavigationClasses,
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
 import { DataType } from '../../types/types';
@@ -81,9 +82,9 @@ export function addSublinks(categoriesData: void | Category[], root: HTMLLinkEle
 // }
 
 export function showProfileLink(): void {
-  const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
-  const registerBtn = document.querySelector('#register') as HTMLAnchorElement;
-  const profileBtn = document.querySelector('#profile') as HTMLAnchorElement;
+  const loginBtn = document.querySelector(`.${NavigationClasses.login}`) as HTMLAnchorElement;
+  const registerBtn = document.querySelector(`.${NavigationClasses.register}`) as HTMLAnchorElement;
+  const profileBtn = document.querySelector(`.${NavigationClasses.profile}`) as HTMLAnchorElement;
 
   const loggedUserName = localStorage.getItem('userName');
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
@@ -117,15 +118,15 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
     const item = createElement(NavigationItemParam, root);
     const link = createElement(NavigationLinkParam, item) as HTMLLinkElement;
     link.innerText = arrItem.text;
-    link.href = `/${arrItem.id}`;
-    link.id = arrItem.id;
+    link.href = `/${arrItem.text.toLowerCase()}`;
+    link.classList.add(arrItem.class);
   });
   showProfileLink();
-  const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
+  const catalogeLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.catalog}`);
   if (catalogeLink) {
     addSublinks(categoryData, catalogeLink);
   }
-  const profileLink: HTMLLinkElement | null = document.querySelector('#profile');
+  const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.register}`);
   profileLink?.classList.add('hide');
   const loggedUserName = localStorage.getItem('userName');
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
