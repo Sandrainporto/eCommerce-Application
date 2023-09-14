@@ -1,6 +1,6 @@
 import './products.scss';
 import { Image, Price, ProductProjection } from '@commercetools/platform-sdk';
-import { getProductsList } from '../../api/getProducts';
+import { getAllProducts, getProductsList } from '../../api/getProducts';
 import { createElement } from '../../utils/elementCreator';
 import { ContentPageContainer } from '../error/types';
 import {
@@ -18,6 +18,7 @@ import {
   ProductColor,
   CardPopup,
   CardPopupClose,
+  ProductCardContainer,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
@@ -27,7 +28,7 @@ import { ProductSlider } from '../productDetails.ts/types';
 
 let SortParameter = 0;
 let SearchParameter = '';
-let ContentRoot: HTMLElement;
+let ContentRoot: HTMLElement|undefined;
 let CurrentId: string;
 let Filter: string[] = [];
 
@@ -37,8 +38,14 @@ const SortParams = {
   2: 'price desc',
   3: 'price asc',
 };
+const ContentRoots = {
+  CategoryProduct: '.products__list',
+  AllProducts: '.products__list_all',
 
-function showProductImages(productImagesData: string[]) {
+};
+
+
+function showProductImages(productImagesData: string[], productCard:HTMLElement) {
   const popUp = document.createElement('div');
   popUp.className = CardPopup.popup;
   const popUpClose = createElement(CardPopupClose, popUp);
@@ -48,14 +55,15 @@ function showProductImages(productImagesData: string[]) {
   const popUpSlider = createElement(ProductSlider, popUp);
   console.log(productImagesData);
 
-  addSwiper(popUp, productImagesData);
-  document.querySelector('.page__main')?.prepend(popUp);
+  addSwiper(popUpSlider, productImagesData);
+  productCard.prepend(popUp);
 }
 
 const createCard = (root: HTMLElement, product: ProductProjection): void => {
-  const currentUrl = window.location.href;
+  let currentUrl = window.location.href;
   const productCard = createElement(ProductCard, root);
-  const productIconBox = createElement(ProductImageBox, productCard);
+  const productCardContainer = createElement(ProductCardContainer, productCard);
+  const productIconBox = createElement(ProductImageBox, productCardContainer);
   const productIcon = createElement(ProductImage, productIconBox) as HTMLImageElement;
   const productImagesData: Image[] | undefined = product.masterVariant.images;
   productIconBox.addEventListener('click', () => {
@@ -64,22 +72,22 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
       const imageUrl = image.url;
       slides.push(imageUrl);
     });
-    showProductImages(slides);
+    showProductImages(slides, productCard  );
     initSlider();
   });
   if (productImagesData) {
     const mainImage = productImagesData[0];
     productIcon.src = mainImage.url;
   }
-  const productTitle = createElement(ProductName, productCard);
+  const productTitle = createElement(ProductName, productCardContainer);
   productTitle.innerText = product.name['en-US'];
-  const productDescription = createElement(ProductDescription, productCard);
+  const productDescription = createElement(ProductDescription, productCardContainer);
   if (product.description) {
     productDescription.innerText = product.description['en-US'];
   } else {
     productDescription.innerText = '';
   }
-  const priceList = createElement(ProductPrices, productCard);
+  const priceList = createElement(ProductPrices, productCardContainer);
   const productPricesData: Price[] | undefined = product.masterVariant.prices;
   productPricesData?.forEach((prices) => {
     const productPrice = createElement(ProductPrice, priceList);
@@ -95,16 +103,22 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
       productPrice.setAttribute('keyF', `${product.key}`);
     }
     if (product.masterVariant.attributes) {
-      const productColor = createElement(ProductColor, productCard);
+      const productColor = createElement(ProductColor, productCardContainer);
       productColor.style.background = product.masterVariant.attributes[0].value;
     }
   });
-  const productLink = createElement(ProductCardLink, productCard) as HTMLAnchorElement;
+  const productLink = createElement(ProductCardLink, productCardContainer) as HTMLAnchorElement;
+  if(currentUrl === `${window.location.origin}/catalog`){
+    currentUrl =`${window.location.origin}/catalog`;
+    if(product.metaDescription)
+    productLink.href = `${currentUrl}/${(product.metaDescription['en-US']).toString()}/${product.key?.toLowerCase()}-card`;
+  }else{
   productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
+  }
   productLink.id = `${product.key?.toLowerCase()}`;
 };
 
-export async function showCards(id: string, productsList: HTMLElement): Promise<void> {
+export async function showCards(productsList: HTMLElement, id?: string ): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
 
   if (fuzzyLevel === 1 || fuzzyLevel === 2) {
@@ -116,36 +130,46 @@ export async function showCards(id: string, productsList: HTMLElement): Promise<
   } else {
     fuzzyLevel = undefined;
   }
-  const productData: ProductProjection[] = await getProductsList(
+  let productData: ProductProjection[] = await getAllProducts([SortParams[SortParameter]],
+    SearchParameter.toLocaleLowerCase(),
+    Filter,
+    fuzzyLevel,)
+  if(id){
+  productData = await getProductsList(
     id,
     [SortParams[SortParameter]],
     SearchParameter.toLocaleLowerCase(),
     Filter,
     fuzzyLevel,
   );
-
+  }
   productData.forEach((product) => {
     createCard(productsList, product);
   });
+
 }
 
-const updatePage = (): void => {
-  ContentRoot.innerHTML = ``;
-  const productsList = document.querySelector('.products__list') as HTMLElement;
-  showCards(CurrentId, productsList);
-};
+export const updatePage = (): void => {
+  const ContentRoot = document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement || document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement;
+  
+  if(ContentRoot){
+  ContentRoot.innerHTML = '';
+  const productsList = ContentRoot;
+  showCards(productsList, CurrentId);
+  }
+  };
 
-const SortCallBack = (value: string): void => {
+export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
   updatePage();
 };
 
-const SearchCallBack = (value: string): void => {
+export const SearchCallBack = (value: string): void => {
   SearchParameter = value;
   updatePage();
 };
 
-const FilterCallBack = (value: string[]): void => {
+export const FilterCallBack = (value: string[]): void => {
   Filter = value;
   updatePage();
 };
@@ -161,5 +185,5 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
   productsList.id = id;
   ContentRoot = productsList;
 
-  showCards(id, productsList);
+  showCards(productsList, id);
 }
