@@ -9,7 +9,7 @@ export function addFooterLink(root: HTMLElement): HTMLLinkElement {
     innerText = 'About Us',
   }
   const linkToAboutUs = createElement(FooterLinkParam, root) as HTMLLinkElement;
-  linkToAboutUs.href = '#';
+  linkToAboutUs.href = '/about-us';
   return linkToAboutUs;
 }
 
