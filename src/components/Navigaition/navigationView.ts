@@ -13,6 +13,7 @@ import {
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
 import { DataType } from '../../types/types';
+import { addFooterLink } from '../Footer/footerView';
 
 let Data: DataType[];
 let categoryData: Category[];
@@ -146,6 +147,7 @@ export default function showNavigation(root: HTMLElement, data: DataType[]): HTM
   const navList = createElement(NavigationListParam, navBlock);
 
   createNavigationLinks(navList);
+  addFooterLink(navList)
 
   showBurger(navBlock, navBlock, navList);
   return navBlock;
