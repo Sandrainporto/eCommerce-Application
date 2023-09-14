@@ -21,7 +21,7 @@ import {
   ProductCardContainer,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
-import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
+import { COLORS, MAGIC, TYPES, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
@@ -135,6 +135,7 @@ export async function showCards(productsList: HTMLElement, id?: string ): Promis
     SearchParameter.toLocaleLowerCase(),
     Filter,
     fuzzyLevel,)
+    // console.log(productData)
   if(id){
   productData = await getProductsList(
     id,
@@ -172,18 +173,24 @@ export const SearchCallBack = (value: string): void => {
 
 export const FilterCallBack = (value: string[]): void => {
   Filter = value;
+  console.log(value)
+
   updatePage();
 };
 
 export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
   CurrentId = id;
   Filter = [];
+
   const pageContainer = createElement(ContentPageContainer, root)
 
   const productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
   const sortPanel = showSortPanel(filtersSection, SortCallBack, SearchCallBack);
-  const filterPanel = showFilterPanel(filtersSection, FilterCallBack);
+  const filterPanelColors = showFilterPanel(filtersSection, COLORS, FilterCallBack);
+  const filterPanelMagic = showFilterPanel(filtersSection, MAGIC, FilterCallBack);
+
+
 
   const productsList = createElement(ProductsList, productsPage);
   productsList.id = id;

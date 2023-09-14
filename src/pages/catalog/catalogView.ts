@@ -7,7 +7,7 @@ import { AllProductList, CatalogListParam, CatalogPageParam, FiltersParam, Secti
 import { getAllProducts } from '../../api/getProducts';
 import { FilterCallBack, SearchCallBack, SortCallBack, showCards } from '../products/productViewPage';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
-import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
+import { COLORS, MAGIC, TYPES, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
 
 let categoryData: void | Category[];
 let ContentRoot: HTMLElement;
@@ -24,7 +24,10 @@ export default async function showCatalogPage(root: HTMLElement, data: void | Ca
 
 
   const sortPanel = showSortPanel(filtersSection, SortCallBack, SearchCallBack);
-  const filterPanel = showFilterPanel(filtersSection, FilterCallBack);
+  const filterPanelColors = showFilterPanel(filtersSection, COLORS, FilterCallBack);
+  const filterPanelTypes = showFilterPanel(filtersSection, TYPES, FilterCallBack);
+  const filterPanelMagic = showFilterPanel(filtersSection, MAGIC, FilterCallBack);
+
 
   const allProducts = createElement(AllProductList, productsSection);
   
