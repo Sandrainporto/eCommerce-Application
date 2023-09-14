@@ -33,6 +33,7 @@ export async function getAllProducts(
   fuzzyLevel: number | undefined,
 ): Promise<ProductProjection[]> {
   const filterColors = filter.length !== 0 ? `variants.attributes.Color:${filter.map((el) => `"${el}"`)}` : '';
+  console.log(filterColors)
   const { body } = await apiRoot
     .productProjections()
     .search()
