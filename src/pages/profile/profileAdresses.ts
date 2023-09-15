@@ -65,7 +65,6 @@ async function updateAddress(e: Event): Promise<void> {
   // console.log(block, type, dataAdress);
 }
 
-
 async function deleteAddress(e: Event): Promise<void> {
   const delBtn = e.target as HTMLElement;
   const blockForRemove = delBtn.parentElement as HTMLElement;
@@ -90,7 +89,7 @@ async function deleteAddress(e: Event): Promise<void> {
   blockForRemove.remove();
   localStorage.setItem('night-customer', JSON.stringify(userDelData));
   console.log(delBtn, blockForRemove, isBillingAdress, adrForRemoveID, 'tyt');
-
+}
 
 function checkAdrBtn(input: HTMLInputElement): void {
   const block = input.parentElement?.parentElement as HTMLElement;
