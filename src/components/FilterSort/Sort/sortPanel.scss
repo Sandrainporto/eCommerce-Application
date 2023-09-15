@@ -2,11 +2,12 @@
 @import './../../../sass/abstract/placeholders';
 @import './../../../sass/abstract/constants';
 .products__panel {
-  @include flex(row, center, center, 1rem);
-  @media screen and (max-width:613px) {
-    flex-direction: column;
-  }
-padding: 0 10px;
+  @include flex(column-reverse, center, center, 1rem);
+
+  // @media screen and (max-width: 738px) {
+  //   flex-direction: column;
+  // }
+  padding: 0 10px;
   .panel__search {
     grid-gap: 1rem;
     align-items: center;
@@ -14,6 +15,9 @@ padding: 0 10px;
     gap: 1rem;
     grid-template-columns: minmax(15rem, 120rem) 0.5fr;
     justify-content: center;
+    .input_block {
+      margin-top: 25px;
+    }
   }
 
   .search__button {
@@ -34,6 +38,12 @@ padding: 0 10px;
       rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     transition: 0.4s;
+    cursor: pointer;
+    @media screen and (max-width: 400px) {
+     padding: 10px;
+  
+    
+  }
 
     &:hover {
       transition: 0.4s;

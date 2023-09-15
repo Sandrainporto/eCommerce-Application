@@ -28,9 +28,9 @@ import {
   AddresslInputCheckbox,
   DefAddresslInputCheckbox,
   UserLPostcodelInput,
-  INewUser,
 } from './authTypes';
 import { HtmlTags } from '../../types/htmlTags';
+import { showProfileLink } from '../../components/Navigaition/navigationView';
 
 const HINT_TEXT = {
   create: 'User created',
@@ -67,16 +67,16 @@ export async function addListnerToFormBtn(): Promise<void> {
       await createCustomer(userInfo).then(({ body }) => {
         newUser = body.customer;
       });
-      console.log(newUser);
+      // console.log(newUser);
       hint.textContent = 'User created';
       await updateCustomerName(newUser.id, userInfo, Number(newUser.version)).then(({ body }) => {
         newUser = body;
       });
-      console.log(newUser);
+      // console.log(newUser);
       await updateCustomerAdress(newUser.id, userInfo, Number(newUser.version)).then(({ body }) => {
         newUser = body;
       });
-      console.log(newUser, newUser.id, newUser.addresses[0].id);
+      // console.log(newUser, newUser.id, newUser.addresses[0].id);
       if (userInfo.defaultAdres)
         await updateDefShipAdr(newUser.id, newUser.addresses[0].id, Number(newUser.version)).then(({ body }) => {
           newUser = body;
@@ -85,22 +85,20 @@ export async function addListnerToFormBtn(): Promise<void> {
         await updateDefBilpAdr(newUser.id, newUser.addresses[0].id, Number(newUser.version)).then(({ body }) => {
           newUser = body;
         });
-      } else {
-        if (bilBlock) {
-          const billingData = userInfo;
-          const inputsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.INPUT}`)];
-          const selectsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.SELECT}`)];
-          billingData.country = selectsBil.find((el) => el.id === `${CountrySelectBox.id}`)?.value as string;
-          billingData.town = inputsBil.find((el) => el.id === `${UserLTownlInput.id}`)?.value as string;
-          billingData.street = inputsBil.find((el) => el.id === `${UserLStreetlInput.id}`)?.value as string;
-          billingData.postCode = inputsBil.find((el) => el.id === `${UserLPostcodelInput.id}`)?.value as string;
-          await updateCustomerAdress(newUser.id, billingData, Number(newUser.version)).then(({ body }) => {
-            newUser = body;
-          });
-          await updateDefBilpAdr(newUser.id, newUser.addresses[1].id, Number(newUser.version)).then(({ body }) => {
-            newUser = body;
-          });
-        }
+      } else if (bilBlock) {
+        const billingData = userInfo;
+        const inputsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.INPUT}`)];
+        const selectsBil = [...bilBlock.getElementsByTagName(`${HtmlTags.SELECT}`)];
+        billingData.country = selectsBil.find((el) => el.id === `${CountrySelectBox.id}`)?.value as string;
+        billingData.town = inputsBil.find((el) => el.id === `${UserLTownlInput.id}`)?.value as string;
+        billingData.street = inputsBil.find((el) => el.id === `${UserLStreetlInput.id}`)?.value as string;
+        billingData.postCode = inputsBil.find((el) => el.id === `${UserLPostcodelInput.id}`)?.value as string;
+        await updateCustomerAdress(newUser.id, billingData, Number(newUser.version)).then(({ body }) => {
+          newUser = body;
+        });
+        await updateDefBilpAdr(newUser.id, newUser.addresses[1].id, Number(newUser.version)).then(({ body }) => {
+          newUser = body;
+        });
       }
 
       localStorage.setItem('night-customer', JSON.stringify(newUser));
@@ -118,7 +116,8 @@ export async function addListnerToFormBtn(): Promise<void> {
       email: inputs.find((el) => el.id === `${LoginEmailInput.id}`)?.value as string,
       pas: inputs.find((el) => el.id === `${LoginPaslInput.id}`)?.value as string,
     };
-    loginCustomer(userLogInfo, loginHint);
+    await loginCustomer(userLogInfo, loginHint);
+    showProfileLink();
   }
 }
 
@@ -155,7 +154,7 @@ export function checkForm(e: Event): void {
   if (input instanceof HTMLInputElement) {
     const hint = input.nextElementSibling?.nextElementSibling as HTMLElement;
     const text = input.value;
-    if (hint !== null) {
+    if (hint) {
       hint.textContent = text;
       let errorMessage = ' ';
 

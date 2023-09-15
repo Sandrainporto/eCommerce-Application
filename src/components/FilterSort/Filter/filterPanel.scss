@@ -3,64 +3,94 @@
 @import './../../../sass/abstract/constants';
 
 .filter__panel {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding:1rem 2rem;
-  height: 100%;
-  background-color: $background-color-dark;
-  width: 100%;
-  max-width: 670px;
-  @media screen and (max-width:613px) {
-    width:200px;
-  }
-  .panel__container {
-    @include flex(row, center, space-between,20px);
-    width: 100%;
-    @media screen and (max-width:613px) {
-      flex-direction: column;
-    }
-  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 0.3fr;
+  grid-template-areas:
+    "checkboxes checkboxes"
+    "filter reset";
+  gap: 15px;
+  justify-items: center;
+  padding: 1rem 0;
+
+}
+
+.panel__content {
+  grid-area: checkboxes;
+  @include flex(row, center, space-between, 10px, wrap);
+  @media screen and (max-width: 400px) {
+    justify-content: center;
+ }
+  // @media screen and (max-width: 738px) {
+  //   flex-direction: column;
+  // }
+}
+
+.legend_colors {
+  @include font($size: 2rem, $height: 2.6rem, $weight: 900);
+  margin-bottom: 10px;
+
+}
+
+.filter {
+  width: 85px;
+  border: 1px solid rgba(110, 106, 106, 0.733);
+  padding: 3px;
+  border-radius: 10px;
+  background: rgba(110, 106, 106, 0.274);
+  @include flex(row, center, space-between, nowrap);
+
+  .filter_input {
+    width: 3rem;
   }
 
-  .filter {
-    width: 60px;
-    @include flex(row, center, center,1rem ,nowrap);
-    @media screen and (max-width:613px) {
-      justify-content: flex-start;
-    }
-  }
+  // @media screen and (max-width: 738px) {
+  //   justify-content: flex-start;
+  // }
+}
 
-  .filter__button {
-    @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
-    @extend %font-add;
-    text-transform: uppercase;
-    outline: none;
-    color: $color-link;
-    position: relative;
-    background: rgb(2, 29, 78);
-    background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
-    padding: 1rem 2.8rem 1rem 2.5rem;
-    font-weight: 700;
-    letter-spacing: 0.2rem;
-    border-radius: 1rem;
-    border: none;
-    box-shadow:
-      rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.filter__button {
+  grid-area: filter;
+  @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
+  @extend %font-add;
+  text-transform: uppercase;
+  outline: none;
+  color: $color-link;
+  width: 120px;
+  cursor: pointer;
+  text-align: center;
+
+  background: rgb(2, 29, 78);
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+  padding: 1rem 2.8rem 1rem 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+  border-radius: 1rem;
+  border: none;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: 0.4s;
+  @media screen and (max-width: 400px) {
+    padding: 10px;
+ 
+   
+ }
+
+  &:hover {
     transition: 0.4s;
-
-    &:hover {
-      transition: 0.4s;
-      border: 2px dashed #00bfa6;
-      background-color: $color-text-light;
-      color: rgb(4, 4, 38);
-    }
-
-    &:active {
-      background-color: #87dbd0;
-    }
+    border: 2px dashed #00bfa6;
+    background-color: $color-text-light;
+    color: rgb(4, 4, 38);
   }
+
+  &:active {
+    background-color: #87dbd0;
+  }
+}
+
+div.filter__button:last-child {
+  grid-area: reset;
+  color: $color-text-light;
+  background: #504e4e;
 }

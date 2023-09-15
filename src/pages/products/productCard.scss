@@ -3,14 +3,19 @@
 @import './../../sass/abstract/constants';
 
 .products__card {
-  max-width: 265px;
+  position: relative;
+}
+
+.products__card-container {
+  position: relative;
+  max-width: 236px;
   height: 430px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   text-align: center;
-  padding: 20px;
+  padding: 15px;
   background: #79727234;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
@@ -37,6 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 
     img {
       width: 100%;
@@ -65,7 +71,7 @@
 
   .product__prices {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
 
     p[keyf] {
       text-decoration: line-through;
@@ -74,7 +80,6 @@
 
     p[keyd] {
       @include linkHover;
-
     }
   }
 
@@ -100,5 +105,13 @@
     &:active {
       background-color: #87dbd0;
     }
+  }
+
+  .products__color {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    right: 20px;
   }
 }

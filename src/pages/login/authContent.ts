@@ -134,7 +134,7 @@ const addBillingFields = (root: HTMLElement): void => {
       if (billingBlock) {
         billingBlock.remove();
       }
-      if (saveBillingCheckbox.checked === false) {
+      if (!saveBillingCheckbox.checked) {
         addAddressFields(root, BillingBlock.innerText, BillingBlock.className);
       }
     });

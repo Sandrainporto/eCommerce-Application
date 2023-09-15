@@ -58,14 +58,13 @@ async function updateAddress(e: Event): Promise<void> {
     street: inputs.find((el) => el.className === `${ProfStreetlInput.classNames}`)?.value as string,
     postCode: inputs.find((el) => el.className === `${ProfPostcodelInput.classNames}`)?.value as string,
   };
-  await updateUserAdress(userData.id, dataAdress, Number(userData.version))
-    .then(({ body }) => {
-      userData = body;
-    })
-    .catch();
+  await updateUserAdress(userData.id, dataAdress, Number(userData.version)).then(({ body }) => {
+    userData = body;
+  });
   localStorage.setItem('night-customer', JSON.stringify(userData));
-  console.log(block, type, dataAdress);
+  // console.log(block, type, dataAdress);
 }
+
 
 async function deleteAddress(e: Event): Promise<void> {
   const delBtn = e.target as HTMLElement;
@@ -91,7 +90,7 @@ async function deleteAddress(e: Event): Promise<void> {
   blockForRemove.remove();
   localStorage.setItem('night-customer', JSON.stringify(userDelData));
   console.log(delBtn, blockForRemove, isBillingAdress, adrForRemoveID, 'tyt');
-}
+
 
 function checkAdrBtn(input: HTMLInputElement): void {
   const block = input.parentElement?.parentElement as HTMLElement;
