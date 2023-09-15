@@ -105,14 +105,12 @@ function checkAdrBtn(input: HTMLInputElement): void {
     btn.classList.add(ButtonClass.active);
     btn.addEventListener('click', updateAddress);
     enableELement(btn);
-    // btn.removeAttribute('disabled');
   } else {
     if (btn.classList.contains(ButtonClass.active)) {
       btn.classList.remove(ButtonClass.active);
     }
     btn.removeEventListener('click', updateAddress);
     disableElement(btn);
-    // btn.setAttribute('disabled', 'disabled');
   }
 }
 
@@ -130,16 +128,14 @@ function checkNewAdrBtn(): void {
     (chbxNewBil.checked === true || chbxNewShip.checked === true)
   ) {
     btn.classList.add(ButtonClass.active);
-    btn.addEventListener('click', updateAddress);
+    btn.addEventListener('click', createAdress);
     enableELement(btn);
-    // btn.removeAttribute('disabled');
   } else {
     if (btn.classList.contains(ButtonClass.active)) {
       btn.classList.remove(ButtonClass.active);
     }
-    btn.removeEventListener('click', updateAddress);
+    btn.removeEventListener('click', createAdress);
     disableElement(btn);
-    // btn.setAttribute('disabled', 'disabled');
   }
 }
 
@@ -163,7 +159,7 @@ function checkAdrInput(e: Event, flag?: boolean): void {
         addHintContent(hint);
       }
     }
-    if (flag === undefined) {
+    if (flag !== false) {
       checkAdrBtn(input);
     } else {
       checkNewAdrBtn();
@@ -252,8 +248,8 @@ function checkNewChecbox(e: Event): void {
   }
 }
 
-async function renderNewAdress(adrData: INewDataAddress, newAdr: Address, container: HTMLElement) {
-  console.log(adrData, container);
+function renderNewAdress(adrData: INewDataAddress, newAdr: Address, container: HTMLElement) {
+  console.log(adrData, newAdr, container);
   const curBilBlock = container.querySelector(`.${ProfileUserBilAdr.classNames}`) as HTMLElement;
   const curShipBlock = container.querySelector(`.${ProfileUserShipAdr.classNames}`) as HTMLElement;
   if (adrData.bil) {
@@ -282,6 +278,7 @@ async function createAdress(e: Event): Promise<void> {
   const profileContainer = block.parentElement as HTMLElement;
   const inputs = [...block.getElementsByTagName(HtmlTags.INPUT)];
   const selects = [...block.getElementsByTagName(`${HtmlTags.SELECT}`)];
+  selects.forEach((el) => console.log(el.value));
   let userData = JSON.parse(localStorage.getItem('night-customer') as string);
   const newAdrData: INewDataAddress = {
     country: selects.find((el) => el.className === `${CountrySelectBox.classNames}`)?.value as string,

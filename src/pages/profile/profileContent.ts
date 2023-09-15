@@ -166,7 +166,6 @@ async function saveUserInfo(e: Event): Promise<void> {
       data = body;
     });
   localStorage.setItem('night-customer-email', JSON.stringify(data.email));
-  alert('succes');
 
   localStorage.setItem('night-customer', JSON.stringify(data));
 }

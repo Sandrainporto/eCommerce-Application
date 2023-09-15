@@ -134,7 +134,7 @@ export const updateUserAdress = (
             action: 'changeAddress',
             addressId: `${data.id}`,
             address: {
-              country: `${data.country === 'USA' ? 'EN' : 'RU'}`,
+              country: `${data.country === 'Canada' ? 'US' : 'BY'}`,
               city: `${data.town}`,
               streetName: `${data.street}`,
               postalCode: `${data.postCode}`,
@@ -163,7 +163,7 @@ export const addNewCustomerAdress = (
           {
             action: 'addAddress',
             address: {
-              country: `${data.country === 'USA' ? 'EN' : 'RU'}`,
+              country: `${data.country === 'Canada' ? 'US' : 'BY'}`,
               city: `${data.town}`,
               streetName: `${data.street}`,
               postalCode: `${data.postCode}`,
