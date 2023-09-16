@@ -2,12 +2,12 @@
   width: 100%;
   margin: 0 auto;
 }
-.tab {
+.tab, .tab-btn {
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
 }
-.tabLink {
+.tabLink, .tab-btn__button {
   background-color: inherit;
   float: left;
   border: none;
@@ -23,13 +23,17 @@
     background: #00000044;
   }
 }
-.tabcontent {
-  display: none;
+.tabcontent, .tab-btn__content {
+ 
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
 }
+
+
+
 .tabcontent {
+   display: none;
   animation: fadeEffect 1s; 
 }
 
