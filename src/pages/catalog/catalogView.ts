@@ -3,8 +3,10 @@ import { Category } from '@commercetools/platform-sdk';
 import createCategoriesCard from '../../components/Categories/categoryCard';
 import { createElement } from '../../utils/elementCreator';
 import { ContentPageContainer } from '../error/types';
+
 import { AllProductList, CatalogListParam, CatalogPageParam, SectionParam } from './types';
 import showProductsPage from '../products/productViewPage';
+
 
 let categoryData: void | Category[];
 

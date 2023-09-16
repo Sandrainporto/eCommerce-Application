@@ -10,15 +10,20 @@ import {
   LegendColors,
 } from './filterTypes';
 
-const COLORS = ['black', 'brown', 'red', 'green', 'blue', 'yellow', 'purple', 'white'];
+export const COLORS = ['black', 'brown', 'red', 'green', 'blue', 'yellow', 'purple', 'white'];
+export const TYPES = ['spells', 'potions', 'cauldrons', 'ingredients', 'attributes', 'grimoires'];
+export const MAGIC = ['white', 'dark', 'neutral'];
+
+
 const BUTTONS = {
   filter: 'FILTER',
   reset: 'RESET',
 };
 
-const createColorCheckbox = (root: HTMLElement): HTMLElement => {
+const createColorCheckbox = (root: HTMLElement, filterType:string[]): HTMLElement => {
   const checkboxContainer = createElement(CheckBoxFilterContainer, root);
   const checkboxLegend = createElement(LegendColors, checkboxContainer);
+
 
   COLORS.forEach((el) => {
     const container = createElement(ElementContainer, checkboxContainer);

@@ -22,7 +22,7 @@ import {
   SearchParams,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
-import { showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
+import { COLORS, MAGIC, TYPES, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
@@ -135,11 +135,13 @@ export async function showCards(productsList: HTMLElement, id?: string): Promise
     fuzzyLevel = undefined;
   }
 
+
   window.history.pushState({}, '', url);
   if (url && id) {
     productData = await getProductsList(fuzzyLevel, id);
   } else {
     productData = await getAllProducts(fuzzyLevel);
+
   }
 
   productData.forEach((product) => {
@@ -169,6 +171,7 @@ export const SearchCallBack = (value: string): void => {
 };
 
 export const FilterCallBack = (value: string[]): void => {
+
   console.log(value);
   if (value.length !== 0) {
     url.searchParams.set(SearchParams.filter, `${value}`);
@@ -181,11 +184,14 @@ export const FilterCallBack = (value: string[]): void => {
 export default async function showProductsPage(root: HTMLElement, id?: string): Promise<void> {
   url = new URL(`${window.location.href.split('?')[0]}`);
 
+
   const pageContainer = createElement(ContentPageContainer, root);
   const productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
   const sortPanel = showSortPanel(filtersSection, SortCallBack, SearchCallBack);
+
   const filterPanel = showFilterPanel(filtersSection, FilterCallBack);
+
   const productsList = createElement(ProductsList, productsPage);
 
   if (id) {
