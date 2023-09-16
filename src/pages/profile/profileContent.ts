@@ -119,7 +119,7 @@ function showUserInfo(root: HTMLElement, customer: Customer): void {
     createElement(FormHint, block);
   });
   createElement(SaveUserInfoBtn, inputPasBlock);
-  console.log([...inputPasBlock.getElementsByTagName(HtmlTags.INPUT)]);
+  // console.log([...inputPasBlock.getElementsByTagName(HtmlTags.INPUT)]);
   [...inputPasBlock.getElementsByTagName(HtmlTags.INPUT)].forEach((inp) =>
     inp.addEventListener('input', (e: Event) => checkProfilePas(e)),
   );

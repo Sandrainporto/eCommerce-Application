@@ -18,7 +18,7 @@ export default async function createCategoriesCard(root: HTMLElement, data: void
   categoriesData = data;
 
   const categoriesContainer = createElement(CategoriesContainerParam, root);
-  if (categoriesData)
+  if (categoriesData) {
     categoriesData.forEach((category) => {
       const categoryBlock = createElement(CategoryBoxParam, categoriesContainer);
 
@@ -37,5 +37,7 @@ export default async function createCategoriesCard(root: HTMLElement, data: void
       // categoryLink.id = `${category.key}`;
       categoryLink.innerText = CategoryParam.text;
     });
+  }
+
   return categoriesContainer;
 }

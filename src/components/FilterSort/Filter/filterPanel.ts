@@ -25,7 +25,7 @@ const createColorCheckbox = (root: HTMLElement, filterType:string[]): HTMLElemen
   const checkboxLegend = createElement(LegendColors, checkboxContainer);
 
 
-  filterType.forEach((el) => {
+  COLORS.forEach((el) => {
     const container = createElement(ElementContainer, checkboxContainer);
     const label = createElement(FilterLabelColorCheckbox, container) as HTMLLabelElement;
     label.innerText = el;
@@ -69,9 +69,9 @@ const createResetButton = (root: HTMLElement, callback: { (value: string[]): voi
   });
 };
 
-export const showFilterPanel = (root: HTMLElement, filterType:string[], FilterCallBack: (value: string[]) => void): void => {
+export const showFilterPanel = (root: HTMLElement, FilterCallBack: (value: string[]) => void): void => {
   const wrapper = createElement(FilterBlockParam, root);
-  const filtersColors = createColorCheckbox(wrapper, filterType);
+  const filters = createColorCheckbox(wrapper);
 
   createFilterButton(wrapper, FilterCallBack);
   createResetButton(wrapper, FilterCallBack);
