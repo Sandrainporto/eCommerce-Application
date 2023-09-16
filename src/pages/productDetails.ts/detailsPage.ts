@@ -17,6 +17,31 @@ import {
 } from './types';
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
+import { addItemToCart, createCart } from '../../api/shoppingList';
+
+async function addItemToBasket(e: Event): Promise<void> {
+  e.preventDefault();
+  console.log(e.target, 'tyt');
+  const btn = e.target as HTMLElement;
+  const itemID = btn.getAttribute('data-id') as string;
+  const data = localStorage.getItem('night-customer-cart');
+  let newData;
+  if (data) {
+    let parsedData = JSON.parse(data);
+    await addItemToCart(parsedData.id, Number(parsedData.version), itemID).then(({ body }) => {
+      parsedData = body;
+    });
+    localStorage.setItem('night-customer-cart', JSON.stringify(parsedData));
+  } else {
+    await createCart().then(({ body }) => {
+      newData = body;
+    });
+    await addItemToCart(newData.id, Number(newData.version), itemID).then(({ body }) => {
+      newData = body;
+    });
+    localStorage.setItem('night-customer-cart', JSON.stringify(newData));
+  }
+}
 
 export default async function showDetailsPage(root: HTMLElement, key: string): Promise<void> {
   const productsPage = createElement(DetailsParam, root);
@@ -66,5 +91,8 @@ export default async function showDetailsPage(root: HTMLElement, key: string): P
     }
   });
 
-  createElement(ProductCardLink, productInfo) as HTMLAnchorElement;
+  const prodLink = createElement(ProductCardLink, productInfo) as HTMLAnchorElement;
+  prodLink.setAttribute('data-id', `${productData.id}`);
+  prodLink.removeAttribute('href');
+  prodLink.addEventListener('click', addItemToBasket);
 }

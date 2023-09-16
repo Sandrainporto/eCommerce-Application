@@ -8,6 +8,7 @@ import { createElement } from '../../utils/elementCreator';
 import { showAuthContent } from '../../pages/login/authContent';
 import { ContentPageContainer } from '../../pages/error/types';
 import { showProfileContent } from '../../pages/profile/profileContent';
+import { showBasketContent } from '../../pages/basket/basketContent';
 
 let categoryData: void | Category[];
 
@@ -21,10 +22,13 @@ export default function showMainContent(root: HTMLElement, data: void | Category
   categoryData = data;
   const activePage: ElementParams = ContentPageContainer;
   let activePageContent: (root: HTMLElement) => void;
+  console.log(root.id);
   if (root.id === 'main') {
     activePageContent = getPageContent;
   } else if (root.id === 'prof') {
     activePageContent = showProfileContent;
+  } else if (root.id === 'cart') {
+    activePageContent = showBasketContent;
   } else {
     activePageContent = showAuthContent;
   }
