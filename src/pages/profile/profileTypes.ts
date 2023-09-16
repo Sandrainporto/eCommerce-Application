@@ -124,6 +124,7 @@ export enum ShipAdrHeader {
   classNames = 'profile_ship_header',
   innerText = 'Shipping Adresses',
 }
+
 export enum AdrBlock {
   elemTag = 'div',
   classNames = 'profile_adr-block',
@@ -198,7 +199,7 @@ export enum DelAdrBtn {
 }
 export enum DefHeader {
   elemTag = 'h3',
-  className = 'defheader',
+  classNames = 'defheader',
   innerText = 'Deafault address',
 }
 
@@ -226,6 +227,7 @@ export enum ProfileNewAdrCheckboxBlock {
 export enum ProfileBilAddresslInputCheckbox {
   elemTag = 'input',
   type = 'checkbox',
+  checked = 'true',
   classNames = 'new-bil_laddress-checkbox',
   id = 'new-billing-adr',
 }
@@ -261,3 +263,4 @@ export enum ProfileDefAddressLabelCheckbox {
   classNames = 'new_def_adr-label',
   innerText = 'Set as default',
 }
+export const DefAdrClassName = 'default';

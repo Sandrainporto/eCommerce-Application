@@ -42,3 +42,10 @@ export const inputProfileAdrCreator = (input: ElementParams, label: ElementParam
   createElement(label, inputBlock);
   createElement(FormHint, inputBlock);
 };
+
+export const disableElement = (element: HTMLElement | HTMLInputElement): void => {
+  element.setAttribute('disabled', 'disabled');
+};
+export const enableELement = (element: HTMLElement | HTMLInputElement): void => {
+  element.removeAttribute('disabled');
+};

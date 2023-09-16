@@ -1,9 +1,17 @@
 import { Customer, Address } from '@commercetools/platform-sdk';
-import { addNewBilAdr, addNewShipAdr, addNewCustomerAdress, updateUserAdress } from '../../api/changeProfile';
+import {
+  addNewBilAdr,
+  addNewShipAdr,
+  addNewCustomerAdress,
+  updateUserAdress,
+  removeBilAdr,
+  removeShipAdr,
+} from '../../api/changeProfile';
+import { updateDefBilpAdr, updateDefShipAdr } from '../../api/createUser';
 import { ButtonClass } from '../../types/htmlClasses';
 import { HtmlTags } from '../../types/htmlTags';
 import { createElement } from '../../utils/elementCreator';
-import { inputProfileAdrCreator, inputCreator } from '../../utils/inputCreator';
+import { inputProfileAdrCreator, inputCreator, enableELement, disableElement } from '../../utils/inputCreator';
 import { countries } from '../login/authContent';
 import { CountrySelectBox, FormHint } from '../login/authTypes';
 import { addHintContent } from '../login/formValidation';
@@ -57,10 +65,30 @@ async function updateAddress(e: Event): Promise<void> {
   // console.log(block, type, dataAdress);
 }
 
-function deleteAddress(): void {
-  // if (type === ProfileUserBilAdr.classNames) {
-  // } else {
-  // }
+async function deleteAddress(e: Event): Promise<void> {
+  const delBtn = e.target as HTMLElement;
+  const blockForRemove = delBtn.parentElement as HTMLElement;
+  const categoryBlock = blockForRemove.parentElement as HTMLElement;
+  const isBillingAdress = categoryBlock.classList.contains(`${ProfileUserBilAdr.classNames}`) as boolean;
+  // const isDeafult = blockForRemove.classList.contains(`${DefAdrClassName}`);
+  const adrForRemoveID = blockForRemove.getAttribute('data-id') as string;
+  let userDelData = JSON.parse(localStorage.getItem('night-customer') as string);
+  if (isBillingAdress) {
+    await removeBilAdr(userDelData.id, adrForRemoveID, userDelData.version)
+      .then(({ body }) => {
+        userDelData = body;
+      })
+      .catch();
+  } else {
+    await removeShipAdr(userDelData.id, adrForRemoveID, userDelData.version)
+      .then(({ body }) => {
+        userDelData = body;
+      })
+      .catch();
+  }
+  blockForRemove.remove();
+  localStorage.setItem('night-customer', JSON.stringify(userDelData));
+  console.log(delBtn, blockForRemove, isBillingAdress, adrForRemoveID, 'tyt');
 }
 
 function checkAdrBtn(input: HTMLInputElement): void {
@@ -74,13 +102,38 @@ function checkAdrBtn(input: HTMLInputElement): void {
   ) {
     btn.classList.add(ButtonClass.active);
     btn.addEventListener('click', updateAddress);
-    btn.removeAttribute('disabled');
+    enableELement(btn);
   } else {
     if (btn.classList.contains(ButtonClass.active)) {
       btn.classList.remove(ButtonClass.active);
     }
     btn.removeEventListener('click', updateAddress);
-    btn.setAttribute('disabled', 'disabled');
+    disableElement(btn);
+  }
+}
+
+function checkNewAdrBtn(): void {
+  const block = document.querySelector(`.${ProfileUserNewAdr.classNames}`) as HTMLElement;
+  const inputsCur = [...block.getElementsByTagName(`${HtmlTags.INPUT}`)] as HTMLInputElement[];
+  const inputsTextCur = inputsCur.filter((curInp) => curInp.type === ProfLTownlInput.type);
+  const hintsCur = [...block.querySelectorAll(`.${FormHint.classNames}`)] as HTMLElement[];
+  const btn = block.querySelector(`.${SaveAdrBtn.classNames}`) as HTMLElement;
+  const chbxNewBil = inputsCur.find((bil) => bil.id === ProfileBilAddresslInputCheckbox.id) as HTMLInputElement;
+  const chbxNewShip = inputsCur.find((ship) => ship.id === ProfileShipAddresslInputCheckbox.id) as HTMLInputElement;
+  if (
+    inputsTextCur.every((inpt) => inpt.type !== '') &&
+    hintsCur.every((hint) => hint.textContent === '' || hint.textContent === ' ') &&
+    (chbxNewBil.checked === true || chbxNewShip.checked === true)
+  ) {
+    btn.classList.add(ButtonClass.active);
+    btn.addEventListener('click', createAdress);
+    enableELement(btn);
+  } else {
+    if (btn.classList.contains(ButtonClass.active)) {
+      btn.classList.remove(ButtonClass.active);
+    }
+    btn.removeEventListener('click', createAdress);
+    disableElement(btn);
   }
 }
 
@@ -104,7 +157,11 @@ function checkAdrInput(e: Event, flag?: boolean): void {
         addHintContent(hint);
       }
     }
-    if (flag === undefined) checkAdrBtn(input);
+    if (flag !== false) {
+      checkAdrBtn(input);
+    } else {
+      checkNewAdrBtn();
+    }
   }
 }
 
@@ -118,7 +175,7 @@ function setSelectedCountry(select: HTMLElement, country: string): void {
   });
 }
 
-function createAdrBlock(adress: Address | undefined, root: HTMLElement, defAdr: string | undefined): void {
+function createAdrBlock(adress: Address | undefined, root: HTMLElement, defAdr?: string | undefined): void {
   if (adress) {
     const adrBlock = createElement(AdrBlock, root);
     adrBlock.setAttribute('data-id', adress.id as string);
@@ -176,10 +233,10 @@ function checkNewChecbox(e: Event): void {
   const curChecBox = e.target as HTMLInputElement;
   const block = curChecBox.parentElement?.parentElement as HTMLElement;
   const bilCheck = block.querySelector(`#${ProfileBilAddresslInputCheckbox.id}`) as HTMLInputElement;
-  const ship = block.querySelector(`#${ProfileShipAddresslInputCheckbox.id}`) as HTMLInputElement;
+  const shipCheck = block.querySelector(`#${ProfileShipAddresslInputCheckbox.id}`) as HTMLInputElement;
   if (curChecBox.id === ProfileBilAddresslInputCheckbox.id) {
     if (curChecBox.checked) {
-      ship.checked = false;
+      shipCheck.checked = false;
     }
   }
   if (curChecBox.id === ProfileShipAddresslInputCheckbox.id) {
@@ -187,20 +244,39 @@ function checkNewChecbox(e: Event): void {
       bilCheck.checked = false;
     }
   }
-  if (curChecBox.id === ProfileDefAddresslInputCheckbox.id) {
-    const chbxHint = curChecBox.nextElementSibling?.nextElementSibling as HTMLElement;
-    if (curChecBox.checked) {
-      chbxHint.textContent = 'dont relaized';
+}
+
+function renderNewAdress(adrData: INewDataAddress, newAdr: Address, container: HTMLElement) {
+  console.log(adrData, newAdr, container);
+  const curBilBlock = container.querySelector(`.${ProfileUserBilAdr.classNames}`) as HTMLElement;
+  const curShipBlock = container.querySelector(`.${ProfileUserShipAdr.classNames}`) as HTMLElement;
+  if (adrData.bil) {
+    if (adrData.def) {
+      const defBilheader = curBilBlock.querySelector(`.${DefHeader.classNames}`);
+      if (defBilheader) defBilheader.remove();
+      createAdrBlock(newAdr, curBilBlock, newAdr.id);
     } else {
-      chbxHint.textContent = '';
+      createAdrBlock(newAdr, curBilBlock);
+    }
+  } else {
+    if (adrData.def) {
+      const defShipheader = curShipBlock.querySelector(`.${DefHeader.classNames}`);
+      console.log(defShipheader);
+      if (defShipheader) defShipheader.remove();
+      createAdrBlock(newAdr, curShipBlock, newAdr.id);
+    } else {
+      createAdrBlock(newAdr, curShipBlock);
     }
   }
 }
+
 async function createAdress(e: Event): Promise<void> {
   const btn = e.target as HTMLElement;
   const block = btn.parentElement as HTMLElement;
+  const profileContainer = block.parentElement as HTMLElement;
   const inputs = [...block.getElementsByTagName(HtmlTags.INPUT)];
   const selects = [...block.getElementsByTagName(`${HtmlTags.SELECT}`)];
+  selects.forEach((el) => console.log(el.value));
   let userData = JSON.parse(localStorage.getItem('night-customer') as string);
   const newAdrData: INewDataAddress = {
     country: selects.find((el) => el.className === `${CountrySelectBox.classNames}`)?.value as string,
@@ -216,20 +292,30 @@ async function createAdress(e: Event): Promise<void> {
   });
   const createdAdr = userData.addresses[userData.addresses.length - 1];
   if (newAdrData.bil) {
+    const bilBlockForNewAdr = document.querySelector(`${ProfileUserBilAdr.classNames}`);
     if (newAdrData.def) {
+      await updateDefBilpAdr(userData.id, createdAdr.id, userData.version).then(({ body }) => {
+        userData = body;
+      });
     } else {
       await addNewBilAdr(userData.id as string, createdAdr.id as string, userData.version).then(({ body }) => {
         userData = body;
       });
     }
+    await renderNewAdress(newAdrData, createdAdr, profileContainer);
   }
   if (newAdrData.ship) {
+    const bilBlockForNewAdr = document.querySelector(`${ProfileUserShipAdr.classNames}`);
     if (newAdrData.def) {
+      await updateDefShipAdr(userData.id, createdAdr.id, userData.version).then(({ body }) => {
+        userData = body;
+      });
     } else {
       await addNewShipAdr(userData.id as string, createdAdr.id as string, userData.version).then(({ body }) => {
         userData = body;
       });
     }
+    await renderNewAdress(newAdrData, createdAdr, profileContainer);
   }
   localStorage.setItem('night-customer', JSON.stringify(userData));
 }
@@ -253,10 +339,12 @@ function fillNewAdrBlock(root: HTMLElement): void {
   inputProfileAdrCreator(ProfileDefAddresslInputCheckbox, ProfileDefAddressLabelCheckbox, checkboxBlock);
   [...checkboxBlock.getElementsByTagName(HtmlTags.INPUT)].forEach((chbx) => {
     chbx.addEventListener('click', checkNewChecbox);
+    chbx.addEventListener('click', checkNewAdrBtn);
     chbx.checked = false;
   });
 
-  createElement(SaveAdrBtn, root, createAdress);
+  const newAdrSaveBtn = createElement(SaveAdrBtn, root, createAdress);
+  disableElement(newAdrSaveBtn);
 }
 export function showAdresess(root: HTMLElement, customer: Customer): void {
   // console.log(root, customer);
