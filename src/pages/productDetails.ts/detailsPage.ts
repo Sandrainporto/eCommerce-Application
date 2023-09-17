@@ -91,8 +91,6 @@ export default async function showDetailsPage(root: HTMLElement, key: string): P
     }
   });
 
-  const prodLink = createElement(ProductCardLink, productInfo) as HTMLAnchorElement;
+  const prodLink = createElement(ProductCardLink, productInfo, addItemToBasket) as HTMLAnchorElement;
   prodLink.setAttribute('data-id', `${productData.id}`);
-  prodLink.removeAttribute('href');
-  prodLink.addEventListener('click', addItemToBasket);
 }

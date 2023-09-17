@@ -16,6 +16,7 @@ import {
   BasketNumMin,
   BasketPromoBlock,
   BasketPromoBtn,
+  BasketPromoHint,
   BasketPromoInput,
   BasketPromoLabel,
   BasketTotalBlock,
@@ -135,8 +136,9 @@ async function activatePromo(e: Event): Promise<void> {
       localStorage.setItem('night-customer-cart', JSON.stringify(data));
     });
     await showTotal(data.totalLineItemQuantity as number, data.totalPrice.centAmount, data.totalPrice.currencyCode);
+    addHintText(`${BasketPromoHint.active}`, hint);
   } catch {
-    addHintText('Promocode doesnt exist', hint);
+    addHintText(`${BasketPromoHint.disable}`, hint);
   }
   console.log(e.target);
 }

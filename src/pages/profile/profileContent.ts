@@ -132,8 +132,8 @@ export async function showProfileContent(root: HTMLElement): Promise<HTMLElement
     customer = body.body.results[0];
   });
   const adreses = customer.addresses;
+  const profileHeader = createElement(ProfileHeader, root);
   const profileInfo = createElement(ProfileInfo, root);
-  const profileHeader = createElement(ProfileHeader, profileInfo);
   const userInfoBlock = createElement(ProfileUserInfo, profileInfo);
   showUserInfo(userInfoBlock, customer);
   const adrBlock = createElement(ProfileUserAresses, profileInfo);
