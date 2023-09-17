@@ -1,6 +1,6 @@
 import './products.scss';
 import { Image, Price, ProductProjection } from '@commercetools/platform-sdk';
-import { getAllProducts, getProductsList } from '../../api/getProducts';
+import { getAllProducts, getProductsList, IResponseResult } from '../../api/getProducts';
 import { createElement } from '../../utils/elementCreator';
 import { ContentPageContainer } from '../error/types';
 import {
@@ -27,12 +27,18 @@ import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
 import { FiltersParam } from '../catalog/types';
+import { changePagesAmount, paginationInit } from '../../components/Pagination/paginationView';
 
+const CARDS_ON_PAGE = 6;
 let SortParameter = 0;
 let SearchParameter = '';
 let ContentRoot: HTMLElement | undefined;
 let CurrentId: string;
-let url;
+let url: URL | undefined;
+let productsPage: HTMLElement;
+let currentPage = 1;
+let totalPages = 1;
+let totalCards = 0;
 
 const SortParams = {
   0: 'name.en-us asc',
@@ -53,7 +59,6 @@ function showProductImages(productImagesData: string[], productCard: HTMLElement
     popUp.remove();
   });
   const popUpSlider = createElement(ProductSlider, popUp);
-  // console.log(productImagesData);
 
   addSwiper(popUpSlider, productImagesData);
   productCard.prepend(popUp);
@@ -121,9 +126,12 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
   productLink.id = `${product.key?.toLowerCase()}`;
 };
 
+const setTotalPages = (cards: number): void => {
+  totalPages = Math.ceil(cards / CARDS_ON_PAGE);
+};
+
 export async function showCards(productsList: HTMLElement, id?: string): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
-  let productData;
 
   if (fuzzyLevel === 1 || fuzzyLevel === 2) {
     fuzzyLevel = 0;
@@ -135,63 +143,86 @@ export async function showCards(productsList: HTMLElement, id?: string): Promise
     fuzzyLevel = undefined;
   }
 
-
-  window.history.pushState({}, '', url);
+  window.history.replaceState({}, '', url);
+  let data: IResponseResult;
   if (url && id) {
-    productData = await getProductsList(fuzzyLevel, id);
+    data = await getProductsList(fuzzyLevel, CARDS_ON_PAGE, id);
   } else {
-    productData = await getAllProducts(fuzzyLevel);
-
+    data = await getAllProducts(fuzzyLevel, CARDS_ON_PAGE);
+    if (data.total) totalCards = data.total;
   }
-
-  productData.forEach((product) => {
+  if (data.total) setTotalPages(data.total);
+  data.results.forEach((product) => {
     createCard(productsList, product);
   });
 }
 
-export const updatePage = (): void => {
+export const updatePage = async (): Promise<void> => {
   ContentRoot =
     (document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement) ||
     (document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement);
   ContentRoot.innerHTML = '';
   const productsList = ContentRoot;
-  showCards(productsList, CurrentId);
+  await showCards(productsList, CurrentId);
+  changePagesAmount(totalPages);
 };
 
 export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
-  url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
+  if (url) url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
   updatePage();
 };
 
 export const SearchCallBack = (value: string): void => {
   SearchParameter = value;
-  if (SearchParameter) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
+  if (SearchParameter && url) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
   updatePage();
 };
 
 export const FilterCallBack = (value: string[]): void => {
-
-  console.log(value);
+  const colors: string[] = [];
+  const magic: string[] = [];
   if (value.length !== 0) {
-    url.searchParams.set(SearchParams.filter, `${value}`);
-  } else {
-    url.searchParams.delete(SearchParams.filter);
+    value.forEach((el) => {
+      if (COLORS.includes(el)) {
+        colors.push(el);
+      }
+      if (MAGIC.includes(el)) {
+        magic.push(el);
+      }
+    });
   }
+  if (url) {
+    if (colors.length !== 0) {
+      url.searchParams.set(SearchParams.filterColors, `${colors}`);
+    } else {
+      url.searchParams.delete(SearchParams.filterColors);
+    }
+
+    if (magic.length !== 0) {
+      url.searchParams.set(SearchParams.filterTypes, `${magic}`);
+    } else {
+      url.searchParams.delete(SearchParams.filterTypes);
+    }
+  }
+  updatePage();
+};
+
+export const changePageCallBack = (page: number): void => {
+  currentPage = page;
+  if (url) url.searchParams.set(SearchParams.page, `${currentPage}`);
   updatePage();
 };
 
 export default async function showProductsPage(root: HTMLElement, id?: string): Promise<void> {
   url = new URL(`${window.location.href.split('?')[0]}`);
-
+  url.searchParams.set(SearchParams.page, `${currentPage}`);
 
   const pageContainer = createElement(ContentPageContainer, root);
-  const productsPage = createElement(ProductsPageParam, pageContainer);
+  productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
   const sortPanel = showSortPanel(filtersSection, SortCallBack, SearchCallBack);
-
   const filterPanel = showFilterPanel(filtersSection, FilterCallBack);
-
   const productsList = createElement(ProductsList, productsPage);
 
   if (id) {
@@ -202,5 +233,6 @@ export default async function showProductsPage(root: HTMLElement, id?: string): 
   }
 
   ContentRoot = productsList;
-  showCards(productsList, id);
+  await showCards(productsList, id);
+  paginationInit(productsPage, changePageCallBack, totalPages);
 }

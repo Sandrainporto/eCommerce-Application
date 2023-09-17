@@ -2,7 +2,7 @@
 
 .content__container {
   @include flex(column, center, center, 12rem);
-  margin: 80px auto 120px;
+  margin: 2rem auto;
   padding: 0 15px;
 
   @media screen and (max-width: 767px) {
@@ -12,7 +12,7 @@
   }
 }
 
-.hohoho{
+.hohoho {
   width: 60px;
   height: 100px;
   background: yellow;

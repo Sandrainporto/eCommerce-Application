@@ -19,6 +19,7 @@ const getPageContent = async (root: HTMLElement): Promise<void> => {
 };
 
 export default function showMainContent(root: HTMLElement, data: void | Category[]): void {
+  console.log(data);
   categoryData = data;
   const activePage: ElementParams = ContentPageContainer;
   let activePageContent: (root: HTMLElement) => void;
