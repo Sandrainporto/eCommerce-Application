@@ -1,43 +1,174 @@
-.page__about-us, .about-us__block{
+@import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
+@import './../../sass/abstract/constants';
+
+.page__about-us,
+.about-us__block {
   width: 100%;
   margin: 0 auto;
 }
-.tab, .tab-btn {
+
+.tab-btn {
+  display: flex;
+  justify-content: space-evenly;
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(93, 28, 199, 0.658) 60%);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-.tabLink, .tab-btn__button {
+
+.tab-btn__button {
   background-color: inherit;
   float: left;
-  border: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
-  &:hover{
-    background-color: #ddd;
- 
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: #ffffff;
+  border-radius: 1rem;
+  border: none;
+
+  &:hover {
+    background-color: #dddddd34;
+    border: 2px dashed #ccc5cb;
+    padding: 11px 13px;
   }
-  &:active{
+
+  &:active {
     background: #00000044;
   }
 }
-.tabcontent, .tab-btn__content {
- 
-  padding: 6px 12px;
-  border: 1px solid #ccc;
+
+.tab-btn__content {
+  padding: 20px;
+  background: rgba(121, 114, 114, 0.2039215686);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 0px 0px 15px 15px;
+  border: 3px solid #7752be;
   border-top: none;
+
 }
 
+.personal__content {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  @media screen and (width<830px) {
+  flex-direction: column;
+  }
+}
+
+.personal__info {
+  display: flex;
+  flex: 0 1 45%;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  background: rgba(121, 114, 114, 0.2039215686);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 15px;
+  border: 3px solid #7752be;
+  @media screen and (width<830px) {
+ border: none;
+    }
+}
+
+.personal__image-box {
+  img {
+    max-width: 100%;
+  }
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.personal__name {
+  @include font($size: 2.8rem, $height: 2.6rem, $weight: 700);
+  @extend %font-prim;
+}
+
+.personal__role {
+  @include font($size: 1.8rem, $height: 2.6rem, $weight: 700);
+  @extend %font-prim;
+  color: #ffffff;
+  border-radius: 1rem;
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(93, 28, 199, 0.658) 60%);
+  border: 2px dashed #ccc5cb;
+  padding: 11px 13px;
+  margin: 0 auto;
+}
+
+.personal__bio {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  p {
+    text-indent: 1.5em;
+    text-align: justify;
+
+  }
+}
+
+.personal__sprints {
+  flex: 0 1 50%;
+
+
+}
+
+.tab {
+  display: flex;
+  justify-content: space-evenly;
+  overflow: hidden;
+  background: #00000017;
+}
+
+.tab-link {
+  padding: 10px;
+  @include font($size: 2.3rem, $height: 2.6rem, $weight: 600);
+  @extend %font-add;
+  cursor: pointer;
+  @include linkHover;
+
+  &:active {
+    color: $color-text-dark;
+  }
+}
 
 
 .tabcontent {
-   display: none;
-  animation: fadeEffect 1s; 
+  display: none;
+  animation: fadeEffect 1s;
+  margin-top: 30px;
+
 }
 
-@keyframes fadeEffect {
-  from {opacity: 0;}
-  to {opacity: 1;}
+.personal__contribution {
+margin: 10px 0;
+  text-align: justify;
+
+
 }
+.colored{
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #7752be;
+}
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
