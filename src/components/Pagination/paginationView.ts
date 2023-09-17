@@ -75,13 +75,17 @@ const createButtons = (root: HTMLElement): void => {
   checkButtons();
 };
 
+export const changePagesAmount = (value: number): void => {
+  lastPage = value;
+  checkButtons();
+};
+
 export const paginationInit = (
   root: HTMLElement,
   changePageCallBack: { (page: number): void; (arg0: number): void },
   totalPages: number,
 ): void => {
   lastPage = totalPages;
-  console.log(totalPages);
   paginationContainer = createElement(PaginationBlock, root);
   callBack = changePageCallBack;
   createButtons(paginationContainer);

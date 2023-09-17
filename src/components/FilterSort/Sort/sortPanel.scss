@@ -4,6 +4,10 @@
 .products__panel {
   @include flex(column-reverse, center, center, 1rem);
 
+  .form_hint {
+    display: none;
+  }
+
   // @media screen and (max-width: 738px) {
   //   flex-direction: column;
   // }
@@ -15,8 +19,8 @@
     gap: 1rem;
     grid-template-columns: minmax(15rem, 120rem) 0.5fr;
     justify-content: center;
-    .input_block {
-      margin-top: 25px;
+    @media screen and (max-width: $content-width) {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -40,10 +44,8 @@
     transition: 0.4s;
     cursor: pointer;
     @media screen and (max-width: 400px) {
-     padding: 10px;
-  
-    
-  }
+      padding: 10px;
+    }
 
     &:hover {
       transition: 0.4s;

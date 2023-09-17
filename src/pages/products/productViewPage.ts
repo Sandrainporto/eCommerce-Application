@@ -27,17 +27,18 @@ import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
 import { FiltersParam } from '../catalog/types';
-import { paginationInit } from '../../components/Pagination/paginationView';
+import { changePagesAmount, paginationInit } from '../../components/Pagination/paginationView';
 
 const CARDS_ON_PAGE = 6;
 let SortParameter = 0;
 let SearchParameter = '';
 let ContentRoot: HTMLElement | undefined;
 let CurrentId: string;
-let url;
-let totalCards = 1;
+let url: URL | undefined;
+let productsPage: HTMLElement;
 let currentPage = 1;
 let totalPages = 1;
+let totalCards = 0;
 
 const SortParams = {
   0: 'name.en-us asc',
@@ -128,7 +129,6 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
 
 const setTotalPages = (cards: number): void => {
   totalPages = Math.ceil(cards / CARDS_ON_PAGE);
-  console.log(totalPages);
 };
 
 export async function showCards(productsList: HTMLElement, id?: string): Promise<void> {
@@ -158,39 +158,60 @@ export async function showCards(productsList: HTMLElement, id?: string): Promise
   });
 }
 
-export const updatePage = (): void => {
+export const updatePage = async (): Promise<void> => {
   ContentRoot =
     (document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement) ||
     (document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement);
   ContentRoot.innerHTML = '';
   const productsList = ContentRoot;
-  showCards(productsList, CurrentId);
+  await showCards(productsList, CurrentId);
+  changePagesAmount(totalPages);
 };
 
 export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
-  url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
+  if (url) url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
   updatePage();
 };
 
 export const SearchCallBack = (value: string): void => {
   SearchParameter = value;
-  if (SearchParameter) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
+  if (SearchParameter && url) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
   updatePage();
 };
 
 export const FilterCallBack = (value: string[]): void => {
+  const colors: string[] = [];
+  const magic: string[] = [];
   if (value.length !== 0) {
-    url.searchParams.set(SearchParams.filter, `${value}`);
-  } else {
-    url.searchParams.delete(SearchParams.filter);
+    value.forEach((el) => {
+      if (COLORS.includes(el)) {
+        colors.push(el);
+      }
+      if (MAGIC.includes(el)) {
+        magic.push(el);
+      }
+    });
+  }
+  if (url) {
+    if (colors.length !== 0) {
+      url.searchParams.set(SearchParams.filterColors, `${colors}`);
+    } else {
+      url.searchParams.delete(SearchParams.filterColors);
+    }
+
+    if (magic.length !== 0) {
+      url.searchParams.set(SearchParams.filterTypes, `${magic}`);
+    } else {
+      url.searchParams.delete(SearchParams.filterTypes);
+    }
   }
   updatePage();
 };
 
 export const changePageCallBack = (page: number): void => {
   currentPage = page;
-  url.searchParams.set(SearchParams.page, `${currentPage}`);
+  if (url) url.searchParams.set(SearchParams.page, `${currentPage}`);
   updatePage();
 };
 
@@ -199,7 +220,7 @@ export default async function showProductsPage(root: HTMLElement, id?: string): 
   url.searchParams.set(SearchParams.page, `${currentPage}`);
 
   const pageContainer = createElement(ContentPageContainer, root);
-  const productsPage = createElement(ProductsPageParam, pageContainer);
+  productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
   const sortPanel = showSortPanel(filtersSection, SortCallBack, SearchCallBack);
   const filterPanel = showFilterPanel(filtersSection, FilterCallBack);
@@ -214,7 +235,5 @@ export default async function showProductsPage(root: HTMLElement, id?: string): 
 
   ContentRoot = productsList;
   await showCards(productsList, id);
-  console.log(totalPages);
   paginationInit(productsPage, changePageCallBack, totalPages);
-  console.log(totalPages);
 }

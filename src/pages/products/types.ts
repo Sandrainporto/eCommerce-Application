@@ -66,7 +66,8 @@ export enum CardPopupClose {
 
 export enum SearchParams {
   sort = 'sort',
-  filter = 'filter',
+  filterColors = 'filterColors',
+  filterTypes = 'filterTypes',
   search = 'search',
   page = 'page',
 }

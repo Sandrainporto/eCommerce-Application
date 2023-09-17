@@ -7,30 +7,23 @@ export interface IResponseResult {
   results: ProductProjection[];
 }
 
-export async function getAttributes(): Promise<AttributeGroup[]> {
-  const { body } = await apiRoot
-    .attributeGroups()
-    .get({
-      queryArgs: {},
-    })
-    .execute();
-  console.log('получаем атрибуты');
-  console.log(body.results);
-  return body.results;
-}
-
 export async function getProductsList(
   fuzzyLevel: number | undefined,
   cardsNumber: number,
   categoryId?: string,
 ): Promise<IResponseResult> {
   const params = new URLSearchParams(document.location.search);
-  getAttributes();
   const sort = params.get(SearchParams.sort) as string;
   const page = params.get(SearchParams.page);
-  const filterColors = params.get(SearchParams.filter)
+  const filterColors = params.get(SearchParams.filterColors)
     ? `variants.attributes.Color:${params
-        .get(SearchParams.filter)
+        .get(SearchParams.filterColors)
+        ?.split(',')
+        .map((el) => `"${el}"`)}`
+    : '';
+  const filterTypes = params.get(SearchParams.filterTypes)
+    ? `variants.attributes.Magic:${params
+        .get(SearchParams.filterTypes)
         ?.split(',')
         .map((el) => `"${el}"`)}`
     : '';
@@ -61,9 +54,15 @@ export async function getAllProducts(fuzzyLevel: number | undefined, cardsNumber
   const params = new URLSearchParams(document.location.search);
   const sort = params.get(SearchParams.sort) as string;
   const page = params.get(SearchParams.page);
-  const filterColors = params.get(SearchParams.filter)
+  const filterColors = params.get(SearchParams.filterColors)
     ? `variants.attributes.Color:${params
-        .get(SearchParams.filter)
+        .get(SearchParams.filterColors)
+        ?.split(',')
+        .map((el) => `"${el}"`)}`
+    : '';
+  const filterTypes = params.get(SearchParams.filterTypes)
+    ? `variants.attributes.Magic:${params
+        .get(SearchParams.filterTypes)
         ?.split(',')
         .map((el) => `"${el}"`)}`
     : '';
@@ -75,7 +74,7 @@ export async function getAllProducts(fuzzyLevel: number | undefined, cardsNumber
       queryArgs: {
         limit: cardsNumber,
         offset: (Number(page) - 1) * cardsNumber,
-        'filter.query': [`${filterColors}`],
+        'filter.query': [`${filterColors}`, `${filterTypes}`],
         sort,
         'text.en-us': searchText,
         fuzzy: true,

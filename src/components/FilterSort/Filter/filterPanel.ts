@@ -8,6 +8,7 @@ import {
   ElementContainer,
   FilterButton,
   LegendColors,
+  LegendTypes,
 } from './filterTypes';
 
 export const COLORS = ['black', 'brown', 'red', 'green', 'blue', 'yellow', 'purple', 'white'];
@@ -19,11 +20,15 @@ const BUTTONS = {
   reset: 'RESET',
 };
 
-const createColorCheckbox = (root: HTMLElement): HTMLElement => {
+const createColorCheckbox = (root: HTMLElement, array: string[]): HTMLElement => {
   const checkboxContainer = createElement(CheckBoxFilterContainer, root);
-  const checkboxLegend = createElement(LegendColors, checkboxContainer);
+  if (array === COLORS) {
+    const checkboxLegend = createElement(LegendColors, checkboxContainer);
+  } else if (array === MAGIC) {
+    const checkboxLegend = createElement(LegendTypes, checkboxContainer);
+  }
 
-  COLORS.forEach((el) => {
+  array.forEach((el) => {
     const container = createElement(ElementContainer, checkboxContainer);
     const label = createElement(FilterLabelColorCheckbox, container) as HTMLLabelElement;
     label.innerText = el;
@@ -69,7 +74,8 @@ const createResetButton = (root: HTMLElement, callback: { (value: string[]): voi
 
 export const showFilterPanel = (root: HTMLElement, FilterCallBack: (value: string[]) => void): void => {
   const wrapper = createElement(FilterBlockParam, root);
-  const filters = createColorCheckbox(wrapper);
+  const colorsFilter = createColorCheckbox(wrapper, COLORS);
+  const typesFilter = createColorCheckbox(wrapper, MAGIC);
 
   createFilterButton(wrapper, FilterCallBack);
   createResetButton(wrapper, FilterCallBack);
