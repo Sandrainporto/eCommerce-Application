@@ -59,7 +59,6 @@ function showProductImages(productImagesData: string[], productCard: HTMLElement
     popUp.remove();
   });
   const popUpSlider = createElement(ProductSlider, popUp);
-  // console.log(productImagesData);
 
   addSwiper(popUpSlider, productImagesData);
   productCard.prepend(popUp);
@@ -144,7 +143,7 @@ export async function showCards(productsList: HTMLElement, id?: string): Promise
     fuzzyLevel = undefined;
   }
 
-  window.history.pushState({}, '', url);
+  window.history.replaceState({}, '', url);
   let data: IResponseResult;
   if (url && id) {
     data = await getProductsList(fuzzyLevel, CARDS_ON_PAGE, id);
