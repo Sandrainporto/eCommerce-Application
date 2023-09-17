@@ -14,7 +14,7 @@ export enum LegendColors {
 export enum LegendTypes {
   elemTag = 'legend',
   classNames = 'legend_types',
-  innerText = 'Types:',
+  innerText = 'Magic type:',
 }
 export enum ElementContainer {
   elemTag = 'div',

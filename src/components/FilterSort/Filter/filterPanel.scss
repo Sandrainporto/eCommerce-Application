@@ -14,9 +14,10 @@
   }
 }
 
-.legend_colors {
+.legend_colors,
+.legend_types {
   @include font($size: 2rem, $height: 2.6rem, $weight: 900);
-  margin-bottom: 10px;
+  margin: 1.5rem 0rem;
 }
 
 .filter {
@@ -30,10 +31,6 @@
   .filter_input {
     width: 3rem;
   }
-
-  // @media screen and (max-width: 738px) {
-  //   justify-content: flex-start;
-  // }
 }
 
 .filter__button {

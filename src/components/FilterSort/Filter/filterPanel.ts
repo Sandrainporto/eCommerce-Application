@@ -13,7 +13,7 @@ import {
 
 export const COLORS = ['black', 'brown', 'red', 'green', 'blue', 'yellow', 'purple', 'white'];
 export const TYPES = ['spells', 'potions', 'cauldrons', 'ingredients', 'attributes', 'grimoires'];
-export const MAGIC = ['white', 'dark', 'neutral'];
+export const MAGIC = ['dark', 'neutral'];
 
 const BUTTONS = {
   filter: 'FILTER',
