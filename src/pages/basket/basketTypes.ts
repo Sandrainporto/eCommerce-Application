@@ -60,7 +60,6 @@ export enum BasketItemMinMaxVal {
 export enum BasketItemDelBtn {
   elemTag = 'div',
   classNames = 'item_del-btn',
-  innerText = 'X',
 }
 export enum BasketTotalBlock {
   elemTag = 'h4',
@@ -97,4 +96,8 @@ export enum BasketPromoBtn {
   elemTag = 'button',
   classNames = 'promo_btn',
   innerText = 'ACTIVATE',
+}
+export enum BasketPromoHint {
+  active = 'Promocode activated, discount 15%',
+  disable = 'Promocode doesnt exist',
 }

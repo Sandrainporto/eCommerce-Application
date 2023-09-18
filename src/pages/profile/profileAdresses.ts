@@ -166,7 +166,7 @@ function checkAdrInput(e: Event, flag?: boolean): void {
 }
 
 function setSelectedCountry(select: HTMLElement, country: string): void {
-  const curCountry = country === 'RU' ? 'Belarus' : 'USA';
+  const curCountry = country === 'BY' ? 'Belarus' : 'USA';
   const options = [...select.querySelectorAll(`.${countries.USA.classNames}`)] as HTMLOptionElement[];
   options.forEach((el) => {
     if (el.textContent === curCountry) {

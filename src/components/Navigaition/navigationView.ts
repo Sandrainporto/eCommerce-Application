@@ -104,7 +104,9 @@ export function showProfileLink(): void {
   }
   if (loginBtn.classList.contains('logged')) {
     loginBtn.addEventListener('click', () => {
-      localStorage.clear();
+      localStorage.removeItem('night-customer-email');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('night-customer');
       profileBtn.classList.add('hide');
       registerBtn.classList.remove('hide');
       loginBtn.classList.remove('logged');
@@ -133,9 +135,7 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
 
   if (loggedUserName || registratedUserName) {
     profileLink?.classList.remove('hide');
-
   }
-
 }
 
 export default function showNavigation(root: HTMLElement, data: DataType[]): HTMLElement {
