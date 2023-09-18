@@ -133,9 +133,7 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
 
   if (loggedUserName || registratedUserName) {
     profileLink?.classList.remove('hide');
-
   }
-
 }
 
 export default function showNavigation(root: HTMLElement, data: DataType[]): HTMLElement {
@@ -147,7 +145,7 @@ export default function showNavigation(root: HTMLElement, data: DataType[]): HTM
   const navList = createElement(NavigationListParam, navBlock);
 
   createNavigationLinks(navList);
-  addFooterLink(navList)
+  addFooterLink(navList);
 
   showBurger(navBlock, navBlock, navList);
   return navBlock;

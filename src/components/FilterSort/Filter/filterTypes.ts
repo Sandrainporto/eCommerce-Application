@@ -9,7 +9,7 @@ export enum CheckBoxFilterContainer {
 export enum LegendColors {
   elemTag = 'legend',
   classNames = 'legend_colors',
-  innerText = 'Colors'
+  innerText = 'Colors',
 }
 export enum ElementContainer {
   elemTag = 'div',

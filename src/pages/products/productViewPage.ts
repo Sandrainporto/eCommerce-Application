@@ -29,7 +29,7 @@ import { FiltersParam } from '../catalog/types';
 
 let SortParameter = 0;
 let SearchParameter = '';
-let ContentRoot: HTMLElement|undefined;
+let ContentRoot: HTMLElement | undefined;
 let CurrentId: string;
 let Filter: string[] = [];
 
@@ -42,11 +42,9 @@ const SortParams = {
 const ContentRoots = {
   CategoryProduct: '.products__list',
   AllProducts: '.products__list_all',
-
 };
 
-
-function showProductImages(productImagesData: string[], productCard:HTMLElement) {
+function showProductImages(productImagesData: string[], productCard: HTMLElement) {
   const popUp = document.createElement('div');
   popUp.className = CardPopup.popup;
   const popUpClose = createElement(CardPopupClose, popUp);
@@ -73,7 +71,7 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
       const imageUrl = image.url;
       slides.push(imageUrl);
     });
-    showProductImages(slides, productCard  );
+    showProductImages(slides, productCard);
     initSlider();
   });
   if (productImagesData) {
@@ -109,17 +107,19 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
     }
   });
   const productLink = createElement(ProductCardLink, productCardContainer) as HTMLAnchorElement;
-  if(currentUrl === `${window.location.origin}/catalog`){
-    currentUrl =`${window.location.origin}/catalog`;
-    if(product.metaDescription)
-    productLink.href = `${currentUrl}/${(product.metaDescription['en-US']).toString()}/${product.key?.toLowerCase()}-card`;
-  }else{
-  productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
+  if (currentUrl === `${window.location.origin}/catalog`) {
+    currentUrl = `${window.location.origin}/catalog`;
+    if (product.metaDescription)
+      productLink.href = `${currentUrl}/${product.metaDescription[
+        'en-US'
+      ].toString()}/${product.key?.toLowerCase()}-card`;
+  } else {
+    productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
   }
   productLink.id = `${product.key?.toLowerCase()}`;
 };
 
-export async function showCards(productsList: HTMLElement, id?: string ): Promise<void> {
+export async function showCards(productsList: HTMLElement, id?: string): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
 
   if (fuzzyLevel === 1 || fuzzyLevel === 2) {
@@ -131,35 +131,38 @@ export async function showCards(productsList: HTMLElement, id?: string ): Promis
   } else {
     fuzzyLevel = undefined;
   }
-  let productData: ProductProjection[] = await getAllProducts([SortParams[SortParameter]],
-    SearchParameter.toLocaleLowerCase(),
-    Filter,
-    fuzzyLevel,)
-    // console.log(productData)
-  if(id){
-  productData = await getProductsList(
-    id,
+  let productData: ProductProjection[] = await getAllProducts(
     [SortParams[SortParameter]],
     SearchParameter.toLocaleLowerCase(),
     Filter,
     fuzzyLevel,
   );
+  // console.log(productData)
+  if (id) {
+    productData = await getProductsList(
+      id,
+      [SortParams[SortParameter]],
+      SearchParameter.toLocaleLowerCase(),
+      Filter,
+      fuzzyLevel,
+    );
   }
   productData.forEach((product) => {
     createCard(productsList, product);
   });
-
 }
 
 export const updatePage = (): void => {
-  const ContentRoot = document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement || document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement;
-  
-  if(ContentRoot){
-  ContentRoot.innerHTML = '';
-  const productsList = ContentRoot;
-  showCards(productsList, CurrentId);
+  const ContentRoot =
+    (document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement) ||
+    (document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement);
+
+  if (ContentRoot) {
+    ContentRoot.innerHTML = '';
+    const productsList = ContentRoot;
+    showCards(productsList, CurrentId);
   }
-  };
+};
 
 export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
@@ -173,7 +176,7 @@ export const SearchCallBack = (value: string): void => {
 
 export const FilterCallBack = (value: string[]): void => {
   Filter = value;
-  console.log(value)
+  console.log(value);
 
   updatePage();
 };
@@ -182,15 +185,13 @@ export default async function showProductsPage(root: HTMLElement, id: string): P
   CurrentId = id;
   Filter = [];
 
-  const pageContainer = createElement(ContentPageContainer, root)
+  const pageContainer = createElement(ContentPageContainer, root);
 
   const productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
   const sortPanel = showSortPanel(filtersSection, SortCallBack, SearchCallBack);
   const filterPanelColors = showFilterPanel(filtersSection, COLORS, FilterCallBack);
   const filterPanelMagic = showFilterPanel(filtersSection, MAGIC, FilterCallBack);
-
-
 
   const productsList = createElement(ProductsList, productsPage);
   productsList.id = id;

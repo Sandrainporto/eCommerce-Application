@@ -11,7 +11,7 @@ export enum ProductCard {
   elemTag = 'div',
   classNames = 'products__card',
 }
-export enum ProductCardContainer{
+export enum ProductCardContainer {
   elemTag = 'div',
   classNames = 'products__card-container',
 }

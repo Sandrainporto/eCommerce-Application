@@ -7,12 +7,11 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 0.3fr;
   grid-template-areas:
-    "checkboxes checkboxes"
-    "filter reset";
+    'checkboxes checkboxes'
+    'filter reset';
   gap: 15px;
   justify-items: center;
   padding: 1rem 0;
-
 }
 
 .panel__content {
@@ -20,7 +19,7 @@
   @include flex(row, center, space-between, 10px, wrap);
   @media screen and (max-width: 400px) {
     justify-content: center;
- }
+  }
   // @media screen and (max-width: 738px) {
   //   flex-direction: column;
   // }
@@ -29,7 +28,6 @@
 .legend_colors {
   @include font($size: 2rem, $height: 2.6rem, $weight: 900);
   margin-bottom: 10px;
-
 }
 
 .filter {
@@ -73,9 +71,7 @@
   transition: 0.4s;
   @media screen and (max-width: 400px) {
     padding: 10px;
- 
-   
- }
+  }
 
   &:hover {
     transition: 0.4s;
