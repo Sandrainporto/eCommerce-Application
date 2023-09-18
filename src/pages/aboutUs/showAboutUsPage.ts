@@ -32,7 +32,7 @@ import {
   rsLink,
 } from './types';
 
-function openTab(chosenSprint: string, event?): void {
+function openTab(chosenSprint: string, event?: MouseEvent | undefined): void {
   const tabContent: HTMLElement[] = Array.from(
     document.getElementsByClassName(TabsContent.classNames) as HTMLCollectionOf<HTMLElement>,
   );
@@ -54,10 +54,10 @@ function openTab(chosenSprint: string, event?): void {
   if (event) {
     const currentTarget = event.currentTarget as HTMLElement;
     currentTarget.className += ' active';
-    }
+  }
 }
 
-function addPersonalInfo(root, chosenCoder): HTMLElement {
+function addPersonalInfo(root: HTMLElement, chosenCoder: CodersTypes | undefined): HTMLElement {
   const personalInfo = createElement(PersonalInfo, root);
   if (chosenCoder) {
     const { name, photo, role, bio, gitHub } = chosenCoder;
@@ -87,7 +87,7 @@ function addPersonalInfo(root, chosenCoder): HTMLElement {
   return personalInfo;
 }
 
-function showPersonalContribution(root: HTMLElement, chosenCoder: CodersTypes | undefined):void {
+function showPersonalContribution(root: HTMLElement, chosenCoder: CodersTypes | undefined): void {
   const personalSprints = createElement(PersonalSprints, root);
   const tabSprintsContainer = createElement(TabsParam, personalSprints);
   if (chosenCoder) {
@@ -98,7 +98,7 @@ function showPersonalContribution(root: HTMLElement, chosenCoder: CodersTypes | 
       tabLinkSprints.innerText = key;
       const tabSprintsContent = createElement(TabsContent, personalSprints);
       tabSprintsContent.id = key;
-      sprints[Object.keys(sprints)[index]].forEach((line) => {
+      sprints[Object.keys(sprints)[index]].forEach((line: string) => {
         const sprintContribution = createElement(PersonalSprintContribution, tabSprintsContent);
         if (!line.includes('●')) {
           sprintContribution.classList.add('colored');
@@ -155,7 +155,7 @@ export function showAboutUsPage(root: HTMLElement): HTMLElement {
       const coderName = (e.target as HTMLElement).innerText;
       openContent(coderName, personalContainer);
     });
-    return tabLink
+    return tabLink;
   });
 
   return page;
