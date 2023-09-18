@@ -68,6 +68,7 @@ export enum SearchParams {
   sort = 'sort',
   filterColors = 'filterColors',
   filterTypes = 'filterTypes',
+  filterCategory = 'filterCategoty',
   search = 'search',
   page = 'page',
 }

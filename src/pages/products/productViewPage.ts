@@ -22,7 +22,7 @@ import {
   SearchParams,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
-import { COLORS, MAGIC, TYPES, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
+import { COLORS, MAGIC, CATEGORY, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
@@ -182,6 +182,7 @@ export const SearchCallBack = (value: string): void => {
 export const FilterCallBack = (value: string[]): void => {
   const colors: string[] = [];
   const magic: string[] = [];
+  const category: string[] = [];
   if (value.length !== 0) {
     value.forEach((el) => {
       if (COLORS.includes(el)) {
@@ -189,6 +190,9 @@ export const FilterCallBack = (value: string[]): void => {
       }
       if (MAGIC.includes(el)) {
         magic.push(el);
+      }
+      if (CATEGORY.includes(el)) {
+        category.push(el);
       }
     });
   }
@@ -203,6 +207,11 @@ export const FilterCallBack = (value: string[]): void => {
       url.searchParams.set(SearchParams.filterTypes, `${magic}`);
     } else {
       url.searchParams.delete(SearchParams.filterTypes);
+    }
+    if (category.length !== 0) {
+      url.searchParams.set(SearchParams.filterCategory, `${category}`);
+    } else {
+      url.searchParams.delete(SearchParams.filterCategory);
     }
   }
   updatePage();

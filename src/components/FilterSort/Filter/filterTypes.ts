@@ -16,6 +16,13 @@ export enum LegendTypes {
   classNames = 'legend_types',
   innerText = 'Magic type:',
 }
+
+export enum LegendCategoty {
+  elemTag = 'legend',
+  classNames = 'legend_category',
+  innerText = 'Categoty:',
+}
+
 export enum ElementContainer {
   elemTag = 'div',
   classNames = 'filter',
