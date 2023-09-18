@@ -2,28 +2,28 @@ import { Product, ProductProjection, AttributeGroup } from '@commercetools/platf
 import { apiRoot } from './createClient';
 import { SearchParams } from '../pages/products/types';
 
-export async function getAttributes(): Promise<AttributeGroup[]> {
-  const { body } = await apiRoot
-    .attributeGroups()
-    .get({
-      queryArgs: {},
-    })
-    .execute();
-  console.log('получаем атрибуты');
-  console.log(body.results);
-  return body.results;
+export interface IResponseResult {
+  total?: number;
+  results: ProductProjection[];
 }
 
 export async function getProductsList(
   fuzzyLevel: number | undefined,
+  cardsNumber: number,
   categoryId?: string,
-): Promise<ProductProjection[]> {
+): Promise<IResponseResult> {
   const params = new URLSearchParams(document.location.search);
-  getAttributes();
   const sort = params.get(SearchParams.sort) as string;
-  const filterColors = params.get(SearchParams.filter)
+  const page = params.get(SearchParams.page);
+  const filterColors = params.get(SearchParams.filterColors)
     ? `variants.attributes.Color:${params
-        .get(SearchParams.filter)
+        .get(SearchParams.filterColors)
+        ?.split(',')
+        .map((el) => `"${el}"`)}`
+    : '';
+  const filterTypes = params.get(SearchParams.filterTypes)
+    ? `variants.attributes.Magic:${params
+        .get(SearchParams.filterTypes)
         ?.split(',')
         .map((el) => `"${el}"`)}`
     : '';
@@ -33,6 +33,8 @@ export async function getProductsList(
     .search()
     .get({
       queryArgs: {
+        limit: cardsNumber,
+        offset: (Number(page) - 1) * cardsNumber,
         'filter.query': [`categories.id:"${categoryId}"`, `${filterColors}`],
         sort,
         'text.en-us': searchText,
@@ -41,29 +43,38 @@ export async function getProductsList(
       },
     })
     .execute();
-  return body.results;
+  const result: IResponseResult = {
+    total: body.total,
+    results: body.results,
+  };
+  return result;
 }
 
-export async function getAllProducts(fuzzyLevel: number | undefined): Promise<ProductProjection[]> {
-  console.log('Во всех продуктах');
+export async function getAllProducts(fuzzyLevel: number | undefined, cardsNumber: number): Promise<IResponseResult> {
   const params = new URLSearchParams(document.location.search);
   const sort = params.get(SearchParams.sort) as string;
-  const filterColors = params.get(SearchParams.filter)
+  const page = params.get(SearchParams.page);
+  const filterColors = params.get(SearchParams.filterColors)
     ? `variants.attributes.Color:${params
-        .get(SearchParams.filter)
+        .get(SearchParams.filterColors)
+        ?.split(',')
+        .map((el) => `"${el}"`)}`
+    : '';
+  const filterTypes = params.get(SearchParams.filterTypes)
+    ? `variants.attributes.Magic:${params
+        .get(SearchParams.filterTypes)
         ?.split(',')
         .map((el) => `"${el}"`)}`
     : '';
   const searchText = params.get(SearchParams.search) as string;
-  console.log(filterColors);
   const { body } = await apiRoot
     .productProjections()
     .search()
     .get({
       queryArgs: {
-        limit: 100,
-        offset: 0,
-        'filter.query': [`${filterColors}`],
+        limit: cardsNumber,
+        offset: (Number(page) - 1) * cardsNumber,
+        'filter.query': [`${filterColors}`, `${filterTypes}`],
         sort,
         'text.en-us': searchText,
         fuzzy: true,
@@ -71,5 +82,9 @@ export async function getAllProducts(fuzzyLevel: number | undefined): Promise<Pr
       },
     })
     .execute();
-  return body.results;
+  const result: IResponseResult = {
+    total: body.total,
+    results: body.results,
+  };
+  return result;
 }
