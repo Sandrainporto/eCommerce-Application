@@ -17,12 +17,14 @@ const addListener = (): void => {
       if (target.tagName === 'A' || target.closest('A')) {
         event.preventDefault();
         const element = target.closest('A') as HTMLLinkElement;
-        const newUrl = new URL(element.href);
-        if (newUrl.hostname === url.hostname) {
-          window.history.pushState({}, '', element.href);
-          renderPage(element.id);
-        } else {
-          window.open(`${element.href}`, '_blank');
+        if (element.href) {
+          const newUrl = new URL(element.href);
+          if (newUrl.hostname === url.hostname) {
+            window.history.pushState({}, '', element.href);
+            renderPage(element.id);
+          } else {
+            window.open(`${element.href}`, '_blank');
+          }
         }
       }
     },
