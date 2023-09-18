@@ -19,6 +19,8 @@ import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { addItemToCart, createCart } from '../../api/shoppingList';
 import { cartData } from '../basket/basketTypes';
+import { addToCartBtn } from '../products/productViewPage';
+import { ProductCartLink } from '../products/types';
 
 export async function addItemToBasket(e: Event): Promise<void> {
   e.preventDefault();
@@ -92,14 +94,6 @@ export default async function showDetailsPage(root: HTMLElement, key: string): P
     }
   });
   const prodLink = createElement(ProductCardLink, productInfo, addItemToBasket) as HTMLAnchorElement;
-  prodLink.setAttribute('data-id', `${productData.id}`);
-  const cart = cartData.lineItems;
-  const desiredObject = cart.find((obj) => obj.productId === productData.id);
-  if (desiredObject) {
-    prodLink.classList.add('in-cart');
-    prodLink.innerText ='Already in 🛒'
-    prodLink.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-  }
+  addToCartBtn(prodLink, productData.id)
+
 }
