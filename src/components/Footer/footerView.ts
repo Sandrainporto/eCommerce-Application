@@ -2,16 +2,17 @@ import './footer.scss';
 import { FooterContainerParam, FooterParam } from '../../types/types';
 import { createElement } from '../../utils/elementCreator';
 
-function addFooterLink(root: HTMLElement): HTMLLinkElement {
+export function addFooterLink(root: HTMLElement): HTMLLinkElement {
   enum FooterLinkParam {
     elemTag = 'a',
     classNames = 'footer__link',
     innerText = 'About Us',
   }
   const linkToAboutUs = createElement(FooterLinkParam, root) as HTMLLinkElement;
-  linkToAboutUs.href = '#';
+  linkToAboutUs.href = '/about-us';
   return linkToAboutUs;
 }
+
 function addFooterText(root: HTMLElement): HTMLElement {
   enum FooterTextParam {
     elemTag = 'p',

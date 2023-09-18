@@ -9,6 +9,7 @@ import { showProfPage } from '../pages/profile/profileView';
 import { showClassesPage } from '../pages/classesPage/showClassesPage';
 import { showSalesPage } from '../pages/sales/showSalesPage';
 import { showBasketPage } from '../pages/basket/basketView';
+import { showAboutUsPage } from '../pages/aboutUs/showAboutUsPage';
 
 export const Routes = {
   '': showMainContent,
@@ -21,6 +22,7 @@ export const Routes = {
   details: showDetailsPage,
   classes: showClassesPage,
   sale: showSalesPage,
+  'about-us': showAboutUsPage,
 
   '404': showErrorPage,
 };

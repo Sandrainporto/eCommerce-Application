@@ -5,12 +5,11 @@ import { LeftBtn, RightBtn, SlideParamImage, SlideParamLink, Slider, SliderConta
 function createSlider(root: HTMLElement): HTMLElement {
   const slider = createElement(Slider, root);
 
- const linkHrefs = [ '/classes', '/sale', 'link3'];
-
+  const linkHrefs = ['/classes', '/sale', 'link3'];
 
   for (let i = 1; i <= linkHrefs.length; i += 1) {
-    const sliderLink = createElement(SlideParamLink, slider)as HTMLAnchorElement;
-   sliderLink.href = linkHrefs[i-1];
+    const sliderLink = createElement(SlideParamLink, slider) as HTMLAnchorElement;
+    sliderLink.href = linkHrefs[i - 1];
     const slide = createElement(SlideParamImage, sliderLink) as HTMLImageElement;
     slide.src = `../../assets/slider/banner${i}.png`;
     slide.alt = 'slider-image';
