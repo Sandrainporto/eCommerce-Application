@@ -19,7 +19,7 @@ import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { addItemToCart, createCart } from '../../api/shoppingList';
 
-async function addItemToBasket(e: Event): Promise<void> {
+export async function addItemToBasket(e: Event): Promise<void> {
   e.preventDefault();
   console.log(e.target, 'tyt');
   const btn = e.target as HTMLElement;
