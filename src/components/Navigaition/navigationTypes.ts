@@ -48,7 +48,7 @@ export const navigationLinksData: NavigationLink[] = [
     // id: 'catalog',
   },
   {
-    text: 'Cart 🛒',
+    text: 'Cart',
     class: NavigationClasses.cart,
     // id: 'cart',
   },
