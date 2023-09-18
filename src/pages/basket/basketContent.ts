@@ -29,7 +29,7 @@ import { addHintText } from '../../api/loginCustomer';
 
 function showTotal(number: number, value: number, currency: string): void {
   const rootBlock = document.querySelector(`.${BasketTotalBlock.classNames}`) as HTMLElement;
-  rootBlock.textContent = `${number} products, total value: ${value / 100} ${currency}`;
+  rootBlock.textContent = `${number} products,   total value:   ${value / 100} ${currency}`;
 }
 
 async function changeQuantity(e: Event): Promise<void> {
@@ -75,7 +75,8 @@ async function changeQuantity(e: Event): Promise<void> {
 }
 
 function createBasketItemBlock(root: HTMLElement, cartItem: LineItem): void {
-  console.log(root, cartItem);
+  console.log(cartItem);
+
   const basketItemBlock = createElement(BasketItemBlock, root);
   basketItemBlock.setAttribute('data-id', `${cartItem.id}`);
   const img = createElement(BasketItemImg, basketItemBlock);

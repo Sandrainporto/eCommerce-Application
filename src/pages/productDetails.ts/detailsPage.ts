@@ -1,5 +1,5 @@
 import './productDetails.scss';
-import { Image, Price, ProductProjection } from '@commercetools/platform-sdk';
+import { Image, Price, ProductProjection, LineItem } from '@commercetools/platform-sdk';
 import { getProductDetails } from '../../api/getProductDetails';
 import { createElement } from '../../utils/elementCreator';
 import {
@@ -18,6 +18,9 @@ import {
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { addItemToCart, createCart } from '../../api/shoppingList';
+import { cartData } from '../basket/basketTypes';
+import { addToCartBtn } from '../products/productViewPage';
+import { ProductCartLink } from '../products/types';
 
 export async function addItemToBasket(e: Event): Promise<void> {
   e.preventDefault();
@@ -90,7 +93,7 @@ export default async function showDetailsPage(root: HTMLElement, key: string): P
       productPrice.setAttribute('keyF', `${prices.id}`);
     }
   });
-
   const prodLink = createElement(ProductCardLink, productInfo, addItemToBasket) as HTMLAnchorElement;
-  prodLink.setAttribute('data-id', `${productData.id}`);
+  addToCartBtn(prodLink, productData.id)
+
 }
