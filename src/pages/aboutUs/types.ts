@@ -241,6 +241,8 @@ export enum PersonalLink {
 export enum LinkImg {
   elemTag = 'img',
   classNames = 'personal__link_img',
+  alt ='github-logo'
+
 }
 
 export enum RsSchoolLink {
@@ -250,6 +252,7 @@ export enum RsSchoolLink {
 export enum RsSchoolImg {
   elemTag = 'img',
   classNames = 'rsschool__link_img',
+  alt ='rsschool-logo'
 }
 
 export enum PersonalSprints {
@@ -262,4 +265,4 @@ export enum PersonalSprintContribution {
   classNames = 'personal__contribution',
 }
 export const rsLink = 'https://rs.school/';
-export const rsLogoLink = 'https://mellifluous-cajeta-bd160d.netlify.app/0ef4264d6695b2a148fe.png';
+export const rsLogoLink = 'https://rollingscopes.com/images/logo_rs_text.svg';
