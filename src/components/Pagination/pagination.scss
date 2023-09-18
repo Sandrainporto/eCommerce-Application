@@ -4,15 +4,14 @@
 
 .pagination__panel {
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 5rem;
   @include flex($just: flex-end);
   .panel__buttons {
-    width: 60%;
     @include flex($gap: 1rem);
 
-    @media screen and (max-width: $content-width) {
+
       width: 100%;
-    }
+    
   }
 
   .button__number {

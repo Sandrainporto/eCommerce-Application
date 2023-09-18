@@ -10,6 +10,7 @@ import { ContentPageContainer } from '../../pages/error/types';
 import { showProfileContent } from '../../pages/profile/profileContent';
 import { showBasketContent } from '../../pages/basket/basketContent';
 import { showAboutUsPage } from '../../pages/aboutUs/showAboutUsPage';
+import showCatalogPage from '../../pages/catalog/catalogView';
 
 let categoryData: void | Category[];
 

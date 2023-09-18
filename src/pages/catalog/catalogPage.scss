@@ -5,15 +5,7 @@
   flex-direction: column;
   gap: 5rem;
 }
-.products__section {
-  display: flex;
-  justify-content: space-around;
-  gap: 20px;
-  @media screen and (max-width: 1155px) {
-    flex-direction: column;
-    align-items: center;
-  }
-}
+
 .products__filters {
   width: 350px;
   height: 100%;
