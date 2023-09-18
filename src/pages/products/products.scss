@@ -83,3 +83,10 @@
     display: none;
   }
 }
+.page__catalog{
+  .page__products {
+    .panel__content:last-of-type{
+      display: flex;
+    }
+  }
+}

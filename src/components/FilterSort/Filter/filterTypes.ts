@@ -17,10 +17,10 @@ export enum LegendTypes {
   innerText = 'Magic type:',
 }
 
-export enum LegendCategoty {
+export enum LegendCategory {
   elemTag = 'legend',
   classNames = 'legend_category',
-  innerText = 'Categoty:',
+  innerText = 'Category:',
 }
 
 export enum ElementContainer {

@@ -140,7 +140,7 @@ export const CodersInfo: CodersTypes[] = [
         'Catalog Page Implementation',
         '● creation of the products in the commercetools',
         '● displaying interactive products card list according to the commercetools data',
-        '● creation of the categoty navigation (subcategories menu, breadcrumbs )',
+        '● creation of the category navigation (subcategories menu, breadcrumbs )',
         'Detailed Product Page Implementation',
         '● displaying interactive product card eith the necessary data and fields according to the commercetools data',
         '● adding image slider to each card',

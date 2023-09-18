@@ -9,7 +9,7 @@ import {
   FilterButton,
   LegendColors,
   LegendTypes,
-  LegendCategoty,
+  LegendCategory,
 } from './filterTypes';
 
 export const COLORS = ['black', 'brown', 'red', 'green', 'blue', 'yellow', 'purple', 'white'];
@@ -28,7 +28,7 @@ const createColorCheckbox = (root: HTMLElement, array: string[]): HTMLElement =>
   } else if (array === MAGIC) {
     const checkboxLegend = createElement(LegendTypes, checkboxContainer);
   }   else if (array === CATEGORY) {
-    const checkboxLegend = createElement(LegendCategoty, checkboxContainer);
+    const checkboxLegend = createElement(LegendCategory, checkboxContainer);
   }
 
   array.forEach((el) => {
