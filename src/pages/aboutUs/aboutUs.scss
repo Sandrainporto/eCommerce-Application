@@ -13,7 +13,9 @@
   justify-content: space-evenly;
   overflow: hidden;
   background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(93, 28, 199, 0.658) 60%);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .tab-btn__button {
@@ -49,7 +51,6 @@
   border-radius: 0px 0px 15px 15px;
   border: 3px solid #7752be;
   border-top: none;
-
 }
 
 .personal__content {
@@ -116,15 +117,11 @@
   p {
     text-indent: 1.5em;
     text-align: justify;
-
-
   }
 }
 
 .personal__sprints {
   flex: 0 1 50%;
-
-
 }
 
 .tab {
@@ -150,12 +147,10 @@
   }
 }
 
-
 .tabcontent {
   display: none;
   animation: fadeEffect 1s;
   margin-top: 30px;
-
 }
 
 .personal__contribution {
@@ -171,6 +166,17 @@
   font-size: 2.1rem;
   font-weight: 800;
   color: #7752be;
+}
+
+.rsschool__link {
+  display: block;
+  text-align: center;
+  margin: 25px auto 15px;
+}
+
+.rsschool__link_img {
+  width: 103px;
+  height: 50px;
 }
 
 @keyframes fadeEffect {
