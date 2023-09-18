@@ -52,7 +52,7 @@
   .products__link {
     align-self: center;
     text-align: center;
-    width: 150px;
+    width: 185px;
     background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(93, 28, 199, 0.658) 60%);
     padding: 1rem 2.8rem 1rem 2.5rem;
     @include font($size: 1.6rem, $height: 2.6rem, $weight: 700);
@@ -64,6 +64,10 @@
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     transition: 0.4s;
     border: 2px dashed #ccc5cb;
+    &.in-cart{
+      background: $background-color;
+      cursor: not-allowed;
+  }
     &:hover {
       transition: 0.4s;
 
@@ -74,6 +78,7 @@
     &:active {
       background-color: #87dbd0;
     }
+
   }
   .product__price {
     margin-bottom: 50px;

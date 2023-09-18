@@ -116,4 +116,8 @@ cursor: pointer;
     border-radius: 50%;
     right: 20px;
   }
+  .in-cart{
+    background: $background-color;
+    cursor: not-allowed;
+}
 }

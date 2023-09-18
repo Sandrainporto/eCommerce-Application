@@ -20,7 +20,7 @@ import {
   CardPopupClose,
   ProductCardContainer,
   SearchParams,
-  ProductCartLink
+  ProductCartLink,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { COLORS, MAGIC, CATEGORY, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
@@ -30,6 +30,7 @@ import { ProductSlider } from '../productDetails.ts/types';
 import { FiltersParam } from '../catalog/types';
 import { changePagesAmount, paginationInit } from '../../components/Pagination/paginationView';
 import { addItemToBasket } from '../productDetails.ts/detailsPage';
+import { cartData } from '../basket/basketTypes';
 
 const CARDS_ON_PAGE = 6;
 let SortParameter = 0;
@@ -126,8 +127,19 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
     productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
   }
   productLink.id = `${product.key?.toLowerCase()}`;
-  const prodCartLink = createElement(ProductCartLink,productCardContainer, addItemToBasket) as HTMLAnchorElement;
+
+
+  const prodCartLink = createElement(ProductCartLink, productCardContainer, addItemToBasket) as HTMLAnchorElement;
   prodCartLink.setAttribute('data-id', `${product.id}`);
+  const cart = cartData.lineItems;
+  const desiredObject = cart.find((obj) => obj.productId === product.id);
+  if (desiredObject) {
+    prodCartLink.classList.add('in-cart');
+    prodCartLink.innerText ='Already in 🛒'
+    prodCartLink.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
 };
 
 const setTotalPages = (cards: number): void => {
@@ -247,5 +259,6 @@ export default async function showProductsPage(root: HTMLElement, id?: string): 
 
   ContentRoot = productsList;
   await showCards(productsList, id);
+
   paginationInit(pageContainer, changePageCallBack, totalPages);
 }
