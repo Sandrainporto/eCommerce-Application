@@ -29,31 +29,42 @@ export enum NavigationSubCategLink {
 
 export interface NavigationLink {
   text: string;
-  id: string;
+  class: string;
+  id?: string;
 }
+
+export enum NavigationClasses {
+  catalog = 'navigation__catalog',
+  cart = 'navigation__basket',
+  profile = 'navigation__profile',
+  login = 'navigation__login',
+  register = 'navigation__register',
+}
+
 export const navigationLinksData: NavigationLink[] = [
   {
     text: 'Catalog',
-    id: 'catalog',
+    class: NavigationClasses.catalog,
+    // id: 'catalog',
   },
   {
-    text: 'Sale',
-    id: 'sale',
-  },
-  {
-    text: 'Cart 🛒',
-    id: 'cart',
+    text: 'Cart',
+    class: NavigationClasses.cart,
+    // id: 'cart',
   },
   {
     text: 'Profile',
-    id: 'profile',
+    class: NavigationClasses.profile,
+    // id: 'profile',
   },
   {
     text: 'Login',
-    id: 'login',
+    class: NavigationClasses.login,
+    // id: 'login',
   },
   {
     text: 'Register',
-    id: 'register',
+    class: NavigationClasses.register,
+    // id: 'register',
   },
 ];

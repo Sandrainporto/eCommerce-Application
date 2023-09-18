@@ -31,9 +31,8 @@ export enum ProductPrice {
   classNames = 'product__price',
 }
 export enum ProductCardLink {
-  elemTag = 'a',
+  elemTag = 'button',
   classNames = 'products__link',
-  href = '#',
   innerText = 'Add to cart',
 }
 export enum ProductPrices {

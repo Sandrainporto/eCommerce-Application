@@ -8,6 +8,7 @@ import { showRegPage } from '../pages/registration/regView';
 import { showProfPage } from '../pages/profile/profileView';
 import { showClassesPage } from '../pages/classesPage/showClassesPage';
 import { showSalesPage } from '../pages/sales/showSalesPage';
+import { showBasketPage } from '../pages/basket/basketView';
 import { showAboutUsPage } from '../pages/aboutUs/showAboutUsPage';
 
 export const Routes = {
@@ -16,6 +17,7 @@ export const Routes = {
   register: showRegPage,
   catalog: showCatalogPage,
   products: showProductsPage,
+  cart: showBasketPage,
   profile: showProfPage,
   details: showDetailsPage,
   classes: showClassesPage,

@@ -3,31 +3,21 @@
 @import './../../../sass/abstract/constants';
 
 .filter__panel {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 0.3fr;
-  grid-template-areas:
-    'checkboxes checkboxes'
-    'filter reset';
-  gap: 15px;
-  justify-items: center;
-  padding: 1rem 0;
+  @include flex(row, $wrap: wrap, $gap: 1rem);
 }
 
 .panel__content {
-  grid-area: checkboxes;
-  @include flex(row, center, space-between, 10px, wrap);
+  width: 100%;
+  @include flex(row, center, flex-start, 5px, wrap);
   @media screen and (max-width: 400px) {
     justify-content: center;
   }
-  // @media screen and (max-width: 738px) {
-  //   flex-direction: column;
-  // }
 }
 
-.legend_colors {
+.legend_colors,
+.legend_types {
   @include font($size: 2rem, $height: 2.6rem, $weight: 900);
-  margin-bottom: 10px;
+  margin: 1.5rem 0rem;
 }
 
 .filter {
@@ -41,14 +31,10 @@
   .filter_input {
     width: 3rem;
   }
-
-  // @media screen and (max-width: 738px) {
-  //   justify-content: flex-start;
-  // }
 }
 
 .filter__button {
-  grid-area: filter;
+  width: 40%;
   @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
   @extend %font-add;
   text-transform: uppercase;

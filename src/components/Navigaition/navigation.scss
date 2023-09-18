@@ -101,7 +101,7 @@
   }
 }
 
-#login,
+.navigation__login,
 .logged {
   background: rgb(2, 29, 78);
   background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
@@ -136,7 +136,7 @@
   }
 }
 
-#register {
+.navigation__register {
   padding: 1rem 2.8rem 1rem 2.5rem;
   border: none;
   outline: none;
@@ -175,7 +175,7 @@
 .name-displayed {
   text-transform: capitalize;
   @include linkHover;
-  #profile {
+  .navigation__profile {
     display: block;
   }
 }

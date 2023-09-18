@@ -1,3 +1,5 @@
+@import './../../sass/abstract/constants';
+
 .page__catalog {
   display: flex;
   flex-direction: column;
@@ -21,6 +23,9 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
   border: 3px solid #7752be;
+  @media screen and (max-width: $content-width) {
+    width: 100%;
+  }
   @media screen and (max-width: 400px) {
     width: 300px;
     padding: 25px 5px;
