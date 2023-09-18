@@ -122,3 +122,14 @@
     background-color: #87dbd0;
   }
 }
+.basket_catalog-link{
+  color: $color-violet;
+  &:hover {
+    transition: 0.4s;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    background-color: #87dbd0;
+  }
+}
