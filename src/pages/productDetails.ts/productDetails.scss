@@ -77,6 +77,8 @@
   }
   .product__price {
     margin-bottom: 50px;
+    text-align: center;
+
     @media screen and (max-width: 809px) {
       text-align: center;
       margin-bottom: 25px;
@@ -89,5 +91,7 @@
 
   p[keyd] {
     @include linkHover;
+    text-align: center;
+
   }
 }

@@ -66,6 +66,12 @@ export async function getAllProducts(fuzzyLevel: number | undefined, cardsNumber
         ?.split(',')
         .map((el) => `"${el}"`)}`
     : '';
+    const filterCategory = params.get(SearchParams.filterCategory)
+    ? `variants.attributes.Type:${params
+        .get(SearchParams.filterCategory)
+        ?.split(',')
+        .map((el) => `"${el}"`)}`
+    : '';
   const searchText = params.get(SearchParams.search) as string;
   const { body } = await apiRoot
     .productProjections()
@@ -74,7 +80,7 @@ export async function getAllProducts(fuzzyLevel: number | undefined, cardsNumber
       queryArgs: {
         limit: cardsNumber,
         offset: (Number(page) - 1) * cardsNumber,
-        'filter.query': [`${filterColors}`, `${filterTypes}`],
+        'filter.query': [`${filterColors}`, `${filterTypes}`, `${filterCategory}`],
         sort,
         'text.en-us': searchText,
         fuzzy: true,

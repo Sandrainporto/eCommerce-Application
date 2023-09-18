@@ -12,6 +12,9 @@
     @include flex(column, center, center, 2rem, nowrap);
     margin: 40px auto 40px;
   }
+  .panel__content:last-child{
+    display: none;
+  }
 }
 
 
@@ -73,5 +76,17 @@
   background: $color-text-dark;
   @media screen and (max-width: 409px) {
     margin-left: 40px;
+  }
+}
+.page__products {
+  .panel__content:last-of-type{
+    display: none;
+  }
+}
+.page__catalog{
+  .page__products {
+    .panel__content:last-of-type{
+      display: flex;
+    }
   }
 }

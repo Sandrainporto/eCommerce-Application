@@ -62,6 +62,7 @@
 .slider {
   position: relative;
   display: flex;
+  justify-content: center;
   max-width: calc(1440px - 88px);
   overflow: hidden;
   cursor: pointer;

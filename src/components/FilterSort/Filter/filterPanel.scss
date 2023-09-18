@@ -15,13 +15,15 @@
 }
 
 .legend_colors,
-.legend_types {
+.legend_types,
+.legend_category {
   @include font($size: 2rem, $height: 2.6rem, $weight: 900);
   margin: 1.5rem 0rem;
 }
 
 .filter {
-  width: 85px;
+  width: 100%;
+  max-width: 125px;
   border: 1px solid rgba(110, 106, 106, 0.733);
   padding: 3px;
   border-radius: 10px;

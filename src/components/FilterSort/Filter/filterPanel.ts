@@ -9,11 +9,12 @@ import {
   FilterButton,
   LegendColors,
   LegendTypes,
+  LegendCategory,
 } from './filterTypes';
 
 export const COLORS = ['black', 'brown', 'red', 'green', 'blue', 'yellow', 'purple', 'white'];
-export const TYPES = ['spells', 'potions', 'cauldrons', 'ingredients', 'attributes', 'grimoires'];
-export const MAGIC = ['dark', 'neutral'];
+export const CATEGORY = ['spells', 'potions', 'cauldrons', 'ingredients', 'attributes', 'grimoires'];
+export const MAGIC = ['dark', 'neutral', 'white '];
 
 const BUTTONS = {
   filter: 'FILTER',
@@ -26,6 +27,8 @@ const createColorCheckbox = (root: HTMLElement, array: string[]): HTMLElement =>
     const checkboxLegend = createElement(LegendColors, checkboxContainer);
   } else if (array === MAGIC) {
     const checkboxLegend = createElement(LegendTypes, checkboxContainer);
+  }   else if (array === CATEGORY) {
+    const checkboxLegend = createElement(LegendCategory, checkboxContainer);
   }
 
   array.forEach((el) => {
@@ -75,7 +78,9 @@ const createResetButton = (root: HTMLElement, callback: { (value: string[]): voi
 export const showFilterPanel = (root: HTMLElement, FilterCallBack: (value: string[]) => void): void => {
   const wrapper = createElement(FilterBlockParam, root);
   const colorsFilter = createColorCheckbox(wrapper, COLORS);
-  const typesFilter = createColorCheckbox(wrapper, MAGIC);
+  const magicFilter = createColorCheckbox(wrapper, MAGIC);
+  const typesFilter = createColorCheckbox(wrapper, CATEGORY);
+
 
   createFilterButton(wrapper, FilterCallBack);
   createResetButton(wrapper, FilterCallBack);
