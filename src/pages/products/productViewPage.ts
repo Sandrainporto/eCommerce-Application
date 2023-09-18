@@ -20,7 +20,7 @@ import {
   CardPopupClose,
   ProductCardContainer,
   SearchParams,
-  ProductCartLink
+  ProductCartLink,
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { COLORS, MAGIC, CATEGORY, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
@@ -30,6 +30,7 @@ import { ProductSlider } from '../productDetails.ts/types';
 import { FiltersParam } from '../catalog/types';
 import { changePagesAmount, paginationInit } from '../../components/Pagination/paginationView';
 import { addItemToBasket } from '../productDetails.ts/detailsPage';
+import { cartData } from '../basket/basketTypes';
 
 const CARDS_ON_PAGE = 6;
 let SortParameter = 0;
@@ -52,6 +53,26 @@ const ContentRoots = {
   CategoryProduct: '.products__list',
   AllProducts: '.products__list_all',
 };
+export function addToCartBtn(link:HTMLElement, id:string):void{
+  link.setAttribute('data-id', `${id}`);
+  if(localStorage.getItem('night-customer-cart')){
+  const cartData = JSON.parse(localStorage.getItem('night-customer-cart')as string);
+  
+  if(cartData.lineItems){
+  const cart = cartData.lineItems;
+  const desiredObject = cart.find((obj) => obj.productId === id);
+  if (desiredObject) {
+    link.classList.add('in-cart');
+    link.innerText ='Already in 🛒'
+    link.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
+
+}
+}
+}
+
 
 function showProductImages(productImagesData: string[], productCard: HTMLElement): void {
   const popUp = document.createElement('div');
@@ -126,9 +147,12 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
     productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
   }
   productLink.id = `${product.key?.toLowerCase()}`;
-  const prodCartLink = createElement(ProductCartLink,productCardContainer, addItemToBasket) as HTMLAnchorElement;
-  prodCartLink.setAttribute('data-id', `${product.id}`);
+  const prodCartLink = createElement(ProductCartLink, productCardContainer, addItemToBasket) as HTMLAnchorElement;
+
+  addToCartBtn(prodCartLink, product.id)
+  
 };
+
 
 const setTotalPages = (cards: number): void => {
   totalPages = Math.ceil(cards / CARDS_ON_PAGE);
@@ -247,5 +271,6 @@ export default async function showProductsPage(root: HTMLElement, id?: string): 
 
   ContentRoot = productsList;
   await showCards(productsList, id);
+
   paginationInit(pageContainer, changePageCallBack, totalPages);
 }
