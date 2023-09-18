@@ -75,10 +75,10 @@ export function showProfileLink(): void {
     loginBtn.innerText = 'Log Out';
     profileBtn.classList.add('name-displayed');
     if (loggedUserName) {
-      profileBtn.innerText = `Hello ${loggedUserName}`;
+      profileBtn.innerText = `Hi ${loggedUserName.split(' ')[0]}`;
     }
     if (registratedUserName) {
-      profileBtn.innerText = `Hello ${registratedUserName}`;
+      profileBtn.innerText = `Hi ${registratedUserName.split(' ')[0]}`;
     }
   }
   if (loginBtn.classList.contains('logged')) {
