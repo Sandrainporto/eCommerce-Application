@@ -49,6 +49,11 @@ export enum ProductCardLink {
   classNames = 'products__link',
   innerText = 'View Details',
 }
+export enum ProductCartLink {
+  elemTag = 'a',
+  classNames = 'products__link_cart',
+  innerText = 'Add to 🛒',
+}
 
 export enum ProductColor {
   elemTag = 'div',

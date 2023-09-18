@@ -20,6 +20,7 @@ import {
   CardPopupClose,
   ProductCardContainer,
   SearchParams,
+  ProductCartLink
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
 import { COLORS, MAGIC, CATEGORY, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
@@ -28,6 +29,7 @@ import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
 import { FiltersParam } from '../catalog/types';
 import { changePagesAmount, paginationInit } from '../../components/Pagination/paginationView';
+import { addItemToBasket } from '../productDetails.ts/detailsPage';
 
 const CARDS_ON_PAGE = 6;
 let SortParameter = 0;
@@ -124,6 +126,8 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
     productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
   }
   productLink.id = `${product.key?.toLowerCase()}`;
+  const prodCartLink = createElement(ProductCartLink,productCardContainer, addItemToBasket) as HTMLAnchorElement;
+  prodCartLink.setAttribute('data-id', `${product.id}`);
 };
 
 const setTotalPages = (cards: number): void => {
