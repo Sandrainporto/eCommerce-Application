@@ -8,6 +8,9 @@ import { createElement } from '../../utils/elementCreator';
 import { showAuthContent } from '../../pages/login/authContent';
 import { ContentPageContainer } from '../../pages/error/types';
 import { showProfileContent } from '../../pages/profile/profileContent';
+import { showBasketContent } from '../../pages/basket/basketContent';
+import { showAboutUsPage } from '../../pages/aboutUs/showAboutUsPage';
+import showCatalogPage from '../../pages/catalog/catalogView';
 
 let categoryData: void | Category[];
 
@@ -18,13 +21,17 @@ const getPageContent = async (root: HTMLElement): Promise<void> => {
 };
 
 export default function showMainContent(root: HTMLElement, data: void | Category[]): void {
+  console.log(data);
   categoryData = data;
   const activePage: ElementParams = ContentPageContainer;
   let activePageContent: (root: HTMLElement) => void;
+  console.log(root.id);
   if (root.id === 'main') {
     activePageContent = getPageContent;
   } else if (root.id === 'prof') {
     activePageContent = showProfileContent;
+  } else if (root.id === 'cart') {
+    activePageContent = showBasketContent;
   } else {
     activePageContent = showAuthContent;
   }

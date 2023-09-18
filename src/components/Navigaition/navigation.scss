@@ -62,13 +62,13 @@
   pointer-events: none;
   transition: all 0.4 ease 0s;
 }
-@media screen and (width < 810px) {
+@media screen and (width < 940px) {
   .nav__subcategory-list {
     display: none;
   }
 }
 
-@media screen and (width >= 810px) {
+@media screen and (width >= 940px) {
   .catalog__sub-list > li:hover {
     position: relative;
     width: 100%;
@@ -101,7 +101,7 @@
   }
 }
 
-#login,
+.navigation__login,
 .logged {
   background: rgb(2, 29, 78);
   background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
@@ -136,7 +136,7 @@
   }
 }
 
-#register {
+.navigation__register {
   padding: 1rem 2.8rem 1rem 2.5rem;
   border: none;
   outline: none;
@@ -168,14 +168,14 @@
   }
 }
 
-.hide {
+.hide, .hiden {
   display: none;
 }
 
 .name-displayed {
   text-transform: capitalize;
   @include linkHover;
-  #profile {
+  .navigation__profile {
     display: block;
   }
 }

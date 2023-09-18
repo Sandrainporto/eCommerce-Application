@@ -10,9 +10,11 @@ import {
   NavigationSubLink,
   NavigationSubCategLink,
   NavigationSubCategList,
+  NavigationClasses,
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
 import { DataType } from '../../types/types';
+import { addFooterLink } from '../Footer/footerView';
 
 let Data: DataType[];
 let categoryData: Category[];
@@ -57,55 +59,35 @@ export function addSublinks(categoriesData: void | Category[], root: HTMLLinkEle
   return subList;
 }
 
-// export function displayProfileLink(): void {
-//   const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
-//   const registerBtn = document.querySelector('#register') as HTMLAnchorElement;
-//   const profileBtn = document.querySelector('#profile') as HTMLAnchorElement;
-
-//   const loggedUserName = localStorage.getItem('userName');
-//   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
-
-//   if (loggedUserName || registratedUserName) {
-//     registerBtn.classList.add('hide');
-//     loginBtn.classList.add('logged');
-//     loginBtn.innerText = 'Log Out';
-//     profileBtn.classList.add('name-displayed');
-//     if (loggedUserName) {
-//       profileBtn.innerText = `Hello ${loggedUserName}`;
-//     }
-//     if (registratedUserName) {
-//       profileBtn.innerText = `Hello ${registratedUserName}`;
-//     }
-//   }
-
-// }
-
 export function showProfileLink(): void {
-  const loginBtn = document.querySelector('#login') as HTMLAnchorElement;
-  const registerBtn = document.querySelector('#register') as HTMLAnchorElement;
-  const profileBtn = document.querySelector('#profile') as HTMLAnchorElement;
+  const loginBtn = document.querySelector(`.${NavigationClasses.login}`) as HTMLAnchorElement;
+  const registerBtn = document.querySelector(`.${NavigationClasses.register}`) as HTMLAnchorElement;
+  const profileBtn = document.querySelector(`.${NavigationClasses.profile}`) as HTMLAnchorElement;
 
   const loggedUserName = localStorage.getItem('userName');
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
 
   if (loggedUserName || registratedUserName) {
+
     profileBtn.classList.remove('hide');
-    registerBtn.classList.add('hide');
+    registerBtn.classList.add('hiden');
     loginBtn.classList.add('logged');
     loginBtn.innerText = 'Log Out';
     profileBtn.classList.add('name-displayed');
     if (loggedUserName) {
-      profileBtn.innerText = `Hello ${loggedUserName}`;
+      profileBtn.innerText = `Hi ${loggedUserName.split(' ')[0]}`;
     }
     if (registratedUserName) {
-      profileBtn.innerText = `Hello ${registratedUserName}`;
+      profileBtn.innerText = `Hi ${registratedUserName.split(' ')[0]}`;
     }
   }
   if (loginBtn.classList.contains('logged')) {
     loginBtn.addEventListener('click', () => {
-      localStorage.clear();
+      localStorage.removeItem('night-customer-email');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('night-customer');
       profileBtn.classList.add('hide');
-      registerBtn.classList.remove('hide');
+      registerBtn.classList.remove('hiden');
       loginBtn.classList.remove('logged');
       loginBtn.innerText = 'Login';
     });
@@ -117,24 +99,22 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
     const item = createElement(NavigationItemParam, root);
     const link = createElement(NavigationLinkParam, item) as HTMLLinkElement;
     link.innerText = arrItem.text;
-    link.href = `/${arrItem.id}`;
-    link.id = arrItem.id;
+    link.href = `/${arrItem.text.toLowerCase()}`;
+    link.classList.add(arrItem.class);
   });
   showProfileLink();
-  const catalogeLink: HTMLLinkElement | null = document.querySelector('#catalog');
+  const catalogeLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.catalog}`);
   if (catalogeLink) {
     addSublinks(categoryData, catalogeLink);
   }
-  const profileLink: HTMLLinkElement | null = document.querySelector('#profile');
+  const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.profile}`);
   profileLink?.classList.add('hide');
   const loggedUserName = localStorage.getItem('userName');
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
 
   if (loggedUserName || registratedUserName) {
     profileLink?.classList.remove('hide');
-
   }
-
 }
 
 export default function showNavigation(root: HTMLElement, data: DataType[]): HTMLElement {
@@ -146,6 +126,7 @@ export default function showNavigation(root: HTMLElement, data: DataType[]): HTM
   const navList = createElement(NavigationListParam, navBlock);
 
   createNavigationLinks(navList);
+  addFooterLink(navList);
 
   showBurger(navBlock, navBlock, navList);
   return navBlock;

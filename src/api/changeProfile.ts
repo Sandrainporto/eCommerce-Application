@@ -1,6 +1,7 @@
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
 import { apiRoot } from './createClient';
 import { IDataAddress, INewDataAddress } from '../pages/profile/profileTypes';
+import { addHintText } from './loginCustomer';
 
 export const updateUserName = (
   customerID: string,
@@ -87,13 +88,20 @@ export const updateUserEmail = (
     .execute();
 };
 
-export const updateUserPas = (curPas: string, newPas: string, version: number): Promise<ClientResponse<Customer>> => {
+export const updateUserPas = (
+  id: string,
+  curPas: string,
+  newPas: string,
+  version: number,
+  hint: HTMLElement,
+): Promise<ClientResponse<Customer>> => {
   return apiRoot
-    .me()
+    .customers()
     .password()
     .post({
       body: {
-        version,
+        id: id,
+        version: version,
         currentPassword: curPas,
         newPassword: newPas,
       },
@@ -117,7 +125,7 @@ export const updateUserAdress = (
             action: 'changeAddress',
             addressId: `${data.id}`,
             address: {
-              country: `${data.country === 'USA' ? 'EN' : 'RU'}`,
+              country: `${data.country === 'Canada' ? 'US' : 'BY'}`,
               city: `${data.town}`,
               streetName: `${data.street}`,
               postalCode: `${data.postCode}`,
@@ -144,7 +152,7 @@ export const addNewCustomerAdress = (
           {
             action: 'addAddress',
             address: {
-              country: `${data.country === 'USA' ? 'EN' : 'RU'}`,
+              country: `${data.country === 'Canada' ? 'US' : 'BY'}`,
               city: `${data.town}`,
               streetName: `${data.street}`,
               postalCode: `${data.postCode}`,
@@ -193,4 +201,54 @@ export const addNewShipAdr = (
       },
     })
     .execute();
+};
+export const removeBilAdr = (customerID: string, bilID: string, version: number): Promise<ClientResponse<Customer>> => {
+  return apiRoot
+    .customers()
+    .withId({ ID: customerID })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'removeBillingAddressId',
+            addressId: bilID,
+          },
+          {
+            action: 'removeAddress',
+            addressId: bilID,
+          },
+        ],
+      },
+    })
+    .execute()
+
+    .catch();
+};
+export const removeShipAdr = (
+  customerID: string,
+  bilID: string,
+  version: number,
+): Promise<ClientResponse<Customer>> => {
+  return apiRoot
+    .customers()
+    .withId({ ID: customerID })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'removeShippingAddressId',
+            addressId: bilID,
+          },
+          {
+            action: 'removeAddress',
+            addressId: bilID,
+          },
+        ],
+      },
+    })
+    .execute()
+
+    .catch();
 };

@@ -8,8 +8,8 @@
 
 .products__card-container {
   position: relative;
-  max-width: 236px;
-  height: 430px;
+  max-width: 25rem;
+  height: 49rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,7 +83,7 @@
     }
   }
 
-  .products__link {
+  .products__link, .products__link_cart {
     background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(93, 28, 199, 0.658) 60%);
     padding: 1rem 2.8rem 1rem 2.5rem;
     @include font($size: 1.6rem, $height: 2.6rem, $weight: 700);
@@ -94,7 +94,7 @@
       rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     transition: 0.4s;
-
+cursor: pointer;
     &:hover {
       transition: 0.4s;
       border: 2px dashed #ccc5cb;
@@ -106,7 +106,9 @@
       background-color: #87dbd0;
     }
   }
-
+  .products__link_cart {
+    padding: 1rem;
+  }
   .products__color {
     position: absolute;
     width: 15px;

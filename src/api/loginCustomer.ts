@@ -18,7 +18,8 @@ export function loginCustomer(loginInfo: ILoginUser, hint: HTMLElement): Promise
       localStorage.setItem('night-customer-email', JSON.stringify(body.body.customer.email));
       localStorage.setItem('night-customer', JSON.stringify(body.body.customer));
       localStorage.setItem('userName', `${body.body.customer.firstName} ${body.body.customer.lastName}`);
-      // redirect();
+      window.history.replaceState({}, '', '/');
+      window.history.go();
     })
     .catch(() => addHintText('User not found', hint));
 }

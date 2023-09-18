@@ -1,13 +1,16 @@
-@import '../../sass/abstract/constants';
 @import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
+@import './../../sass/abstract/constants';
+
+#prof {
+  .content__container {
+    gap: 2rem;
+  }
+}
 
 .profile_info {
   padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
-  width: 32rem;
-  .save-user-info,
+
   .save-adr-btn,
   .del-adr-btn {
     border-radius: 5px;
@@ -17,40 +20,111 @@
     background-color: rgba(0, 0, 0, 0.5);
     margin: 0 10px;
   }
-  .input_block,
-  .profile_adr-block {
+  .input_block {
     margin: 10px 0;
   }
   .input-pas_block,
   .input_block {
-    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  #login-email,
+  #login-pas-cur,
+  #login-pas-new {
+    width: 200px;
+  }
+  #login-pas-new {
+    margin-left: 33px;
+  }
+  #new-user_fname,
+  #user-lname {
+    width: 160px;
+  }
+  input:not(input[type='checkbox']),
+  select {
+    margin-left: 1rem;
+    width: 14rem;
+    cursor: pointer;
+    outline: none;
+    color: $color-link;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #79727234;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  select option {
+    background: rgb(63 61 61);
+  }
+  label {
+    color: rgba(31, 215, 232, 0.873);
+    font-size: smaller;
+    order: -1;
+    text-align: left;
+  }
+  .profile_adr__bil,
+  .profile_adr__ship,
+  .profile_adr__new {
+    width: 33rem;
+    height: 100%;
+    padding: 15px;
+    background: #79727234;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 15px;
+    border: 3px solid $color-violet;
+    & .new-user_ltown {
+      width: 14rem;
+      margin-left: 4rem;
+    }
+    & .new-user_lstreet {
+      width: 14rem;
+      margin-left: 3.5rem;
+    }
+    & .save-adr-btn {
+      margin-left: 4rem;
+    }
+  }
+  .profile_adr__new {
+    height: 60rem;
+    width: 28rem;
+    & input[type='checkbox'] {
+      margin-left: 1rem;
+    }
+    & .save-adr-btn {
+      margin-left: 10rem;
+    }
   }
 }
-.profile_info__user-info,
-.profile_adr__bil,
-.profile_adr__ship,
-.profile_adr__new {
-  color: $color-link;
-  border: 1px solid $color-link;
-  border-radius: 10px;
-  margin: 10px 0px;
-  padding: 10px;
+.profile_info__user-info {
+  justify-content: space-around;
+  margin-bottom: 2rem;
+  & > * {
+    padding: 15px;
+    background: #79727234;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 15px;
+    border: 3px solid $color-violet;
+  }
+  .input_block {
+    flex-wrap: wrap;
+    width: 390px;
+    height: 100px;
+    .form_hint {
+      order: 4;
+    }
+  }
 }
-input {
-  width: 25rem;
-  cursor: pointer;
-  color: black;
+.input-pas_block {
+  max-width: 400px;
+  flex-direction: column;
+  .input_block {
+    margin: 0 10px;
+  }
 }
 
-label {
-  color: rgba(31, 215, 232, 0.873);
-  font-size: smaller;
-  order: -1;
-  width: 100%;
-  text-align: left;
-}
 .form_hint {
   width: 100%;
+  max-width: 430px;
   margin-top: 10px;
   font-size: 10px;
   height: 1.5rem;
@@ -59,6 +133,59 @@ label {
   text-align: left;
 }
 .profile_adr-block {
+  border: 1px solid $color-link;
   border-radius: 10px;
-  background-color: black;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.profile_info__user-adr,
+.profile_info__user-info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.profile_header {
+  font-size: 3rem;
+}
+.profile_header,
+.profile_bil_header,
+.profile_ship_header,
+.profile_adr__new-header {
+  margin-top: 10px;
+  @extend %font-prim;
+  @include linkHover;
+}
+
+.save-user-info,
+.save-adr-btn,
+.del-adr-btn {
+  margin-left: 10px;
+  color: $color-link;
+  background: rgb(2, 29, 78);
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+  padding: 1rem 2rem 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+  border-radius: 1rem;
+  border: none;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: 0.4s;
+
+  &:hover {
+    transition: 0.4s;
+    background-color: $color-text-light;
+    color: rgb(4, 4, 38);
+  }
+
+  &:active {
+    background-color: #87dbd0;
+  }
+}
+
+.defheader {
+  color: rgba(31, 215, 232, 0.873);
 }

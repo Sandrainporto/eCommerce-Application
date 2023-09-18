@@ -11,7 +11,7 @@ export enum ProductCard {
   elemTag = 'div',
   classNames = 'products__card',
 }
-export enum ProductCardContainer{
+export enum ProductCardContainer {
   elemTag = 'div',
   classNames = 'products__card-container',
 }
@@ -49,6 +49,11 @@ export enum ProductCardLink {
   classNames = 'products__link',
   innerText = 'View Details',
 }
+export enum ProductCartLink {
+  elemTag = 'a',
+  classNames = 'products__link_cart',
+  innerText = 'Add to 🛒',
+}
 
 export enum ProductColor {
   elemTag = 'div',
@@ -62,4 +67,13 @@ export enum CardPopupClose {
   elemTag = 'div',
   classNames = 'image__popup-close',
   innerText = 'X',
+}
+
+export enum SearchParams {
+  sort = 'sort',
+  filterColors = 'filterColors',
+  filterTypes = 'filterTypes',
+  filterCategory = 'filterCategory',
+  search = 'search',
+  page = 'page',
 }

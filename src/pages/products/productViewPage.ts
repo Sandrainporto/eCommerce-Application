@@ -1,6 +1,6 @@
 import './products.scss';
 import { Image, Price, ProductProjection } from '@commercetools/platform-sdk';
-import { getAllProducts, getProductsList } from '../../api/getProducts';
+import { getAllProducts, getProductsList, IResponseResult } from '../../api/getProducts';
 import { createElement } from '../../utils/elementCreator';
 import { ContentPageContainer } from '../error/types';
 import {
@@ -19,19 +19,28 @@ import {
   CardPopup,
   CardPopupClose,
   ProductCardContainer,
+  SearchParams,
+  ProductCartLink
 } from './types';
 import { showSortPanel } from '../../components/FilterSort/Sort/sortPanel';
-import { COLORS, MAGIC, TYPES, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
+import { COLORS, MAGIC, CATEGORY, showFilterPanel } from '../../components/FilterSort/Filter/filterPanel';
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
 import { FiltersParam } from '../catalog/types';
+import { changePagesAmount, paginationInit } from '../../components/Pagination/paginationView';
+import { addItemToBasket } from '../productDetails.ts/detailsPage';
 
+const CARDS_ON_PAGE = 6;
 let SortParameter = 0;
 let SearchParameter = '';
-let ContentRoot: HTMLElement|undefined;
+let ContentRoot: HTMLElement | undefined;
 let CurrentId: string;
-let Filter: string[] = [];
+let url: URL | undefined;
+let productsPage: HTMLElement;
+let currentPage = 1;
+let totalPages = 1;
+let totalCards = 0;
 
 const SortParams = {
   0: 'name.en-us asc',
@@ -42,11 +51,9 @@ const SortParams = {
 const ContentRoots = {
   CategoryProduct: '.products__list',
   AllProducts: '.products__list_all',
-
 };
 
-
-function showProductImages(productImagesData: string[], productCard:HTMLElement) {
+function showProductImages(productImagesData: string[], productCard: HTMLElement): void {
   const popUp = document.createElement('div');
   popUp.className = CardPopup.popup;
   const popUpClose = createElement(CardPopupClose, popUp);
@@ -54,14 +61,14 @@ function showProductImages(productImagesData: string[], productCard:HTMLElement)
     popUp.remove();
   });
   const popUpSlider = createElement(ProductSlider, popUp);
-  console.log(productImagesData);
 
   addSwiper(popUpSlider, productImagesData);
   productCard.prepend(popUp);
 }
 
+// eslint-disable-next-line max-lines-per-function
 const createCard = (root: HTMLElement, product: ProductProjection): void => {
-  let currentUrl = window.location.href;
+  let currentUrl = window.location.pathname;
   const productCard = createElement(ProductCard, root);
   const productCardContainer = createElement(ProductCardContainer, productCard);
   const productIconBox = createElement(ProductImageBox, productCardContainer);
@@ -73,7 +80,7 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
       const imageUrl = image.url;
       slides.push(imageUrl);
     });
-    showProductImages(slides, productCard  );
+    showProductImages(slides, productCard);
     initSlider();
   });
   if (productImagesData) {
@@ -109,17 +116,25 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
     }
   });
   const productLink = createElement(ProductCardLink, productCardContainer) as HTMLAnchorElement;
-  if(currentUrl === `${window.location.origin}/catalog`){
-    currentUrl =`${window.location.origin}/catalog`;
-    if(product.metaDescription)
-    productLink.href = `${currentUrl}/${(product.metaDescription['en-US']).toString()}/${product.key?.toLowerCase()}-card`;
-  }else{
-  productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
+  if (currentUrl === `${window.location.origin}/catalog`) {
+    currentUrl = `${window.location.origin}/catalog`;
+    if (product.metaDescription)
+      productLink.href = `${currentUrl}/${product.metaDescription[
+        'en-US'
+      ].toString()}/${product.key?.toLowerCase()}-card`;
+  } else {
+    productLink.href = `${currentUrl}/${product.key?.toLowerCase()}-card`;
   }
   productLink.id = `${product.key?.toLowerCase()}`;
+  const prodCartLink = createElement(ProductCartLink,productCardContainer, addItemToBasket) as HTMLAnchorElement;
+  prodCartLink.setAttribute('data-id', `${product.id}`);
 };
 
-export async function showCards(productsList: HTMLElement, id?: string ): Promise<void> {
+const setTotalPages = (cards: number): void => {
+  totalPages = Math.ceil(cards / CARDS_ON_PAGE);
+};
+
+export async function showCards(productsList: HTMLElement, id?: string): Promise<void> {
   let fuzzyLevel: number | undefined = SearchParameter.length;
 
   if (fuzzyLevel === 1 || fuzzyLevel === 2) {
@@ -131,70 +146,106 @@ export async function showCards(productsList: HTMLElement, id?: string ): Promis
   } else {
     fuzzyLevel = undefined;
   }
-  let productData: ProductProjection[] = await getAllProducts([SortParams[SortParameter]],
-    SearchParameter.toLocaleLowerCase(),
-    Filter,
-    fuzzyLevel,)
-    // console.log(productData)
-  if(id){
-  productData = await getProductsList(
-    id,
-    [SortParams[SortParameter]],
-    SearchParameter.toLocaleLowerCase(),
-    Filter,
-    fuzzyLevel,
-  );
+
+  window.history.replaceState({}, '', url);
+  let data: IResponseResult;
+  if (url && id) {
+    data = await getProductsList(fuzzyLevel, CARDS_ON_PAGE, id);
+  } else {
+    data = await getAllProducts(fuzzyLevel, CARDS_ON_PAGE);
+    if (data.total) totalCards = data.total;
   }
-  productData.forEach((product) => {
+  if (data.total) setTotalPages(data.total);
+  data.results.forEach((product) => {
     createCard(productsList, product);
   });
-
 }
 
-export const updatePage = (): void => {
-  const ContentRoot = document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement || document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement;
-  
-  if(ContentRoot){
+export const updatePage = async (): Promise<void> => {
+  ContentRoot =
+    (document.querySelector(`${ContentRoots.CategoryProduct}`) as HTMLElement) ||
+    (document.querySelector(`${ContentRoots.AllProducts}`) as HTMLElement);
   ContentRoot.innerHTML = '';
   const productsList = ContentRoot;
-  showCards(productsList, CurrentId);
-  }
-  };
+  await showCards(productsList, CurrentId);
+  changePagesAmount(totalPages);
+};
 
 export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
+  if (url) url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
   updatePage();
 };
 
 export const SearchCallBack = (value: string): void => {
   SearchParameter = value;
+  if (SearchParameter && url) url.searchParams.set(SearchParams.search, `${SearchParameter.toLocaleLowerCase()}`);
   updatePage();
 };
 
 export const FilterCallBack = (value: string[]): void => {
-  Filter = value;
-  console.log(value)
+  const colors: string[] = [];
+  const magic: string[] = [];
+  const category: string[] = [];
+  if (value.length !== 0) {
+    value.forEach((el) => {
+      if (COLORS.includes(el)) {
+        colors.push(el);
+      }
+      if (MAGIC.includes(el)) {
+        magic.push(el);
+      }
+      if (CATEGORY.includes(el)) {
+        category.push(el);
+      }
+    });
+  }
+  if (url) {
+    if (colors.length !== 0) {
+      url.searchParams.set(SearchParams.filterColors, `${colors}`);
+    } else {
+      url.searchParams.delete(SearchParams.filterColors);
+    }
 
+    if (magic.length !== 0) {
+      url.searchParams.set(SearchParams.filterTypes, `${magic}`);
+    } else {
+      url.searchParams.delete(SearchParams.filterTypes);
+    }
+    if (category.length !== 0) {
+      url.searchParams.set(SearchParams.filterCategory, `${category}`);
+    } else {
+      url.searchParams.delete(SearchParams.filterCategory);
+    }
+  }
   updatePage();
 };
 
-export default async function showProductsPage(root: HTMLElement, id: string): Promise<void> {
-  CurrentId = id;
-  Filter = [];
+export const changePageCallBack = (page: number): void => {
+  currentPage = page;
+  if (url) url.searchParams.set(SearchParams.page, `${currentPage}`);
+  updatePage();
+};
 
-  const pageContainer = createElement(ContentPageContainer, root)
+export default async function showProductsPage(root: HTMLElement, id?: string): Promise<void> {
+  url = new URL(`${window.location.href.split('?')[0]}`);
+  url.searchParams.set(SearchParams.page, `${currentPage}`);
 
-  const productsPage = createElement(ProductsPageParam, pageContainer);
+  const pageContainer = createElement(ContentPageContainer, root);
+  productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
   const sortPanel = showSortPanel(filtersSection, SortCallBack, SearchCallBack);
-  const filterPanelColors = showFilterPanel(filtersSection, COLORS, FilterCallBack);
-  const filterPanelMagic = showFilterPanel(filtersSection, MAGIC, FilterCallBack);
-
-
-
+  const filterPanel = showFilterPanel(filtersSection, FilterCallBack);
   const productsList = createElement(ProductsList, productsPage);
-  productsList.id = id;
-  ContentRoot = productsList;
 
-  showCards(productsList, id);
+  if (id) {
+    CurrentId = id;
+    productsList.id = id;
+  } else {
+    CurrentId = '';
+  }
+
+  ContentRoot = productsList;
+  await showCards(productsList, id);
+  paginationInit(pageContainer, changePageCallBack, totalPages);
 }

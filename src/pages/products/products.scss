@@ -3,24 +3,39 @@
 @import './../../sass/abstract/placeholders';
 @import './../../sass/abstract/constants';
 .page__products {
-
-    display: flex;
-    gap: 30px;
-    @media screen and (max-width: 1155px) {
-     flex-direction: column;
-     align-items: center;
-    }
+  @include flex($just: space-between, $align: flex-start, $gap:2rem, $wrap: nowrap);
+  @media screen and (max-width: 1219px) {
+    flex-direction: column;
+    align-items: center;
+  }
   .content__container {
     @include flex(column, center, center, 2rem, nowrap);
     margin: 40px auto 40px;
   }
+  .panel__content:last-child{
+    display: none;
+  }
 }
 
-.products__list, .products__list_all {
+
+.products__list {
+  width: 70%;
+  @include flex(row, center, center, 1.5rem, wrap);
+  @media screen and (max-width: 1191px) {
+ width: 90%;
+  }
+  @media screen and (max-width: 950px) {
+    width: 100%;
+     }
+}
+.products__list_all {
+  .content__container {
+    padding: 0px;
+    gap: 2rem;
+  }
   width: 100%;
   @include flex(row, center, center, 1.5rem, wrap);
 }
-
 
 .image__popup {
   width: 400px;
@@ -37,18 +52,17 @@
     width: 70%;
     height: auto;
     z-index: 30;
-      background: rgb(121, 114, 114);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius: 15px;
-  border: 3px solid #7752be;
+    background: rgb(121, 114, 114);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 15px;
+    border: 3px solid #7752be;
   }
-  .products__slider{
+  .products__slider {
     width: 100%;
   }
   .swiper-slide-container {
-    padding: 15px; 
- 
-}
+    padding: 15px;
+  }
 }
 .image__popup-close {
   width: 30px;
@@ -58,9 +72,21 @@
   font-weight: 900;
   font-size: 2.5rem;
   cursor: pointer;
-    border-radius: 50%;
-background: $color-text-dark;
+  border-radius: 50%;
+  background: $color-text-dark;
   @media screen and (max-width: 409px) {
     margin-left: 40px;
+  }
+}
+.page__products {
+  .panel__content:last-of-type{
+    display: none;
+  }
+}
+.page__catalog{
+  .page__products {
+    .panel__content:last-of-type{
+      display: flex;
+    }
   }
 }
