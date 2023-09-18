@@ -107,7 +107,7 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
   if (catalogeLink) {
     addSublinks(categoryData, catalogeLink);
   }
-  const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.register}`);
+  const profileLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.profile}`);
   profileLink?.classList.add('hide');
   const loggedUserName = localStorage.getItem('userName');
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
