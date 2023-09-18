@@ -234,5 +234,5 @@ export default async function showProductsPage(root: HTMLElement, id?: string): 
 
   ContentRoot = productsList;
   await showCards(productsList, id);
-  paginationInit(productsPage, changePageCallBack, totalPages);
+  paginationInit(pageContainer, changePageCallBack, totalPages);
 }

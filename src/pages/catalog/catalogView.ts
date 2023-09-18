@@ -1,4 +1,4 @@
-import './catalogPage.scss';
+import './catalogPage.scss';;
 import { Category } from '@commercetools/platform-sdk';
 import createCategoriesCard from '../../components/Categories/categoryCard';
 import { createElement } from '../../utils/elementCreator';

@@ -1,12 +1,13 @@
 import showMainPage from '../pages/main/mainView';
 
+let url: URL;
+
 const renderPage = (productKey?: string): void => {
   showMainPage(productKey);
 };
 
 const addListener = (): void => {
   window.onpopstate = (): void => {
-    console.log('сработал popstate');
     renderPage();
   };
   window.addEventListener(
@@ -16,8 +17,13 @@ const addListener = (): void => {
       if (target.tagName === 'A' || target.closest('A')) {
         event.preventDefault();
         const element = target.closest('A') as HTMLLinkElement;
-        window.history.pushState({}, '', element.href);
-        renderPage(element.id);
+        const newUrl = new URL(element.href);
+        if (newUrl.hostname === url.hostname) {
+          window.history.pushState({}, '', element.href);
+          renderPage(element.id);
+        } else {
+          window.open(`${element.href}`, '_blank');
+        }
       }
     },
     false,
@@ -25,6 +31,7 @@ const addListener = (): void => {
 };
 
 export const routerInit = (): void => {
+  url = new URL(window.location.href);
   renderPage();
   addListener();
 };
