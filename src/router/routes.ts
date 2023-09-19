@@ -7,7 +7,6 @@ import showProductsPage from '../pages/products/productViewPage';
 import { showRegPage } from '../pages/registration/regView';
 import { showProfPage } from '../pages/profile/profileView';
 import { showClassesPage } from '../pages/classesPage/showClassesPage';
-import { showSalesPage } from '../pages/sales/showSalesPage';
 import { showBasketPage } from '../pages/basket/basketView';
 import { showAboutUsPage } from '../pages/aboutUs/showAboutUsPage';
 
