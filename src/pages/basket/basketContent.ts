@@ -26,6 +26,7 @@ import { Cart, LineItem } from '@commercetools/platform-sdk';
 import { addItemToCart, deleteCart, getCartDiscount, removeItemFromCart, setDiscount } from '../../api/shoppingList';
 import { FormHint } from '../login/authTypes';
 import { addHintText } from '../../api/loginCustomer';
+import { ItemsInCart, NavigationClasses } from '../../components/Navigaition/navigationTypes';
 
 function showTotal(cart: Cart): void {
   const rootBlock = document.querySelector(`.${BasketTotalBlock.classNames}`) as HTMLElement;
@@ -39,6 +40,7 @@ function showTotal(cart: Cart): void {
       cart.totalPrice.currencyCode
     }`;
   }
+
 }
 
 async function changeQuantity(e: Event): Promise<void> {
@@ -125,6 +127,8 @@ async function clearBasket(): Promise<void> {
   await deleteCart(data.id, data.version);
   await localStorage.removeItem('night-customer-cart');
   await showEmptyBasket(container);
+  const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
+  itemsNumInCart.innerText = `0`;
 }
 
 async function activatePromo(e: Event): Promise<void> {

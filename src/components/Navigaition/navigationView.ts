@@ -11,6 +11,7 @@ import {
   NavigationSubCategLink,
   NavigationSubCategList,
   NavigationClasses,
+  ItemsInCart,
 } from './navigationTypes';
 import showBurger from '../Burger/burgerView';
 import { DataType } from '../../types/types';
@@ -68,7 +69,6 @@ export function showProfileLink(): void {
   const registratedUserName = localStorage.getItem('reg-customer-name')?.slice(1, -2);
 
   if (loggedUserName || registratedUserName) {
-
     profileBtn.classList.remove('hide');
     registerBtn.classList.add('hiden');
     loginBtn.classList.add('logged');
@@ -114,6 +114,14 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
 
   if (loggedUserName || registratedUserName) {
     profileLink?.classList.remove('hide');
+  }
+  const cartLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.cart}`);
+  if (cartLink) {
+    let itemsNumInCart = createElement(ItemsInCart, cartLink);
+    if (localStorage.getItem('night-customer-cart')) {
+      const cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
+      itemsNumInCart.innerText = cartData.totalLineItemQuantity;
+    }
   }
 }
 
