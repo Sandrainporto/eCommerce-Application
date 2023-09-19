@@ -1,0 +1,48 @@
+@import './../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
+
+.page__classes{
+  margin: 50px auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding: 50px 20px;
+  background: rgba(121, 114, 114, 0.2039215686);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 15px;
+  border: 3px solid #7752be;
+  width: 100%;
+  max-width: 900px;
+}
+.classes__banner{
+ img{
+  max-width: 100%;
+ }
+}
+.classes__info{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  text-align: justify
+}
+.classes__title{
+  @include linkHover;
+  @include font($size: 2.6rem, $height: 2.6rem, $weight: normal);
+
+}
+.classes__address{
+  display:flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+}
+.address-text{
+  .span{
+  color: $color-violet;
+  font-weight: 600;
+
+  }
+}
