@@ -103,11 +103,3 @@ export enum BasketPromoHint {
   disable = 'Promocode doesnt exist',
 }
 export const cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
-
-export enum BasketTotalValue {
-  elemTag = 'span',
-  classNames = 'dashed',
-}
-export enum BasketTotalValueNew {
-  elemTag = 'span',
-}

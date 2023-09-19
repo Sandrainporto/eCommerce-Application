@@ -20,8 +20,6 @@ import {
   BasketPromoInput,
   BasketPromoLabel,
   BasketTotalBlock,
-  BasketTotalValueNew,
-  cartData,
   emptyBasket,
 } from './basketTypes';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
