@@ -85,6 +85,7 @@ export enum BasketPromoInput {
   type = 'text',
   id = 'promo',
   classNames = 'promo_input',
+  placeholder = 'Write: midnight2023'
 }
 export enum BasketPromoLabel {
   elemTag = 'label',

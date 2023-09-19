@@ -5,7 +5,7 @@ import { LeftBtn, RightBtn, SlideParamImage, SlideParamLink, Slider, SliderConta
 function createSlider(root: HTMLElement): HTMLElement {
   const slider = createElement(Slider, root);
 
-  const linkHrefs = ['/classes', '/sale', 'link3'];
+  const linkHrefs = ['/classes', '/sale', '/cart'];
 
   for (let i = 1; i <= linkHrefs.length; i += 1) {
     const sliderLink = createElement(SlideParamLink, slider) as HTMLAnchorElement;
