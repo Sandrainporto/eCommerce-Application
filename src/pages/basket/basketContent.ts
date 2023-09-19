@@ -20,6 +20,8 @@ import {
   BasketPromoInput,
   BasketPromoLabel,
   BasketTotalBlock,
+  BasketTotalValueNew,
+  cartData,
   emptyBasket,
 } from './basketTypes';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
@@ -27,9 +29,18 @@ import { addItemToCart, deleteCart, getCartDiscount, removeItemFromCart, setDisc
 import { FormHint } from '../login/authTypes';
 import { addHintText } from '../../api/loginCustomer';
 
-function showTotal(number: number, value: number, currency: string): void {
+function showTotal(cart: Cart): void {
   const rootBlock = document.querySelector(`.${BasketTotalBlock.classNames}`) as HTMLElement;
-  rootBlock.textContent = `${number} products,   total value:   ${value / 100} ${currency}`;
+  if (cart.directDiscounts.length) {
+    rootBlock.innerHTML = `${cart.totalLineItemQuantity} products, total value: <span>${(
+      (cart.totalPrice.centAmount + cart.totalPrice.centAmount * (cart.directDiscounts[0].value['permyriad'] / 10000)) /
+      100
+    ).toFixed(2)}</span> ${cart.totalPrice.centAmount / 100} ${cart.totalPrice.currencyCode}`;
+  } else {
+    rootBlock.innerHTML = `${cart.totalLineItemQuantity} products, total value: ${cart.totalPrice.centAmount / 100} ${
+      cart.totalPrice.currencyCode
+    }`;
+  }
 }
 
 async function changeQuantity(e: Event): Promise<void> {
@@ -49,7 +60,7 @@ async function changeQuantity(e: Event): Promise<void> {
         cart = body;
         localStorage.setItem('night-customer-cart', JSON.stringify(cart));
       });
-      await showTotal(cart.totalLineItemQuantity, cart.totalPrice.centAmount, cart.totalPrice.currencyCode);
+      await showTotal(cart);
     }
   }
   if (btn.classList.contains(`${BasketNumMax.classNames}`)) {
@@ -60,7 +71,7 @@ async function changeQuantity(e: Event): Promise<void> {
         cart = body;
         localStorage.setItem('night-customer-cart', JSON.stringify(cart));
       });
-      await showTotal(cart.totalLineItemQuantity, cart.totalPrice.centAmount, cart.totalPrice.currencyCode);
+      await showTotal(cart);
     }
   }
   if (btn.classList.contains(`${BasketItemDelBtn.classNames}`)) {
@@ -70,7 +81,7 @@ async function changeQuantity(e: Event): Promise<void> {
       localStorage.setItem('night-customer-cart', JSON.stringify(cart));
     });
     await btnBlock.remove();
-    await showTotal(cart.totalLineItemQuantity, cart.totalPrice.centAmount, cart.totalPrice.currencyCode);
+    await showTotal(cart);
   }
 }
 
@@ -136,7 +147,7 @@ async function activatePromo(e: Event): Promise<void> {
       data = body;
       localStorage.setItem('night-customer-cart', JSON.stringify(data));
     });
-    await showTotal(data.totalLineItemQuantity as number, data.totalPrice.centAmount, data.totalPrice.currencyCode);
+    await showTotal(data);
     addHintText(`${BasketPromoHint.active}`, hint);
   } catch {
     addHintText(`${BasketPromoHint.disable}`, hint);
@@ -156,7 +167,7 @@ async function fillBasketContent(root: HTMLElement, data?: Cart | null): Promise
   if (data && data.totalLineItemQuantity && data.totalLineItemQuantity > 0) {
     const cartItems = data.lineItems;
     createElement(BasketTotalBlock, root);
-    await showTotal(data.totalLineItemQuantity, data.totalPrice.centAmount, data.totalPrice.currencyCode);
+    await showTotal(data);
     await cartItems.forEach((item) => createBasketItemBlock(root, item));
     createPromoBlock(root);
     createElement(BasketClearBtn, root, clearBasket);
