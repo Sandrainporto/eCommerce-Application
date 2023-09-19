@@ -57,7 +57,7 @@ export function addToCartBtn(link:HTMLElement, id:string):void{
   link.setAttribute('data-id', `${id}`);
   if(localStorage.getItem('night-customer-cart')){
   const cartData = JSON.parse(localStorage.getItem('night-customer-cart')as string);
-  
+
   if(cartData.lineItems){
   const cart = cartData.lineItems;
   const desiredObject = cart.find((obj) => obj.productId === id);

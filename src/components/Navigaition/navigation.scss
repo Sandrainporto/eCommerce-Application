@@ -179,3 +179,17 @@
     display: block;
   }
 }
+.navigation__basket{
+  position: relative;
+  .items-num{
+    text-align: center;
+    font-size: 1.2rem;
+    top: 5px;
+    right: -15px;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: rgba(128, 128, 128, 0.438);
+    border-radius: 50%;
+  }
+}

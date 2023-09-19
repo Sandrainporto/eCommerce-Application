@@ -21,6 +21,7 @@ import { addItemToCart, createCart } from '../../api/shoppingList';
 import { cartData } from '../basket/basketTypes';
 import { addToCartBtn } from '../products/productViewPage';
 import { ProductCartLink } from '../products/types';
+import { ItemsInCart } from '../../components/Navigaition/navigationTypes';
 
 export async function addItemToBasket(e: Event): Promise<void> {
   e.preventDefault();
@@ -28,6 +29,8 @@ export async function addItemToBasket(e: Event): Promise<void> {
   const btn = e.target as HTMLElement;
   const itemID = btn.getAttribute('data-id') as string;
   const data = localStorage.getItem('night-customer-cart');
+  const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
+  itemsNumInCart.innerText = `${+itemsNumInCart.innerText+1}`;
   let newData;
   if (data) {
     let parsedData = JSON.parse(data);

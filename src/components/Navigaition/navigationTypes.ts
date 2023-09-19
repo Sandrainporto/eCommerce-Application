@@ -14,6 +14,11 @@ export enum NavigationLinkParam {
   elemTag = 'a',
   classNames = 'nav__link',
 }
+export enum ItemsInCart {
+  elemTag = 'div',
+  classNames = 'items-num',
+  innerText = '0'
+}
 export enum NavigationSubLink {
   elemTag = 'a',
   classNames = 'nav__sub-link',
