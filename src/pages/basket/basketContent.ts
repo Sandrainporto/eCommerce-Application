@@ -39,6 +39,7 @@ function showEmptyBasket(root: HTMLElement): void {
 function showTotal(cart: Cart): void {
   if (!cart.totalLineItemQuantity) {
     showEmptyBasket(basketRoot);
+    
   } else {
     const rootBlock = document.querySelector(`.${BasketTotalBlock.classNames}`) as HTMLElement;
     if (cart.directDiscounts.length) {
@@ -53,9 +54,13 @@ function showTotal(cart: Cart): void {
       }`;
     }
   }
-  const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
-  itemsNumInCart.innerText = `${cart.totalLineItemQuantity}`;
 
+  const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
+  if(!cart.totalLineItemQuantity){
+    itemsNumInCart.innerText = '0'
+  }else{
+  itemsNumInCart.innerText = `${cart.totalLineItemQuantity}`;
+  }
 }
 
 async function changeQuantity(e: Event): Promise<void> {
