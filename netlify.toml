@@ -1,9 +1,5 @@
 [[redirects]]
 from = "/*"
-to = "/"
-status = 200
-
-[[redirects]]
-from = "/*/*"
 to = "https://www.google.com/"
 status = 200
+
