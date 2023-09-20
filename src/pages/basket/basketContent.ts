@@ -58,7 +58,7 @@ async function changeQuantity(e: Event): Promise<void> {
         cart = body;
         localStorage.setItem('night-customer-cart', JSON.stringify(cart));
       });
-      await showTotal(cart);
+      await showTotal(cart.totalLineItemQuantity, cart.totalPrice.centAmount, cart.totalPrice.currencyCode);
     }
   }
   if (btn.classList.contains(`${BasketNumMax.classNames}`)) {
@@ -69,7 +69,7 @@ async function changeQuantity(e: Event): Promise<void> {
         cart = body;
         localStorage.setItem('night-customer-cart', JSON.stringify(cart));
       });
-      await showTotal(cart);
+      await showTotal(cart.totalLineItemQuantity, cart.totalPrice.centAmount, cart.totalPrice.currencyCode);
     }
   }
   if (btn.classList.contains(`${BasketItemDelBtn.classNames}`)) {
@@ -150,7 +150,7 @@ async function activatePromo(e: Event): Promise<void> {
       data = body;
       localStorage.setItem('night-customer-cart', JSON.stringify(data));
     });
-    await showTotal(data);
+    await showTotal(data.totalLineItemQuantity as number, data.totalPrice.centAmount, data.totalPrice.currencyCode);
     addHintText(`${BasketPromoHint.active}`, hint);
   } catch {
     addHintText(`${BasketPromoHint.disable}`, hint);
@@ -170,7 +170,7 @@ async function fillBasketContent(root: HTMLElement, data?: Cart | null): Promise
   if (data && data.totalLineItemQuantity && data.totalLineItemQuantity > 0) {
     const cartItems = data.lineItems;
     createElement(BasketTotalBlock, root);
-    await showTotal(data);
+    await showTotal(data.totalLineItemQuantity, data.totalPrice.centAmount, data.totalPrice.currencyCode);
     await cartItems.forEach((item) => createBasketItemBlock(root, item));
     createPromoBlock(root);
     createElement(BasketClearBtn, root, clearBasket);
