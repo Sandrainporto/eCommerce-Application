@@ -17,16 +17,22 @@ import {
 } from './types';
 import { addSwiper } from '../../components/Swiper/swiperView';
 import { initSlider } from '../../components/Swiper/swiperInitializer';
-import { addItemToCart, createCart } from '../../api/shoppingList';
+import { addItemToCart, createCart, removeItemFromCart } from '../../api/shoppingList';
 import { cartData } from '../basket/basketTypes';
-import { addToCartBtn } from '../products/productViewPage';
-import { ProductCartLink } from '../products/types';
+import { addRemoveBtn, addToCartBtn } from '../products/productViewPage';
+import { ProductCartLink, ProductCartLinkRemove } from '../products/types';
 import { ItemsInCart } from '../../components/Navigaition/navigationTypes';
 
 export async function addItemToBasket(e: Event): Promise<void> {
   e.preventDefault();
   console.log(e.target, 'tyt');
   const btn = e.target as HTMLElement;
+  btn.classList.add('hiden');
+  const removeBtn = document.querySelector(`[data-id-remove='${btn.getAttribute('data-id')}']`);
+  removeBtn?.classList.remove('hiden');
+  // removeBtn?.classList.add('in-cart');
+  // btn.innerText ='Remove from 🛒'
+  // btn.classList.add('in-cart')
   const itemID = btn.getAttribute('data-id') as string;
   const data = localStorage.getItem('night-customer-cart');
   const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
@@ -47,6 +53,22 @@ export async function addItemToBasket(e: Event): Promise<void> {
     });
     localStorage.setItem('night-customer-cart', JSON.stringify(newData));
   }
+//   btn.removeEventListener('click', addItemToBasket);
+//   btn.addEventListener('click', () => {
+//     console.log('click2')
+//     let cartData = JSON.parse(localStorage.getItem('night-customer-cart')as string);
+
+//       const cart = cartData.lineItems;
+//       const desiredObject = cart.find((obj) => obj.productId === btn.id);
+//   //     if (desiredObject) {
+//   //   removeItemFromCart(cartData.id, cartData.version, desiredObject.id, desiredObject.quantity).then(({ body }) => {
+//   //     cartData = body;
+//   //     localStorage.removeItem('night-customer-cart');
+//   //     localStorage.setItem('night-customer-cart', JSON.stringify(cartData));
+//   //   });
+//   // }
+// })
+
 }
 
 export default async function showDetailsPage(root: HTMLElement, key: string): Promise<void> {
@@ -97,6 +119,25 @@ export default async function showDetailsPage(root: HTMLElement, key: string): P
     }
   });
   const prodLink = createElement(ProductCardLink, productInfo, addItemToBasket) as HTMLAnchorElement;
-  addToCartBtn(prodLink, productData.id)
+  prodLink.setAttribute('data-id', `${productData.id}`);
+  const removeBtn = createElement(ProductCartLinkRemove, productInfo) as HTMLAnchorElement;
+
+ addRemoveBtn(removeBtn, productData.id, prodLink)
+ 
+
+    if (localStorage.getItem('night-customer-cart')) {
+      let cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
+  console.log(cartData)
+      if (cartData.lineItems) {
+        const cart = cartData.lineItems;
+        const desiredObject = cart.find((obj) =>obj.productId === productData.id);
+
+        if (desiredObject) {
+          prodLink.classList.add('hiden')
+          removeBtn.classList.remove('hiden')
+        }
+      }
+    }
+  // addToCartBtn(prodLink, productData.id)
 
 }

@@ -31,12 +31,19 @@
     font-size: 1.3rem;
     margin-bottom: 2rem;
   }
+  @media screen and (max-width: $tablet-width) {
+    max-width: 460px;
+  }
+  @media screen and (max-width: $mobile-big-width) {
+    max-width: 300px;
+  }
 }
 .basket_item-block {
   display: flex;
   align-items: center;
   position: relative;
   padding: 15px;
+  justify-content: space-between;
   background: #79727234;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
@@ -47,11 +54,8 @@
     height: 50px;
   }
   .basket_num-block {
-    width: 40px;
     display: flex;
     justify-content: space-between;
-    position: absolute;
-    right: 65px;
     .basket_num_min,
     .basket_num_max {
       font-size: 3rem;
@@ -70,8 +74,8 @@
   }
   .item_del-btn {
     cursor: pointer;
-    position: absolute;
-    right: 5px;
+    // position: absolute;
+    // right: 5px;
     width: 30px;
     height: 30px;
     background: url('../../assets/icons/basket.svg') no-repeat;
@@ -82,10 +86,14 @@
       transform: scale(1.1);
     }
   }
+  @media screen and (max-width: $mobile-big-width) {
+    flex-direction: column;
+  }
 }
 .basket_promo-block {
   margin-top: 4rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   label {
     width: auto;
