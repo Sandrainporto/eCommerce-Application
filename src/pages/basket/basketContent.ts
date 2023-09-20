@@ -1,3 +1,4 @@
+import { Cart, LineItem } from '@commercetools/platform-sdk';
 import { createElement } from '../../utils/elementCreator';
 import {
   BasketCatalogLink,
@@ -22,29 +23,40 @@ import {
   BasketTotalBlock,
   emptyBasket,
 } from './basketTypes';
-import { Cart, LineItem } from '@commercetools/platform-sdk';
 import { addItemToCart, deleteCart, getCartDiscount, removeItemFromCart, setDiscount } from '../../api/shoppingList';
 import { FormHint } from '../login/authTypes';
 import { addHintText } from '../../api/loginCustomer';
 import { ItemsInCart, NavigationClasses } from '../../components/Navigaition/navigationTypes';
 
-function showTotal(cart: Cart): void {
-  const rootBlock = document.querySelector(`.${BasketTotalBlock.classNames}`) as HTMLElement;
-  if (cart.directDiscounts.length) {
-    rootBlock.innerHTML = `${cart.totalLineItemQuantity} products, total value: <span>${(
-      (cart.totalPrice.centAmount + cart.totalPrice.centAmount * (cart.directDiscounts[0].value['permyriad'] / 10000)) /
-      100
-    ).toFixed(2)}</span> ${cart.totalPrice.centAmount / 100} ${cart.totalPrice.currencyCode}`;
-  } else {
-    rootBlock.innerHTML = `${cart.totalLineItemQuantity} products, total value: ${cart.totalPrice.centAmount / 100} ${
-      cart.totalPrice.currencyCode
-    }`;
-  }
+let basketRoot: HTMLElement;
 
+function showEmptyBasket(root: HTMLElement): void {
+  const container = root;
+  container.innerHTML = emptyBasket;
+  createElement(BasketCatalogLink, root);
+}
+
+function showTotal(cart: Cart): void {
+  if (!cart.totalLineItemQuantity) {
+    showEmptyBasket(basketRoot);
+  } else {
+    const rootBlock = document.querySelector(`.${BasketTotalBlock.classNames}`) as HTMLElement;
+    if (cart.directDiscounts.length) {
+      rootBlock.innerHTML = `${cart.totalLineItemQuantity} products, total value: <span>${(
+        (cart.totalPrice.centAmount +
+          cart.totalPrice.centAmount * (cart.directDiscounts[0].value['permyriad'] / 10000)) /
+        100
+      ).toFixed(2)}</span> ${cart.totalPrice.centAmount / 100} ${cart.totalPrice.currencyCode}`;
+    } else {
+      rootBlock.innerHTML = `${cart.totalLineItemQuantity} products, total value: ${cart.totalPrice.centAmount / 100} ${
+        cart.totalPrice.currencyCode
+      }`;
+    }
+  }
 }
 
 async function changeQuantity(e: Event): Promise<void> {
-  console.log(e.target, BasketItemDelBtn.classNames);
+  console.log(12312312231);
   const btn = e.target as HTMLElement;
   const btnBlock = btn.parentElement as HTMLElement;
   const itemId = btn.getAttribute('data-id') as string;
@@ -53,7 +65,6 @@ async function changeQuantity(e: Event): Promise<void> {
   let cart = JSON.parse(localStorage.getItem('night-customer-cart') as string);
   if (btn.classList.contains(`${BasketNumMin.classNames}`)) {
     if (valueNum > 1) {
-      console.log(cart.id, cart.version, itemId);
       valueNum -= 1;
       value.textContent = `${valueNum}`;
       await removeItemFromCart(cart.id, cart.version, itemId).then(({ body }) => {
@@ -86,14 +97,11 @@ async function changeQuantity(e: Event): Promise<void> {
 }
 
 function createBasketItemBlock(root: HTMLElement, cartItem: LineItem): void {
-  console.log(cartItem);
-
   const basketItemBlock = createElement(BasketItemBlock, root);
   basketItemBlock.setAttribute('data-id', `${cartItem.id}`);
   const img = createElement(BasketItemImg, basketItemBlock);
   if (cartItem.variant.images && cartItem.variant.images?.length > 0) {
     img.setAttribute('src', `${cartItem.variant.images[0].url}`);
-    console.log(cartItem.variant.images[0].url, cartItem.name['en-US']);
   }
   const itemName = createElement(BasketItemName, basketItemBlock);
   itemName.textContent = `${cartItem.name['en-US']}`;
@@ -116,18 +124,13 @@ function createBasketItemBlock(root: HTMLElement, cartItem: LineItem): void {
   const removeBtn = createElement(BasketItemDelBtn, basketItemBlock, changeQuantity);
 }
 
-function showEmptyBasket(root: HTMLElement): void {
-  root.innerHTML = emptyBasket;
-  createElement(BasketCatalogLink, root);
-}
-
 async function clearBasket(): Promise<void> {
   const container = document.querySelector(`.${BasketContentBlock.classNames}`) as HTMLElement;
   const data = JSON.parse(localStorage.getItem('night-customer-cart') as string) as Cart;
   await deleteCart(data.id, data.version);
   await localStorage.removeItem('night-customer-cart');
   await showEmptyBasket(container);
-  const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
+  const itemsNumInCart = document.querySelector(`.${ItemsInCart.classNames}`) as HTMLElement;
   itemsNumInCart.innerText = `0`;
 }
 
@@ -154,7 +157,6 @@ async function activatePromo(e: Event): Promise<void> {
   } catch {
     addHintText(`${BasketPromoHint.disable}`, hint);
   }
-  console.log(e.target);
 }
 
 function createPromoBlock(root: HTMLElement): void {
@@ -179,6 +181,7 @@ async function fillBasketContent(root: HTMLElement, data?: Cart | null): Promise
   }
 }
 export async function showBasketContent(root: HTMLElement): Promise<void> {
+  basketRoot = root;
   const data = await localStorage.getItem('night-customer-cart');
   let parsedData;
   if (data) parsedData = JSON.parse(data) as Cart;
