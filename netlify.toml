@@ -4,6 +4,6 @@ to = "/"
 status = 200
 
 [[redirects]]
-from = "/catalog/*"
-to = "/"
+from = "/*/*"
+to = "/index.html"
 status = 200
