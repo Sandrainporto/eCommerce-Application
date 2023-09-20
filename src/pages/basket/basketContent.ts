@@ -54,7 +54,11 @@ function showTotal(cart: Cart): void {
     }
   }
   const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
+  if(!cart.totalLineItemQuantity){
+    itemsNumInCart.innerText = '0'
+  }else{
   itemsNumInCart.innerText = `${cart.totalLineItemQuantity}`;
+  }
 
 }
 
