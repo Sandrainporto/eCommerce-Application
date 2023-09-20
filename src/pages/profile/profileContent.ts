@@ -195,11 +195,11 @@ async function saveUserPas(e: Event): Promise<void> {
   const hint = [...block.querySelectorAll(`.${FormHint.classNames}`)][1] as HTMLElement;
   const pasCur = block.querySelector(`.${LoginCurPaslInput.classNames}`) as HTMLInputElement;
   const pasNew = block.querySelector(`.${LoginNewPaslInput.classNames}`) as HTMLInputElement;
-  console.log(
-    hint,
-    [...block.querySelectorAll(`.${FormHint.classNames}`)],
-    [...block.querySelectorAll(`.${FormHint.classNames}`)][-1],
-  );
+  // console.log(
+  //   hint,
+  //   [...block.querySelectorAll(`.${FormHint.classNames}`)],
+  //   [...block.querySelectorAll(`.${FormHint.classNames}`)][-1],
+  // );
   if (pasCur.value !== pasNew.value) {
     try {
       await updateUserPas(data.id, pasCur.value, pasNew.value, Number(data.version), hint).then(({ body }) => {

@@ -53,10 +53,13 @@ function showTotal(cart: Cart): void {
       }`;
     }
   }
+  const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
+  itemsNumInCart.innerText = `${cart.totalLineItemQuantity}`;
+
 }
 
 async function changeQuantity(e: Event): Promise<void> {
-  console.log(12312312231);
+  // console.log(e.target, BasketItemDelBtn.classNames);
   const btn = e.target as HTMLElement;
   const btnBlock = btn.parentElement as HTMLElement;
   const itemId = btn.getAttribute('data-id') as string;
@@ -92,7 +95,9 @@ async function changeQuantity(e: Event): Promise<void> {
       localStorage.setItem('night-customer-cart', JSON.stringify(cart));
     });
     await btnBlock.remove();
+
     await showTotal(cart);
+
   }
 }
 
@@ -132,6 +137,7 @@ async function clearBasket(): Promise<void> {
   await showEmptyBasket(container);
   const itemsNumInCart = document.querySelector(`.${ItemsInCart.classNames}`) as HTMLElement;
   itemsNumInCart.innerText = `0`;
+  
 }
 
 async function activatePromo(e: Event): Promise<void> {
@@ -176,7 +182,7 @@ async function fillBasketContent(root: HTMLElement, data?: Cart | null): Promise
     createPromoBlock(root);
     createElement(BasketClearBtn, root, clearBasket);
   } else {
-    console.log(root);
+    // console.log(root);
     showEmptyBasket(root);
   }
 }

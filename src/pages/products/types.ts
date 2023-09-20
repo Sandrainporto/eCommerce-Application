@@ -55,6 +55,13 @@ export enum ProductCartLink {
   innerText = 'Add to 🛒',
 }
 
+export enum ProductCartLinkRemove {
+  elemTag = 'a',
+  classNames = 'products__link_cart-remove',
+  innerText = 'Remove from 🛒',
+}
+
+
 export enum ProductColor {
   elemTag = 'div',
   classNames = 'products__color',
