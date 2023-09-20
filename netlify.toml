@@ -1,5 +1,5 @@
 [[redirects]]
 from = "/*"
-to = "https://www.google.com/"
+to = "/index.html"
 status = 200
 
