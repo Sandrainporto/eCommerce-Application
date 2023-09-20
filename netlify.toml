@@ -1,7 +1,9 @@
 [[redirects]]
 from = "/*"
 to = "/"
+status = 200
 
-from = "/*/*"
+[[redirects]]
+from = "/catalog/*"
 to = "/"
 status = 200
