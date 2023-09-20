@@ -88,7 +88,7 @@ async function deleteAddress(e: Event): Promise<void> {
   }
   blockForRemove.remove();
   localStorage.setItem('night-customer', JSON.stringify(userDelData));
-  console.log(delBtn, blockForRemove, isBillingAdress, adrForRemoveID, 'tyt');
+  // console.log(delBtn, blockForRemove, isBillingAdress, adrForRemoveID, 'tyt');
 }
 
 function checkAdrBtn(input: HTMLInputElement): void {
@@ -247,7 +247,7 @@ function checkNewChecbox(e: Event): void {
 }
 
 function renderNewAdress(adrData: INewDataAddress, newAdr: Address, container: HTMLElement) {
-  console.log(adrData, newAdr, container);
+  // console.log(adrData, newAdr, container);
   const curBilBlock = container.querySelector(`.${ProfileUserBilAdr.classNames}`) as HTMLElement;
   const curShipBlock = container.querySelector(`.${ProfileUserShipAdr.classNames}`) as HTMLElement;
   if (adrData.bil) {
@@ -261,7 +261,7 @@ function renderNewAdress(adrData: INewDataAddress, newAdr: Address, container: H
   } else {
     if (adrData.def) {
       const defShipheader = curShipBlock.querySelector(`.${DefHeader.classNames}`);
-      console.log(defShipheader);
+      // console.log(defShipheader);
       if (defShipheader) defShipheader.remove();
       createAdrBlock(newAdr, curShipBlock, newAdr.id);
     } else {

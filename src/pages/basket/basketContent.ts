@@ -42,7 +42,7 @@ function showTotal(number: number, value: number, currency: string): void {
 }
 
 async function changeQuantity(e: Event): Promise<void> {
-  console.log(e.target, BasketItemDelBtn.classNames);
+  // console.log(e.target, BasketItemDelBtn.classNames);
   const btn = e.target as HTMLElement;
   const btnBlock = btn.parentElement as HTMLElement;
   const itemId = btn.getAttribute('data-id') as string;
@@ -51,7 +51,7 @@ async function changeQuantity(e: Event): Promise<void> {
   let cart = JSON.parse(localStorage.getItem('night-customer-cart') as string);
   if (btn.classList.contains(`${BasketNumMin.classNames}`)) {
     if (valueNum > 1) {
-      console.log(cart.id, cart.version, itemId);
+      // console.log(cart.id, cart.version, itemId);
       valueNum -= 1;
       value.textContent = `${valueNum}`;
       await removeItemFromCart(cart.id, cart.version, itemId).then(({ body }) => {
@@ -85,14 +85,14 @@ async function changeQuantity(e: Event): Promise<void> {
 }
 
 function createBasketItemBlock(root: HTMLElement, cartItem: LineItem): void {
-  console.log(cartItem);
+  // console.log(cartItem);
 
   const basketItemBlock = createElement(BasketItemBlock, root);
   basketItemBlock.setAttribute('data-id', `${cartItem.id}`);
   const img = createElement(BasketItemImg, basketItemBlock);
   if (cartItem.variant.images && cartItem.variant.images?.length > 0) {
     img.setAttribute('src', `${cartItem.variant.images[0].url}`);
-    console.log(cartItem.variant.images[0].url, cartItem.name['en-US']);
+    // console.log(cartItem.variant.images[0].url, cartItem.name['en-US']);
   }
   const itemName = createElement(BasketItemName, basketItemBlock);
   itemName.textContent = `${cartItem.name['en-US']}`;
@@ -154,7 +154,7 @@ async function activatePromo(e: Event): Promise<void> {
   } catch {
     addHintText(`${BasketPromoHint.disable}`, hint);
   }
-  console.log(e.target);
+  // console.log(e.target);
 }
 
 function createPromoBlock(root: HTMLElement): void {
@@ -174,7 +174,7 @@ async function fillBasketContent(root: HTMLElement, data?: Cart | null): Promise
     createPromoBlock(root);
     createElement(BasketClearBtn, root, clearBasket);
   } else {
-    console.log(root);
+    // console.log(root);
     showEmptyBasket(root);
   }
 }

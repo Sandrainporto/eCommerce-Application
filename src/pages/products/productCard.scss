@@ -83,7 +83,7 @@
     }
   }
 
-  .products__link, .products__link_cart {
+  .products__link, .products__link_cart, .products__link_cart-remove {
     background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(93, 28, 199, 0.658) 60%);
     padding: 1rem 2.8rem 1rem 2.5rem;
     @include font($size: 1.6rem, $height: 2.6rem, $weight: 700);
@@ -106,8 +106,13 @@ cursor: pointer;
       background-color: #87dbd0;
     }
   }
-  .products__link_cart {
+  .products__link_cart, .products__link_cart-remove {
     padding: 1rem;
+  }
+  .products__link_cart-remove{
+
+      background: $background-color;
+  
   }
   .products__color {
     position: absolute;
@@ -116,8 +121,4 @@ cursor: pointer;
     border-radius: 50%;
     right: 20px;
   }
-  .in-cart{
-    background: $background-color;
-    cursor: not-allowed;
-}
 }

@@ -49,7 +49,7 @@
     }
   }
 
-  .products__link {
+  .products__link, .products__link_cart-remove {
     align-self: center;
     text-align: center;
     width: 185px;
@@ -64,10 +64,6 @@
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     transition: 0.4s;
     border: 2px dashed #ccc5cb;
-    &.in-cart{
-      background: $background-color;
-      cursor: not-allowed;
-  }
     &:hover {
       transition: 0.4s;
 
@@ -78,7 +74,11 @@
     &:active {
       background-color: #87dbd0;
     }
-
+    &.products__link_cart-remove {
+      padding: 1rem;
+      cursor: pointer;
+      background: $background-color;
+    }
   }
   .product__price {
     margin-bottom: 50px;
