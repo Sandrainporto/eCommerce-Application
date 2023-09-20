@@ -85,7 +85,7 @@ export enum BasketPromoInput {
   type = 'text',
   id = 'promo',
   classNames = 'promo_input',
-  placeholder = 'Write: midnight2023'
+  placeholder = 'Write: midnight2023',
 }
 export enum BasketPromoLabel {
   elemTag = 'label',
@@ -102,5 +102,4 @@ export enum BasketPromoHint {
   active = 'Promocode activated, discount 15%',
   disable = 'Promocode doesnt exist',
 }
-export   const cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
-
+export const cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
