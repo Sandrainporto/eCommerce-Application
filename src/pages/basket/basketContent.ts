@@ -30,9 +30,14 @@ import { ItemsInCart, NavigationClasses } from '../../components/Navigaition/nav
 
 function showTotal(number: number, value: number, currency: string): void {
   const rootBlock = document.querySelector(`.${BasketTotalBlock.classNames}`) as HTMLElement;
+  if(number === undefined){
+    number = 0
+  }
   rootBlock.textContent = `${number} products,   total value:   ${value / 100} ${currency}`;
   const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
   itemsNumInCart.innerText = `${number}`;
+
+  
 
 }
 
@@ -75,6 +80,7 @@ async function changeQuantity(e: Event): Promise<void> {
     });
     await btnBlock.remove();
     await showTotal(cart.totalLineItemQuantity, cart.totalPrice.centAmount, cart.totalPrice.currencyCode);
+    
   }
 }
 
@@ -122,6 +128,7 @@ async function clearBasket(): Promise<void> {
   await showEmptyBasket(container);
   const itemsNumInCart= document.querySelector(`.${ItemsInCart.classNames}`)as HTMLElement;
   itemsNumInCart.innerText = `0`;
+  
 }
 
 async function activatePromo(e: Event): Promise<void> {
