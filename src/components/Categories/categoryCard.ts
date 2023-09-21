@@ -34,7 +34,6 @@ export default async function createCategoriesCard(root: HTMLElement, data: void
       const categoryLink = createElement(CategoryLinkParam, categoryBlock) as HTMLLinkElement;
       categoryLink.href = `${currentUrl}/catalog/${category.key}`;
 
-      // categoryLink.id = `${category.key}`;
       categoryLink.innerText = CategoryParam.text;
     });
   }

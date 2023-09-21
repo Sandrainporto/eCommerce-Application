@@ -13,7 +13,6 @@ let categoryData: Category[];
 let mainWrapper: HTMLElement;
 
 export default function showMainPage(value?: string): void {
-  // console.log(value);
   let activePage;
   let id = '';
   mainWrapper.innerHTML = '';
