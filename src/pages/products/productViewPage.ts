@@ -57,7 +57,7 @@ const ContentRoots = {
   AllProducts: '.products__list_all',
 };
 
-export function addRemoveBtn(btn:HTMLElement, id, addToCartBtn){
+export function addRemoveBtn(btn: HTMLElement, id, addToCartBtn) {
   btn.setAttribute('data-id-remove', `${id}`);
 
   btn.addEventListener('click', () => {
@@ -93,8 +93,6 @@ export function addRemoveBtn(btn:HTMLElement, id, addToCartBtn){
     console.log('remover');
   });
   btn.classList.add('hiden');
-
-
 }
 
 export function addToCartBtn(link: HTMLElement, id: string): void {
@@ -202,22 +200,20 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
   prodCartLink.setAttribute('data-id', `${product.id}`);
   const removeBtn = createElement(ProductCartLinkRemove, productCardContainer) as HTMLAnchorElement;
 
-  addRemoveBtn(removeBtn, product.id, prodCartLink)
- 
+  addRemoveBtn(removeBtn, product.id, prodCartLink);
 
-    if (localStorage.getItem('night-customer-cart')) {
-      let cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
-  console.log(cartData)
-      if (cartData.lineItems) {
-        const cart = cartData.lineItems;
-        const desiredObject = cart.find((obj) =>obj.productId === product.id);
+  if (localStorage.getItem('night-customer-cart')) {
+    let cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
+    if (cartData.lineItems) {
+      const cart = cartData.lineItems;
+      const desiredObject = cart.find((obj) => obj.productId === product.id);
 
-        if (desiredObject) {
-          prodCartLink.classList.add('hiden')
-          removeBtn.classList.remove('hiden')
-        }
+      if (desiredObject) {
+        prodCartLink.classList.add('hiden');
+        removeBtn.classList.remove('hiden');
       }
     }
+  }
 };
 
 const setTotalPages = (cards: number): void => {
@@ -264,6 +260,7 @@ export const updatePage = async (): Promise<void> => {
 export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
   if (url) url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
+  console.log(url?.searchParams.get(SearchParams.sort));
   updatePage();
 };
 
@@ -319,8 +316,11 @@ export const changePageCallBack = (page: number): void => {
 
 export default async function showProductsPage(root: HTMLElement, id?: string): Promise<void> {
   url = new URL(`${window.location.href.split('?')[0]}`);
-  url.searchParams.set(SearchParams.page, `${currentPage}`);
-
+  if (url.searchParams.get(SearchParams.page)) {
+    currentPage = Number(url.searchParams.get(SearchParams.page));
+  } else {
+    url.searchParams.set(SearchParams.page, `${currentPage}`);
+  }
   const pageContainer = createElement(ContentPageContainer, root);
   productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);

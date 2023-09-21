@@ -10,6 +10,7 @@ import {
   SearchFieldButton,
   SortSelect,
 } from './sortTypes';
+import { SearchParams } from '../../../pages/products/types';
 
 const PLACEHOLDERS = {
   search: 'Enter first 4 letters',
@@ -71,8 +72,25 @@ export const showSortPanel = (
   SortCallBack: (value: string) => void,
   SearchCallBack: (value: string) => void,
 ): void => {
+  const url = new URL(`${window.location.href}`);
+  if (url.searchParams.get(SearchParams.sort)) {
+    const searchParams = url.searchParams.get(SearchParams.sort);
+    if (searchParams === 'name.en-us asc') {
+      ActiveSelect = 0;
+    }
+    if (searchParams === 'name.en-us desc') {
+      ActiveSelect = 1;
+    }
+    if (searchParams === 'price asc') {
+      ActiveSelect = 2;
+    }
+    if (searchParams === 'price desc') {
+      ActiveSelect = 3;
+    }
+  }
   const wrapper = createElement(SortBlockParam, root);
   const searchInput = createSearchInput(wrapper);
+
   createSearchButton(searchInput, SearchCallBack);
   createSortInput(wrapper, SortCallBack);
 };
