@@ -34,6 +34,7 @@ const addListener = (): void => {
 
 export const routerInit = (): void => {
   url = new URL(window.location.href);
+	console.log(url);
   renderPage();
   addListener();
 };
