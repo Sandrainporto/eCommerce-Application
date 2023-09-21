@@ -19,6 +19,7 @@ const addListener = (): void => {
         const element = target.closest('A') as HTMLLinkElement;
         if (element.href) {
           const newUrl = new URL(element.href);
+					url.search = '';
           if (newUrl.hostname === url.hostname) {
             window.history.pushState({}, '', element.href);
             renderPage(element.id);
