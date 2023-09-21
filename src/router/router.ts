@@ -21,7 +21,7 @@ const addListener = (): void => {
           const newUrl = new URL(element.href);
 					url.search = '';
           if (newUrl.hostname === url.hostname) {
-            window.history.pushState({}, '', element.href);
+            window.history.pushState({}, '', newUrl);
             renderPage(element.id);
           } else {
             window.open(`${element.href}`, '_blank');
