@@ -28,7 +28,6 @@ const createSearchInput = (root: HTMLElement): HTMLElement => {
   const searchPanel = createElement(SearchContentParam, root);
   const search = inputCreator(SearchFieldLabel, SearchFieldInput, searchPanel);
   const inputField = search.querySelector(`.${SearchFieldInput.classNames}`) as HTMLInputElement;
-
   if (inputField) {
     inputField.placeholder = PLACEHOLDERS.search;
   }

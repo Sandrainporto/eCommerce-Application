@@ -260,7 +260,6 @@ export const updatePage = async (): Promise<void> => {
 export const SortCallBack = (value: string): void => {
   SortParameter = Number(value);
   if (url) url.searchParams.set(SearchParams.sort, `${[SortParams[SortParameter]]}`);
-  console.log(url?.searchParams.get(SearchParams.sort));
   updatePage();
 };
 
@@ -310,7 +309,6 @@ export const FilterCallBack = (value: string[]): void => {
 
 export const changePageCallBack = (page: number): void => {
   currentPage = page;
-	console.log(currentPage);
   if (url) url.searchParams.set(SearchParams.page, `${currentPage}`);
   updatePage();
 };
