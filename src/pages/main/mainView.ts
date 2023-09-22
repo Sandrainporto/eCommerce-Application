@@ -17,7 +17,6 @@ export default function showMainPage(value?: string): void {
   let id = '';
   mainWrapper.innerHTML = '';
   const url = new URL(window.location.href);
-	console.log(url)
   const page = url.pathname.split('/').slice(-1)[0];
 
   Data.forEach((el) => {
