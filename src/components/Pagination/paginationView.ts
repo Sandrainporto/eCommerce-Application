@@ -89,6 +89,9 @@ export const paginationInit = (
 	const url = new URL(window.location.href);
 	activePage= Number(url.searchParams.get(SearchParams.page));
   lastPage = totalPages;
+	if(activePage>lastPage){
+		activePage = lastPage;
+	}
   paginationContainer = createElement(PaginationBlock, root);
   callBack = changePageCallBack;
   createButtons(paginationContainer);

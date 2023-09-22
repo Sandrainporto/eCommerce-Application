@@ -310,14 +310,15 @@ export const FilterCallBack = (value: string[]): void => {
 
 export const changePageCallBack = (page: number): void => {
   currentPage = page;
+	console.log(currentPage);
   if (url) url.searchParams.set(SearchParams.page, `${currentPage}`);
   updatePage();
 };
 
 export default async function showProductsPage(root: HTMLElement, id?: string): Promise<void> {
   const newUrl = new URL(window.location.href);
-	console.log(newUrl)
 	if (!url && newUrl.searchParams.get(SearchParams.page)){
+		url = new URL(window.location.href);
 		currentPage = Number(newUrl.searchParams.get(SearchParams.page));
 	} else if(url && newUrl.href === url.href){
 		currentPage = Number(newUrl.searchParams.get(SearchParams.page));
@@ -326,7 +327,6 @@ export default async function showProductsPage(root: HTMLElement, id?: string): 
 		currentPage = 1;
 		url.searchParams.set(SearchParams.page, `1`);
 	}
-	console.log(currentPage)
   const pageContainer = createElement(ContentPageContainer, root);
   productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
