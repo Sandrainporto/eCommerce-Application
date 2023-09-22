@@ -315,7 +315,6 @@ export const changePageCallBack = (page: number): void => {
 };
 
 export default async function showProductsPage(root: HTMLElement, id?: string): Promise<void> {
-
   const newUrl = new URL(window.location.href);
 	if(url && newUrl.href === url.href){
 		currentPage = Number(url.searchParams.get(SearchParams.page));
@@ -324,7 +323,6 @@ export default async function showProductsPage(root: HTMLElement, id?: string): 
 		currentPage = 1;
 		url.searchParams.set(SearchParams.page, `1`);
 	}
-  console.log(currentPage)
   const pageContainer = createElement(ContentPageContainer, root);
   productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
