@@ -1,4 +1,5 @@
 import showMainPage from '../pages/main/mainView';
+import { SearchParams } from '../pages/products/types';
 
 let url: URL;
 
@@ -19,10 +20,8 @@ const addListener = (): void => {
         const element = target.closest('A') as HTMLLinkElement;
         if (element.href) {
           const newUrl = new URL(element.href);
-					url.search = '';
-					console.log(newUrl.href)
           if (newUrl.hostname === url.hostname) {
-            window.history.replaceState({}, '', newUrl.href);
+            window.history.replaceState({}, '', element.href);
             renderPage(element.id);
           } else {
             window.open(`${element.href}`, '_blank');
