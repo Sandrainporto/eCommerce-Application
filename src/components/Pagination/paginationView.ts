@@ -10,8 +10,9 @@ import {
   PaginationButtons,
   PrevPageButton,
 } from './paginationTypes';
+import { SearchParams } from '../../pages/products/types';
 
-let activePage = 1;
+let activePage: number;
 let lastPage = 1;
 let callBack: (arg0: number) => void;
 let paginationContainer: HTMLElement;
@@ -85,7 +86,12 @@ export const paginationInit = (
   changePageCallBack: { (page: number): void; (arg0: number): void },
   totalPages: number,
 ): void => {
+  const url = new URL(window.location.href);
+  activePage = Number(url.searchParams.get(SearchParams.page));
   lastPage = totalPages;
+  if (activePage > lastPage) {
+    activePage = lastPage;
+  }
   paginationContainer = createElement(PaginationBlock, root);
   callBack = changePageCallBack;
   createButtons(paginationContainer);

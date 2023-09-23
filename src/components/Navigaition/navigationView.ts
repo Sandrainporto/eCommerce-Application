@@ -117,7 +117,7 @@ async function createNavigationLinks(root: HTMLElement): Promise<void> {
   }
   const cartLink: HTMLLinkElement | null = document.querySelector(`.${NavigationClasses.cart}`);
   if (cartLink) {
-    let itemsNumInCart = createElement(ItemsInCart, cartLink);
+    const itemsNumInCart = createElement(ItemsInCart, cartLink);
     if (localStorage.getItem('night-customer-cart')) {
       const cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
       itemsNumInCart.innerText = cartData.totalLineItemQuantity;

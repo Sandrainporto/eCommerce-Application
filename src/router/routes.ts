@@ -21,6 +21,5 @@ export const Routes = {
   details: showDetailsPage,
   classes: showClassesPage,
   'about-us': showAboutUsPage,
-
   '404': showErrorPage,
 };
