@@ -30,10 +30,7 @@ import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
 import { FiltersParam } from '../catalog/types';
 import { changePagesAmount, paginationInit } from '../../components/Pagination/paginationView';
-import { addItemToBasket } from '../productDetails.ts/detailsPage';
-import { cartData } from '../basket/basketTypes';
-import { removeItemFromCart } from '../../api/shoppingList';
-import { ItemsInCart } from '../../components/Navigaition/navigationTypes';
+import { addItemToBasket, addRemoveBtn } from '../productDetails.ts/detailsPage';
 
 const CARDS_ON_PAGE = 6;
 let SortParameter = 0;
@@ -56,73 +53,6 @@ const ContentRoots = {
   CategoryProduct: '.products__list',
   AllProducts: '.products__list_all',
 };
-
-export function addRemoveBtn(btn:HTMLElement, id, addToCartBtn){
-  btn.setAttribute('data-id-remove', `${id}`);
-
-  btn.addEventListener('click', () => {
-    if (localStorage.getItem('night-customer-cart')) {
-      let cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
-      console.log(cartData);
-      if (cartData.lineItems) {
-        const cart = cartData.lineItems;
-        const desiredObject = cart.find((obj) => obj.productId === id);
-
-        console.log(cartData.id);
-        console.log(cartData.version);
-
-        console.log(desiredObject.id);
-
-        console.log(desiredObject.quantity);
-
-        if (desiredObject) {
-          removeItemFromCart(cartData.id, cartData.version, desiredObject.id, desiredObject.quantity).then(
-            ({ body }) => {
-              cartData = body;
-              localStorage.setItem('night-customer-cart', JSON.stringify(cartData));
-            },
-          );
-          const itemsNumInCart = document.querySelector(`.${ItemsInCart.classNames}`) as HTMLElement;
-          itemsNumInCart.innerText = `${+itemsNumInCart.innerText - desiredObject.quantity}`;
-        }
-        addToCartBtn.classList.remove('hiden');
-        btn.classList.add('hiden');
-      }
-    }
-
-    console.log('remover');
-  });
-  btn.classList.add('hiden');
-
-
-}
-
-export function addToCartBtn(link: HTMLElement, id: string): void {
-  link.setAttribute('data-id', `${id}`);
-  if (localStorage.getItem('night-customer-cart')) {
-    let cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
-
-    if (cartData.lineItems) {
-      const cart = cartData.lineItems;
-      const desiredObject = cart.find((obj) => obj.productId === id);
-      if (desiredObject) {
-        link.classList.add('in-cart');
-        link.innerText = 'Remove from 🛒';
-        link.removeEventListener('click', addItemToBasket);
-        link.addEventListener('click', () => {
-          console.log('click2');
-          removeItemFromCart(cartData.id, cartData.version, desiredObject.id, desiredObject.quantity).then(
-            ({ body }) => {
-              cartData = body;
-              localStorage.removeItem('night-customer-cart');
-              localStorage.setItem('night-customer-cart', JSON.stringify(cartData));
-            },
-          );
-        });
-      }
-    }
-  }
-}
 
 function showProductImages(productImagesData: string[], productCard: HTMLElement): void {
   const popUp = document.createElement('div');
@@ -202,22 +132,20 @@ const createCard = (root: HTMLElement, product: ProductProjection): void => {
   prodCartLink.setAttribute('data-id', `${product.id}`);
   const removeBtn = createElement(ProductCartLinkRemove, productCardContainer) as HTMLAnchorElement;
 
-  addRemoveBtn(removeBtn, product.id, prodCartLink)
- 
+  addRemoveBtn(removeBtn, product.id, prodCartLink);
 
-    if (localStorage.getItem('night-customer-cart')) {
-      let cartData = JSON.parse(localStorage.getItem('night-customer-cart') as string);
-  console.log(cartData)
-      if (cartData.lineItems) {
-        const cart = cartData.lineItems;
-        const desiredObject = cart.find((obj) =>obj.productId === product.id);
+  if (localStorage.getItem('night-customer-cart')) {
+    const data = JSON.parse(localStorage.getItem('night-customer-cart') as string);
+    if (data.lineItems) {
+      const cart = data.lineItems;
+      const desiredObject = cart.find((obj: { productId: string }) => obj.productId === product.id);
 
-        if (desiredObject) {
-          prodCartLink.classList.add('hiden')
-          removeBtn.classList.remove('hiden')
-        }
+      if (desiredObject) {
+        prodCartLink.classList.add('hiden');
+        removeBtn.classList.remove('hiden');
       }
     }
+  }
 };
 
 const setTotalPages = (cards: number): void => {
@@ -318,9 +246,17 @@ export const changePageCallBack = (page: number): void => {
 };
 
 export default async function showProductsPage(root: HTMLElement, id?: string): Promise<void> {
-  url = new URL(`${window.location.href.split('?')[0]}`);
-  url.searchParams.set(SearchParams.page, `${currentPage}`);
-
+  const newUrl = new URL(window.location.href);
+  if (!url && newUrl.searchParams.get(SearchParams.page)) {
+    url = new URL(window.location.href);
+    currentPage = Number(newUrl.searchParams.get(SearchParams.page));
+  } else if (url && newUrl.href === url.href) {
+    currentPage = Number(newUrl.searchParams.get(SearchParams.page));
+  } else {
+    url = new URL(window.location.href);
+    currentPage = 1;
+    url.searchParams.set(SearchParams.page, `1`);
+  }
   const pageContainer = createElement(ContentPageContainer, root);
   productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);

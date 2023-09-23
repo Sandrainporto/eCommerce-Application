@@ -11,6 +11,7 @@ import {
   LegendTypes,
   LegendCategory,
 } from './filterTypes';
+import { SearchParams } from '../../../pages/products/types';
 
 export const COLORS = ['black', 'brown', 'red', 'green', 'blue', 'yellow', 'purple', 'white'];
 export const CATEGORY = ['spells', 'potions', 'cauldrons', 'ingredients', 'attributes', 'grimoires'];
@@ -27,9 +28,13 @@ const createColorCheckbox = (root: HTMLElement, array: string[]): HTMLElement =>
     const checkboxLegend = createElement(LegendColors, checkboxContainer);
   } else if (array === MAGIC) {
     const checkboxLegend = createElement(LegendTypes, checkboxContainer);
-  }   else if (array === CATEGORY) {
+  } else if (array === CATEGORY) {
     const checkboxLegend = createElement(LegendCategory, checkboxContainer);
   }
+
+  const url = new URL(window.location.href);
+  const colors = url.searchParams.get(SearchParams.filterColors);
+  const magic = url.searchParams.get(SearchParams.filterTypes);
 
   array.forEach((el) => {
     const container = createElement(ElementContainer, checkboxContainer);
@@ -40,7 +45,11 @@ const createColorCheckbox = (root: HTMLElement, array: string[]): HTMLElement =>
     checkbox.setAttribute('checked', 'false');
     checkbox.id = `color-${el}`;
     checkbox.value = el;
-    checkbox.checked = false;
+    if ((array === COLORS && colors?.includes(el)) || (array === MAGIC && magic?.includes(el))) {
+      checkbox.checked = true;
+    } else {
+      checkbox.checked = false;
+    }
   });
   return checkboxContainer;
 };
@@ -80,8 +89,6 @@ export const showFilterPanel = (root: HTMLElement, FilterCallBack: (value: strin
   const colorsFilter = createColorCheckbox(wrapper, COLORS);
   const magicFilter = createColorCheckbox(wrapper, MAGIC);
   const typesFilter = createColorCheckbox(wrapper, CATEGORY);
-
-
   createFilterButton(wrapper, FilterCallBack);
   createResetButton(wrapper, FilterCallBack);
 };
