@@ -44,7 +44,6 @@ export default function showMainPage(value?: string): void {
   activePage(mainWrapper, id || categoryData);
 }
 
-
 export const setData = (wrapper: HTMLElement, data: DataType[]): void => {
   if (data) {
     Data = data;
