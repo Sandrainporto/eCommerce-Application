@@ -315,16 +315,16 @@ export const changePageCallBack = (page: number): void => {
 
 export default async function showProductsPage(root: HTMLElement, id?: string): Promise<void> {
   const newUrl = new URL(window.location.href);
-	if (!url && newUrl.searchParams.get(SearchParams.page)){
-		url = new URL(window.location.href);
-		currentPage = Number(newUrl.searchParams.get(SearchParams.page));
-	} else if(url && newUrl.href === url.href){
-		currentPage = Number(newUrl.searchParams.get(SearchParams.page));
-	} else {
-		url = new URL(window.location.href);
-		currentPage = 1;
-		url.searchParams.set(SearchParams.page, `1`);
-	}
+  if (!url && newUrl.searchParams.get(SearchParams.page)) {
+    url = new URL(window.location.href);
+    currentPage = Number(newUrl.searchParams.get(SearchParams.page));
+  } else if (url && newUrl.href === url.href) {
+    currentPage = Number(newUrl.searchParams.get(SearchParams.page));
+  } else {
+    url = new URL(window.location.href);
+    currentPage = 1;
+    url.searchParams.set(SearchParams.page, `1`);
+  }
   const pageContainer = createElement(ContentPageContainer, root);
   productsPage = createElement(ProductsPageParam, pageContainer);
   const filtersSection = createElement(FiltersParam, productsPage);
