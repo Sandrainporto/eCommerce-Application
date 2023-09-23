@@ -35,7 +35,6 @@ const createColorCheckbox = (root: HTMLElement, array: string[]): HTMLElement =>
   const url = new URL(window.location.href);
   const colors = url.searchParams.get(SearchParams.filterColors);
   const magic = url.searchParams.get(SearchParams.filterTypes);
-  console.log(colors, magic);
 
   array.forEach((el) => {
     const container = createElement(ElementContainer, checkboxContainer);
@@ -46,7 +45,11 @@ const createColorCheckbox = (root: HTMLElement, array: string[]): HTMLElement =>
     checkbox.setAttribute('checked', 'false');
     checkbox.id = `color-${el}`;
     checkbox.value = el;
-    checkbox.checked = false;
+    if (colors?.includes(el) || magic?.includes(el)) {
+      checkbox.checked = true;
+    } else {
+      checkbox.checked = false;
+    }
   });
   return checkboxContainer;
 };
