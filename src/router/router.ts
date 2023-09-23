@@ -1,5 +1,4 @@
 import showMainPage from '../pages/main/mainView';
-import { SearchParams } from '../pages/products/types';
 
 let url: URL;
 
