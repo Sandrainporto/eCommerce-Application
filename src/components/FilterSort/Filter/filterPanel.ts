@@ -45,7 +45,7 @@ const createColorCheckbox = (root: HTMLElement, array: string[]): HTMLElement =>
     checkbox.setAttribute('checked', 'false');
     checkbox.id = `color-${el}`;
     checkbox.value = el;
-    if (colors?.includes(el) || magic?.includes(el)) {
+    if ((array === COLORS && colors?.includes(el)) || (array === MAGIC && magic?.includes(el))) {
       checkbox.checked = true;
     } else {
       checkbox.checked = false;
