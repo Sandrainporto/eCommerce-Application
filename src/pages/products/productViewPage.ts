@@ -30,7 +30,7 @@ import { initSlider } from '../../components/Swiper/swiperInitializer';
 import { ProductSlider } from '../productDetails.ts/types';
 import { FiltersParam } from '../catalog/types';
 import { changePagesAmount, paginationInit } from '../../components/Pagination/paginationView';
-import { addItemToBasket, addRemoveBtn, addToCartBtn } from '../productDetails.ts/detailsPage';
+import { addItemToBasket, addRemoveBtn } from '../productDetails.ts/detailsPage';
 
 const CARDS_ON_PAGE = 6;
 let SortParameter = 0;
