@@ -112,3 +112,11 @@ yarn lint:fix
 # or
 pnpm lint:fix
 ```
+## Gallery
+![k](https://github.com/Sandrainporto/eCommerce-Application/assets/90930428/c73f11b3-8e5c-4b8e-8f33-7029e3a36fbd)
+![precious-panda-63a098 netlify app_catalog_page=1 (3)](https://github.com/Sandrainporto/eCommerce-Application/assets/90930428/e6b9cffd-22bb-4415-914c-74d1f410a623)
+![54](https://github.com/Sandrainporto/eCommerce-Application/assets/90930428/255025a2-750d-4362-8c7f-a85d36781409)
+![4](https://github.com/Sandrainporto/eCommerce-Application/assets/90930428/8bcbc913-fcb7-452d-8808-96d163ffb992)
+![localhost_8080_ (2)](https://github.com/Sandrainporto/eCommerce-Application/assets/90930428/405b3f33-b2b1-4c87-8872-27655130ebbb)
+![precious-panda-63a098 netlify app_ (2)](https://github.com/Sandrainporto/eCommerce-Application/assets/90930428/0a35ff07-ecfb-42ca-81f8-5d447888a781)
+![precious-panda-63a098 netlify app_ (1)](https://github.com/Sandrainporto/eCommerce-Application/assets/90930428/5e497dec-8f94-4f07-800f-0a2ddfb7a400)
