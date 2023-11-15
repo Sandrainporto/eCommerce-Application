@@ -1,0 +1,19 @@
+@import './../../sass/abstract/mixins';
+
+.content__container {
+  @include flex(column, center, center, 12rem);
+  margin: 2rem auto;
+  padding: 0 15px;
+
+  @media screen and (max-width: 767px) {
+    margin: 4rem auto 6rem;
+    padding: 0 1rem;
+    gap: 6rem;
+  }
+}
+
+.hohoho {
+  width: 60px;
+  height: 100px;
+  background: yellow;
+}

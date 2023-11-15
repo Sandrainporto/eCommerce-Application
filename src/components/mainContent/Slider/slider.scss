@@ -1,0 +1,82 @@
+@import './../../../sass/abstract/constants';
+@import './../../../sass/abstract/placeholders';
+@import './../../../sass/abstract/mixins';
+
+.slider__container {
+  position: relative;
+  @include flex($gap: 1rem, $wrap: wrap);
+  overflow: hidden;
+  padding: 0px 6rem;
+
+  @media screen and (max-width: 975px) {
+    padding: 0px 2rem 6rem;
+    #next {
+      order: 3;
+    }
+    #prev {
+      order: 2;
+    }
+  }
+}
+
+.slider-btn {
+  height: 44px;
+  width: 44px;
+  @include font($size: 3rem, $height: 4.4rem, $weight: 800);
+  text-align: center;
+  background: $background-color-dark;
+  border-radius: 50%;
+  color: #909397;
+  cursor: pointer;
+  transition: transform 0.1s linear;
+
+  &:hover {
+    box-shadow: inset 1px 1px gold;
+  }
+
+  @media screen and (max-width: 767px) {
+    top: 90%;
+  }
+}
+
+.slider-btn:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+#prev {
+  left: 1rem;
+
+  @media screen and (max-width: 767px) {
+    left: 30%;
+  }
+}
+
+#next {
+  right: 1rem;
+
+  @media screen and (max-width: 767px) {
+    right: 30%;
+  }
+}
+
+.slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  max-width: calc(1440px - 88px);
+  overflow: hidden;
+  cursor: pointer;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  transition: transform 0.5s ease-in-out;
+
+  @media screen and (max-width: 975px) {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}
+
+.slider img {
+  width: 100%;
+  object-fit: contain;
+}

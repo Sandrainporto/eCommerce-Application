@@ -1,0 +1,148 @@
+@import '../../sass/abstract/constants';
+@import './../../sass/abstract/mixins';
+
+.form {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  width: 32rem;
+
+  .form_nav {
+    color: $color-link;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  input {
+    width: 25rem;
+    cursor: pointer;
+    color: $color-link;
+  }
+
+  label {
+    color: rgba(31, 215, 232, 0.873);
+    font-size: smaller;
+    order: -1;
+    width: 100%;
+    text-align: left;
+  }
+
+  .user-info_block {
+    @include flex(column, center, space-around);
+    width: 100%;
+    & .input_block {
+      margin: 1rem 0;
+    }
+  }
+
+  .user-address_block {
+    width: 100%;
+
+    :nth-last-child(-n + 2) {
+      flex-direction: row;
+      label {
+        position: static;
+        width: 90%;
+      }
+      input {
+        width: 10%;
+      }
+    }
+  }
+  .user-billing_block {
+    width: 100%;
+  }
+
+  .form_hint {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 10px;
+    height: 1.5rem;
+    color: rgba(31, 215, 232, 0.873);
+    line-height: 1.5rem;
+    text-align: left;
+  }
+
+  .form_pas_block {
+    @include flex(row, center, stretch);
+    position: relative;
+    width: 100%;
+    .show_pas {
+      position: absolute;
+      width: 3rem;
+      height: 3rem;
+      top: 2.2rem;
+      right: 0px;
+      text-decoration: none;
+      font-size: smaller;
+      padding: 0.5rem;
+    }
+  }
+
+  .input_block {
+    @include flex(column, flex-start, center);
+    width: 100%;
+
+    input {
+      width: 100%;
+      background: none;
+      color: $color-link;
+      padding: 4px;
+      border-bottom: 1px solid $color-link;
+    }
+  }
+
+  .form_btn {
+    padding: 10px 20px;
+    color: rgba(31, 215, 232, 0.873);
+    border: 1px solid rgba(31, 215, 232, 0.873);
+    font-size: large;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &.btn__active {
+      background: rgba(31, 215, 232, 0.873);
+      color: #ffffff;
+
+      &:hover,
+      :focus {
+        color: $color-text-light;
+        background: #6db9b6ab;
+        border: 1px solid #30a592;
+        text-shadow:
+          0 0 5px $color-text-light,
+          0 0 10px $color-text-light;
+        box-shadow:
+          0 0 5px #008cff,
+          0 0 20px #30a592;
+      }
+    }
+  }
+
+  .form_content {
+    @include flex(column, $gap: 10px);
+  }
+
+  .new-user_laddress-country {
+    width: 10rem;
+  }
+
+  .show_pas {
+    background: url(../../assets/icons/password/show.svg) 0 0 no-repeat;
+  }
+
+  .show_pas.pas_hidden {
+    background: url(../../assets/icons/password/hide.svg) 0 0 no-repeat;
+  }
+
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+
+  @media screen and (max-width: $tablet-width) {
+    width: 100%;
+  }
+}

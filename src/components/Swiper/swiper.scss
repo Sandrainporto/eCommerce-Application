@@ -1,0 +1,41 @@
+@import './../../sass/abstract/mixins';
+@import './../../sass/abstract/placeholders';
+@import './../../sass/abstract/constants';
+.product__details {
+  .products__slider {
+    @media screen and (max-width: 409px) {
+      max-width: 267px;
+    }
+  }
+}
+.products__slider {
+  // border: 1px solid #000;
+  max-width: 370px;
+}
+.swiper {
+  width: 100%;
+  height: auto;
+  max-height: 450px;
+  z-index: 30;
+}
+.swiper-wrapper {
+  display: flex;
+  align-items: center;
+}
+.swiper-slide-container {
+  padding: 30px;
+  text-align: center;
+}
+.swiper-slide-container img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.swiper-scrollbar {
+  background-color: $color-violet;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  @include linkHover;
+}
