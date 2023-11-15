@@ -1,4 +1,5 @@
 // import fetch from 'node-fetch';
+
 import {
   ClientBuilder,
 
@@ -7,16 +8,16 @@ import {
   type HttpMiddlewareOptions, // Required for sending HTTP requests
 } from '@commercetools/sdk-client-v2';
 
-const projectKey = 'rss-nightcoders';
-const scopes = ['manage_project:rss-nightcoders'];
+const projectKey = 'ecommerce-app-v11';
+const scopes = ['manage_project:ecommerce-app-v11'];
 
 // Configure authMiddlewareOptions
 const authMiddlewareOptions: AuthMiddlewareOptions = {
-  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  host: 'https://auth.us-central1.gcp.commercetools.com',
   projectKey,
   credentials: {
-    clientId: '4MMoDaV9VddB2-i3w6P2gSTA',
-    clientSecret: '4VXxcdxv9wMXVEE_6UCbnqx6m_mPV2j4',
+    clientId: 'EMUfYW-Uy1bgCYIBE2mh_L_K',
+    clientSecret: '6FuSKNWf53CNFXp_dW7BT3Kupbvtp2Nx',
   },
   scopes,
   fetch,
@@ -24,7 +25,7 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
 
 // Configure httpMiddlewareOptions
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
-  host: 'https://api.europe-west1.gcp.commercetools.com',
+  host: 'https://api.us-central1.gcp.commercetools.com',
   fetch,
 };
 
